@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Error index - A Vehicle Routing Problem Solver Documentation</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This book describes a Vehicle Routing Problem solver.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../../../resources/leaflet.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="../../../index.html">Introduction</a></li><li class="expanded "><a href="../../../getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="../../../getting-started/features.html"><strong aria-hidden="true">1.1.</strong> Features</a></li><li class="expanded "><a href="../../../getting-started/installation.html"><strong aria-hidden="true">1.2.</strong> Installation</a></li><li class="expanded "><a href="../../../getting-started/import.html"><strong aria-hidden="true">1.3.</strong> Defining problem</a></li><li class="expanded "><a href="../../../getting-started/routing.html"><strong aria-hidden="true">1.4.</strong> Acquiring routing info</a></li><li class="expanded "><a href="../../../getting-started/solver.html"><strong aria-hidden="true">1.5.</strong> Running solver</a></li><li class="expanded "><a href="../../../getting-started/analysis.html"><strong aria-hidden="true">1.6.</strong> Analyzing results</a></li></ol></li><li class="expanded "><a href="../../../concepts/index.html"><strong aria-hidden="true">2.</strong> Concepts</a></li><li><ol class="section"><li class="expanded "><a href="../../../concepts/pragmatic/index.html"><strong aria-hidden="true">2.1.</strong> Pragmatic format</a></li><li><ol class="section"><li class="expanded "><a href="../../../concepts/pragmatic/problem/index.html"><strong aria-hidden="true">2.1.1.</strong> Modeling a problem</a></li><li><ol class="section"><li class="expanded "><a href="../../../concepts/pragmatic/problem/jobs.html"><strong aria-hidden="true">2.1.1.1.</strong> Jobs</a></li><li class="expanded "><a href="../../../concepts/pragmatic/problem/vehicles.html"><strong aria-hidden="true">2.1.1.2.</strong> Vehicles</a></li><li class="expanded "><a href="../../../concepts/pragmatic/problem/relations.html"><strong aria-hidden="true">2.1.1.3.</strong> Relations</a></li><li class="expanded "><a href="../../../concepts/pragmatic/problem/objectives.html"><strong aria-hidden="true">2.1.1.4.</strong> Objectives</a></li></ol></li><li class="expanded "><a href="../../../concepts/pragmatic/routing/index.html"><strong aria-hidden="true">2.1.2.</strong> Routing data</a></li><li><ol class="section"><li class="expanded "><a href="../../../concepts/pragmatic/routing/format.html"><strong aria-hidden="true">2.1.2.1.</strong> Routing matrix</a></li><li class="expanded "><a href="../../../concepts/pragmatic/routing/profile.html"><strong aria-hidden="true">2.1.2.2.</strong> Profiles</a></li></ol></li><li class="expanded "><a href="../../../concepts/pragmatic/solution/index.html"><strong aria-hidden="true">2.1.3.</strong> Solution model</a></li><li><ol class="section"><li class="expanded "><a href="../../../concepts/pragmatic/solution/tour-list.html"><strong aria-hidden="true">2.1.3.1.</strong> Tour list</a></li><li class="expanded "><a href="../../../concepts/pragmatic/solution/statistic.html"><strong aria-hidden="true">2.1.3.2.</strong> Statistic</a></li><li class="expanded "><a href="../../../concepts/pragmatic/solution/unassigned-jobs.html"><strong aria-hidden="true">2.1.3.3.</strong> Unassigned jobs</a></li></ol></li><li class="expanded "><a href="../../../concepts/pragmatic/errors/index.html" class="active"><strong aria-hidden="true">2.1.4.</strong> Error index</a></li></ol></li><li class="expanded "><a href="../../../concepts/scientific/index.html"><strong aria-hidden="true">2.2.</strong> Scientific formats</a></li><li><ol class="section"><li class="expanded "><a href="../../../concepts/scientific/solomon.html"><strong aria-hidden="true">2.2.1.</strong> Solomon benchmark</a></li><li class="expanded "><a href="../../../concepts/scientific/lilim.html"><strong aria-hidden="true">2.2.2.</strong> Li&amp;Lim benchmark</a></li></ol></li></ol></li><li class="expanded "><a href="../../../examples/index.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="expanded "><a href="../../../examples/pragmatic/index.html"><strong aria-hidden="true">3.1.</strong> Pragmatic format</a></li><li><ol class="section"><li class="expanded "><a href="../../../examples/pragmatic/basics/index.html"><strong aria-hidden="true">3.1.1.</strong> Basic feature usage</a></li><li><ol class="section"><li class="expanded "><a href="../../../examples/pragmatic/basics/job-types.html"><strong aria-hidden="true">3.1.1.1.</strong> Basic job usage</a></li><li class="expanded "><a href="../../../examples/pragmatic/basics/multi-day.html"><strong aria-hidden="true">3.1.1.2.</strong> Multi day plan</a></li><li class="expanded "><a href="../../../examples/pragmatic/basics/break.html"><strong aria-hidden="true">3.1.1.3.</strong> Vehicle break</a></li><li class="expanded "><a href="../../../examples/pragmatic/basics/reload.html"><strong aria-hidden="true">3.1.1.4.</strong> Multiple trips</a></li><li class="expanded "><a href="../../../examples/pragmatic/basics/relations.html"><strong aria-hidden="true">3.1.1.5.</strong> Relations</a></li><li class="expanded "><a href="../../../examples/pragmatic/basics/skills.html"><strong aria-hidden="true">3.1.1.6.</strong> Skills</a></li><li class="expanded "><a href="../../../examples/pragmatic/basics/profiles.html"><strong aria-hidden="true">3.1.1.7.</strong> Multiple profiles</a></li><li class="expanded "><a href="../../../examples/pragmatic/basics/unassigned.html"><strong aria-hidden="true">3.1.1.8.</strong> Unassigned job</a></li></ol></li><li class="expanded "><a href="../../../examples/pragmatic/objectives/index.html"><strong aria-hidden="true">3.1.2.</strong> Objective usage</a></li><li><ol class="section"><li class="expanded "><a href="../../../examples/pragmatic/objectives/objective-default.html"><strong aria-hidden="true">3.1.2.1.</strong> Default behavior</a></li><li class="expanded "><a href="../../../examples/pragmatic/objectives/objective-balance-max-load.html"><strong aria-hidden="true">3.1.2.2.</strong> Balance max load</a></li><li class="expanded "><a href="../../../examples/pragmatic/objectives/objective-balance-activities.html"><strong aria-hidden="true">3.1.2.3.</strong> Balance activities</a></li><li class="expanded "><a href="../../../examples/pragmatic/objectives/objective-balance-distance.html"><strong aria-hidden="true">3.1.2.4.</strong> Balance distance</a></li></ol></li></ol></li><li class="expanded "><a href="../../../examples/interop/index.html"><strong aria-hidden="true">3.2.</strong> Language interop</a></li><li><ol class="section"><li class="expanded "><a href="../../../examples/interop/java.html"><strong aria-hidden="true">3.2.1.</strong> Java</a></li><li class="expanded "><a href="../../../examples/interop/kotlin.html"><strong aria-hidden="true">3.2.2.</strong> Kotlin</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">A Vehicle Routing Problem Solver Documentation</h1>
+
+                        <div class="right-buttons">
+                            <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#error-index" id="error-index">Error Index</a></h1>
+<p>This page lists errors produced by the solver.</p>
+<h2><a class="header" href="#e0xxx-error" id="e0xxx-error">E0xxx Error</a></h2>
+<p>Errors from E0xxx range are generic.</p>
+<h3><a class="header" href="#e0000" id="e0000">E0000</a></h3>
+<p><code>cannot deserialize problem</code> is returned when problem definition cannot be deserialized from the input stream.</p>
+<h3><a class="header" href="#e0001" id="e0001">E0001</a></h3>
+<p><code>cannot deserialize matrix</code> is returned when routing matrix definition cannot be deserialized from the input stream.</p>
+<h3><a class="header" href="#e0002" id="e0002">E0002</a></h3>
+<p><code>cannot create transport costs</code> is returned when problem cannot be matched within routing matrix data passed.</p>
+<h2><a class="header" href="#e1xxx-validation-errors" id="e1xxx-validation-errors">E1xxx: Validation errors</a></h2>
+<p>Errors from E1xxx range are used by validation engine which checks logical correctness of the rich VRP definition.</p>
+<h3><a class="header" href="#e11xx-jobs" id="e11xx-jobs">E11xx: Jobs</a></h3>
+<p>These errors are related to <code>plan.jobs</code> property definition.</p>
+<h4><a class="header" href="#e1100" id="e1100">E1100</a></h4>
+<p><code>duplicated job ids</code> error is returned when <code>plan.jobs</code> has jobs with the same ids:</p>
+<pre><code class="language-json">{
+  &quot;plan&quot;: {
+    &quot;jobs&quot;: [
+      {
+        &quot;id&quot;: &quot;job1&quot;,
+        /** omitted **/
+      },
+      {
+        /** Error: this id is already used by another job **/
+        &quot;id&quot;: &quot;job1&quot;,
+        /** omitted **/
+      }
+      /** omitted **/
+    ]
+  }
+}
+</code></pre>
+<p>Duplicated job ids are not allowed, so you need to remove all duplicates in order to fix the error.</p>
+<h4><a class="header" href="#e1101" id="e1101">E1101</a></h4>
+<p><code>invalid job task demand</code> error is returned when job has invalid demand: <code>pickup</code>, <code>delivery</code>, <code>replacement</code> job types should
+have demand specified on each job task, <code>service</code> type should have no demand specified:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;job1&quot;,
+  &quot;deliveries&quot;: [
+    {
+      /** omitted **/
+      /** Error: delivery task should have demand set**/
+      &quot;demand&quot;: null
+    }
+ ],
+ &quot;services&quot;: [
+   {
+     /** omitted **/
+     /** Error: service task should have no demand specified**/
+     &quot;demand&quot;: [1]
+   }
+ ]
+}
+</code></pre>
+<p>To fix the error, make sure that each job task has proper demand.</p>
+<h4><a class="header" href="#e1102" id="e1102">E1102</a></h4>
+<p><code>invalid pickup and delivery demand</code> error code is returned when job has both pickups and deliveries, but the sum of
+pickups demand does not match to the sum of deliveries demand:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;job&quot;,
+  &quot;pickups&quot;: [
+    {
+      &quot;places&quot;: [/** omitted **/],
+      &quot;demand&quot;: [1],
+    },
+    {
+      &quot;places&quot;: [/** omitted **/],
+      &quot;demand&quot;: [1]
+    }
+  ],
+  &quot;deliveries&quot;: [
+    {
+      &quot;places&quot;: [/** omitted **/],
+      /** Error: should be 2 as the sum of pickups is 2 **/
+      &quot;demand&quot;: [1]
+    }
+  ]
+}
+</code></pre>
+<h4><a class="header" href="#e1103" id="e1103">E1103</a></h4>
+<p><code>invalid time windows in jobs</code> error is returned when there is a job which has invalid time windows, e.g.:</p>
+<pre><code class="language-json">{
+  /** Error: end time is one hour earlier than start time**/
+  &quot;times&quot;: [
+    [
+      &quot;2020-07-04T12:00:00Z&quot;,
+      &quot;2020-07-04T11:00:00Z&quot;
+    ]
+  ]
+}
+</code></pre>
+<p>Each time window must satisfy the following criteria:</p>
+<ul>
+<li>array of two strings each of these specifies date in RFC3339 format. The first is considered as start,
+the second - as end</li>
+<li>start date is earlier than end date</li>
+<li>if multiple time windows are specified, they must not intersect, e.g.:</li>
+</ul>
+<pre><code class="language-json">{
+  /** Error: second time window intersects with first one: [13:00, 14:00] **/
+  &quot;times&quot;: [
+    [
+      &quot;2020-07-04T10:00:00Z&quot;,
+      &quot;2020-07-04T14:00:00Z&quot;
+    ],
+    [
+      &quot;2020-07-04T13:00:00Z&quot;,
+      &quot;2020-07-04T17:00:00Z&quot;
+    ]
+  ]
+}
+</code></pre>
+<h4><a class="header" href="#e1104" id="e1104">E1104</a></h4>
+<p><code>reserved job id is used</code> error is returned when there is a job which has reserved job id:</p>
+<pre><code class="language-json">{
+  /** Error: 'departure' is reserved job id **/
+  &quot;id&quot;: &quot;departure&quot;
+}
+</code></pre>
+<p>To avoid confusion, the following ids are reserved: <code>departure</code>, <code>arrival</code>, <code>break</code>, and <code>reload</code>. These ids are not
+allowed to be used within <code>job.id</code> property.</p>
+<h4><a class="header" href="#e1105" id="e1105">E1105</a></h4>
+<p><code>empty job</code> error is returned when there is a job which has no or empty job tasks:</p>
+<pre><code class="language-json">{
+  /** Error: at least one job task has to be defined **/
+  &quot;id&quot;: &quot;job1&quot;,
+  &quot;pickups&quot;: null,
+  &quot;deliveries&quot;: []
+}
+</code></pre>
+<p>To fix the error, remove job from the plan or add at least one job task to it.</p>
+<h3><a class="header" href="#e12xx-relations" id="e12xx-relations">E12xx: Relations</a></h3>
+<p>These errors are related to <code>plan.relations</code> property definition.</p>
+<h4><a class="header" href="#e1200" id="e1200">E1200</a></h4>
+<p><code>relation has job id which does not present in the plan</code> error is returned when <code>plan.relations</code> has relations with
+job ids, not present in <code>plan.jobs</code>.</p>
+<h4><a class="header" href="#e1201" id="e1201">E1201</a></h4>
+<p><code>relation has vehicle id which does not present in the fleet</code> error is returned when <code>plan.relations</code> has relations with
+vehicle ids, not present in <code>plan.fleet</code>.</p>
+<h4><a class="header" href="#e1202" id="e1202">E1202</a></h4>
+<p><code>relation has empty job id list</code> error is returned when <code>plan.relations</code> has relations with empty <code>jobs</code> list.</p>
+<h4><a class="header" href="#e1203" id="e1203">E1203</a></h4>
+<p><code>strict or sequence relation has job with multiple places or time windows</code> error is returned when <code>plan.relations</code> has
+strict or sequence relation which refers one or many jobs with multiple places and/or time windows.</p>
+<p>This is currently not allowed due to matching problem.</p>
+<h4><a class="header" href="#e1204" id="e1204">E1204</a></h4>
+<p><code>job is assigned to different vehicles in relations</code> error is returned when <code>plan.relations</code> has a job assigned to several
+relations with different vehicle ids:</p>
+<pre><code class="language-json">{
+  &quot;plan&quot;: {
+    &quot;relations&quot;: [
+      {
+        &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
+        &quot;jobs&quot;: [&quot;job1&quot;],
+        /** omitted **/
+      },
+      {
+        /** Error: this job id is already assigned to another vehicle **/
+        &quot;vehicleId&quot;: &quot;vehicle_2&quot;,
+        &quot;jobs&quot;: [&quot;job1&quot;],
+        /** omitted **/
+      }
+    ]
+  }
+}
+</code></pre>
+<p>To fix this, remove job id from one of relations.</p>
+<h3><a class="header" href="#e13xx-vehicles" id="e13xx-vehicles">E13xx: Vehicles</a></h3>
+<p>These errors are related to <code>fleet.vehicles</code> property definition.</p>
+<h4><a class="header" href="#e1300" id="e1300">E1300</a></h4>
+<p><code>duplicated vehicle type ids</code> error is returned when <code>fleet.vehicles</code> has vehicle types with the same <code>typeId</code>:</p>
+<pre><code class="language-json">{
+  &quot;fleet&quot;: {
+    &quot;vehicles&quot;: [
+      {
+        &quot;typeId&quot;: &quot;vehicle_1&quot;,
+        /** omitted **/
+      },
+      {
+        /** Error: this id is already used by another vehicle type **/
+        &quot;typeId&quot;: &quot;vehicle_1&quot;,
+        /** omitted **/
+      }
+      /** omitted **/
+    ]
+  }
+}
+</code></pre>
+<h4><a class="header" href="#e1301" id="e1301">E1301</a></h4>
+<p><code>duplicated vehicle ids</code> error is returned when <code>fleet.vehicles</code> has vehicle types with the same <code>vehicleIds</code>:</p>
+<pre><code class="language-json">{
+  &quot;fleet&quot;: {
+    &quot;vehicles&quot;: [
+      {
+        &quot;typeId&quot;: &quot;vehicle_1&quot;,
+        &quot;vehicleIds&quot;: [
+          &quot;vehicle_1_a&quot;,
+          &quot;vehicle_1_b&quot;,
+          /** Error: vehicle_1_b is used second time **/
+          &quot;vehicle_1_b&quot;
+        ],
+        /** omitted **/
+      },
+      {
+        &quot;typeId&quot;: &quot;vehicle_2&quot;,
+        &quot;vehicleIds&quot;: [
+          /** Error: vehicle_1_a is used second time **/
+          &quot;vehicle_1_a&quot;,
+          &quot;vehicle_2_b&quot;
+        ],
+        /** omitted **/
+      }
+      /** omitted **/
+    ]
+  }
+}
+</code></pre>
+<p>Please note that vehicle id should be unique across all vehicle types.</p>
+<h4><a class="header" href="#e1302" id="e1302">E1302</a></h4>
+<p><code>invalid start or end times in vehicle shift</code> error is returned when vehicle has start/end shift times violating one of
+time windows rules defined for jobs in E1103.</p>
+<h4><a class="header" href="#e1303" id="e1303">E1303</a></h4>
+<p><code>invalid break time windows in vehicle shift</code> error is returned when vehicle has invalid time window of a break. List of
+break should follow time window rules defined for jobs in E1103. Additionally, break time should be inside vehicle shift
+it is specified:</p>
+<pre><code class="language-json">{
+  &quot;start&quot;: {
+    &quot;time&quot;: &quot;2019-07-04T08:00:00Z&quot;,
+    /** omitted **/
+  },
+  &quot;end&quot;: {
+    &quot;time&quot;: &quot;2019-07-04T15:00:00Z&quot;,
+    /** omitted **/
+  },
+  &quot;breaks&quot;: [
+    {
+      /** Error: break is outside of vehicle shift times **/
+      &quot;times&quot;: [
+        [
+          &quot;2019-07-04T17:00:00Z&quot;,
+          &quot;2019-07-04T18:00:00Z&quot;
+        ]
+      ],
+      &quot;duration&quot;: 3600.0
+    }
+  ]
+}
+</code></pre>
+<h4><a class="header" href="#e1304" id="e1304">E1304</a></h4>
+<p><code>invalid reload time windows in vehicle shift</code> error is returned when vehicle has invalid time window of a reload. Reload
+list should follow time window rules defined for jobs in E1003 except multiple reloads can have time window intersections.
+Additionally, reload time should be inside vehicle shift it is specified:</p>
+<pre><code class="language-json">{
+  &quot;start&quot;: {
+    &quot;time&quot;: &quot;2019-07-04T08:00:00Z&quot;,
+    /** omitted **/
+  },
+  &quot;end&quot;: {
+    &quot;time&quot;: &quot;2019-07-04T15:00:00Z&quot;,
+    /** omitted **/
+  },
+  &quot;reloads&quot;: [
+    {
+      /** Error: reload is outside of vehicle shift times **/
+      &quot;times&quot;: [
+        [
+          &quot;2019-07-04T17:00:00Z&quot;,
+          &quot;2019-07-04T18:00:00Z&quot;
+        ]
+      ],
+      &quot;location&quot;: { /** omitted **/ },
+      &quot;duration&quot;: 3600.0
+    }
+  ]
+}
+</code></pre>
+<h3><a class="header" href="#e15xx-profiles" id="e15xx-profiles">E15xx: Profiles</a></h3>
+<p>These errors are related to <code>fleet.profiles</code> property definition.</p>
+<h4><a class="header" href="#e1500" id="e1500">E1500</a></h4>
+<p><code>duplicate profile names</code> error is returned when <code>fleet.profiles</code> has more than one profile with the same name:</p>
+<pre><code class="language-json">{
+  &quot;profiles&quot;: [
+    {
+      &quot;name&quot;: &quot;vehicle_profile&quot;,
+      &quot;type&quot;: &quot;car&quot;
+    },
+    {
+      &quot;name&quot;: &quot;vehicle_profile&quot;,
+      &quot;type&quot;: &quot;truck&quot;
+    }
+  ]
+}
+</code></pre>
+<p>To fix the issue, remove all duplicates.</p>
+<h4><a class="header" href="#e1501" id="e1501">E1501</a></h4>
+<p><code>empty profile collection</code> error is returned when <code>fleet.profiles</code> is empty:</p>
+<pre><code class="language-json">{
+  &quot;profiles&quot;: []
+}
+</code></pre>
+<h3><a class="header" href="#e16xx-objectives" id="e16xx-objectives">E16xx: Objectives</a></h3>
+<p>These errors are related to <code>objectives</code> property definition.</p>
+<h4><a class="header" href="#e1600" id="e1600">E1600</a></h4>
+<p><code>an empty objective specified</code> error is returned when objective property is present in the problem, but no single
+objective is set, e.g.:</p>
+<pre><code class="language-json">{
+  &quot;objectives&quot;: {
+    &quot;primary&quot;:[]
+  }
+}
+</code></pre>
+<p><code>objectives</code> property is optional, just remove it to fix the problem and use default objectives.</p>
+<h4><a class="header" href="#e1610" id="e1610">E1610</a></h4>
+<p><code>duplicate objective specified</code> error is returned when objective of specific type specified more than once:</p>
+<pre><code class="language-json">{
+  &quot;objectives&quot;: {
+    &quot;primary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      },
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      }
+    ],
+    &quot;secondary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-cost&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+<p>To fix this issue, just remove one, e.g. <code>minimize-unassigned</code>.</p>
+<h4><a class="header" href="#e1611" id="e1611">E1611</a></h4>
+<p><code>missing cost objective</code> error is returned when no cost objective specified (at the moment, only <code>minimize-cost</code> supported):</p>
+<pre><code class="language-json">{
+  &quot;objectives&quot;: {
+    &quot;primary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+<p>This objective is used to calculate final costs, so it is required to be specified.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../../concepts/pragmatic/solution/unassigned-jobs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../../concepts/scientific/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../../../concepts/pragmatic/solution/unassigned-jobs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../../../concepts/scientific/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../../../resources/leaflet.js"></script>
+        
+        <script type="text/javascript" src="../../../resources/map.js"></script>
+        
+
+        
+
+    </body>
+</html>
