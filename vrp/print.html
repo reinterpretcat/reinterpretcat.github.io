@@ -3556,6 +3556,8 @@ pickups must be scheduled before any delivery, replacement or service.</p>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1103">E1103 invalid time windows in jobs</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1104">E1104 reserved job id is used</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1105">E1105 empty job</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1106">E1106 job has negative duration</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1107">E1107 job has negative demand</a></li>
 </ul>
 <h2><a class="header" href="#examples-1" id="examples-1">Examples</a></h2>
 <p>Please refer to <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/job-types.html">basic job usage examples</a> to see how to specify problem with
@@ -3610,8 +3612,10 @@ different job types.</p>
 <li>
 <p><strong>limits</strong> (optional): vehicle limits. There are two:</p>
 <ul>
-<li><strong>shiftTime</strong>: max shift time</li>
-<li><strong>maxDistance</strong>: max distance</li>
+<li><strong>shiftTime</strong> (optional): max shift time</li>
+<li><strong>maxDistance</strong> (optional): max distance</li>
+<li><strong>allowedAreas</strong> (optional): a list of areas where vehicle is allowed to serve jobs. Each area is closed polygon
+specified by coordinates. No area restrictions when omitted.</li>
 </ul>
 </li>
 </ul>
@@ -3698,6 +3702,7 @@ See examples <a href="concepts/pragmatic/problem/../../../examples/pragmatic/bas
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1302">E1302 invalid start or end times in vehicle shift</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1303">E1303 invalid break time windows in vehicle shift</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1304">E1304 invalid reload time windows in vehicle shift</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1305">E1305 invalid allowed area definition in vehicle limits</a></li>
 </ul>
 <h1><a class="header" href="#relations" id="relations">Relations</a></h1>
 <p>Relation is a mechanism to lock jobs to specific vehicles. List of relations is a part of <code>plan</code> schema and each relation
@@ -4176,6 +4181,21 @@ See activity structure below.</li>
   ]
 </code></pre>
 <p>Each item in this list has job id, reason code and description.</p>
+<h2><a class="header" href="#reasons-of-unassigned-jobs" id="reasons-of-unassigned-jobs">Reasons of unassigned jobs</a></h2>
+<table><thead><tr><th>code</th><th>description</th><th>possible action</th></tr></thead><tbody>
+<tr><td>0</td><td><code>unknown</code></td><td>-</td></tr>
+<tr><td>1</td><td><code>cannot serve required skill</code></td><td>allocate more vehicles with given skill?</td></tr>
+<tr><td>2</td><td><code>cannot be visited within time window</code></td><td>allocate more vehicles, relax time windows, etc.?</td></tr>
+<tr><td>3</td><td><code>does not fit into any vehicle due to capacity</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>100</td><td><code>location unreachable</code></td><td>change job location to routable place?</td></tr>
+<tr><td>101</td><td><code>cannot be assigned due to max distance constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>102</td><td><code>cannot be assigned due to shift time constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>103</td><td><code>break is not assignable</code></td><td>correct break location or/and time window?</td></tr>
+<tr><td>104</td><td><code>cannot be served due to relation lock</code></td><td>review relations?</td></tr>
+<tr><td>105</td><td><code>cannot be served due to priority</code></td><td>allocate more vehicles, relax priorities?</td></tr>
+<tr><td>106</td><td><code>cannot be assigned due to area constraint</code></td><td>make sure that jobs inside allowed areas?</td></tr>
+</tbody></table>
+<h2><a class="header" href="#example" id="example">Example</a></h2>
 <p>An example of problem with unassigned jobs can be found <a href="concepts/pragmatic/solution/../../../examples/pragmatic/basics/unassigned.html">here</a>.</p>
 <h1><a class="header" href="#error-index" id="error-index">Error Index</a></h1>
 <p>This page lists errors produced by the solver.</p>
@@ -4312,6 +4332,37 @@ allowed to be used within <code>job.id</code> property.</p>
 }
 </code></pre>
 <p>To fix the error, remove job from the plan or add at least one job task to it.</p>
+<h4><a class="header" href="#e1106" id="e1106">E1106</a></h4>
+<p><code>job has negative duration</code> error is returned when there is a job place with negative duration:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;job&quot;,
+  &quot;pickups&quot;: [
+    {
+      &quot;places&quot;: [{
+        /** Error: negative duration does not make sense **/
+        &quot;duration&quot;: -10,
+        &quot;location&quot;: {/* omitted */}
+       }]
+       /* omitted */
+    }
+  ]
+}
+</code></pre>
+<p>To fix the error, make sure that all durations are non negative.</p>
+<h4><a class="header" href="#e1107" id="e1107">E1107</a></h4>
+<p><code>job has negative demand</code> error is returned when there is a job with negative demand in any of dimensions:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;job&quot;,
+  &quot;pickups&quot;: [
+    {
+      &quot;places&quot;: [/* omitted */],
+      /** Error: negative demand is not allowed **/
+      &quot;demand&quot;: [10, -1]
+    }
+  ]
+}
+</code></pre>
+<p>To fix the error, make sure that all demand values are non negative.</p>
 <h3><a class="header" href="#e12xx-relations" id="e12xx-relations">E12xx: Relations</a></h3>
 <p>These errors are related to <code>plan.relations</code> property definition.</p>
 <h4><a class="header" href="#e1200" id="e1200">E1200</a></h4>
@@ -4455,6 +4506,25 @@ Additionally, reload time should be inside vehicle shift it is specified:</p>
       &quot;duration&quot;: 3600.0
     }
   ]
+}
+</code></pre>
+<h4><a class="header" href="#e1305" id="e1305">E1305</a></h4>
+<p><code>invalid allowed area definition in vehicle limits</code> error is returned when <code>allowedArea</code> property in <code>fleet.vehicles</code>
+violates one of the following rules:</p>
+<ul>
+<li>no empty arrays</li>
+<li>each area has more than 2 coordinates</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;limits&quot;: {
+    &quot;allowedAreas&quot;: [
+      /** Error: at least three locations has to be defined **/
+      [
+        { &quot;lat&quot;: 52.12, &quot;lng&quot;:  13.14 },
+        { &quot;lat&quot;: 52.13, &quot;lng&quot;:  13.15 }
+      ]
+    ]
+  }
 }
 </code></pre>
 <h3><a class="header" href="#e15xx-profiles" id="e15xx-profiles">E15xx: Profiles</a></h3>

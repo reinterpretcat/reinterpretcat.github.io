@@ -200,8 +200,10 @@
 <li>
 <p><strong>limits</strong> (optional): vehicle limits. There are two:</p>
 <ul>
-<li><strong>shiftTime</strong>: max shift time</li>
-<li><strong>maxDistance</strong>: max distance</li>
+<li><strong>shiftTime</strong> (optional): max shift time</li>
+<li><strong>maxDistance</strong> (optional): max distance</li>
+<li><strong>allowedAreas</strong> (optional): a list of areas where vehicle is allowed to serve jobs. Each area is closed polygon
+specified by coordinates. No area restrictions when omitted.</li>
 </ul>
 </li>
 </ul>
@@ -288,6 +290,7 @@ See examples <a href="../../../examples/pragmatic/basics/reload.html">here</a>.<
 <li><a href="../errors/index.html#e1302">E1302 invalid start or end times in vehicle shift</a></li>
 <li><a href="../errors/index.html#e1303">E1303 invalid break time windows in vehicle shift</a></li>
 <li><a href="../errors/index.html#e1304">E1304 invalid reload time windows in vehicle shift</a></li>
+<li><a href="../errors/index.html#e1305">E1305 invalid allowed area definition in vehicle limits</a></li>
 </ul>
 
                     </main>
