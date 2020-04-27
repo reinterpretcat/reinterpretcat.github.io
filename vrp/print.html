@@ -1749,24 +1749,28 @@ need to acquire routing matrix.</p>
 <p>It will produce some log output which contains various information regarding refinement process such as costs, amount
 of routes, time, etc.:</p>
 <pre><code>configured to use single approximated routing matrix
-configured to use default max-generations (2000) and max-time (300secs)
-generation 1 took 6085ms (total 6s), cost: 4161.71 (100.000%), routes: 52, unassigned: 0, accepted: true
-generation 15 took 3ms (total 6s), cost: 4161.15 (-0.010%), routes: 52, unassigned: 0, accepted: true
-....
-generation 996 took 10ms (total 34s), cost: 4081.04 (-0.006%), routes: 52, unassigned: 0, accepted: true
-generation 1000 took 5ms (total 34s), cost: 4084.25 (0.079%), routes: 52, unassigned: 0, accepted: false
-       population state after 34s (speed: 28.82 gen/sec):
-               0 cost: 4081.04 (0.000%), routes: 52, unassigned: 0, discovered at: 996
-               1 cost: 4081.29 (0.006%), routes: 52, unassigned: 0, discovered at: 977
-               2 cost: 4082.12 (0.027%), routes: 52, unassigned: 0, discovered at: 969
-               3 cost: 4082.37 (0.033%), routes: 52, unassigned: 0, discovered at: 966
-               4 cost: 4082.43 (0.034%), routes: 52, unassigned: 0, discovered at: 947
-generation 1032 took 7ms (total 35s), cost: 4080.87 (-0.004%), routes: 52, unassigned: 0, accepted: true
-generation 1054 took 6ms (total 36s), cost: 4080.32 (-0.014%), routes: 52, unassigned: 0, accepted: true
-...
-stopped due to termination (true) or goal satisfaction (false)
-solving took 64s, total generations: 2000, speed: 31.37 gen/sec
-best solution within cost 4051.2276 discovered at 1998 generation
+provided 0 initial solutions to start with
+configured to use max-generations 1000
+[0s] created 1 of 2 initial solutions in 2ms
+[0s] created 2 of 2 initial solutions in 0ms
+[0s] population state (speed: 272.68 gen/sec):
+        cost: 114.29 (0.000%), tours: 2, unassigned: 0
+        cost: 117.58 (2.876%), tours: 2, unassigned: 1
+[0s] generation 100 took 0ms, cost: 69.70, tours: 2, unassigned: 0
+..
+[0s] generation 800 took 0ms, cost: 69.70, tours: 2, unassigned: 0
+[0s] generation 900 took 0ms, cost: 69.70, tours: 2, unassigned: 0
+[0s] population state (speed: 7498.72 gen/sec):
+        cost: 69.70 (0.000%), tours: 2, unassigned: 0
+        cost: 69.47 (-0.319%), tours: 2, unassigned: 0
+        cost: 69.76 (0.089%), tours: 2, unassigned: 0
+        cost: 69.54 (-0.230%), tours: 2, unassigned: 0
+        cost: 71.76 (2.966%), tours: 2, unassigned: 0
+        cost: 113.12 (62.307%), tours: 2, unassigned: 0
+        cost: 114.29 (63.988%), tours: 2, unassigned: 0
+[0s] total generations: 1000, speed: 7495.83 gen/sec
+best solution has cost: 69.6964, tours: 2, unassigned: 0
+
 </code></pre>
 <p>Once the problem is solved, it will save solution in <code>pragmatic</code> and <code>geojson</code> (optional) format.</p>
 <h2><a class="header" href="#extra-options" id="extra-options">Extra options</a></h2>
@@ -1775,12 +1779,18 @@ best solution within cost 4051.2276 discovered at 1998 generation
 are two types.</p>
 <h4><a class="header" href="#max-time" id="max-time">Max time</a></h4>
 <p>Max time specifies duration of solving in seconds:</p>
-<pre><code>vrp-cli solve pragmatic problem.json -m routing_matrix.json -o solution.json --max-time=600
+<pre><code>vrp-cli solve pragmatic problem.json --max-time=600
 </code></pre>
 <h4><a class="header" href="#max-generations" id="max-generations">Max generations</a></h4>
 <p>Generation is one refinement step and it can be limited via <em>max-generations</em> parameter:</p>
-<pre><code>vrp-cli solve pragmatic problem.json -m routing_matrix.json -o solution.json --max-generations=1000
+<pre><code>vrp-cli solve pragmatic problem.json --max-generations=1000
 </code></pre>
+<h4><a class="header" href="#cost-variation" id="cost-variation">Cost variation</a></h4>
+<p>Cost variation stops refinement process when cost does not significantly change:</p>
+<pre><code>vrp-cli solve pragmatic problem.json --cost-variation=200,0.1
+</code></pre>
+<p>It calculates <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> of cost change over
+specific amount of generations specified by <code>sample</code> and stops algorithm when it is below specified <code>threshold</code>.</p>
 <h4><a class="header" href="#default-behavior" id="default-behavior">Default behavior</a></h4>
 <p>By default termination criteria is max 2000 generations or 300 seconds.</p>
 <h3><a class="header" href="#writing-solution-to-file" id="writing-solution-to-file">Writing solution to file</a></h3>
@@ -3496,7 +3506,8 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
             ],
             &quot;demand&quot;: [
               1
-            ]
+            ],
+            &quot;tag&quot;: &quot;p1&quot;
           }
         ],
         &quot;deliveries&quot;: [
@@ -3512,7 +3523,8 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
             ],
             &quot;demand&quot;: [
               1
-            ]
+            ],
+            &quot;tag&quot;: &quot;d1&quot;
           }
         ],
         &quot;replacements&quot;: [
@@ -3528,7 +3540,8 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
             ],
             &quot;demand&quot;: [
               2
-            ]
+            ],
+            &quot;tag&quot;: &quot;r1&quot;
           }
         ],
         &quot;services&quot;: [
@@ -3541,10 +3554,7 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                 },
                 &quot;duration&quot;: 1800.0
               }
-            ]
-          }
-        ]
-      }
+            ],
 </code></pre>
 <p>Similar pickup and delivery job, all these tasks has to be executed or none of them. The order is not specified except
 pickups must be scheduled before any delivery, replacement or service.</p>
@@ -3771,75 +3781,23 @@ of multi objective.</p>
 <li><strong>primary</strong> (required): a list of primary objectives, at least one must be present</li>
 <li><strong>secondary</strong> (optional): a list of secondary objectives</li>
 </ul>
-<p>Spliting multiple objectives into two separate collections serves the purpose to solve the problem that many objectives
+<p>Splitting multiple objectives into two separate collections serves the purpose to solve the problem that many objectives
 are conflicting by their nature. So, secondary objectives are considered only if objectives in primary list cannot detect
 the change in newly discovered solution.</p>
-<p>All objectives in each list conforms <code>Pareto dominance</code> principle.</p>
-<h2><a class="header" href="#objective-structure" id="objective-structure">Objective structure</a></h2>
-<p>There are multiple objective types distinguished by <code>type</code> property. Depending on type, an objective can have the
-following characteristics:</p>
-<ul>
-<li><strong>goal</strong></li>
-<li><strong>threshold</strong></li>
-</ul>
-<h3><a class="header" href="#objectives-with-goal" id="objectives-with-goal">Objectives with goal</a></h3>
-<p>For value-based objectives, it is possible to specify an optimization goal:</p>
-<pre><code class="language-json">        &quot;goal&quot;: {
-          &quot;value&quot;: 100,
-          &quot;variation&quot;: {
-            &quot;sample&quot;: 100,
-            &quot;variation&quot;: 0.05
-          }
-        }
-</code></pre>
-<p>Goal consists of two optional properties:</p>
-<ul>
-<li><strong>value</strong>: a desired value specific for each objective</li>
-<li><strong>variation</strong>: a variation coefficient parameters to track objective value change</li>
-</ul>
-<p>A goal considered as reached, if any of these parameters are reached. Once the goal is reached for all objectives in list,
-refinement algorithm stops.</p>
-<h3><a class="header" href="#objectives-with-threshold" id="objectives-with-threshold">Objectives with threshold</a></h3>
-<p>For balancing objective, an optional threshold specifies a value when it has to be applied:</p>
-<pre><code class="language-json">      {
-        &quot;type&quot;: &quot;balance-max-load&quot;,
-        &quot;threshold&quot;: 0.5
-      }
-</code></pre>
 <h2><a class="header" href="#available-objectives" id="available-objectives">Available objectives</a></h2>
-<p>The solver already provides some built-in objectives.</p>
-<h3><a class="header" href="#total-cost-minimization" id="total-cost-minimization">Total cost minimization</a></h3>
-<p>An objective with <code>minimize-cost</code> type minimizes total transport cost calculated for all routes:</p>
-<pre><code class="language-json">      {
-        &quot;type&quot;: &quot;minimize-cost&quot;,
-        &quot;goal&quot;: {
-          &quot;value&quot;: 100,
-          &quot;variation&quot;: {
-            &quot;sample&quot;: 100,
-            &quot;variation&quot;: 0.05
-          }
-        }
-      }
-</code></pre>
-<p>The objective has <code>goal</code> with <code>value</code> and <code>variation</code> specifying desired total cost and variation coefficient.</p>
-<h3><a class="header" href="#fleet-usage-minimization" id="fleet-usage-minimization">Fleet usage minimization</a></h3>
-<p>An objective with <code>minimize-tours</code> type minimizes total amount of tours present in solution:</p>
-<pre><code class="language-json">      {
-        &quot;type&quot;: &quot;minimize-tours&quot;
-      },
-</code></pre>
-<p>The objective has <code>goal</code> with <code>value</code> and <code>variation</code> specifying desired tour amount and variation coefficient.</p>
-<h3><a class="header" href="#unassigned-jobs-minimization" id="unassigned-jobs-minimization">Unassigned jobs minimization</a></h3>
-<p>A <code>minimize-unassigned</code> objective minimizes amount of unassigned jobs. Although, solver tries to minimize amount of
+<p>The solver already provides multiple built-in objectives distinguished by their <code>type</code>. All these objectives can be
+split into two groups.</p>
+<h3><a class="header" href="#scalar-objectives" id="scalar-objectives">Scalar objectives</a></h3>
+<p>This objectives targeting for some scalar characteristic of solution:</p>
+<ul>
+<li><code>minimize-cost</code>: minimizes total transport cost calculated for all routes</li>
+<li><code>minimize-unassigned</code> objective minimizes amount of unassigned jobs. Although, solver tries to minimize amount of
 unassigned jobs all the time, it is possible that solution, discovered during refinement, has more unassigned jobs than
 previously accepted. The reason of that can be conflicting objective (e.g. fleet minimization) and restrictive
-constraints such as time windows.</p>
-<p>In order to use this objective specify <code>minimize-unassigned</code> type:</p>
-<pre><code class="language-json">      {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
-      }
-</code></pre>
-<p>The objective has <code>goal</code> with <code>value</code> and <code>variation</code> specifying desired amount of unassigned and variation coefficient.</p>
+constraints such as time windows</li>
+<li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
+<li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
+</ul>
 <h3><a class="header" href="#work-balance-objectives" id="work-balance-objectives">Work balance objectives</a></h3>
 <p>There are four work balance objectives available:</p>
 <ul>
@@ -3848,6 +3806,21 @@ constraints such as time windows.</p>
 <li><code>balance-distance</code>: balances travelled distance per tour</li>
 <li><code>balance-duration</code>: balances tour durations</li>
 </ul>
+<p>Each objective has optional parameters defined by <code>option</code> property:</p>
+<ul>
+<li><code>threshold</code>: a relative value in single tour before balancing takes place, it is soft constraint and might be
+ignored by decision maker</li>
+<li><code>tolerance</code>: a tolerance by variation coefficient</li>
+</ul>
+<p>An usage example:</p>
+<pre><code class="language-json">      {
+        &quot;type&quot;: &quot;balance-max-load&quot;,
+        &quot;options&quot;: {
+          &quot;threshold&quot;: 0.5,
+          &quot;tolerance&quot;: 0.05
+        }
+      }
+</code></pre>
 <h2><a class="header" href="#default-behaviour" id="default-behaviour">Default behaviour</a></h2>
 <p>By default, decision maker minimizes amount of routes, unassigned jobs and total cost which is equal to the following
 definition:</p>
@@ -3869,15 +3842,6 @@ definition:</p>
 </code></pre>
 <p>Here, cost minimization is a secondary objective which corresponds to a classical hierarchical objective used
 by <code>Solomon</code> benchmark.</p>
-<h2><a class="header" href="#notes" id="notes">Notes</a></h2>
-<p>Most of objectives are conflicting to each other, so there are some suggestions:</p>
-<ul>
-<li>do not put cost minimization as primary objective within other minimization objectives. For example, newly discovered
-solution with less unassigned jobs is used to be more expensive than previously accepted. As result, this reduces
-the chance to minimize tours and, in most cases, the final total cost.</li>
-<li>goals, defined on secondary objectives, are ignored if there is at least one goal on primary objective.</li>
-<li>use common sense when mixing multiple objectives.</li>
-</ul>
 <h2><a class="header" href="#related-errors-3" id="related-errors-3">Related errors</a></h2>
 <ul>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1600">E1600 an empty objective specified</a></li>
@@ -3885,7 +3849,7 @@ the chance to minimize tours and, in most cases, the final total cost.</li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1602">E1602 missing cost objective</a></li>
 </ul>
 <h2><a class="header" href="#examples-3" id="examples-3">Examples</a></h2>
-<p>Please refer to <a href="concepts/pragmatic/problem/../../../examples/pragmatic/objectives/index.html">examples section</a> to see more.</p>
+<p>Please refer to <a href="concepts/pragmatic/problem/../../../examples/pragmatic/objectives/index.html">examples section</a> to see more examples.</p>
 <h1><a class="header" href="#routing-data" id="routing-data">Routing data</a></h1>
 <p>In order to solve real life VRP, you need to provide routing information, such as distances and durations between all
 locations in the problem. Getting this data is not a part of the solver, you need to use some external service to get it.
@@ -5514,7 +5478,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
            ],
            &quot;demand&quot;: [
              1
-           ]
+           ],
+           &quot;tag&quot;: &quot;p1&quot;
          }
        ],
        &quot;deliveries&quot;: [
@@ -5530,7 +5495,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
            ],
            &quot;demand&quot;: [
              1
-           ]
+           ],
+           &quot;tag&quot;: &quot;d1&quot;
          }
        ],
        &quot;replacements&quot;: [
@@ -5546,7 +5512,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
            ],
            &quot;demand&quot;: [
              2
-           ]
+           ],
+           &quot;tag&quot;: &quot;r1&quot;
          }
        ],
        &quot;services&quot;: [
@@ -5559,7 +5526,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                },
                &quot;duration&quot;: 1800.0
              }
-           ]
+           ],
+           &quot;tag&quot;: &quot;s1&quot;
          }
        ]
      }
@@ -5707,7 +5675,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
          &quot;activities&quot;: [
            {
              &quot;jobId&quot;: &quot;mixed_job&quot;,
-             &quot;type&quot;: &quot;pickup&quot;
+             &quot;type&quot;: &quot;pickup&quot;,
+             &quot;tag&quot;: &quot;p1&quot;
            }
          ]
        },
@@ -5727,7 +5696,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
          &quot;activities&quot;: [
            {
              &quot;jobId&quot;: &quot;mixed_job&quot;,
-             &quot;type&quot;: &quot;delivery&quot;
+             &quot;type&quot;: &quot;delivery&quot;,
+             &quot;tag&quot;: &quot;d1&quot;
            }
          ]
        },
@@ -5747,7 +5717,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
          &quot;activities&quot;: [
            {
              &quot;jobId&quot;: &quot;mixed_job&quot;,
-             &quot;type&quot;: &quot;replacement&quot;
+             &quot;type&quot;: &quot;replacement&quot;,
+             &quot;tag&quot;: &quot;r1&quot;
            }
          ]
        },
@@ -5767,7 +5738,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
          &quot;activities&quot;: [
            {
              &quot;jobId&quot;: &quot;mixed_job&quot;,
-             &quot;type&quot;: &quot;service&quot;
+             &quot;type&quot;: &quot;service&quot;,
+             &quot;tag&quot;: &quot;s1&quot;
            }
          ]
        },
