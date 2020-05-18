@@ -182,7 +182,7 @@ solution, are required:</p>
     <summary>Configuration file</summary><p>
 <pre><code class="language-json">{
   &quot;population&quot;: {
-    &quot;initial_methods&quot;: [
+    &quot;initialMethods&quot;: [
       {
         &quot;weight&quot;: 10,
         &quot;type&quot;: &quot;cheapest&quot;
@@ -198,10 +198,10 @@ solution, are required:</p>
         &quot;type&quot;: &quot;blinks&quot;
       }
     ],
-    &quot;initial_size&quot;: 2,
-    &quot;population_size&quot;: 4,
-    &quot;offspring_size&quot;: 4,
-    &quot;elite_size&quot;: 2
+    &quot;initialSize&quot;: 2,
+    &quot;populationSize&quot;: 4,
+    &quot;offspringSize&quot;: 4,
+    &quot;eliteSize&quot;: 2
   },
   &quot;mutation&quot;: {
     &quot;type&quot;: &quot;ruin-recreate&quot;,
@@ -221,13 +221,13 @@ solution, are required:</p>
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
             &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
             &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           }
         ]
@@ -249,23 +249,65 @@ solution, are required:</p>
         &quot;methods&quot;: [
           {
             &quot;probability&quot;: 1,
-            &quot;type&quot;: &quot;neighbour&quot;,
-            &quot;min&quot;: 15,
-            &quot;max&quot;: 30,
-            &quot;threshold&quot;: 0.5
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;cmin&quot;: 3,
+            &quot;cmax&quot;: 9,
+            &quot;threshold&quot;: 0.2
           },
           {
             &quot;probability&quot;: 0.05,
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
             &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
             &quot;type&quot;: &quot;random-job&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 10,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 30,
+            &quot;max&quot;: 120,
+            &quot;cmin&quot;: 8,
+            &quot;cmax&quot;: 16,
+            &quot;threshold&quot;: 0.25
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 50,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;neighbour&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
+          },
+          {
+            &quot;probability&quot;: 0.05,
+            &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;max&quot;: 4,
+            &quot;threshold&quot;: 0.1
+          },
+          {
+            &quot;probability&quot;: 0.05,
+            &quot;type&quot;: &quot;random-job&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           }
         ]
@@ -278,7 +320,36 @@ solution, are required:</p>
             &quot;type&quot;: &quot;neighbour&quot;,
             &quot;min&quot;: 30,
             &quot;max&quot;: 120,
-            &quot;threshold&quot;: 0.5
+            &quot;threshold&quot;: 0.25
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 10,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;cmin&quot;: 3,
+            &quot;cmax&quot;: 9,
+            &quot;threshold&quot;: 0.2
+          },
+          {
+            &quot;probability&quot;: 0.75,
+            &quot;type&quot;: &quot;adjusted-string&quot;,
+            &quot;lmax&quot;: 30,
+            &quot;cavg&quot;: 15,
+            &quot;alpha&quot;: 0.01
+          },
+          {
+            &quot;probability&quot;: 0.5,
+            &quot;type&quot;: &quot;worst-job&quot;,
+            &quot;skip&quot;: 4,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
           }
         ]
       },
@@ -288,10 +359,10 @@ solution, are required:</p>
           {
             &quot;probability&quot;: 1,
             &quot;type&quot;: &quot;worst-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 4,
             &quot;skip&quot;: 4,
-            &quot;threshold&quot;: 32
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
           },
           {
             &quot;probability&quot;: 0.1,
@@ -308,34 +379,34 @@ solution, are required:</p>
           {
             &quot;probability&quot;: 1,
             &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           },
           {
             &quot;probability&quot;: 0.1,
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
-            &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;max&quot;: 4,
+            &quot;threshold&quot;: 0.1
           }
         ]
       },
       {
-        &quot;weight&quot;: 0,
+        &quot;weight&quot;: 10,
         &quot;methods&quot;: [
           {
             &quot;probability&quot;: 0.1,
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
-            &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;max&quot;: 4,
+            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.1,
             &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           }
         ]
@@ -374,8 +445,8 @@ solution, are required:</p>
     ]
   },
   &quot;termination&quot;: {
-    &quot;max_time&quot;: 300,
-    &quot;max_generations&quot;: 2000,
+    &quot;maxTime&quot;: 300,
+    &quot;maxGenerations&quot;: 2000,
     &quot;variation&quot;: {
       &quot;sample&quot;: 2000,
       &quot;cv&quot;: 1

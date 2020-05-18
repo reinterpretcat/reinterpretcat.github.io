@@ -160,6 +160,11 @@
 <p><code>cannot deserialize matrix</code> is returned when routing matrix definition cannot be deserialized from the input stream.</p>
 <h3><a class="header" href="#e0002" id="e0002">E0002</a></h3>
 <p><code>cannot create transport costs</code> is returned when problem cannot be matched within routing matrix data passed.</p>
+<p>There are two options to consider, when specifying routing matrix data:</p>
+<ul>
+<li><em>time dependent VRP</em> requires all matrices to have <code>profile</code> and <code>timestamp</code> properties to be se</li>
+<li><em>time agnostic VRP</em> requires <code>timestamp</code> property to be omitted, <code>profile</code> property either set or skipped for all matrices</li>
+</ul>
 <h3><a class="header" href="#e0003" id="e0003">E0003</a></h3>
 <p><code>cannot find any solution</code> is returned when no solution is found. In this case, please submit a bug and share original
 problem and routing matrix.</p>

@@ -1583,6 +1583,8 @@ world VRPs they need to solve.</p>
 <p>Although performance is constantly in focus, a main idea behind projects' design is extensibility:
 the project aims to support a very wide range of VRP variations known as Rich VRP. This is achieved
 through various extension points: custom constraints, objective functions, acceptance criteria, etc.</p>
+<p>By default, it provides a metaheuristic which can be roughly described as <em>Multi-objective Parthenogenesis based
+Evolutionary Algorithm with Ruin and Recreate Mutation Operator</em>.</p>
 <p>More details can be found in <a href="concepts/index.html">concepts chapter</a>.</p>
 <h1><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h1>
 <p>This chapter describes basic information regarding the project and gives some instructions how to start with it.</p>
@@ -3128,7 +3130,7 @@ solution, are required:</p>
     <summary>Configuration file</summary><p>
 <pre><code class="language-json">{
   &quot;population&quot;: {
-    &quot;initial_methods&quot;: [
+    &quot;initialMethods&quot;: [
       {
         &quot;weight&quot;: 10,
         &quot;type&quot;: &quot;cheapest&quot;
@@ -3144,10 +3146,10 @@ solution, are required:</p>
         &quot;type&quot;: &quot;blinks&quot;
       }
     ],
-    &quot;initial_size&quot;: 2,
-    &quot;population_size&quot;: 4,
-    &quot;offspring_size&quot;: 4,
-    &quot;elite_size&quot;: 2
+    &quot;initialSize&quot;: 2,
+    &quot;populationSize&quot;: 4,
+    &quot;offspringSize&quot;: 4,
+    &quot;eliteSize&quot;: 2
   },
   &quot;mutation&quot;: {
     &quot;type&quot;: &quot;ruin-recreate&quot;,
@@ -3167,13 +3169,13 @@ solution, are required:</p>
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
             &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
             &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           }
         ]
@@ -3195,23 +3197,65 @@ solution, are required:</p>
         &quot;methods&quot;: [
           {
             &quot;probability&quot;: 1,
-            &quot;type&quot;: &quot;neighbour&quot;,
-            &quot;min&quot;: 15,
-            &quot;max&quot;: 30,
-            &quot;threshold&quot;: 0.5
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;cmin&quot;: 3,
+            &quot;cmax&quot;: 9,
+            &quot;threshold&quot;: 0.2
           },
           {
             &quot;probability&quot;: 0.05,
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
             &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
             &quot;type&quot;: &quot;random-job&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 10,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 30,
+            &quot;max&quot;: 120,
+            &quot;cmin&quot;: 8,
+            &quot;cmax&quot;: 16,
+            &quot;threshold&quot;: 0.25
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 50,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;neighbour&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
+          },
+          {
+            &quot;probability&quot;: 0.05,
+            &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;max&quot;: 4,
+            &quot;threshold&quot;: 0.1
+          },
+          {
+            &quot;probability&quot;: 0.05,
+            &quot;type&quot;: &quot;random-job&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           }
         ]
@@ -3224,7 +3268,36 @@ solution, are required:</p>
             &quot;type&quot;: &quot;neighbour&quot;,
             &quot;min&quot;: 30,
             &quot;max&quot;: 120,
-            &quot;threshold&quot;: 0.5
+            &quot;threshold&quot;: 0.25
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 10,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;cmin&quot;: 3,
+            &quot;cmax&quot;: 9,
+            &quot;threshold&quot;: 0.2
+          },
+          {
+            &quot;probability&quot;: 0.75,
+            &quot;type&quot;: &quot;adjusted-string&quot;,
+            &quot;lmax&quot;: 30,
+            &quot;cavg&quot;: 15,
+            &quot;alpha&quot;: 0.01
+          },
+          {
+            &quot;probability&quot;: 0.5,
+            &quot;type&quot;: &quot;worst-job&quot;,
+            &quot;skip&quot;: 4,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
           }
         ]
       },
@@ -3234,10 +3307,10 @@ solution, are required:</p>
           {
             &quot;probability&quot;: 1,
             &quot;type&quot;: &quot;worst-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 4,
             &quot;skip&quot;: 4,
-            &quot;threshold&quot;: 32
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
+            &quot;threshold&quot;: 0.2
           },
           {
             &quot;probability&quot;: 0.1,
@@ -3254,34 +3327,34 @@ solution, are required:</p>
           {
             &quot;probability&quot;: 1,
             &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           },
           {
             &quot;probability&quot;: 0.1,
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
-            &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;max&quot;: 4,
+            &quot;threshold&quot;: 0.1
           }
         ]
       },
       {
-        &quot;weight&quot;: 0,
+        &quot;weight&quot;: 10,
         &quot;methods&quot;: [
           {
             &quot;probability&quot;: 0.1,
             &quot;type&quot;: &quot;random-route&quot;,
             &quot;min&quot;: 1,
-            &quot;max&quot;: 8,
-            &quot;threshold&quot;: 0.2
+            &quot;max&quot;: 4,
+            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.1,
             &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 1,
-            &quot;max&quot;: 10,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 32,
             &quot;threshold&quot;: 0.2
           }
         ]
@@ -3320,8 +3393,8 @@ solution, are required:</p>
     ]
   },
   &quot;termination&quot;: {
-    &quot;max_time&quot;: 300,
-    &quot;max_generations&quot;: 2000,
+    &quot;maxTime&quot;: 300,
+    &quot;maxGenerations&quot;: 2000,
     &quot;variation&quot;: {
       &quot;sample&quot;: 2000,
       &quot;cv&quot;: 1
@@ -4095,7 +4168,7 @@ about such behavior in <a href="concepts/pragmatic/routing/../../../getting-star
 <h1><a class="header" href="#routing-matrix-format" id="routing-matrix-format">Routing matrix format</a></h1>
 <p>In general, routing matrix has the following schema:</p>
 <ul>
-<li><code>profile</code> (required) is name of vehicle profile</li>
+<li><code>profile</code> (required for time dependent VRP) is name of vehicle profile</li>
 <li><code>timestamp</code> (optional) a date in RFC3999 for which routing info is applicable. Can be used for time dependent VRP.</li>
 <li><code>travelTimes</code> (required) is square matrix of durations in abstract time units represented via single dimensional array</li>
 <li><code>distances</code> (required) is square matrix of distances in abstract distance unit represented via single dimensional array</li>
@@ -4205,7 +4278,7 @@ should be kept as expected.</p>
 </code></pre>
 <p>If you don't pass any routing matrix, then <a href="https://en.wikipedia.org/wiki/Haversine_formula">haversine formula</a> is used to
 calculate distances between geo locations. Durations are calculated using speed value defined via <code>speed</code> property in
-each profile. It is optional, default value is <code>10</code> which corresponds <code>10m/s</code>.</p>
+each profile. It is optional, default value is <code>10</code> which corresponds to <code>10m/s</code>.</p>
 <h2><a class="header" href="#multiple-profiles" id="multiple-profiles">Multiple profiles</a></h2>
 <p>In general, you're not limited to one single routing profile. You can define multiple ones and pass their matrices
 to the solver:</p>
@@ -4217,6 +4290,7 @@ to the solver:</p>
 <p>In order to use this feature, specify more than one routing matrix for each profile with timestamp property set.</p>
 <h2><a class="header" href="#related-errors-4" id="related-errors-4">Related errors</a></h2>
 <ul>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e0002">E0002 cannot create transport costs</a></li>
 <li><a href="concepts/pragmatic/routing/../errors/index.html#e1500">E1500 duplicate profile names</a></li>
 <li><a href="concepts/pragmatic/routing/../errors/index.html#e1501">E1501 empty profile collection</a></li>
 </ul>
@@ -4410,6 +4484,11 @@ See activity structure below.</li>
 <p><code>cannot deserialize matrix</code> is returned when routing matrix definition cannot be deserialized from the input stream.</p>
 <h3><a class="header" href="#e0002" id="e0002">E0002</a></h3>
 <p><code>cannot create transport costs</code> is returned when problem cannot be matched within routing matrix data passed.</p>
+<p>There are two options to consider, when specifying routing matrix data:</p>
+<ul>
+<li><em>time dependent VRP</em> requires all matrices to have <code>profile</code> and <code>timestamp</code> properties to be se</li>
+<li><em>time agnostic VRP</em> requires <code>timestamp</code> property to be omitted, <code>profile</code> property either set or skipped for all matrices</li>
+</ul>
 <h3><a class="header" href="#e0003" id="e0003">E0003</a></h3>
 <p><code>cannot find any solution</code> is returned when no solution is found. In this case, please submit a bug and share original
 problem and routing matrix.</p>
@@ -23950,7 +24029,7 @@ interface Solver extends Library {
     void get_routing_locations(String problem, OnSuccess onSuccess, OnError onError);
     /** Converts problem to pragmatic format. **/
     void convert_to_pragmatic(String format, String[] inputs, int inputsLen, OnSuccess onSuccess, OnError onError);
-    /** Solves pragmatic problem. maxTime is in seconds. **/
+    /** Solves pragmatic problem. **/
     void solve_pragmatic(String problem, String[] matrices,
                          int matricesSize,
                          String config,
@@ -24028,7 +24107,7 @@ private interface Solver : Library {
     fun get_routing_locations(problem: String, onSuccess: OnSuccess, onError: OnError)
     /** Converts problem to pragmatic format. **/
     fun convert_to_pragmatic(format: String, inputs: Array&lt;String&gt;, inputsLen: Int, onSuccess: OnSuccess, onError: OnError)
-    /** Solves pragmatic problem. maxTime is in seconds. **/
+    /** Solves pragmatic problem. **/
     fun solve_pragmatic(problem: String,
                         matrices: Array&lt;String&gt;,
                         matricesLen: Int,

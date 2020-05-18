@@ -169,7 +169,7 @@
 </code></pre>
 <p>If you don't pass any routing matrix, then <a href="https://en.wikipedia.org/wiki/Haversine_formula">haversine formula</a> is used to
 calculate distances between geo locations. Durations are calculated using speed value defined via <code>speed</code> property in
-each profile. It is optional, default value is <code>10</code> which corresponds <code>10m/s</code>.</p>
+each profile. It is optional, default value is <code>10</code> which corresponds to <code>10m/s</code>.</p>
 <h2><a class="header" href="#multiple-profiles" id="multiple-profiles">Multiple profiles</a></h2>
 <p>In general, you're not limited to one single routing profile. You can define multiple ones and pass their matrices
 to the solver:</p>
@@ -181,6 +181,7 @@ to the solver:</p>
 <p>In order to use this feature, specify more than one routing matrix for each profile with timestamp property set.</p>
 <h2><a class="header" href="#related-errors" id="related-errors">Related errors</a></h2>
 <ul>
+<li><a href="../errors/index.html#e0002">E0002 cannot create transport costs</a></li>
 <li><a href="../errors/index.html#e1500">E1500 duplicate profile names</a></li>
 <li><a href="../errors/index.html#e1501">E1501 empty profile collection</a></li>
 </ul>
