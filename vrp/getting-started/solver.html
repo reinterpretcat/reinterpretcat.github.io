@@ -152,10 +152,10 @@
                     <main>
                         <h1><a class="header" href="#running-solver" id="running-solver">Running solver</a></h1>
 <p>To run the solver, simply use:</p>
-<pre><code>vrp-cli solve pragmatic problem.json -o solution.json -g solution.geojson
+<pre><code>vrp-cli solve pragmatic problem.json -o solution.json -g solution.geojson --log
 </code></pre>
-<p>It will produce some log output which contains various information regarding refinement process such as costs, amount
-of routes, time, etc.:</p>
+<p>If you specify <code>--log</code> option, it will produce some log output which contains various information regarding refinement
+process such as costs, amount of routes, time, etc.:</p>
 <pre><code>configured to use single approximated routing matrix
 provided 0 initial solutions to start with
 configured to use max-generations 1000

@@ -1747,10 +1747,10 @@ need to acquire routing matrix.</p>
 <p>To use this feature, simply omit <code>-m</code> parameter.</p>
 <h1><a class="header" href="#running-solver" id="running-solver">Running solver</a></h1>
 <p>To run the solver, simply use:</p>
-<pre><code>vrp-cli solve pragmatic problem.json -o solution.json -g solution.geojson
+<pre><code>vrp-cli solve pragmatic problem.json -o solution.json -g solution.geojson --log
 </code></pre>
-<p>It will produce some log output which contains various information regarding refinement process such as costs, amount
-of routes, time, etc.:</p>
+<p>If you specify <code>--log</code> option, it will produce some log output which contains various information regarding refinement
+process such as costs, amount of routes, time, etc.:</p>
 <pre><code>configured to use single approximated routing matrix
 provided 0 initial solutions to start with
 configured to use max-generations 1000
@@ -3399,6 +3399,17 @@ solution, are required:</p>
       &quot;sample&quot;: 2000,
       &quot;cv&quot;: 1
     }
+  },
+  &quot;telemetry&quot;: {
+    &quot;logging&quot;: {
+      &quot;enabled&quot;: false,
+      &quot;logBest&quot;: 100,
+      &quot;logPopulation&quot;: 1000
+    },
+    &quot;metrics&quot;: {
+      &quot;enabled&quot;: false,
+      &quot;trackPopulation&quot;: 1000
+    }
   }
 }
 </code></pre>
@@ -3508,7 +3519,7 @@ defined. Each task has the following properties:</p>
 <ul>
 <li><strong>places</strong> (required): list of possible places from which only one has to be visited</li>
 <li><strong>demand</strong> (optional/required): a task demand. It is required for all job types, except service</li>
-<li><strong>tag</strong> (optional): a job tag</li>
+<li><strong>tag</strong> (optional): a job tag which will be returned within job's activity in result solution</li>
 </ul>
 <p>Each <code>place</code> consists of the following properties:</p>
 <ul>
@@ -4349,7 +4360,7 @@ See activity structure below.</li>
 <li><strong>type</strong>:  activity type: <code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>, <code>pickup</code> or <code>delivery</code></li>
 <li><strong>location</strong> (optional): activity location. Omitted if stop list has one activity</li>
 <li><strong>time</strong> (optional): start and end time of activity. Omitted if stop list has one activity</li>
-<li><strong>tag</strong> (optional): a job place tag</li>
+<li><strong>jobTag</strong> (optional): a job place tag</li>
 </ul>
 <h2><a class="header" href="#examples-4" id="examples-4">Examples</a></h2>
 <p>An example of stop with one activity:</p>
@@ -4657,7 +4668,8 @@ job ids, not present in <code>plan.jobs</code>.</p>
 <p><code>relation has vehicle id which does not present in the fleet</code> error is returned when <code>plan.relations</code> has relations with
 vehicle ids, not present in <code>plan.fleet</code>.</p>
 <h4><a class="header" href="#e1202" id="e1202">E1202</a></h4>
-<p><code>relation has empty job id list</code> error is returned when <code>plan.relations</code> has relations with empty <code>jobs</code> list.</p>
+<p><code>relation has empty job id list</code> error is returned when <code>plan.relations</code> has relations with empty <code>jobs</code> list or it has
+only reserved ids such as <code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>.</p>
 <h4><a class="header" href="#e1203" id="e1203">E1203</a></h4>
 <p><code>strict or sequence relation has job with multiple places or time windows</code> error is returned when <code>plan.relations</code> has
 strict or sequence relation which refers one or many jobs with multiple places and/or time windows.</p>
