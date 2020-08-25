@@ -4218,9 +4218,9 @@ list, locations are specified in the order they defined. For example, if you hav
 vehicle type with depot location C, then you have the following location list: A,B,C. It corresponds to the matrix (durations
 or distances):</p>
 <table><thead><tr><th></th><th></th><th></th></tr></thead><tbody>
-<tr><td>0</td><td>BA</td><td>CA</td></tr>
-<tr><td>AB</td><td>0</td><td>CB</td></tr>
-<tr><td>AC</td><td>BC</td><td>0</td></tr>
+<tr><td>0</td><td>AB</td><td>AC</td></tr>
+<tr><td>BA</td><td>0</td><td>BC</td></tr>
+<tr><td>CA</td><td>CB</td><td>0</td></tr>
 </tbody></table>
 <p>where</p>
 <ul>
@@ -4228,7 +4228,7 @@ or distances):</p>
 <li><code>XY</code>: distance or duration from X location to Y</li>
 </ul>
 <p>As single dimensional array it looks like:</p>
-<pre><code>[0,BA,CA,AB,0,CB,AC,BC,0]
+<pre><code>[0,AB,AC,BA,0,BC,CA,CB,0]
 </code></pre>
 <p><code>vrp-cli</code> command provides a helper command to get it as well as <code>pragmatic</code> lib exposes method to get the list
 pragmatically:</p>
