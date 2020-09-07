@@ -3196,15 +3196,27 @@ solution, are required:</p>
     <summary>Configuration file</summary><p>
 <pre><code class="language-json">{
   &quot;population&quot;: {
-    &quot;initialMethods&quot;: [
-      {
-        &quot;weight&quot;: 10,
-        &quot;type&quot;: &quot;cheapest&quot;
+    &quot;initial&quot;: {
+      &quot;size&quot;: 1,
+      &quot;methods&quot;: [
+        {
+          &quot;weight&quot;: 10,
+          &quot;type&quot;: &quot;cheapest&quot;
+        }
+      ]
+    },
+    &quot;offspring&quot;: {
+      &quot;size&quot;: 4,
+      &quot;branching&quot;: {
+        &quot;chance&quot;: 0.001,
+        &quot;steepness&quot;: 1.5,
+        &quot;generations&quot;: {
+          &quot;min&quot;: 4,
+          &quot;max&quot;: 6
+        }
       }
-    ],
-    &quot;initialSize&quot;: 1,
-    &quot;populationSize&quot;: 4,
-    &quot;offspringSize&quot;: 2
+    },
+    &quot;size&quot;: 4
   },
   &quot;mutation&quot;: {
     &quot;type&quot;: &quot;ruin-recreate&quot;,
@@ -3218,15 +3230,6 @@ solution, are required:</p>
             &quot;lmax&quot;: 10,
             &quot;cavg&quot;: 10,
             &quot;alpha&quot;: 0.01
-          },
-          {
-            &quot;probability&quot;: 0.5,
-            &quot;type&quot;: &quot;cluster&quot;,
-            &quot;min&quot;: 4,
-            &quot;max&quot;: 16,
-            &quot;cmin&quot;: 3,
-            &quot;cmax&quot;: 6,
-            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
@@ -3246,27 +3249,6 @@ solution, are required:</p>
             &quot;lmax&quot;: 20,
             &quot;cavg&quot;: 20,
             &quot;alpha&quot;: 0.01
-          },
-          {
-            &quot;probability&quot;: 0.05,
-            &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 8,
-            &quot;max&quot;: 16,
-            &quot;threshold&quot;: 0.1
-          }
-        ]
-      },
-      {
-        &quot;weight&quot;: 10,
-        &quot;methods&quot;: [
-          {
-            &quot;probability&quot;: 1,
-            &quot;type&quot;: &quot;cluster&quot;,
-            &quot;min&quot;: 8,
-            &quot;max&quot;: 16,
-            &quot;cmin&quot;: 3,
-            &quot;cmax&quot;: 9,
-            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
@@ -3371,6 +3353,34 @@ solution, are required:</p>
             &quot;type&quot;: &quot;random-job&quot;,
             &quot;min&quot;: 8,
             &quot;max&quot;: 16,
+            &quot;threshold&quot;: 0.1
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 1,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 16,
+            &quot;cmin&quot;: 3,
+            &quot;cmax&quot;: 9,
+            &quot;threshold&quot;: 0.1
+          },
+          {
+            &quot;probability&quot;: 0.05,
+            &quot;type&quot;: &quot;random-job&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 16,
+            &quot;threshold&quot;: 0.1
+          },
+          {
+            &quot;probability&quot;: 0.01,
+            &quot;type&quot;: &quot;random-route&quot;,
+            &quot;min&quot;: 1,
+            &quot;max&quot;: 4,
             &quot;threshold&quot;: 0.1
           }
         ]
@@ -4203,6 +4213,35 @@ locations in the problem. Getting this data is not a part of the solver, you nee
 Once received, it has to be passed within VRP definition in specific routing matrix format.</p>
 <p>When no routing matrix information supplied, the solver uses haversine distance approximation. See more information
 about such behavior <a href="concepts/pragmatic/routing/../../../getting-started/routing.html">here</a>.</p>
+<h2><a class="header" href="#location-format" id="location-format">Location format</a></h2>
+<p>Location can be represented as one of two types:</p>
+<ul>
+<li>location as geocoodinate</li>
+</ul>
+<pre><code class="language-json">                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.52599,
+                  &quot;lng&quot;: 13.45413
+                },
+</code></pre>
+<ul>
+<li>location as index reference in routing matrix</li>
+</ul>
+<pre><code class="language-json">                &quot;location&quot;: {
+                  &quot;index&quot;: 0
+                },
+</code></pre>
+<p>Please note, that you cannot mix these types in one problem definition. Also routing approximation cannot be used with
+location indices.</p>
+<h2><a class="header" href="#related-errors-4" id="related-errors-4">Related errors</a></h2>
+<ul>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e0002">E0002 cannot create transport costs</a></li>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e1500">E1500 duplicate profile names</a></li>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e1501">E1501 empty profile collection</a></li>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e1502">E1502 mixing different location types</a></li>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e1503">E1503 location indices requires routing matrix to be specified</a></li>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e1504">E1504 area limit constraint requires coordinates to be used everywhere</a></li>
+<li><a href="concepts/pragmatic/routing/../errors/index.html#e1505">E1505 amount of locations does not match matrix dimension</a></li>
+</ul>
 <h1><a class="header" href="#routing-matrix-format" id="routing-matrix-format">Routing matrix format</a></h1>
 <p>In general, routing matrix has the following schema:</p>
 <ul>
@@ -4297,6 +4336,8 @@ should be kept as expected.</p>
   ]
 }
 </code></pre>
+<p>If you have already your routing matrix, you can use location indices instead of geocoordinates as described
+<a href="concepts/pragmatic/routing/../routing/index.html#location-format">here</a>.</p>
 <h1><a class="header" href="#routing-profiles" id="routing-profiles">Routing profiles</a></h1>
 <p>In order to solve VRP, you need to specify at least one routing profile.</p>
 <h2><a class="header" href="#usage" id="usage">Usage</a></h2>
@@ -4326,12 +4367,6 @@ to the solver:</p>
 <p>See <a href="concepts/pragmatic/routing/../../../examples/pragmatic/basics/profiles.html">multiple profiles example</a>.</p>
 <h2><a class="header" href="#time-dependent-routing" id="time-dependent-routing">Time dependent routing</a></h2>
 <p>In order to use this feature, specify more than one routing matrix for each profile with timestamp property set.</p>
-<h2><a class="header" href="#related-errors-4" id="related-errors-4">Related errors</a></h2>
-<ul>
-<li><a href="concepts/pragmatic/routing/../errors/index.html#e0002">E0002 cannot create transport costs</a></li>
-<li><a href="concepts/pragmatic/routing/../errors/index.html#e1500">E1500 duplicate profile names</a></li>
-<li><a href="concepts/pragmatic/routing/../errors/index.html#e1501">E1501 empty profile collection</a></li>
-</ul>
 <h1><a class="header" href="#pragmatic-solution" id="pragmatic-solution">Pragmatic solution</a></h1>
 <p>A pragmatic solution is a result of metaheuristic work and, essentially, consists of three main parts:</p>
 <ul>
@@ -4894,8 +4929,8 @@ following rules:</p>
   ]
 }
 </code></pre>
-<h3><a class="header" href="#e15xx-profiles" id="e15xx-profiles">E15xx: Profiles</a></h3>
-<p>These errors are related to <code>fleet.profiles</code> property definition.</p>
+<h3><a class="header" href="#e15xx-routing-profiles" id="e15xx-routing-profiles">E15xx: Routing profiles</a></h3>
+<p>These errors are related to routing locations and <code>fleet.profiles</code> property definitions.</p>
 <h4><a class="header" href="#e1500" id="e1500">E1500</a></h4>
 <p><code>duplicate profile names</code> error is returned when <code>fleet.profiles</code> has more than one profile with the same name:</p>
 <pre><code class="language-json">{
@@ -4918,6 +4953,22 @@ following rules:</p>
   &quot;profiles&quot;: []
 }
 </code></pre>
+<h4><a class="header" href="#e1502" id="e1502">E1502</a></h4>
+<p><code>mixing different location types</code> error is returned when problem contains locations in different formats. In order to
+fix the issue, change the problem definition to use one specific location type: index reference or geocoordinate.</p>
+<h4><a class="header" href="#e1503" id="e1503">E1503</a></h4>
+<p><code>location indices requires routing matrix to be specified</code> is returned when location indices are used, but no
+routing matrix provided.</p>
+<h4><a class="header" href="#e1504" id="e1504">E1504</a></h4>
+<p><code>area limit constraint requires coordinates to be used everywhere</code> is returned when  location indices are used within
+area limit on <code>fleet.types.limits.allowedAreas</code>.</p>
+<h4><a class="header" href="#e1505" id="e1505">E1505</a></h4>
+<p><code>amount of locations does not match matrix dimension</code> is returned when:</p>
+<ul>
+<li>location indices are used and max index is greater than matrix size</li>
+<li>amount of total locations is higher than matrix size</li>
+</ul>
+<p>Check locations in problem definition and matrix size.</p>
 <h3><a class="header" href="#e16xx-objectives" id="e16xx-objectives">E16xx: Objectives</a></h3>
 <p>These errors are related to <code>objectives</code> property definition.</p>
 <h4><a class="header" href="#e1600" id="e1600">E1600</a></h4>

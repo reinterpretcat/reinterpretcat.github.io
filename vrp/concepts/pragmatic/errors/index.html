@@ -519,8 +519,8 @@ following rules:</p>
   ]
 }
 </code></pre>
-<h3><a class="header" href="#e15xx-profiles" id="e15xx-profiles">E15xx: Profiles</a></h3>
-<p>These errors are related to <code>fleet.profiles</code> property definition.</p>
+<h3><a class="header" href="#e15xx-routing-profiles" id="e15xx-routing-profiles">E15xx: Routing profiles</a></h3>
+<p>These errors are related to routing locations and <code>fleet.profiles</code> property definitions.</p>
 <h4><a class="header" href="#e1500" id="e1500">E1500</a></h4>
 <p><code>duplicate profile names</code> error is returned when <code>fleet.profiles</code> has more than one profile with the same name:</p>
 <pre><code class="language-json">{
@@ -543,6 +543,22 @@ following rules:</p>
   &quot;profiles&quot;: []
 }
 </code></pre>
+<h4><a class="header" href="#e1502" id="e1502">E1502</a></h4>
+<p><code>mixing different location types</code> error is returned when problem contains locations in different formats. In order to
+fix the issue, change the problem definition to use one specific location type: index reference or geocoordinate.</p>
+<h4><a class="header" href="#e1503" id="e1503">E1503</a></h4>
+<p><code>location indices requires routing matrix to be specified</code> is returned when location indices are used, but no
+routing matrix provided.</p>
+<h4><a class="header" href="#e1504" id="e1504">E1504</a></h4>
+<p><code>area limit constraint requires coordinates to be used everywhere</code> is returned when  location indices are used within
+area limit on <code>fleet.types.limits.allowedAreas</code>.</p>
+<h4><a class="header" href="#e1505" id="e1505">E1505</a></h4>
+<p><code>amount of locations does not match matrix dimension</code> is returned when:</p>
+<ul>
+<li>location indices are used and max index is greater than matrix size</li>
+<li>amount of total locations is higher than matrix size</li>
+</ul>
+<p>Check locations in problem definition and matrix size.</p>
 <h3><a class="header" href="#e16xx-objectives" id="e16xx-objectives">E16xx: Objectives</a></h3>
 <p>These errors are related to <code>objectives</code> property definition.</p>
 <h4><a class="header" href="#e1600" id="e1600">E1600</a></h4>

@@ -182,15 +182,27 @@ solution, are required:</p>
     <summary>Configuration file</summary><p>
 <pre><code class="language-json">{
   &quot;population&quot;: {
-    &quot;initialMethods&quot;: [
-      {
-        &quot;weight&quot;: 10,
-        &quot;type&quot;: &quot;cheapest&quot;
+    &quot;initial&quot;: {
+      &quot;size&quot;: 1,
+      &quot;methods&quot;: [
+        {
+          &quot;weight&quot;: 10,
+          &quot;type&quot;: &quot;cheapest&quot;
+        }
+      ]
+    },
+    &quot;offspring&quot;: {
+      &quot;size&quot;: 4,
+      &quot;branching&quot;: {
+        &quot;chance&quot;: 0.001,
+        &quot;steepness&quot;: 1.5,
+        &quot;generations&quot;: {
+          &quot;min&quot;: 4,
+          &quot;max&quot;: 6
+        }
       }
-    ],
-    &quot;initialSize&quot;: 1,
-    &quot;populationSize&quot;: 4,
-    &quot;offspringSize&quot;: 2
+    },
+    &quot;size&quot;: 4
   },
   &quot;mutation&quot;: {
     &quot;type&quot;: &quot;ruin-recreate&quot;,
@@ -204,15 +216,6 @@ solution, are required:</p>
             &quot;lmax&quot;: 10,
             &quot;cavg&quot;: 10,
             &quot;alpha&quot;: 0.01
-          },
-          {
-            &quot;probability&quot;: 0.5,
-            &quot;type&quot;: &quot;cluster&quot;,
-            &quot;min&quot;: 4,
-            &quot;max&quot;: 16,
-            &quot;cmin&quot;: 3,
-            &quot;cmax&quot;: 6,
-            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
@@ -232,27 +235,6 @@ solution, are required:</p>
             &quot;lmax&quot;: 20,
             &quot;cavg&quot;: 20,
             &quot;alpha&quot;: 0.01
-          },
-          {
-            &quot;probability&quot;: 0.05,
-            &quot;type&quot;: &quot;random-job&quot;,
-            &quot;min&quot;: 8,
-            &quot;max&quot;: 16,
-            &quot;threshold&quot;: 0.1
-          }
-        ]
-      },
-      {
-        &quot;weight&quot;: 10,
-        &quot;methods&quot;: [
-          {
-            &quot;probability&quot;: 1,
-            &quot;type&quot;: &quot;cluster&quot;,
-            &quot;min&quot;: 8,
-            &quot;max&quot;: 16,
-            &quot;cmin&quot;: 3,
-            &quot;cmax&quot;: 9,
-            &quot;threshold&quot;: 0.1
           },
           {
             &quot;probability&quot;: 0.05,
@@ -357,6 +339,34 @@ solution, are required:</p>
             &quot;type&quot;: &quot;random-job&quot;,
             &quot;min&quot;: 8,
             &quot;max&quot;: 16,
+            &quot;threshold&quot;: 0.1
+          }
+        ]
+      },
+      {
+        &quot;weight&quot;: 1,
+        &quot;methods&quot;: [
+          {
+            &quot;probability&quot;: 1,
+            &quot;type&quot;: &quot;cluster&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 16,
+            &quot;cmin&quot;: 3,
+            &quot;cmax&quot;: 9,
+            &quot;threshold&quot;: 0.1
+          },
+          {
+            &quot;probability&quot;: 0.05,
+            &quot;type&quot;: &quot;random-job&quot;,
+            &quot;min&quot;: 8,
+            &quot;max&quot;: 16,
+            &quot;threshold&quot;: 0.1
+          },
+          {
+            &quot;probability&quot;: 0.01,
+            &quot;type&quot;: &quot;random-route&quot;,
+            &quot;min&quot;: 1,
+            &quot;max&quot;: 4,
             &quot;threshold&quot;: 0.1
           }
         ]

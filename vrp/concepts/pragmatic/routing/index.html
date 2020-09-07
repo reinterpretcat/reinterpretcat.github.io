@@ -156,6 +156,35 @@ locations in the problem. Getting this data is not a part of the solver, you nee
 Once received, it has to be passed within VRP definition in specific routing matrix format.</p>
 <p>When no routing matrix information supplied, the solver uses haversine distance approximation. See more information
 about such behavior <a href="../../../getting-started/routing.html">here</a>.</p>
+<h2><a class="header" href="#location-format" id="location-format">Location format</a></h2>
+<p>Location can be represented as one of two types:</p>
+<ul>
+<li>location as geocoodinate</li>
+</ul>
+<pre><code class="language-json">                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.52599,
+                  &quot;lng&quot;: 13.45413
+                },
+</code></pre>
+<ul>
+<li>location as index reference in routing matrix</li>
+</ul>
+<pre><code class="language-json">                &quot;location&quot;: {
+                  &quot;index&quot;: 0
+                },
+</code></pre>
+<p>Please note, that you cannot mix these types in one problem definition. Also routing approximation cannot be used with
+location indices.</p>
+<h2><a class="header" href="#related-errors" id="related-errors">Related errors</a></h2>
+<ul>
+<li><a href="../errors/index.html#e0002">E0002 cannot create transport costs</a></li>
+<li><a href="../errors/index.html#e1500">E1500 duplicate profile names</a></li>
+<li><a href="../errors/index.html#e1501">E1501 empty profile collection</a></li>
+<li><a href="../errors/index.html#e1502">E1502 mixing different location types</a></li>
+<li><a href="../errors/index.html#e1503">E1503 location indices requires routing matrix to be specified</a></li>
+<li><a href="../errors/index.html#e1504">E1504 area limit constraint requires coordinates to be used everywhere</a></li>
+<li><a href="../errors/index.html#e1505">E1505 amount of locations does not match matrix dimension</a></li>
+</ul>
 
                     </main>
 
