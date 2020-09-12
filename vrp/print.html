@@ -1807,7 +1807,7 @@ problem definition. The process of getting locations for matrix routing and its 
 within fixed speed for durations. This helps you quickly check how solver works on specific problem variant without
 need to acquire routing matrix.</p>
 <p>The speed is <code>10m/s</code> by default and can be tweaked by setting optional <code>speed</code> property in a each profile separately.</p>
-<p>To use this feature, simply omit <code>-m</code> parameter.</p>
+<p>To use this feature, simply do not pass any matrix by omitting <code>-m</code> parameter.</p>
 <h1><a class="header" href="#running-solver" id="running-solver">Running solver</a></h1>
 <p>To run the solver, simply use:</p>
 <pre><code>vrp-cli solve pragmatic problem.json -o solution.json -g solution.geojson --log
@@ -1816,33 +1816,28 @@ need to acquire routing matrix.</p>
 process such as costs, amount of routes, time, etc.:</p>
 <pre><code>configured to use single approximated routing matrix
 provided 0 initial solutions to start with
-configured to use max-generations 1000
-[0s] created 1 of 2 initial solutions in 2ms
-[0s] created 2 of 2 initial solutions in 0ms
-[0s] population state (speed: 272.68 gen/sec):
-        cost: 114.29 (0.000%), tours: 2, unassigned: 0
-        cost: 117.58 (2.876%), tours: 2, unassigned: 1
-[0s] generation 100 took 0ms, cost: 69.70, tours: 2, unassigned: 0
+configured to use max-time: 5s
+[0s] created 1 of 1 initial solutions in 5ms
+[0s] population state (speed: 123.55 gen/sec, improvement ratio: 1.000:1.000):
+         rank: 0, cost: 518.91(0.000%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 518.913)
+         rank: 1, cost: 520.10(0.229%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 520.103)
+         rank: 2, cost: 522.22(0.637%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 522.221)
+         rank: 3, cost: 522.54(0.699%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 522.541)
+[0s] generation 100 took 2ms,  rank: 0, cost: 512.84(0.000%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 512.836)
 ..
-[0s] generation 800 took 0ms, cost: 69.70, tours: 2, unassigned: 0
-[0s] generation 900 took 0ms, cost: 69.70, tours: 2, unassigned: 0
-[0s] population state (speed: 7498.72 gen/sec):
-        cost: 69.70 (0.000%), tours: 2, unassigned: 0
-        cost: 69.47 (-0.319%), tours: 2, unassigned: 0
-        cost: 69.76 (0.089%), tours: 2, unassigned: 0
-        cost: 69.54 (-0.230%), tours: 2, unassigned: 0
-        cost: 71.76 (2.966%), tours: 2, unassigned: 0
-        cost: 113.12 (62.307%), tours: 2, unassigned: 0
-        cost: 114.29 (63.988%), tours: 2, unassigned: 0
-[0s] total generations: 1000, speed: 7495.83 gen/sec
-best solution has cost: 69.6964, tours: 2, unassigned: 0
-
+[4s] generation 1900 took 2ms,  rank: 0, cost: 506.64(0.000%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 506.644)
+[5s] population state (speed: 393.37 gen/sec, improvement ratio: 0.032:0.005):
+         rank: 0, cost: 506.46(0.000%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 506.458)
+         rank: 1, cost: 506.48(0.005%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 506.484)
+         rank: 2, cost: 506.49(0.007%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 506.494)
+         rank: 3, cost: 506.51(0.010%), tours: 10, unassigned: 0, fitness: (0.000, 10.000, 506.509)
+[5s] total generations: 1967, speed: 393.37 gen/sec
 </code></pre>
 <p>Once the problem is solved, it will save solution in <code>pragmatic</code> and <code>geojson</code> (optional) format.</p>
 <h2><a class="header" href="#extra-options" id="extra-options">Extra options</a></h2>
 <h3><a class="header" href="#termination-criteria" id="termination-criteria">Termination criteria</a></h3>
 <p>Termination criteria defines when refinement algorithm should stop and return best known solution. At the moment, there
-are two types.</p>
+are three types which can be used simultaneously:</p>
 <h4><a class="header" href="#max-time" id="max-time">Max time</a></h4>
 <p>Max time specifies duration of solving in seconds:</p>
 <pre><code>vrp-cli solve pragmatic problem.json --max-time=600
@@ -1858,7 +1853,7 @@ are two types.</p>
 <p>It calculates <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> of cost change over
 specific amount of generations specified by <code>sample</code> and stops algorithm when it is below specified <code>threshold</code>.</p>
 <h4><a class="header" href="#default-behavior" id="default-behavior">Default behavior</a></h4>
-<p>By default termination criteria is max 3000 generations or 300 seconds.</p>
+<p>By default termination criteria is max 3000 generations and 300 seconds at max.</p>
 <h3><a class="header" href="#writing-solution-to-file" id="writing-solution-to-file">Writing solution to file</a></h3>
 <p>Writing solution into file is controlled by <code>-o</code> or <code>--out-result</code> setting. When it is omitted, then solution is written
 in std out.</p>
@@ -3208,11 +3203,15 @@ solution, are required:</p>
     &quot;offspring&quot;: {
       &quot;size&quot;: 4,
       &quot;branching&quot;: {
-        &quot;chance&quot;: 0.001,
+        &quot;chance&quot;: {
+          &quot;normal&quot;: 0.0001,
+          &quot;intensive&quot;: 0.1,
+          &quot;threshold&quot;: 0.001
+        },
         &quot;steepness&quot;: 1.5,
         &quot;generations&quot;: {
-          &quot;min&quot;: 4,
-          &quot;max&quot;: 6
+          &quot;min&quot;: 2,
+          &quot;max&quot;: 4
         }
       }
     },
@@ -4199,6 +4198,51 @@ definition:</p>
 </code></pre>
 <p>Here, cost minimization is a secondary objective which corresponds to a classical hierarchical objective used
 by <code>Solomon</code> benchmark.</p>
+<h2><a class="header" href="#hints" id="hints">Hints</a></h2>
+<ul>
+<li>if you're getting unassigned jobs, want to minimize their count, but not all vehicles are used, then try the following
+objective:</li>
+</ul>
+<pre><code class="language-json">&quot;objectives&quot;: {
+    &quot;primary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      }
+    ],
+    &quot;secondary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-cost&quot;
+      }
+    ]
+  }
+</code></pre>
+<ul>
+<li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to add a tolerance
+and threshold to balancing objective:</li>
+</ul>
+<pre><code class="language-json">&quot;objectives&quot;: {
+    &quot;primary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      },
+      {
+        &quot;type&quot;: &quot;minimize-tours&quot;
+      }
+    ],
+    &quot;secondary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-cost&quot;
+      },
+      {
+        &quot;type&quot;: &quot;balance-distance&quot;,
+        &quot;options&quot;: {
+          &quot;tolerance&quot;: 0.01,
+          &quot;threshold&quot;: 0.005
+        }
+      }
+    ]
+    }
+</code></pre>
 <h2><a class="header" href="#related-errors-3" id="related-errors-3">Related errors</a></h2>
 <ul>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1600">E1600 an empty objective specified</a></li>
@@ -24840,8 +24884,8 @@ wasm-pack build --target web
         // config provides the way to tweak algorithm behavior
         const config = {
             &quot;termination&quot;: {
-                 &quot;max_time&quot;: 10,
-                 &quot;max_generations&quot;: 1000
+                 &quot;maxTime&quot;: 10,
+                 &quot;maxGenerations&quot;: 1000
             }
         };
 

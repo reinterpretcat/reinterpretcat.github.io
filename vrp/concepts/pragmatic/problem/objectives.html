@@ -224,6 +224,51 @@ definition:</p>
 </code></pre>
 <p>Here, cost minimization is a secondary objective which corresponds to a classical hierarchical objective used
 by <code>Solomon</code> benchmark.</p>
+<h2><a class="header" href="#hints" id="hints">Hints</a></h2>
+<ul>
+<li>if you're getting unassigned jobs, want to minimize their count, but not all vehicles are used, then try the following
+objective:</li>
+</ul>
+<pre><code class="language-json">&quot;objectives&quot;: {
+    &quot;primary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      }
+    ],
+    &quot;secondary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-cost&quot;
+      }
+    ]
+  }
+</code></pre>
+<ul>
+<li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to add a tolerance
+and threshold to balancing objective:</li>
+</ul>
+<pre><code class="language-json">&quot;objectives&quot;: {
+    &quot;primary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      },
+      {
+        &quot;type&quot;: &quot;minimize-tours&quot;
+      }
+    ],
+    &quot;secondary&quot;: [
+      {
+        &quot;type&quot;: &quot;minimize-cost&quot;
+      },
+      {
+        &quot;type&quot;: &quot;balance-distance&quot;,
+        &quot;options&quot;: {
+          &quot;tolerance&quot;: 0.01,
+          &quot;threshold&quot;: 0.005
+        }
+      }
+    ]
+    }
+</code></pre>
 <h2><a class="header" href="#related-errors" id="related-errors">Related errors</a></h2>
 <ul>
 <li><a href="../errors/index.html#e1600">E1600 an empty objective specified</a></li>

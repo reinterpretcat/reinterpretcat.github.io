@@ -194,11 +194,15 @@ solution, are required:</p>
     &quot;offspring&quot;: {
       &quot;size&quot;: 4,
       &quot;branching&quot;: {
-        &quot;chance&quot;: 0.001,
+        &quot;chance&quot;: {
+          &quot;normal&quot;: 0.0001,
+          &quot;intensive&quot;: 0.1,
+          &quot;threshold&quot;: 0.001
+        },
         &quot;steepness&quot;: 1.5,
         &quot;generations&quot;: {
-          &quot;min&quot;: 4,
-          &quot;max&quot;: 6
+          &quot;min&quot;: 2,
+          &quot;max&quot;: 4
         }
       }
     },
