@@ -1727,10 +1727,12 @@ the job.</p>
 </ul>
 <p>In general, all these variations can be combined together in one single problem definition in <code>pragmatic</code> format.</p>
 <h1><a class="header" href="#installation" id="installation">Installation</a></h1>
-<p>VRP solver is built in Rust. To install it, either download a version from the <a href="https://github.com/reinterpretcat/vrp/releases">vrp releases</a>
-page, use <code>cargo install</code> or pull the source code from <code>master</code>.</p>
+<h2><a class="header" href="#install-from-docker" id="install-from-docker">Install from Docker</a></h2>
+<p>The fastest way to get vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>:</p>
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.5.8
+</code></pre>
 <h2><a class="header" href="#install-from-source" id="install-from-source">Install from source</a></h2>
-<p>Once pulled the source code, you can build it using <code>cargo</code>:</p>
+<p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
 <pre><code class="language-bash">cargo build --release
 </code></pre>
 <p>Built binaries can be found in the <code>./target/release</code> directory.</p>
@@ -1852,6 +1854,8 @@ are three types which can be used simultaneously:</p>
 </code></pre>
 <p>It calculates <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> of cost change over
 specific amount of generations specified by <code>sample</code> and stops algorithm when it is below specified <code>threshold</code>.</p>
+<h3><a class="header" href="#initial-solution" id="initial-solution">Initial solution</a></h3>
+<p>You can supply initial solution to start with using <code>-i</code> option.</p>
 <h4><a class="header" href="#default-behavior" id="default-behavior">Default behavior</a></h4>
 <p>By default termination criteria is max 3000 generations and 300 seconds at max.</p>
 <h3><a class="header" href="#writing-solution-to-file" id="writing-solution-to-file">Writing solution to file</a></h3>
@@ -3167,15 +3171,19 @@ It has the following parameters:</p>
 <ul>
 <li><strong>type</strong> (required): a format of the problem. So far, only <code>pragmatic</code> is supported</li>
 <li><strong>prototypes</strong> (required): a list of files with problem prototype definition. At the moment, it has to be path to
-problem in pragmatic format. The prototype problem should contain at least three prototype jobs, which are used
-with equal probability to generate other jobs in plan. Other properties like <code>objectives</code>, <code>fleet</code> are copied as is</li>
+problem in pragmatic format. The prototype problem should contain at least three prototype jobs and one vehicle type,
+their properties are used with equal probability to generate jobs/vehicles in the problem. Other properties like
+<code>objectives</code>, <code>profiles</code> are copied as is</li>
 <li><strong>output</strong> (required): a path where to store generated problem</li>
 <li><strong>jobs size</strong> (required): amount of jobs to be generated in the plan.</li>
+<li><strong>vehicles size</strong> (required): amount of vehicle types to be generated in the fleet.</li>
 <li><strong>area size</strong> (optional): half size of the bounding box's side (in meters). The center is identified from bounding box
 of prototype jobs which is used also when the parameter is omitted.</li>
+<li><strong>locations</strong> (optional): a path to the file with list of locations which should be used for jobs instead of generated
+randomly inside specific bounding box.</li>
 </ul>
 <p>Using <code>generate</code> command, you can quickly generate different VRP variants. Usage example:</p>
-<pre><code>    vrp-cli generate pragmatic -p prototype.json -o generated.json -j 100 -a 10000
+<pre><code>    vrp-cli generate pragmatic -p prototype.json -o generated.json -j 100 -v 5 -a 10000
 </code></pre>
 <p>This command generates a new problem definition with 100 jobs spread uniformly in bounding box with half side 10000 meters.</p>
 <h2><a class="header" href="#a-check-command" id="a-check-command">A check command</a></h2>
@@ -3207,8 +3215,7 @@ solution, are required:</p>
     &quot;collection&quot;: [
       {
         &quot;name&quot;: &quot;default-naive&quot;,
-        &quot;type&quot;: &quot;naive&quot;,
-        &quot;offspring_size&quot;: 4
+        &quot;type&quot;: &quot;naive&quot;
       }
     ]
   },
@@ -3230,11 +3237,25 @@ solution, are required:</p>
                 &quot;alpha&quot;: 0.01
               },
               {
+                &quot;probability&quot;: 0.1,
+                &quot;type&quot;: &quot;neighbour&quot;,
+                &quot;min&quot;: 4,
+                &quot;max&quot;: 8,
+                &quot;threshold&quot;: 0.05
+              },
+              {
                 &quot;probability&quot;: 0.05,
                 &quot;type&quot;: &quot;random-job&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16,
-                &quot;threshold&quot;: 0.1
+                &quot;min&quot;: 4,
+                &quot;max&quot;: 8,
+                &quot;threshold&quot;: 0.05
+              },
+              {
+                &quot;probability&quot;: 0.01,
+                &quot;type&quot;: &quot;random-route&quot;,
+                &quot;min&quot;: 1,
+                &quot;max&quot;: 2,
+                &quot;threshold&quot;: 0.05
               }
             ]
           },
@@ -3243,20 +3264,20 @@ solution, are required:</p>
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;adjusted-string&quot;,
-                &quot;lmax&quot;: 20,
-                &quot;cavg&quot;: 20,
-                &quot;alpha&quot;: 0.01
+                &quot;type&quot;: &quot;neighbour&quot;,
+                &quot;min&quot;: 8,
+                &quot;max&quot;: 16,
+                &quot;threshold&quot;: 0.1
               },
               {
-                &quot;probability&quot;: 0.05,
+                &quot;probability&quot;: 0.15,
                 &quot;type&quot;: &quot;random-job&quot;,
                 &quot;min&quot;: 8,
                 &quot;max&quot;: 16,
                 &quot;threshold&quot;: 0.1
               },
               {
-                &quot;probability&quot;: 0.01,
+                &quot;probability&quot;: 0.05,
                 &quot;type&quot;: &quot;random-route&quot;,
                 &quot;min&quot;: 1,
                 &quot;max&quot;: 4,
@@ -3265,7 +3286,7 @@ solution, are required:</p>
             ]
           },
           {
-            &quot;weight&quot;: 10,
+            &quot;weight&quot;: 5,
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
@@ -3292,33 +3313,7 @@ solution, are required:</p>
             ]
           },
           {
-            &quot;weight&quot;: 10,
-            &quot;methods&quot;: [
-              {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;neighbour&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16,
-                &quot;threshold&quot;: 0.1
-              },
-              {
-                &quot;probability&quot;: 0.05,
-                &quot;type&quot;: &quot;random-job&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16,
-                &quot;threshold&quot;: 0.1
-              },
-              {
-                &quot;probability&quot;: 0.01,
-                &quot;type&quot;: &quot;random-route&quot;,
-                &quot;min&quot;: 1,
-                &quot;max&quot;: 4,
-                &quot;threshold&quot;: 0.1
-              }
-            ]
-          },
-          {
-            &quot;weight&quot;: 5,
+            &quot;weight&quot;: 2,
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
@@ -3337,7 +3332,7 @@ solution, are required:</p>
             ]
           },
           {
-            &quot;weight&quot;: 5,
+            &quot;weight&quot;: 2,
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
@@ -3387,28 +3382,30 @@ solution, are required:</p>
         &quot;recreates&quot;: [
           {
             &quot;weight&quot;: 100,
-            &quot;type&quot;: &quot;cheapest&quot;
-          },
-          {
-            &quot;weight&quot;: 10,
             &quot;type&quot;: &quot;regret&quot;,
             &quot;start&quot;: 1,
             &quot;end&quot;: 2
           },
           {
-            &quot;weight&quot;: 2,
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;regret&quot;,
+            &quot;start&quot;: 3,
+            &quot;end&quot;: 4
+          },
+          {
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;gaps&quot;,
+            &quot;min&quot;: 2
+          },
+          {
+            &quot;weight&quot;: 5,
             &quot;type&quot;: &quot;blinks&quot;
           },
           {
             &quot;weight&quot;: 2,
             &quot;type&quot;: &quot;regret&quot;,
-            &quot;start&quot;: 2,
-            &quot;end&quot;: 4
-          },
-          {
-            &quot;weight&quot;: 2,
-            &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2
+            &quot;start&quot;: 4,
+            &quot;end&quot;: 8
           },
           {
             &quot;weight&quot;: 2,
@@ -3996,18 +3993,29 @@ different job types.</p>
 <ul>
 <li><strong>skills</strong> (optional): vehicle skills needed by some jobs</li>
 </ul>
-<pre><code class="language-json">        ]
-      }
-    ],
+<pre><code class="language-json">        &quot;skills&quot;: [
+          &quot;handyman&quot;
+        ]
 </code></pre>
 <ul>
 <li>
 <p><strong>limits</strong> (optional): vehicle limits. There are two:</p>
 <ul>
-<li><strong>shiftTime</strong> (optional): max shift time</li>
-<li><strong>maxDistance</strong> (optional): max distance</li>
-<li><strong>allowedAreas</strong> (optional): a list of areas where vehicle is allowed to serve jobs. Each area is closed polygon
-specified by coordinates. No area restrictions when omitted.</li>
+<li>
+<p><strong>shiftTime</strong> (optional): max shift time</p>
+</li>
+<li>
+<p><strong>maxDistance</strong> (optional): max distance</p>
+</li>
+<li>
+<p><strong>allowedAreas</strong> (optional): a list of areas where vehicle is allowed to serve jobs. Each area is defined by:</p>
+<ul>
+<li><em>priority</em> (optional): an area priority, bigger value - less important. You can use this property to prioritize
+jobs in one area over another.</li>
+<li><em>outerShape</em> (required): closed polygon specified by coordinates.</li>
+</ul>
+<p>No area restrictions when omitted.</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -4471,9 +4479,7 @@ to the solver:</p>
 </li>
 <li><strong>stops</strong>: list of stops. See stop structure below</li>
 <li><strong>statistic</strong>: statistic of the tour.
-<pre><code class="language-json">        }
-  ],
-  &quot;statistic&quot;: {
+<pre><code class="language-json">      &quot;statistic&quot;: {
     &quot;cost&quot;: 35.214662000000004,
     &quot;distance&quot;: 11357,
     &quot;duration&quot;: 2277,
@@ -4482,6 +4488,8 @@ to the solver:</p>
       &quot;serving&quot;: 1140,
       &quot;waiting&quot;: 0,
       &quot;break&quot;: 0
+    }
+  }
 </code></pre>
 </li>
 </ul>
@@ -4543,18 +4551,6 @@ See activity structure below.</li>
           ],
           &quot;activities&quot;: [
             {
-              &quot;jobId&quot;: &quot;job2&quot;,
-              &quot;type&quot;: &quot;pickup&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5225,
-                &quot;lng&quot;: 13.4095
-              },
-              &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:18:40Z&quot;
-              }
-            },
-            {
               &quot;jobId&quot;: &quot;job3&quot;,
               &quot;type&quot;: &quot;pickup&quot;,
               &quot;location&quot;: {
@@ -4562,12 +4558,24 @@ See activity structure below.</li>
                 &quot;lng&quot;: 13.4095
               },
               &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:18:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:23:40Z&quot;
+                &quot;start&quot;: &quot;2019-07-04T10:14:40Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:19:40Z&quot;
+              }
+            },
+            {
+              &quot;jobId&quot;: &quot;job2&quot;,
+              &quot;type&quot;: &quot;pickup&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5225,
+                &quot;lng&quot;: 13.4095
               },
-              &quot;jobTag&quot;: &quot;p1&quot;
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2019-07-04T10:19:40Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:23:40Z&quot;
+              }
             }
           ]
+        },
 </code></pre>
 <h1><a class="header" href="#statistic" id="statistic">Statistic</a></h1>
 <p>A statistic entity represents total statistic for the whole solution or one tour. It has the following structure:</p>
@@ -5359,18 +5367,6 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
           ],
           &quot;activities&quot;: [
             {
-              &quot;jobId&quot;: &quot;job2&quot;,
-              &quot;type&quot;: &quot;pickup&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5225,
-                &quot;lng&quot;: 13.4095
-              },
-              &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:18:40Z&quot;
-              }
-            },
-            {
               &quot;jobId&quot;: &quot;job3&quot;,
               &quot;type&quot;: &quot;pickup&quot;,
               &quot;location&quot;: {
@@ -5378,10 +5374,21 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                 &quot;lng&quot;: 13.4095
               },
               &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:18:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:23:40Z&quot;
+                &quot;start&quot;: &quot;2019-07-04T10:14:40Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:19:40Z&quot;
+              }
+            },
+            {
+              &quot;jobId&quot;: &quot;job2&quot;,
+              &quot;type&quot;: &quot;pickup&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5225,
+                &quot;lng&quot;: 13.4095
               },
-              &quot;jobTag&quot;: &quot;p1&quot;
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2019-07-04T10:19:40Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:23:40Z&quot;
+              }
             }
           ]
         },
@@ -5401,8 +5408,7 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
           &quot;activities&quot;: [
             {
               &quot;jobId&quot;: &quot;job3&quot;,
-              &quot;type&quot;: &quot;delivery&quot;,
-              &quot;jobTag&quot;: &quot;d1&quot;
+              &quot;type&quot;: &quot;delivery&quot;
             }
           ]
         },
@@ -5439,7 +5445,8 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
         }
       }
     }
-  ]
+  ],
+  &quot;unassigned&quot;: []
 }
 </code></pre>
 </p></details>
@@ -5451,14 +5458,12 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
     {
       "type": "Feature",
       "properties": {
-        "arrival": "2019-07-04T09:00:00Z",
-        "marker-size": "medium",
         "tour_idx": "0",
-        "departure": "2019-07-04T09:57:05Z",
+        "stop_idx": "0",
+        "marker-symbol": "warehouse",
         "jobs_ids": "departure",
         "marker-color": "#e6194b",
-        "marker-symbol": "warehouse",
-        "stop_idx": "0"
+        "marker-size": "medium"
       },
       "geometry": {
         "type": "Point",
@@ -5471,14 +5476,12 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
     {
       "type": "Feature",
       "properties": {
-        "marker-color": "#e6194b",
-        "tour_idx": "0",
-        "jobs_ids": "job1",
-        "arrival": "2019-07-04T10:04:35Z",
-        "marker-size": "medium",
-        "marker-symbol": "marker",
         "stop_idx": "1",
-        "departure": "2019-07-04T10:09:35Z"
+        "marker-symbol": "marker",
+        "marker-size": "medium",
+        "marker-color": "#e6194b",
+        "jobs_ids": "job1",
+        "tour_idx": "0"
       },
       "geometry": {
         "type": "Point",
@@ -5491,14 +5494,12 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
     {
       "type": "Feature",
       "properties": {
-        "marker-size": "medium",
-        "stop_idx": "2",
-        "tour_idx": "0",
+        "jobs_ids": "job3,job2",
         "marker-symbol": "marker",
-        "arrival": "2019-07-04T10:14:40Z",
         "marker-color": "#e6194b",
-        "departure": "2019-07-04T10:23:40Z",
-        "jobs_ids": "job2,job3"
+        "marker-size": "medium",
+        "tour_idx": "0",
+        "stop_idx": "2"
       },
       "geometry": {
         "type": "Point",
@@ -5511,13 +5512,11 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
     {
       "type": "Feature",
       "properties": {
+        "marker-color": "#e6194b",
+        "marker-symbol": "marker",
+        "tour_idx": "0",
         "marker-size": "medium",
         "stop_idx": "3",
-        "marker-symbol": "marker",
-        "marker-color": "#e6194b",
-        "tour_idx": "0",
-        "arrival": "2019-07-04T10:27:06Z",
-        "departure": "2019-07-04T10:32:06Z",
         "jobs_ids": "job3"
       },
       "geometry": {
@@ -5531,14 +5530,12 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
     {
       "type": "Feature",
       "properties": {
-        "marker-symbol": "warehouse",
-        "tour_idx": "0",
+        "stop_idx": "4",
+        "jobs_ids": "arrival",
         "marker-color": "#e6194b",
         "marker-size": "medium",
-        "stop_idx": "4",
-        "arrival": "2019-07-04T10:35:02Z",
-        "jobs_ids": "arrival",
-        "departure": "2019-07-04T10:35:02Z"
+        "marker-symbol": "warehouse",
+        "tour_idx": "0"
       },
       "geometry": {
         "type": "Point",
@@ -5551,15 +5548,12 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
     {
       "type": "Feature",
       "properties": {
-        "departure": "2019-07-04T09:57:05Z",
-        "arrival": "2019-07-04T10:35:02Z",
-        "stroke-width": "4",
-        "vehicle_id": "vehicle_1",
-        "activities": "6",
         "shift_idx": "0",
-        "distance": "11357",
+        "stroke-width": "4",
         "stroke": "#e6194b",
-        "tour_idx": "0"
+        "tour_idx": "0",
+        "activities:": "6",
+        "vehicle_id": "vehicle_1"
       },
       "geometry": {
         "type": "LineString",

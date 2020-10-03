@@ -192,18 +192,29 @@
 <ul>
 <li><strong>skills</strong> (optional): vehicle skills needed by some jobs</li>
 </ul>
-<pre><code class="language-json">        ]
-      }
-    ],
+<pre><code class="language-json">        &quot;skills&quot;: [
+          &quot;handyman&quot;
+        ]
 </code></pre>
 <ul>
 <li>
 <p><strong>limits</strong> (optional): vehicle limits. There are two:</p>
 <ul>
-<li><strong>shiftTime</strong> (optional): max shift time</li>
-<li><strong>maxDistance</strong> (optional): max distance</li>
-<li><strong>allowedAreas</strong> (optional): a list of areas where vehicle is allowed to serve jobs. Each area is closed polygon
-specified by coordinates. No area restrictions when omitted.</li>
+<li>
+<p><strong>shiftTime</strong> (optional): max shift time</p>
+</li>
+<li>
+<p><strong>maxDistance</strong> (optional): max distance</p>
+</li>
+<li>
+<p><strong>allowedAreas</strong> (optional): a list of areas where vehicle is allowed to serve jobs. Each area is defined by:</p>
+<ul>
+<li><em>priority</em> (optional): an area priority, bigger value - less important. You can use this property to prioritize
+jobs in one area over another.</li>
+<li><em>outerShape</em> (required): closed polygon specified by coordinates.</li>
+</ul>
+<p>No area restrictions when omitted.</p>
+</li>
 </ul>
 </li>
 </ul>

@@ -158,15 +158,19 @@ It has the following parameters:</p>
 <ul>
 <li><strong>type</strong> (required): a format of the problem. So far, only <code>pragmatic</code> is supported</li>
 <li><strong>prototypes</strong> (required): a list of files with problem prototype definition. At the moment, it has to be path to
-problem in pragmatic format. The prototype problem should contain at least three prototype jobs, which are used
-with equal probability to generate other jobs in plan. Other properties like <code>objectives</code>, <code>fleet</code> are copied as is</li>
+problem in pragmatic format. The prototype problem should contain at least three prototype jobs and one vehicle type,
+their properties are used with equal probability to generate jobs/vehicles in the problem. Other properties like
+<code>objectives</code>, <code>profiles</code> are copied as is</li>
 <li><strong>output</strong> (required): a path where to store generated problem</li>
 <li><strong>jobs size</strong> (required): amount of jobs to be generated in the plan.</li>
+<li><strong>vehicles size</strong> (required): amount of vehicle types to be generated in the fleet.</li>
 <li><strong>area size</strong> (optional): half size of the bounding box's side (in meters). The center is identified from bounding box
 of prototype jobs which is used also when the parameter is omitted.</li>
+<li><strong>locations</strong> (optional): a path to the file with list of locations which should be used for jobs instead of generated
+randomly inside specific bounding box.</li>
 </ul>
 <p>Using <code>generate</code> command, you can quickly generate different VRP variants. Usage example:</p>
-<pre><code>    vrp-cli generate pragmatic -p prototype.json -o generated.json -j 100 -a 10000
+<pre><code>    vrp-cli generate pragmatic -p prototype.json -o generated.json -j 100 -v 5 -a 10000
 </code></pre>
 <p>This command generates a new problem definition with 100 jobs spread uniformly in bounding box with half side 10000 meters.</p>
 <h2><a class="header" href="#a-check-command" id="a-check-command">A check command</a></h2>
@@ -198,8 +202,7 @@ solution, are required:</p>
     &quot;collection&quot;: [
       {
         &quot;name&quot;: &quot;default-naive&quot;,
-        &quot;type&quot;: &quot;naive&quot;,
-        &quot;offspring_size&quot;: 4
+        &quot;type&quot;: &quot;naive&quot;
       }
     ]
   },
@@ -221,11 +224,25 @@ solution, are required:</p>
                 &quot;alpha&quot;: 0.01
               },
               {
+                &quot;probability&quot;: 0.1,
+                &quot;type&quot;: &quot;neighbour&quot;,
+                &quot;min&quot;: 4,
+                &quot;max&quot;: 8,
+                &quot;threshold&quot;: 0.05
+              },
+              {
                 &quot;probability&quot;: 0.05,
                 &quot;type&quot;: &quot;random-job&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16,
-                &quot;threshold&quot;: 0.1
+                &quot;min&quot;: 4,
+                &quot;max&quot;: 8,
+                &quot;threshold&quot;: 0.05
+              },
+              {
+                &quot;probability&quot;: 0.01,
+                &quot;type&quot;: &quot;random-route&quot;,
+                &quot;min&quot;: 1,
+                &quot;max&quot;: 2,
+                &quot;threshold&quot;: 0.05
               }
             ]
           },
@@ -234,20 +251,20 @@ solution, are required:</p>
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;adjusted-string&quot;,
-                &quot;lmax&quot;: 20,
-                &quot;cavg&quot;: 20,
-                &quot;alpha&quot;: 0.01
+                &quot;type&quot;: &quot;neighbour&quot;,
+                &quot;min&quot;: 8,
+                &quot;max&quot;: 16,
+                &quot;threshold&quot;: 0.1
               },
               {
-                &quot;probability&quot;: 0.05,
+                &quot;probability&quot;: 0.15,
                 &quot;type&quot;: &quot;random-job&quot;,
                 &quot;min&quot;: 8,
                 &quot;max&quot;: 16,
                 &quot;threshold&quot;: 0.1
               },
               {
-                &quot;probability&quot;: 0.01,
+                &quot;probability&quot;: 0.05,
                 &quot;type&quot;: &quot;random-route&quot;,
                 &quot;min&quot;: 1,
                 &quot;max&quot;: 4,
@@ -256,7 +273,7 @@ solution, are required:</p>
             ]
           },
           {
-            &quot;weight&quot;: 10,
+            &quot;weight&quot;: 5,
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
@@ -283,33 +300,7 @@ solution, are required:</p>
             ]
           },
           {
-            &quot;weight&quot;: 10,
-            &quot;methods&quot;: [
-              {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;neighbour&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16,
-                &quot;threshold&quot;: 0.1
-              },
-              {
-                &quot;probability&quot;: 0.05,
-                &quot;type&quot;: &quot;random-job&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16,
-                &quot;threshold&quot;: 0.1
-              },
-              {
-                &quot;probability&quot;: 0.01,
-                &quot;type&quot;: &quot;random-route&quot;,
-                &quot;min&quot;: 1,
-                &quot;max&quot;: 4,
-                &quot;threshold&quot;: 0.1
-              }
-            ]
-          },
-          {
-            &quot;weight&quot;: 5,
+            &quot;weight&quot;: 2,
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
@@ -328,7 +319,7 @@ solution, are required:</p>
             ]
           },
           {
-            &quot;weight&quot;: 5,
+            &quot;weight&quot;: 2,
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
@@ -378,28 +369,30 @@ solution, are required:</p>
         &quot;recreates&quot;: [
           {
             &quot;weight&quot;: 100,
-            &quot;type&quot;: &quot;cheapest&quot;
-          },
-          {
-            &quot;weight&quot;: 10,
             &quot;type&quot;: &quot;regret&quot;,
             &quot;start&quot;: 1,
             &quot;end&quot;: 2
           },
           {
-            &quot;weight&quot;: 2,
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;regret&quot;,
+            &quot;start&quot;: 3,
+            &quot;end&quot;: 4
+          },
+          {
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;gaps&quot;,
+            &quot;min&quot;: 2
+          },
+          {
+            &quot;weight&quot;: 5,
             &quot;type&quot;: &quot;blinks&quot;
           },
           {
             &quot;weight&quot;: 2,
             &quot;type&quot;: &quot;regret&quot;,
-            &quot;start&quot;: 2,
-            &quot;end&quot;: 4
-          },
-          {
-            &quot;weight&quot;: 2,
-            &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2
+            &quot;start&quot;: 4,
+            &quot;end&quot;: 8
           },
           {
             &quot;weight&quot;: 2,
