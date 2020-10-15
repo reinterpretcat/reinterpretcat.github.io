@@ -195,7 +195,7 @@ solution, are required:</p>
         }
       ]
     },
-    &quot;maxSize&quot;: 4
+    &quot;maxSize&quot;: 2
   },
   &quot;selection&quot;: {
     &quot;name&quot;: &quot;default-naive&quot;,
@@ -207,11 +207,85 @@ solution, are required:</p>
     ]
   },
   &quot;mutation&quot;: {
-    &quot;name&quot;: &quot;default-branching&quot;,
+    &quot;name&quot;: &quot;default-composite&quot;,
     &quot;collection&quot;: [
       {
         &quot;type&quot;: &quot;ruin-recreate&quot;,
         &quot;name&quot;: &quot;default-ruin-recreate&quot;,
+        &quot;locals&quot;: {
+          &quot;pre_ruin&quot;: {
+            &quot;probability&quot;: 0.05,
+            &quot;times&quot;: {
+              &quot;min&quot;: 1,
+              &quot;max&quot;: 2
+            },
+            &quot;operators&quot;: [
+              {
+                &quot;weight&quot;: 100,
+                &quot;type&quot;: &quot;inter-route-best&quot;,
+                &quot;noise&quot;: {
+                  &quot;probability&quot;: 0.1,
+                  &quot;min&quot;: 0.9,
+                  &quot;max&quot;: 1.1
+                }
+              },
+              {
+                &quot;weight&quot;: 30,
+                &quot;type&quot;: &quot;inter-route-random&quot;,
+                &quot;noise&quot;: {
+                  &quot;probability&quot;: 0.1,
+                  &quot;min&quot;: 0.9,
+                  &quot;max&quot;: 1.1
+                }
+              },
+              {
+                &quot;weight&quot;: 30,
+                &quot;type&quot;: &quot;intra-route-random&quot;,
+                &quot;noise&quot;: {
+                  &quot;probability&quot;: 1,
+                  &quot;min&quot;: 0.9,
+                  &quot;max&quot;: 1.1
+                }
+              }
+            ]
+          },
+          &quot;post_recreate&quot;: {
+            &quot;probability&quot;: 0.01,
+            &quot;times&quot;: {
+              &quot;min&quot;: 1,
+              &quot;max&quot;: 2
+            },
+            &quot;operators&quot;: [
+              {
+                &quot;weight&quot;: 100,
+                &quot;type&quot;: &quot;inter-route-best&quot;,
+                &quot;noise&quot;: {
+                  &quot;probability&quot;: 0.1,
+                  &quot;min&quot;: 0.9,
+                  &quot;max&quot;: 1.1
+                }
+              },
+              {
+                &quot;weight&quot;: 30,
+                &quot;type&quot;: &quot;inter-route-random&quot;,
+                &quot;noise&quot;: {
+                  &quot;probability&quot;: 0.1,
+                  &quot;min&quot;: 0.9,
+                  &quot;max&quot;: 1.1
+                }
+              },
+              {
+                &quot;weight&quot;: 30,
+                &quot;type&quot;: &quot;intra-route-random&quot;,
+                &quot;noise&quot;: {
+                  &quot;probability&quot;: 1,
+                  &quot;min&quot;: 0.9,
+                  &quot;max&quot;: 1.1
+                }
+              }
+            ]
+          }
+        },
         &quot;ruins&quot;: [
           {
             &quot;weight&quot;: 100,
@@ -368,14 +442,27 @@ solution, are required:</p>
         ],
         &quot;recreates&quot;: [
           {
-            &quot;weight&quot;: 100,
-            &quot;type&quot;: &quot;regret&quot;,
+            &quot;weight&quot;: 50,
+            &quot;type&quot;: &quot;skip-best&quot;,
             &quot;start&quot;: 1,
             &quot;end&quot;: 2
           },
           {
-            &quot;weight&quot;: 5,
+            &quot;weight&quot;: 20,
             &quot;type&quot;: &quot;regret&quot;,
+            &quot;start&quot;: 2,
+            &quot;end&quot;: 3
+          },
+          {
+            &quot;weight&quot;: 10,
+            &quot;type&quot;: &quot;perturbation&quot;,
+            &quot;probability&quot;: 0.33,
+            &quot;min&quot;: 0.8,
+            &quot;max&quot;: 1.2
+          },
+          {
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;skip-best&quot;,
             &quot;start&quot;: 3,
             &quot;end&quot;: 4
           },
@@ -390,7 +477,7 @@ solution, are required:</p>
           },
           {
             &quot;weight&quot;: 2,
-            &quot;type&quot;: &quot;regret&quot;,
+            &quot;type&quot;: &quot;skip-best&quot;,
             &quot;start&quot;: 4,
             &quot;end&quot;: 8
           },
@@ -401,7 +488,7 @@ solution, are required:</p>
         ]
       },
       {
-        &quot;type&quot;: &quot;weighted-composite&quot;,
+        &quot;type&quot;: &quot;composite&quot;,
         &quot;name&quot;: &quot;default-composite&quot;,
         &quot;inners&quot;: [
           {
@@ -409,21 +496,6 @@ solution, are required:</p>
             &quot;weight&quot;: 1
           }
         ]
-      },
-      {
-        &quot;type&quot;: &quot;naive-branching&quot;,
-        &quot;name&quot;: &quot;default-branching&quot;,
-        &quot;inner&quot;: &quot;default-composite&quot;,
-        &quot;chance&quot;: {
-          &quot;normal&quot;: 0.0001,
-          &quot;intensive&quot;: 0.1,
-          &quot;threshold&quot;: 0.001
-        },
-        &quot;steepness&quot;: 1.5,
-        &quot;generations&quot;: {
-          &quot;min&quot;: 2,
-          &quot;max&quot;: 4
-        }
       }
     ]
   },
@@ -437,7 +509,7 @@ solution, are required:</p>
   },
   &quot;telemetry&quot;: {
     &quot;logging&quot;: {
-      &quot;enabled&quot;: false,
+      &quot;enabled&quot;: true,
       &quot;logBest&quot;: 100,
       &quot;logPopulation&quot;: 1000
     },
