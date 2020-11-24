@@ -167,17 +167,17 @@
 </li>
 <li><strong>stops</strong>: list of stops. See stop structure below</li>
 <li><strong>statistic</strong>: statistic of the tour.
-<pre><code class="language-json">      &quot;statistic&quot;: {
-    &quot;cost&quot;: 35.214662000000004,
-    &quot;distance&quot;: 11357,
-    &quot;duration&quot;: 2277,
+<pre><code class="language-json">        }
+  ],
+  &quot;statistic&quot;: {
+    &quot;cost&quot;: 41.504842000000004,
+    &quot;distance&quot;: 13251,
+    &quot;duration&quot;: 3507,
     &quot;times&quot;: {
-      &quot;driving&quot;: 1137,
+      &quot;driving&quot;: 2367,
       &quot;serving&quot;: 1140,
       &quot;waiting&quot;: 0,
       &quot;break&quot;: 0
-    }
-  }
 </code></pre>
 </li>
 </ul>
@@ -209,7 +209,7 @@ See activity structure below.</li>
           },
           &quot;time&quot;: {
             &quot;arrival&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:57:05Z&quot;
+            &quot;departure&quot;: &quot;2019-07-04T09:51:29Z&quot;
           },
           &quot;distance&quot;: 0,
           &quot;load&quot;: [
@@ -230,26 +230,14 @@ See activity structure below.</li>
             &quot;lng&quot;: 13.4095
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:23:40Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T10:22:26Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T10:31:26Z&quot;
           },
-          &quot;distance&quot;: 7543,
+          &quot;distance&quot;: 8952,
           &quot;load&quot;: [
             2
           ],
           &quot;activities&quot;: [
-            {
-              &quot;jobId&quot;: &quot;job3&quot;,
-              &quot;type&quot;: &quot;pickup&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5225,
-                &quot;lng&quot;: 13.4095
-              },
-              &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:19:40Z&quot;
-              }
-            },
             {
               &quot;jobId&quot;: &quot;job2&quot;,
               &quot;type&quot;: &quot;pickup&quot;,
@@ -258,12 +246,24 @@ See activity structure below.</li>
                 &quot;lng&quot;: 13.4095
               },
               &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:19:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:23:40Z&quot;
+                &quot;start&quot;: &quot;2019-07-04T10:22:26Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:26:26Z&quot;
               }
+            },
+            {
+              &quot;jobId&quot;: &quot;job3&quot;,
+              &quot;type&quot;: &quot;pickup&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5225,
+                &quot;lng&quot;: 13.4095
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2019-07-04T10:26:26Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:31:26Z&quot;
+              },
+              &quot;jobTag&quot;: &quot;p1&quot;
             }
           ]
-        },
 </code></pre>
 
                     </main>

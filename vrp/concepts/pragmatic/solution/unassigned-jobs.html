@@ -157,7 +157,7 @@
       &quot;jobId&quot;: &quot;job2&quot;,
       &quot;reasons&quot;: [
         {
-          &quot;code&quot;: 100,
+          &quot;code&quot;: &quot;REACHABLE_CONSTRAINT&quot;,
           &quot;description&quot;: &quot;location unreachable&quot;
         }
       ]
@@ -167,18 +167,19 @@
 <p>Each item in this list has job id, reason code and description.</p>
 <h2><a class="header" href="#reasons-of-unassigned-jobs" id="reasons-of-unassigned-jobs">Reasons of unassigned jobs</a></h2>
 <table><thead><tr><th>code</th><th>description</th><th>possible action</th></tr></thead><tbody>
-<tr><td>0</td><td><code>unknown</code></td><td>-</td></tr>
-<tr><td>1</td><td><code>cannot serve required skill</code></td><td>allocate more vehicles with given skill?</td></tr>
-<tr><td>2</td><td><code>cannot be visited within time window</code></td><td>allocate more vehicles, relax time windows, etc.?</td></tr>
-<tr><td>3</td><td><code>does not fit into any vehicle due to capacity</code></td><td>allocate more vehicles?</td></tr>
-<tr><td>100</td><td><code>location unreachable</code></td><td>change job location to routable place?</td></tr>
-<tr><td>101</td><td><code>cannot be assigned due to max distance constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
-<tr><td>102</td><td><code>cannot be assigned due to shift time constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
-<tr><td>103</td><td><code>break is not assignable</code></td><td>correct break location or/and time window?</td></tr>
-<tr><td>104</td><td><code>cannot be served due to relation lock</code></td><td>review relations?</td></tr>
-<tr><td>105</td><td><code>cannot be served due to priority</code></td><td>allocate more vehicles, relax priorities?</td></tr>
-<tr><td>106</td><td><code>cannot be assigned due to area constraint</code></td><td>make sure that jobs inside allowed areas</td></tr>
-<tr><td>107</td><td><code>cannot be assigned due to vehicle dispatch</code></td><td>make sure that vehicle dispatch definition is correct</td></tr>
+<tr><td>NO_REASON_FOUND</td><td><code>unknown</code></td><td></td></tr>
+<tr><td>SKILL_CONSTRAINT</td><td><code>cannot serve required skill</code></td><td>allocate more vehicles with given skill?</td></tr>
+<tr><td>TIME_WINDOW_CONSTRAINT</td><td><code>cannot be visited within time window</code></td><td>allocate more vehicles, relax time windows, etc.?</td></tr>
+<tr><td>CAPACITY_CONSTRAINT</td><td><code>does not fit into any vehicle due to capacity</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>REACHABLE_CONSTRAINT</td><td><code>location unreachable</code></td><td>change job location to routable place?</td></tr>
+<tr><td>MAX_DISTANCE_CONSTRAINT</td><td><code>cannot be assigned due to max distance constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>SHIFT_TIME_CONSTRAINT</td><td><code>cannot be assigned due to shift time constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>BREAK_CONSTRAINT</td><td><code>break is not assignable</code></td><td>correct break location or/and time window?</td></tr>
+<tr><td>LOCKING_CONSTRAINT</td><td><code>cannot be served due to relation lock</code></td><td>review relations?</td></tr>
+<tr><td>PRIORITY_CONSTRAINT</td><td><code>cannot be served due to priority</code></td><td>allocate more vehicles, relax priorities?</td></tr>
+<tr><td>AREA_CONSTRAINT</td><td><code>cannot be assigned due to area constraint</code></td><td>make sure that jobs inside allowed areas</td></tr>
+<tr><td>DISPATCH_CONSTRAINT</td><td><code>cannot be assigned due to vehicle dispatch</code></td><td>make sure that vehicle dispatch definition is correct</td></tr>
+<tr><td>TOUR_SIZE_CONSTRAINT</td><td><code>cannot be assigned due to tour size constraint of vehicle</code></td><td>make sure that there are enough vehicles to serve jobs</td></tr>
 </tbody></table>
 <h2><a class="header" href="#example" id="example">Example</a></h2>
 <p>An example of problem with unassigned jobs can be found <a href="../../../examples/pragmatic/basics/unassigned.html">here</a>.</p>

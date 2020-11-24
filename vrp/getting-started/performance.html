@@ -185,7 +185,7 @@ solution, are required:</p>
 <details>
     <summary>Configuration file</summary><p>
 <pre><code class="language-json">{
-  &quot;population&quot;: {
+  &quot;evolution&quot;: {
     &quot;initial&quot;: {
       &quot;size&quot;: 1,
       &quot;methods&quot;: [
@@ -195,97 +195,69 @@ solution, are required:</p>
         }
       ]
     },
-    &quot;maxSize&quot;: 2
-  },
-  &quot;selection&quot;: {
-    &quot;name&quot;: &quot;default-naive&quot;,
-    &quot;collection&quot;: [
-      {
-        &quot;name&quot;: &quot;default-naive&quot;,
-        &quot;type&quot;: &quot;naive&quot;
-      }
-    ]
+    &quot;population&quot;: {
+      &quot;type&quot;: &quot;rosomaxa&quot;,
+      &quot;selectionSize&quot;: 12,
+      &quot;maxEliteSize&quot;: 2,
+      &quot;maxNodeSize&quot;: 2,
+      &quot;spreadFactor&quot;: 0.25,
+      &quot;reductionFactor&quot;: 0.1,
+      &quot;distributionFactor&quot;: 0.25,
+      &quot;learningRate&quot;: 0.1,
+      &quot;rebalanceMemory&quot;: 500,
+      &quot;rebalanceCount&quot;: 10,
+      &quot;explorationRatio&quot;: 0.9
+    }
   },
   &quot;mutation&quot;: {
-    &quot;name&quot;: &quot;default-composite&quot;,
-    &quot;collection&quot;: [
+    &quot;type&quot;: &quot;composite&quot;,
+    &quot;probability&quot;: 1,
+    &quot;inners&quot;: [
+      {
+        &quot;type&quot;: &quot;local-search&quot;,
+        &quot;probability&quot;: 0.05,
+        &quot;times&quot;: {
+          &quot;min&quot;: 1,
+          &quot;max&quot;: 2
+        },
+        &quot;operators&quot;: [
+          {
+            &quot;weight&quot;: 100,
+            &quot;type&quot;: &quot;inter-route-best&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;inter-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;intra-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;push-route-departure&quot;,
+            &quot;offset&quot;: 0.1
+          }
+        ]
+      },
       {
         &quot;type&quot;: &quot;ruin-recreate&quot;,
-        &quot;name&quot;: &quot;default-ruin-recreate&quot;,
-        &quot;locals&quot;: {
-          &quot;pre_ruin&quot;: {
-            &quot;probability&quot;: 0.05,
-            &quot;times&quot;: {
-              &quot;min&quot;: 1,
-              &quot;max&quot;: 2
-            },
-            &quot;operators&quot;: [
-              {
-                &quot;weight&quot;: 100,
-                &quot;type&quot;: &quot;inter-route-best&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;inter-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;intra-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              }
-            ]
-          },
-          &quot;post_recreate&quot;: {
-            &quot;probability&quot;: 0.01,
-            &quot;times&quot;: {
-              &quot;min&quot;: 1,
-              &quot;max&quot;: 2
-            },
-            &quot;operators&quot;: [
-              {
-                &quot;weight&quot;: 100,
-                &quot;type&quot;: &quot;inter-route-best&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;inter-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;intra-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              }
-            ]
-          }
-        },
+        &quot;probability&quot;: 1,
         &quot;ruins&quot;: [
           {
             &quot;weight&quot;: 100,
@@ -454,6 +426,10 @@ solution, are required:</p>
             &quot;end&quot;: 3
           },
           {
+            &quot;weight&quot;: 20,
+            &quot;type&quot;: &quot;cheapest&quot;
+          },
+          {
             &quot;weight&quot;: 10,
             &quot;type&quot;: &quot;perturbation&quot;,
             &quot;probability&quot;: 0.33,
@@ -477,23 +453,59 @@ solution, are required:</p>
           },
           {
             &quot;weight&quot;: 2,
+            &quot;type&quot;: &quot;farthest&quot;
+          },
+          {
+            &quot;weight&quot;: 2,
             &quot;type&quot;: &quot;skip-best&quot;,
             &quot;start&quot;: 4,
             &quot;end&quot;: 8
           },
           {
-            &quot;weight&quot;: 2,
+            &quot;weight&quot;: 1,
             &quot;type&quot;: &quot;nearest&quot;
           }
         ]
       },
       {
-        &quot;type&quot;: &quot;composite&quot;,
-        &quot;name&quot;: &quot;default-composite&quot;,
-        &quot;inners&quot;: [
+        &quot;type&quot;: &quot;local-search&quot;,
+        &quot;probability&quot;: 0.01,
+        &quot;times&quot;: {
+          &quot;min&quot;: 1,
+          &quot;max&quot;: 2
+        },
+        &quot;operators&quot;: [
           {
-            &quot;name&quot;: &quot;default-ruin-recreate&quot;,
-            &quot;weight&quot;: 1
+            &quot;weight&quot;: 100,
+            &quot;type&quot;: &quot;inter-route-best&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;inter-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;intra-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;push-route-departure&quot;,
+            &quot;offset&quot;: 0.1
           }
         ]
       }
@@ -511,7 +523,8 @@ solution, are required:</p>
     &quot;logging&quot;: {
       &quot;enabled&quot;: true,
       &quot;logBest&quot;: 100,
-      &quot;logPopulation&quot;: 1000
+      &quot;logPopulation&quot;: 1000,
+      &quot;dumpPopulation&quot;: false
     },
     &quot;metrics&quot;: {
       &quot;enabled&quot;: false,

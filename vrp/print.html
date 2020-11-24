@@ -1729,7 +1729,7 @@ the job.</p>
 <h1><a class="header" href="#installation" id="installation">Installation</a></h1>
 <h2><a class="header" href="#install-from-docker" id="install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to get vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>:</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.6.4
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.7.0
 </code></pre>
 <h2><a class="header" href="#install-from-source" id="install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -1816,28 +1816,40 @@ need to acquire routing matrix.</p>
 </code></pre>
 <p>If you specify <code>--log</code> option, it will produce some log output which contains various information regarding refinement
 process such as costs, amount of routes, time, etc.:</p>
-<pre><code>configured to use max-time: 30s
+<pre><code>provided 0 initial solutions to start with
+configured to use default max-generations (3000) and max-time (300secs)
 problem has total jobs: 1000, actors: 250
-[0s] created 1 of 1 initial solutions in 487ms
-[0s] generation 0 took 487ms, rank: 0, cost: 70928.74(0.000%), tours: 104, unassigned: 0, fitness: (0.000, 104.000, 70928.735)
-[0s] population state (speed: 0.00 gen/sec, improvement ratio: 1.000:1.000):
+[0s] created 1 of 1 initial solutions in 471ms
+[0s] generation 0 took 472ms, rank: 0, cost: 70928.74(0.000%), tours: 104, unassigned: 0, fitness: (0.000, 104.000, 70928.735)
+[0s] population state (phase: initial, speed: 0.00 gen/sec, improvement ratio: 1.000:1.000):
          rank: 0, cost: 70928.74(0.000%), tours: 104, unassigned: 0, fitness: (0.000, 104.000, 70928.735)
-[2s] generation 100 took 17ms, rank: 0, cost: 61115.24(0.000%), tours: 99, unassigned: 0, fitness: (0.000, 99.000, 61115.241)
-[5s] generation 200 took 35ms, rank: 0, cost: 57736.43(0.000%), tours: 98, unassigned: 0, fitness: (0.000, 98.000, 57736.427)
-[7s] generation 300 took 20ms, rank: 0, cost: 56682.93(0.000%), tours: 97, unassigned: 0, fitness: (0.000, 97.000, 56682.934)
-
-[24s] population state (speed: 41.18 gen/sec, improvement ratio: 0.362:0.361):
-         rank: 0, cost: 54495.90(0.000%), tours: 96, unassigned: 0, fitness: (0.000, 96.000, 54495.896)
-         rank: 1, cost: 54501.45(0.010%), tours: 96, unassigned: 0, fitness: (0.000, 96.000, 54501.454)
-[26s] generation 1100 took 22ms, rank: 0, cost: 54364.42(0.000%), tours: 96, unassigned: 0, fitness: (0.000, 96.000, 54364.415)
-[28s] generation 1200 took 24ms, rank: 0, cost: 54204.55(0.000%), tours: 96, unassigned: 0, fitness: (0.000, 96.000, 54204.548)
-[30s] population state (speed: 41.29 gen/sec, improvement ratio: 0.319:0.231):
-         rank: 0, cost: 54204.55(0.000%), tours: 96, unassigned: 0, fitness: (0.000, 96.000, 54204.548)
-         rank: 1, cost: 54204.97(0.001%), tours: 96, unassigned: 0, fitness: (0.000, 96.000, 54204.965)
-[30s] total generations: 1239, speed: 41.29 gen/sec
+[3s] generation 100 took 23ms, rank: 0, cost: 65448.21(0.000%), tours: 101, unassigned: 0, fitness: (0.000, 101.000, 65448.214)
+[5s] generation 200 took 22ms, rank: 0, cost: 63573.34(0.000%), tours: 101, unassigned: 0, fitness: (0.000, 101.000, 63573.343)
+...
+[24s] generation 900 took 21ms, rank: 0, cost: 58896.38(0.000%), tours: 98, unassigned: 0, fitness: (0.000, 98.000, 58896.376)
+[27s] generation 1000 took 25ms, rank: 0, cost: 58698.43(0.000%), tours: 98, unassigned: 0, fitness: (0.000, 98.000, 58698.427)
+[27s] population state (phase: exploration, speed: 36.57 gen/sec, improvement ratio: 0.244:0.243):
+         rank: 0, cost: 58698.43(0.000%), tours: 98, unassigned: 0, fitness: (0.000, 98.000, 58698.427)
+         rank: 1, cost: 58698.76(0.001%), tours: 98, unassigned: 0, fitness: (0.000, 98.000, 58698.755)
+[30s] generation 1100 took 27ms, rank: 0, cost: 58118.80(0.000%), tours: 98, unassigned: 0, fitness: (0.000, 98.000, 58118.802)
+...
+[82s] population state (phase: exploitation, speed: 36.48 gen/sec, improvement ratio: 0.178:0.173):
+         rank: 0, cost: 55847.51(0.000%), tours: 94, unassigned: 0, fitness: (0.000, 94.000, 55847.507)
+         rank: 1, cost: 55848.46(0.002%), tours: 94, unassigned: 0, fitness: (0.000, 94.000, 55848.457)
+[82s] total generations: 3000, speed: 36.48 gen/sec
 </code></pre>
 <p>Once the problem is solved, it will save solution in <code>pragmatic</code> and <code>geojson</code> (optional) format.</p>
 <h2><a class="header" href="#extra-options" id="extra-options">Extra options</a></h2>
+<p>The <code>vrp-cli</code> supports extra command line arguments which affects behavior of the algorithm.</p>
+<h3><a class="header" href="#search-mode" id="search-mode">Search mode</a></h3>
+<p>By default, search is mostly performed in exploration mode (<code>broad</code>) which allows the algorithm to perform better
+exploration of a solution space. However, it has slower overall convergence in better local optimum.
+You can switch to exploitation mode with <code>deep</code> setting:</p>
+<pre><code>vrp-cli solve pragmatic problem.json --search-mode=deep
+</code></pre>
+<p>In this mode, the algorithm memorizes only the last discovered best known solutions, so it can jump quicker to relatively
+good local optimum, but suffers more from premature convergence.</p>
+<p>A general recommendation is to use <code>deep</code> on relatively simple dataset and/or when strict time limits should be applied.</p>
 <h3><a class="header" href="#termination-criteria" id="termination-criteria">Termination criteria</a></h3>
 <p>Termination criteria defines when refinement algorithm should stop and return best known solution. At the moment, there
 are three types which can be used simultaneously:</p>
@@ -1856,7 +1868,7 @@ are three types which can be used simultaneously:</p>
 <p>It calculates <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> of cost change over
 specific amount of generations specified by <code>sample</code> and stops algorithm when it is below specified <code>threshold</code>.</p>
 <h4><a class="header" href="#default-behavior" id="default-behavior">Default behavior</a></h4>
-<p>By default termination criteria is max 3000 generations and 300 seconds at max.</p>
+<p>Default termination criteria is max 3000 generations and 300 seconds at max.</p>
 <h3><a class="header" href="#initial-solution" id="initial-solution">Initial solution</a></h3>
 <p>You can supply initial solution to start with using <code>-i</code> option.</p>
 <h3><a class="header" href="#writing-solution-to-file" id="writing-solution-to-file">Writing solution to file</a></h3>
@@ -3199,7 +3211,7 @@ solution, are required:</p>
 <details>
     <summary>Configuration file</summary><p>
 <pre><code class="language-json">{
-  &quot;population&quot;: {
+  &quot;evolution&quot;: {
     &quot;initial&quot;: {
       &quot;size&quot;: 1,
       &quot;methods&quot;: [
@@ -3209,97 +3221,69 @@ solution, are required:</p>
         }
       ]
     },
-    &quot;maxSize&quot;: 2
-  },
-  &quot;selection&quot;: {
-    &quot;name&quot;: &quot;default-naive&quot;,
-    &quot;collection&quot;: [
-      {
-        &quot;name&quot;: &quot;default-naive&quot;,
-        &quot;type&quot;: &quot;naive&quot;
-      }
-    ]
+    &quot;population&quot;: {
+      &quot;type&quot;: &quot;rosomaxa&quot;,
+      &quot;selectionSize&quot;: 12,
+      &quot;maxEliteSize&quot;: 2,
+      &quot;maxNodeSize&quot;: 2,
+      &quot;spreadFactor&quot;: 0.25,
+      &quot;reductionFactor&quot;: 0.1,
+      &quot;distributionFactor&quot;: 0.25,
+      &quot;learningRate&quot;: 0.1,
+      &quot;rebalanceMemory&quot;: 500,
+      &quot;rebalanceCount&quot;: 10,
+      &quot;explorationRatio&quot;: 0.9
+    }
   },
   &quot;mutation&quot;: {
-    &quot;name&quot;: &quot;default-composite&quot;,
-    &quot;collection&quot;: [
+    &quot;type&quot;: &quot;composite&quot;,
+    &quot;probability&quot;: 1,
+    &quot;inners&quot;: [
+      {
+        &quot;type&quot;: &quot;local-search&quot;,
+        &quot;probability&quot;: 0.05,
+        &quot;times&quot;: {
+          &quot;min&quot;: 1,
+          &quot;max&quot;: 2
+        },
+        &quot;operators&quot;: [
+          {
+            &quot;weight&quot;: 100,
+            &quot;type&quot;: &quot;inter-route-best&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;inter-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;intra-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;push-route-departure&quot;,
+            &quot;offset&quot;: 0.1
+          }
+        ]
+      },
       {
         &quot;type&quot;: &quot;ruin-recreate&quot;,
-        &quot;name&quot;: &quot;default-ruin-recreate&quot;,
-        &quot;locals&quot;: {
-          &quot;pre_ruin&quot;: {
-            &quot;probability&quot;: 0.05,
-            &quot;times&quot;: {
-              &quot;min&quot;: 1,
-              &quot;max&quot;: 2
-            },
-            &quot;operators&quot;: [
-              {
-                &quot;weight&quot;: 100,
-                &quot;type&quot;: &quot;inter-route-best&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;inter-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;intra-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              }
-            ]
-          },
-          &quot;post_recreate&quot;: {
-            &quot;probability&quot;: 0.01,
-            &quot;times&quot;: {
-              &quot;min&quot;: 1,
-              &quot;max&quot;: 2
-            },
-            &quot;operators&quot;: [
-              {
-                &quot;weight&quot;: 100,
-                &quot;type&quot;: &quot;inter-route-best&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;inter-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 0.1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              },
-              {
-                &quot;weight&quot;: 30,
-                &quot;type&quot;: &quot;intra-route-random&quot;,
-                &quot;noise&quot;: {
-                  &quot;probability&quot;: 1,
-                  &quot;min&quot;: 0.9,
-                  &quot;max&quot;: 1.1
-                }
-              }
-            ]
-          }
-        },
+        &quot;probability&quot;: 1,
         &quot;ruins&quot;: [
           {
             &quot;weight&quot;: 100,
@@ -3468,6 +3452,10 @@ solution, are required:</p>
             &quot;end&quot;: 3
           },
           {
+            &quot;weight&quot;: 20,
+            &quot;type&quot;: &quot;cheapest&quot;
+          },
+          {
             &quot;weight&quot;: 10,
             &quot;type&quot;: &quot;perturbation&quot;,
             &quot;probability&quot;: 0.33,
@@ -3491,23 +3479,59 @@ solution, are required:</p>
           },
           {
             &quot;weight&quot;: 2,
+            &quot;type&quot;: &quot;farthest&quot;
+          },
+          {
+            &quot;weight&quot;: 2,
             &quot;type&quot;: &quot;skip-best&quot;,
             &quot;start&quot;: 4,
             &quot;end&quot;: 8
           },
           {
-            &quot;weight&quot;: 2,
+            &quot;weight&quot;: 1,
             &quot;type&quot;: &quot;nearest&quot;
           }
         ]
       },
       {
-        &quot;type&quot;: &quot;composite&quot;,
-        &quot;name&quot;: &quot;default-composite&quot;,
-        &quot;inners&quot;: [
+        &quot;type&quot;: &quot;local-search&quot;,
+        &quot;probability&quot;: 0.01,
+        &quot;times&quot;: {
+          &quot;min&quot;: 1,
+          &quot;max&quot;: 2
+        },
+        &quot;operators&quot;: [
           {
-            &quot;name&quot;: &quot;default-ruin-recreate&quot;,
-            &quot;weight&quot;: 1
+            &quot;weight&quot;: 100,
+            &quot;type&quot;: &quot;inter-route-best&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;inter-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 0.1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 30,
+            &quot;type&quot;: &quot;intra-route-random&quot;,
+            &quot;noise&quot;: {
+              &quot;probability&quot;: 1,
+              &quot;min&quot;: 0.9,
+              &quot;max&quot;: 1.1
+            }
+          },
+          {
+            &quot;weight&quot;: 5,
+            &quot;type&quot;: &quot;push-route-departure&quot;,
+            &quot;offset&quot;: 0.1
           }
         ]
       }
@@ -3525,7 +3549,8 @@ solution, are required:</p>
     &quot;logging&quot;: {
       &quot;enabled&quot;: true,
       &quot;logBest&quot;: 100,
-      &quot;logPopulation&quot;: 1000
+      &quot;logPopulation&quot;: 1000,
+      &quot;dumpPopulation&quot;: false
     },
     &quot;metrics&quot;: {
       &quot;enabled&quot;: false,
@@ -4568,17 +4593,17 @@ to the solver:</p>
 </li>
 <li><strong>stops</strong>: list of stops. See stop structure below</li>
 <li><strong>statistic</strong>: statistic of the tour.
-<pre><code class="language-json">      &quot;statistic&quot;: {
-    &quot;cost&quot;: 35.214662000000004,
-    &quot;distance&quot;: 11357,
-    &quot;duration&quot;: 2277,
+<pre><code class="language-json">        }
+  ],
+  &quot;statistic&quot;: {
+    &quot;cost&quot;: 41.504842000000004,
+    &quot;distance&quot;: 13251,
+    &quot;duration&quot;: 3507,
     &quot;times&quot;: {
-      &quot;driving&quot;: 1137,
+      &quot;driving&quot;: 2367,
       &quot;serving&quot;: 1140,
       &quot;waiting&quot;: 0,
       &quot;break&quot;: 0
-    }
-  }
 </code></pre>
 </li>
 </ul>
@@ -4610,7 +4635,7 @@ See activity structure below.</li>
           },
           &quot;time&quot;: {
             &quot;arrival&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:57:05Z&quot;
+            &quot;departure&quot;: &quot;2019-07-04T09:51:29Z&quot;
           },
           &quot;distance&quot;: 0,
           &quot;load&quot;: [
@@ -4631,26 +4656,14 @@ See activity structure below.</li>
             &quot;lng&quot;: 13.4095
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:23:40Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T10:22:26Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T10:31:26Z&quot;
           },
-          &quot;distance&quot;: 7543,
+          &quot;distance&quot;: 8952,
           &quot;load&quot;: [
             2
           ],
           &quot;activities&quot;: [
-            {
-              &quot;jobId&quot;: &quot;job3&quot;,
-              &quot;type&quot;: &quot;pickup&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5225,
-                &quot;lng&quot;: 13.4095
-              },
-              &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:19:40Z&quot;
-              }
-            },
             {
               &quot;jobId&quot;: &quot;job2&quot;,
               &quot;type&quot;: &quot;pickup&quot;,
@@ -4659,12 +4672,24 @@ See activity structure below.</li>
                 &quot;lng&quot;: 13.4095
               },
               &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:19:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:23:40Z&quot;
+                &quot;start&quot;: &quot;2019-07-04T10:22:26Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:26:26Z&quot;
               }
+            },
+            {
+              &quot;jobId&quot;: &quot;job3&quot;,
+              &quot;type&quot;: &quot;pickup&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5225,
+                &quot;lng&quot;: 13.4095
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2019-07-04T10:26:26Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:31:26Z&quot;
+              },
+              &quot;jobTag&quot;: &quot;p1&quot;
             }
           ]
-        },
 </code></pre>
 <h1><a class="header" href="#statistic" id="statistic">Statistic</a></h1>
 <p>A statistic entity represents total statistic for the whole solution or one tour. It has the following structure:</p>
@@ -4683,11 +4708,11 @@ See activity structure below.</li>
 </ul>
 <p>A solution statistic example:</p>
 <pre><code class="language-json">  &quot;statistic&quot;: {
-   &quot;cost&quot;: 35.214662000000004,
-   &quot;distance&quot;: 11357,
-   &quot;duration&quot;: 2277,
+   &quot;cost&quot;: 41.504842000000004,
+   &quot;distance&quot;: 13251,
+   &quot;duration&quot;: 3507,
    &quot;times&quot;: {
-     &quot;driving&quot;: 1137,
+     &quot;driving&quot;: 2367,
      &quot;serving&quot;: 1140,
      &quot;waiting&quot;: 0,
      &quot;break&quot;: 0
@@ -4700,7 +4725,7 @@ See activity structure below.</li>
       &quot;jobId&quot;: &quot;job2&quot;,
       &quot;reasons&quot;: [
         {
-          &quot;code&quot;: 100,
+          &quot;code&quot;: &quot;REACHABLE_CONSTRAINT&quot;,
           &quot;description&quot;: &quot;location unreachable&quot;
         }
       ]
@@ -4710,18 +4735,19 @@ See activity structure below.</li>
 <p>Each item in this list has job id, reason code and description.</p>
 <h2><a class="header" href="#reasons-of-unassigned-jobs" id="reasons-of-unassigned-jobs">Reasons of unassigned jobs</a></h2>
 <table><thead><tr><th>code</th><th>description</th><th>possible action</th></tr></thead><tbody>
-<tr><td>0</td><td><code>unknown</code></td><td>-</td></tr>
-<tr><td>1</td><td><code>cannot serve required skill</code></td><td>allocate more vehicles with given skill?</td></tr>
-<tr><td>2</td><td><code>cannot be visited within time window</code></td><td>allocate more vehicles, relax time windows, etc.?</td></tr>
-<tr><td>3</td><td><code>does not fit into any vehicle due to capacity</code></td><td>allocate more vehicles?</td></tr>
-<tr><td>100</td><td><code>location unreachable</code></td><td>change job location to routable place?</td></tr>
-<tr><td>101</td><td><code>cannot be assigned due to max distance constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
-<tr><td>102</td><td><code>cannot be assigned due to shift time constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
-<tr><td>103</td><td><code>break is not assignable</code></td><td>correct break location or/and time window?</td></tr>
-<tr><td>104</td><td><code>cannot be served due to relation lock</code></td><td>review relations?</td></tr>
-<tr><td>105</td><td><code>cannot be served due to priority</code></td><td>allocate more vehicles, relax priorities?</td></tr>
-<tr><td>106</td><td><code>cannot be assigned due to area constraint</code></td><td>make sure that jobs inside allowed areas</td></tr>
-<tr><td>107</td><td><code>cannot be assigned due to vehicle dispatch</code></td><td>make sure that vehicle dispatch definition is correct</td></tr>
+<tr><td>NO_REASON_FOUND</td><td><code>unknown</code></td><td></td></tr>
+<tr><td>SKILL_CONSTRAINT</td><td><code>cannot serve required skill</code></td><td>allocate more vehicles with given skill?</td></tr>
+<tr><td>TIME_WINDOW_CONSTRAINT</td><td><code>cannot be visited within time window</code></td><td>allocate more vehicles, relax time windows, etc.?</td></tr>
+<tr><td>CAPACITY_CONSTRAINT</td><td><code>does not fit into any vehicle due to capacity</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>REACHABLE_CONSTRAINT</td><td><code>location unreachable</code></td><td>change job location to routable place?</td></tr>
+<tr><td>MAX_DISTANCE_CONSTRAINT</td><td><code>cannot be assigned due to max distance constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>SHIFT_TIME_CONSTRAINT</td><td><code>cannot be assigned due to shift time constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>BREAK_CONSTRAINT</td><td><code>break is not assignable</code></td><td>correct break location or/and time window?</td></tr>
+<tr><td>LOCKING_CONSTRAINT</td><td><code>cannot be served due to relation lock</code></td><td>review relations?</td></tr>
+<tr><td>PRIORITY_CONSTRAINT</td><td><code>cannot be served due to priority</code></td><td>allocate more vehicles, relax priorities?</td></tr>
+<tr><td>AREA_CONSTRAINT</td><td><code>cannot be assigned due to area constraint</code></td><td>make sure that jobs inside allowed areas</td></tr>
+<tr><td>DISPATCH_CONSTRAINT</td><td><code>cannot be assigned due to vehicle dispatch</code></td><td>make sure that vehicle dispatch definition is correct</td></tr>
+<tr><td>TOUR_SIZE_CONSTRAINT</td><td><code>cannot be assigned due to tour size constraint of vehicle</code></td><td>make sure that there are enough vehicles to serve jobs</td></tr>
 </tbody></table>
 <h2><a class="header" href="#example" id="example">Example</a></h2>
 <p>An example of problem with unassigned jobs can be found <a href="concepts/pragmatic/solution/../../../examples/pragmatic/basics/unassigned.html">here</a>.</p>
@@ -5372,11 +5398,11 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
     <summary>Solution</summary><p>
 <pre><code class="language-json">{
   &quot;statistic&quot;: {
-    &quot;cost&quot;: 35.214662000000004,
-    &quot;distance&quot;: 11357,
-    &quot;duration&quot;: 2277,
+    &quot;cost&quot;: 41.504842000000004,
+    &quot;distance&quot;: 13251,
+    &quot;duration&quot;: 3507,
     &quot;times&quot;: {
-      &quot;driving&quot;: 1137,
+      &quot;driving&quot;: 2367,
       &quot;serving&quot;: 1140,
       &quot;waiting&quot;: 0,
       &quot;break&quot;: 0
@@ -5395,7 +5421,7 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
           },
           &quot;time&quot;: {
             &quot;arrival&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:57:05Z&quot;
+            &quot;departure&quot;: &quot;2019-07-04T09:51:29Z&quot;
           },
           &quot;distance&quot;: 0,
           &quot;load&quot;: [
@@ -5414,10 +5440,10 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
             &quot;lng&quot;: 13.45413
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:04:35Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:09:35Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T10:07:17Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T10:12:17Z&quot;
           },
-          &quot;distance&quot;: 4495,
+          &quot;distance&quot;: 5112,
           &quot;load&quot;: [
             0
           ],
@@ -5434,26 +5460,14 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
             &quot;lng&quot;: 13.4095
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:23:40Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T10:22:26Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T10:31:26Z&quot;
           },
-          &quot;distance&quot;: 7543,
+          &quot;distance&quot;: 8952,
           &quot;load&quot;: [
             2
           ],
           &quot;activities&quot;: [
-            {
-              &quot;jobId&quot;: &quot;job3&quot;,
-              &quot;type&quot;: &quot;pickup&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5225,
-                &quot;lng&quot;: 13.4095
-              },
-              &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:14:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:19:40Z&quot;
-              }
-            },
             {
               &quot;jobId&quot;: &quot;job2&quot;,
               &quot;type&quot;: &quot;pickup&quot;,
@@ -5462,9 +5476,22 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                 &quot;lng&quot;: 13.4095
               },
               &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:19:40Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:23:40Z&quot;
+                &quot;start&quot;: &quot;2019-07-04T10:22:26Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:26:26Z&quot;
               }
+            },
+            {
+              &quot;jobId&quot;: &quot;job3&quot;,
+              &quot;type&quot;: &quot;pickup&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5225,
+                &quot;lng&quot;: 13.4095
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2019-07-04T10:26:26Z&quot;,
+                &quot;end&quot;: &quot;2019-07-04T10:31:26Z&quot;
+              },
+              &quot;jobTag&quot;: &quot;p1&quot;
             }
           ]
         },
@@ -5474,17 +5501,18 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
             &quot;lng&quot;: 13.3808
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:27:06Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:32:06Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T10:37:37Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T10:42:37Z&quot;
           },
-          &quot;distance&quot;: 9599,
+          &quot;distance&quot;: 11106,
           &quot;load&quot;: [
             1
           ],
           &quot;activities&quot;: [
             {
               &quot;jobId&quot;: &quot;job3&quot;,
-              &quot;type&quot;: &quot;delivery&quot;
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;jobTag&quot;: &quot;d1&quot;
             }
           ]
         },
@@ -5494,10 +5522,10 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
             &quot;lng&quot;: 13.3884
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:35:02Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:35:02Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T10:49:56Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T10:49:56Z&quot;
           },
-          &quot;distance&quot;: 11357,
+          &quot;distance&quot;: 13251,
           &quot;load&quot;: [
             0
           ],
@@ -5510,19 +5538,18 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
         }
       ],
       &quot;statistic&quot;: {
-        &quot;cost&quot;: 35.214662000000004,
-        &quot;distance&quot;: 11357,
-        &quot;duration&quot;: 2277,
+        &quot;cost&quot;: 41.504842000000004,
+        &quot;distance&quot;: 13251,
+        &quot;duration&quot;: 3507,
         &quot;times&quot;: {
-          &quot;driving&quot;: 1137,
+          &quot;driving&quot;: 2367,
           &quot;serving&quot;: 1140,
           &quot;waiting&quot;: 0,
           &quot;break&quot;: 0
         }
       }
     }
-  ],
-  &quot;unassigned&quot;: []
+  ]
 }
 </code></pre>
 </p></details>
@@ -10378,7 +10405,7 @@ for locking specific jobs to specific vehicles.</p>
       &quot;jobId&quot;: &quot;job2&quot;,
       &quot;reasons&quot;: [
         {
-          &quot;code&quot;: 100,
+          &quot;code&quot;: &quot;REACHABLE_CONSTRAINT&quot;,
           &quot;description&quot;: &quot;location unreachable&quot;
         }
       ]
