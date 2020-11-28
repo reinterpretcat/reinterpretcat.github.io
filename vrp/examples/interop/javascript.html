@@ -165,63 +165,142 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
 &lt;/head&gt;
 &lt;body&gt;
 &lt;script type=&quot;module&quot;&gt;
-    import init, { get_routing_locations, convert_to_pragmatic, solve_pragmatic } from './pkg/vrp_cli.js';
+    import init, { get_routing_locations, solve_pragmatic } from './pkg/vrp_cli.js';
 
     async function run() {
         await init();
 
-        const pragmatic_problem_str = convert_to_pragmatic(
-            // another supported json format type
-            // NOTE you can use simple csv format too
-            'hre',
-            // array of strings
-            [`
+        const pragmatic_problem = JSON.parse(`
 {
   &quot;plan&quot;: {
     &quot;jobs&quot;: [
       {
-        &quot;id&quot;: &quot;job&quot;,
-        &quot;places&quot;: {
-          &quot;delivery&quot;: {
-            &quot;location&quot;: {
-              &quot;lat&quot;: 52.52599,
-              &quot;lng&quot;: 13.45413
-            },
-            &quot;duration&quot;: 300
+        &quot;id&quot;: &quot;job1&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.52599,
+                  &quot;lng&quot;: 13.45413
+                },
+                &quot;duration&quot;: 300.0,
+                &quot;times&quot;: [
+                  [
+                    &quot;2019-07-04T09:00:00Z&quot;,
+                    &quot;2019-07-04T18:00:00Z&quot;
+                  ],
+                  [
+                    &quot;2019-07-05T09:00:00Z&quot;,
+                    &quot;2019-07-05T18:00:00Z&quot;
+                  ]
+                ]
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
           }
-        },
-        &quot;demand&quot;: [1]
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job2&quot;,
+        &quot;pickups&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5225,
+                  &quot;lng&quot;: 13.4095
+                },
+                &quot;duration&quot;: 240.0,
+                &quot;times&quot;: [
+                  [
+                    &quot;2019-07-04T10:00:00Z&quot;,
+                    &quot;2019-07-04T16:00:00Z&quot;
+                  ]
+                ]
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job3&quot;,
+        &quot;pickups&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5225,
+                  &quot;lng&quot;: 13.4095
+                },
+                &quot;duration&quot;: 300.0
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ],
+            &quot;tag&quot;: &quot;p1&quot;
+          }
+        ],
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5165,
+                  &quot;lng&quot;: 13.3808
+                },
+                &quot;duration&quot;: 300.0
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ],
+            &quot;tag&quot;: &quot;d1&quot;
+          }
+        ]
       }
     ]
   },
   &quot;fleet&quot;: {
-    &quot;types&quot;: [
+    &quot;vehicles&quot;: [
       {
-        &quot;id&quot;: &quot;vehicle&quot;,
+        &quot;typeId&quot;: &quot;vehicle&quot;,
+        &quot;vehicleIds&quot;: [
+          &quot;vehicle_1&quot;
+        ],
         &quot;profile&quot;: &quot;normal_car&quot;,
         &quot;costs&quot;: {
+          &quot;fixed&quot;: 22.0,
           &quot;distance&quot;: 0.0002,
-          &quot;time&quot;: 0.005,
-          &quot;fixed&quot;: 30
+          &quot;time&quot;: 0.004806
         },
-        &quot;shifts&quot;: [{
-          &quot;start&quot;: {
-            &quot;time&quot;: &quot;2020-04-07T00:00:00Z&quot;,
-            &quot;location&quot;: {
-              &quot;lat&quot;: 52.5225,
-              &quot;lng&quot;: 13.4095
-            }
-          },
-          &quot;end&quot;: {
-            &quot;time&quot;: &quot;2020-04-07T08:00:00Z&quot;,
-            &quot;location&quot;: {
-              &quot;lat&quot;: 52.5225,
-              &quot;lng&quot;: 13.4095
+        &quot;shifts&quot;: [
+          {
+            &quot;start&quot;: {
+              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5316,
+                &quot;lng&quot;: 13.3884
+              }
+            },
+            &quot;end&quot;: {
+              &quot;latest&quot;: &quot;2019-07-04T18:00:00Z&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5316,
+                &quot;lng&quot;: 13.3884
+              }
             }
           }
-        }],
-        &quot;capacity&quot;: [2],
-        &quot;amount&quot;: 1
+        ],
+        &quot;capacity&quot;: [
+          10
+        ]
       }
     ],
     &quot;profiles&quot;: [
@@ -231,10 +310,8 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
       }
     ]
   }
-}`]);
-        console.log(`pragmatic problem is:\n ${pragmatic_problem_str}`);
-
-        const pragmatic_problem = JSON.parse(pragmatic_problem_str);
+}
+`);
 
         const locations = get_routing_locations(pragmatic_problem);
         console.log(`routing locations are:\n ${locations}`);
@@ -245,12 +322,16 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
             {
                 &quot;profile&quot;: &quot;normal_car&quot;,
                 &quot;travelTimes&quot;: [
-                    0, 609,
-                    580, 0
+                   0,    609, 981, 906,
+                   813,  0,   371, 590,
+                   1055, 514, 0,   439,
+                   948,  511, 463,   0
                 ],
                 &quot;distances&quot;: [
-                    0, 3840,
-                    3610, 0
+                   0,    3840,  5994,  5333,
+                   4696, 0,     2154,  3226,
+                   5763, 2674,  0,     2145,
+                   5112, 2470,  2152,  0
                 ]
             }
         ];
