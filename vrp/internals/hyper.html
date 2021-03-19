@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Hyper-heuristic - A Vehicle Routing Problem Solver Documentation</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This book describes a Vehicle Routing Problem solver.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../resources/leaflet.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/features.html"><strong aria-hidden="true">1.1.</strong> Features</a></li><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting-started/import.html"><strong aria-hidden="true">1.3.</strong> Defining problem</a></li><li class="chapter-item expanded "><a href="../getting-started/routing.html"><strong aria-hidden="true">1.4.</strong> Acquiring routing info</a></li><li class="chapter-item expanded "><a href="../getting-started/solver.html"><strong aria-hidden="true">1.5.</strong> Running solver</a></li><li class="chapter-item expanded "><a href="../getting-started/analysis.html"><strong aria-hidden="true">1.6.</strong> Analyzing results</a></li><li class="chapter-item expanded "><a href="../getting-started/performance.html"><strong aria-hidden="true">1.7.</strong> Evaluating performance</a></li></ol></li><li class="chapter-item expanded "><a href="../concepts/index.html"><strong aria-hidden="true">2.</strong> Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../concepts/pragmatic/index.html"><strong aria-hidden="true">2.1.</strong> Pragmatic format</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../concepts/pragmatic/problem/index.html"><strong aria-hidden="true">2.1.1.</strong> Modeling a problem</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../concepts/pragmatic/problem/jobs.html"><strong aria-hidden="true">2.1.1.1.</strong> Jobs</a></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/problem/vehicles.html"><strong aria-hidden="true">2.1.1.2.</strong> Vehicles</a></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/problem/relations.html"><strong aria-hidden="true">2.1.1.3.</strong> Relations</a></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/problem/objectives.html"><strong aria-hidden="true">2.1.1.4.</strong> Objectives</a></li></ol></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/routing/index.html"><strong aria-hidden="true">2.1.2.</strong> Routing data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../concepts/pragmatic/routing/format.html"><strong aria-hidden="true">2.1.2.1.</strong> Routing matrix</a></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/routing/profile.html"><strong aria-hidden="true">2.1.2.2.</strong> Profiles</a></li></ol></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/solution/index.html"><strong aria-hidden="true">2.1.3.</strong> Solution model</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../concepts/pragmatic/solution/tour-list.html"><strong aria-hidden="true">2.1.3.1.</strong> Tour list</a></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/solution/statistic.html"><strong aria-hidden="true">2.1.3.2.</strong> Statistic</a></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/solution/unassigned-jobs.html"><strong aria-hidden="true">2.1.3.3.</strong> Unassigned jobs</a></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/solution/violations.html"><strong aria-hidden="true">2.1.3.4.</strong> Violations</a></li></ol></li><li class="chapter-item expanded "><a href="../concepts/pragmatic/errors/index.html"><strong aria-hidden="true">2.1.4.</strong> Error index</a></li></ol></li><li class="chapter-item expanded "><a href="../concepts/scientific/index.html"><strong aria-hidden="true">2.2.</strong> Scientific formats</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../concepts/scientific/solomon.html"><strong aria-hidden="true">2.2.1.</strong> Solomon benchmark</a></li><li class="chapter-item expanded "><a href="../concepts/scientific/lilim.html"><strong aria-hidden="true">2.2.2.</strong> Li&amp;Lim benchmark</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/pragmatic/index.html"><strong aria-hidden="true">3.1.</strong> Pragmatic format</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/index.html"><strong aria-hidden="true">3.1.1.</strong> Basic feature usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/job-types.html"><strong aria-hidden="true">3.1.1.1.</strong> Basic job usage</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/multi-day.html"><strong aria-hidden="true">3.1.1.2.</strong> Multi day plan</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/dispatch.html"><strong aria-hidden="true">3.1.1.3.</strong> Vehicle dispatch</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/break.html"><strong aria-hidden="true">3.1.1.4.</strong> Vehicle break</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/reload.html"><strong aria-hidden="true">3.1.1.5.</strong> Multiple trips</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/relations.html"><strong aria-hidden="true">3.1.1.6.</strong> Relations</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/skills.html"><strong aria-hidden="true">3.1.1.7.</strong> Skills</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/profiles.html"><strong aria-hidden="true">3.1.1.8.</strong> Multiple profiles</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/basics/unassigned.html"><strong aria-hidden="true">3.1.1.9.</strong> Unassigned job</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/pragmatic/objectives/index.html"><strong aria-hidden="true">3.1.2.</strong> Objective usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/pragmatic/objectives/objective-default.html"><strong aria-hidden="true">3.1.2.1.</strong> Default behavior</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/objectives/objective-balance-max-load.html"><strong aria-hidden="true">3.1.2.2.</strong> Balance max load</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/objectives/objective-balance-activities.html"><strong aria-hidden="true">3.1.2.3.</strong> Balance activities</a></li><li class="chapter-item expanded "><a href="../examples/pragmatic/objectives/objective-balance-distance.html"><strong aria-hidden="true">3.1.2.4.</strong> Balance distance</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../examples/interop/index.html"><strong aria-hidden="true">3.2.</strong> Language interop</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/interop/java.html"><strong aria-hidden="true">3.2.1.</strong> Java</a></li><li class="chapter-item expanded "><a href="../examples/interop/kotlin.html"><strong aria-hidden="true">3.2.2.</strong> Kotlin</a></li><li class="chapter-item expanded "><a href="../examples/interop/javascript.html"><strong aria-hidden="true">3.2.3.</strong> Javascript</a></li><li class="chapter-item expanded "><a href="../examples/interop/python.html"><strong aria-hidden="true">3.2.4.</strong> Python</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../internals/index.html"><strong aria-hidden="true">4.</strong> Internals</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../internals/overview.html"><strong aria-hidden="true">4.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../internals/rosomaxa.html"><strong aria-hidden="true">4.2.</strong> Rosomaxa</a></li><li class="chapter-item expanded "><a href="../internals/hyper.html" class="active"><strong aria-hidden="true">4.3.</strong> Hyper-heuristic</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">A Vehicle Routing Problem Solver Documentation</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="hyper-heuristic"><a class="header" href="#hyper-heuristic">Hyper-heuristic</a></h1>
+<p>By default, the solver tries to use the dynamic hyper-heuristic which uses <a href="https://en.wikipedia.org/wiki/Markov_decision_process">Markov Decision Process</a>
+mechanism to choose one of pre-defined meta-heuristics on each solution refinement step.</p>
+<figure><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="424px" preserveAspectRatio="none" style="width:749px;height:424px;" version="1.1" viewBox="0 0 749 424" width="749px" zoomAndPan="magnify"><defs><filter height="300%" id="f1m286l06au3jf" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><ellipse cx="397" cy="18" fill="#000000" filter="url(#f1m286l06au3jf)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="181" x="205.5" y="88"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="205.5" x2="386.5" y1="114.2969" y2="114.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="256.5" y="105.9951">BestKnown</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="161" x="210.5" y="130.4355">best known solution used</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="154" x="422" y="88"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="422" x2="576" y1="114.2969" y2="114.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="52" x="473" y="105.9951">Diverse</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="134" x="427" y="130.4355">diverse solution used</text><polygon fill="#FEFECE" filter="url(#f1m286l06au3jf)" points="304,198.5,316,210.5,304,222.5,292,210.5,304,198.5" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M49.5,198 L49.5,223.1328 A0,0 0 0 0 49.5,223.1328 L256.5,223.1328 A0,0 0 0 0 256.5,223.1328 L256.5,216 L291.76,210.5 L256.5,208 L256.5,208 L246.5,198 L49.5,198 A0,0 0 0 0 49.5,198 " fill="#FBFB77" filter="url(#f1m286l06au3jf)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M246.5,198 L246.5,208 L256.5,208 L246.5,198 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="186" x="55.5" y="215.0669">select one of meta-heuristics</text><polygon fill="#FEFECE" filter="url(#f1m286l06au3jf)" points="483,198.5,495,210.5,483,222.5,471,210.5,483,198.5" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M530.5,198 L530.5,206.5 L495.09,210.5 L530.5,214.5 L530.5,223.1328 A0,0 0 0 0 530.5,223.1328 L737.5,223.1328 A0,0 0 0 0 737.5,223.1328 L737.5,208 L727.5,198 L530.5,198 A0,0 0 0 0 530.5,198 " fill="#FBFB77" filter="url(#f1m286l06au3jf)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M727.5,198 L727.5,208 L737.5,208 L727.5,198 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="186" x="536.5" y="215.0669">select one of meta-heuristics</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="180" x="6" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="6" x2="186" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="160" x="16" y="300.9951">BestMajorImprovement</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="93" x="11" y="325.4355">reward: +1000</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="181" x="221.5" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="221.5" x2="402.5" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="161" x="231.5" y="300.9951">BestMinorImprovement</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="226.5" y="325.4355">reward: +100</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="563.5" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="563.5" x2="726.5" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="143" x="573.5" y="300.9951">DiverseImprovement</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="77" x="568.5" y="325.4355">reward: +10</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="91" x="437.5" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="437.5" x2="528.5" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="447.5" y="300.9951">Stagnated</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="442.5" y="325.4355">reward: -1</text><ellipse cx="397" cy="403" fill="none" filter="url(#f1m286l06au3jf)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="397.5" cy="403.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"/><!--MD5=[ba4656287dda875cf9961fabc34f0d5a]
+link *start to BestKnown--><path d="M390.06,25.39 C377.08,37.34 348.45,63.71 326.16,84.23 " fill="none" id="*start-&gt;BestKnown" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="322.36,87.73,331.694,84.5873,326.0422,84.3475,326.282,78.6957,322.36,87.73" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[f00f3501008a1bc5d02e86bd43ced50d]
+link *start to Diverse--><path d="M404.01,25.39 C417.12,37.34 446.03,63.71 468.54,84.23 " fill="none" id="*start-&gt;Diverse" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="472.38,87.73,468.4199,78.7124,468.6835,84.3631,463.0328,84.6267,472.38,87.73" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[642b491557e2a954b95b94995d38d7ce]
+link BestKnown to m1--><path d="M298.02,138.1 C299.49,155.62 301.43,178.82 302.7,193.95 " fill="none" id="BestKnown-&gt;m1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="303.13,199.13,306.3445,189.8205,302.7018,194.1484,298.3739,190.5056,303.13,199.13" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[05528e425a44ec55339d8c3107156509]
+link Diverse to m2--><path d="M494.96,138.1 C491.99,155.82 488.05,179.34 485.52,194.46 " fill="none" id="Diverse-&gt;m2" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="484.66,199.62,490.0967,191.4077,485.4889,194.6892,482.2075,190.0814,484.66,199.62" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[df6f24df87bbf0444eb2cb2014e6de17]
+link m1 to BestMajorImprovement--><path d="M296.1,215.13 C272.95,225.76 203.74,257.53 153.18,280.75 " fill="none" id="m1-&gt;BestMajorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="148.34,282.97,158.1881,282.85,152.884,280.8838,154.8502,275.5796,148.34,282.97" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[ed698268c0ab8d5225d9e96de795ed43]
+link m1 to BestMinorImprovement--><path d="M304.86,221.72 C305.96,234.92 307.93,258.44 309.52,277.44 " fill="none" id="m1-&gt;BestMinorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="309.96,282.67,313.201,273.3697,309.546,277.6872,305.2285,274.0321,309.96,282.67" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[77143bca659862ae9a33afb28f301dfe]
+link m1 to Stagnated--><path d="M311.24,215.36 C331.5,226.17 390.1,257.43 433.24,280.45 " fill="none" id="m1-&gt;Stagnated" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="437.89,282.93,431.8259,275.1694,433.4766,280.58,428.066,282.2307,437.89,282.93" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[493e2748ef39ac8a1a11af5c9117ab85]
+link m2 to BestMajorImprovement--><path d="M473.82,213.77 C436.05,223.09 290.07,259.11 191.02,283.55 " fill="none" id="m2-&gt;BestMajorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="186.05,284.78,195.7467,286.5046,190.9041,283.5808,193.8279,278.7381,186.05,284.78" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[3414052786975f17d78f1eaaedc1f09e]
+link m2 to BestMinorImprovement--><path d="M475.65,215.6 C455.91,226.63 400.47,257.59 359.56,280.44 " fill="none" id="m2-&gt;BestMinorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="355.15,282.9,364.9565,281.9877,359.5113,280.4548,361.0442,275.0096,355.15,282.9" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[b3e040e00708f3f7223b8c6b9f8bd39f]
+link m2 to DiverseImprovement--><path d="M489.96,215.6 C508.58,226.58 560.76,257.34 599.47,280.16 " fill="none" id="m2-&gt;DiverseImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="604.12,282.9,598.3976,274.8841,599.8125,280.3612,594.3355,281.7761,604.12,282.9" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[99bb4f3eac9947ca2501c95e960b6300]
+link m2 to Stagnated--><path d="M483,222.83 C483,236.29 483,259.25 483,277.79 " fill="none" id="m2-&gt;Stagnated" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="483,282.9,487,273.9,483,277.9,479,273.9,483,282.9" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[3a50b4cfdc025b09a00cc83d2eff6100]
+link BestMajorImprovement to *end--><path d="M173.91,333.07 C245.3,355.13 345.34,386.04 382.43,397.5 " fill="none" id="BestMajorImprovement-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="387.43,399.04,380.003,392.5717,382.6508,397.5706,377.6519,400.2184,387.43,399.04" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[0448552424524cc15fc8465d0ca0abdf]
+link BestMinorImprovement to *end--><path d="M334.33,333.43 C351.45,352.16 374.25,377.11 387.1,391.17 " fill="none" id="BestMinorImprovement-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="390.75,395.16,387.6449,385.8134,387.3824,391.4642,381.7316,391.2016,390.75,395.16" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[e4375ed2ad30ce4bfe6ff3649782363f]
+link DiverseImprovement to *end--><path d="M580.81,333.07 C523.29,354.64 443.18,384.68 411.1,396.71 " fill="none" id="DiverseImprovement-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="406.03,398.61,415.8615,399.1952,410.7116,396.8544,413.0525,391.7046,406.03,398.61" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[3b2ecdc910b46c2db0779ae253c9767c]
+link Stagnated to *end--><path d="M460.4,333.43 C443.09,352.16 420.02,377.11 407.02,391.17 " fill="none" id="Stagnated-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="403.32,395.16,412.37,391.2745,406.7173,391.4915,406.5004,385.8388,403.32,395.16" style="stroke: #A80036; stroke-width: 1.0;"/></g></svg></figure>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../internals/rosomaxa.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../internals/rosomaxa.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../resources/leaflet.js"></script>
+        
+        <script type="text/javascript" src="../resources/map.js"></script>
+        
+
+        
+
+    </body>
+</html>
