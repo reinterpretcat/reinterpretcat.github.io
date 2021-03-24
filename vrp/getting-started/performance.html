@@ -202,13 +202,48 @@ solution, are required:</p>
 <pre><code class="language-json">{
   &quot;evolution&quot;: {
     &quot;initial&quot;: {
-      &quot;size&quot;: 1,
-      &quot;methods&quot;: [
-        {
-          &quot;weight&quot;: 1,
-          &quot;type&quot;: &quot;cheapest&quot;
-        }
-      ]
+      &quot;method&quot;: {
+        &quot;type&quot;: &quot;cheapest&quot;,
+        &quot;weight&quot;: 1
+      },
+      &quot;alternatives&quot;: {
+        &quot;methods&quot;: [
+          {
+            &quot;type&quot;: &quot;skip-best&quot;,
+            &quot;start&quot;: 1,
+            &quot;end&quot;: 2,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;regret&quot;,
+            &quot;start&quot;: 2,
+            &quot;end&quot;: 3,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;blinks&quot;,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;perturbation&quot;,
+            &quot;probability&quot;: 0.33,
+            &quot;min&quot;: 0.8,
+            &quot;max&quot;: 1.2,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;gaps&quot;,
+            &quot;min&quot;: 2,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;farthest&quot;,
+            &quot;weight&quot;: 1
+          }
+        ],
+        &quot;maxSize&quot;: 7,
+        &quot;quota&quot;: 0.05
+      }
     },
     &quot;population&quot;: {
       &quot;type&quot;: &quot;rosomaxa&quot;,

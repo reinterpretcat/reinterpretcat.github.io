@@ -201,6 +201,12 @@ represented as integer in range <code>[1, MAX_INT]</code> where the lower value 
 </code></pre>
 <p>These conditions are tested against vehicle's skills.</p>
 </li>
+<li>
+<p><strong>value</strong> (optional): a value associated with the job. With <code>maximize-value</code> objective, it is used to prioritize assignment
+of specific jobs. The difference between value and priority is that priority related logic tries to assign prioritized
+jobs in the beginning of the tour. In contrast, value related logic tries to maximize total solution value by prioritizing
+assignment value scored jobs in any tour in any position.</p>
+</li>
 </ul>
 <p>A job should have at least one task property specified.</p>
 <h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>

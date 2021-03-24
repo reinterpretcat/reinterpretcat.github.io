@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.9.0
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.9.1
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -3239,13 +3239,48 @@ solution, are required:</p>
 <pre><code class="language-json">{
   &quot;evolution&quot;: {
     &quot;initial&quot;: {
-      &quot;size&quot;: 1,
-      &quot;methods&quot;: [
-        {
-          &quot;weight&quot;: 1,
-          &quot;type&quot;: &quot;cheapest&quot;
-        }
-      ]
+      &quot;method&quot;: {
+        &quot;type&quot;: &quot;cheapest&quot;,
+        &quot;weight&quot;: 1
+      },
+      &quot;alternatives&quot;: {
+        &quot;methods&quot;: [
+          {
+            &quot;type&quot;: &quot;skip-best&quot;,
+            &quot;start&quot;: 1,
+            &quot;end&quot;: 2,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;regret&quot;,
+            &quot;start&quot;: 2,
+            &quot;end&quot;: 3,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;blinks&quot;,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;perturbation&quot;,
+            &quot;probability&quot;: 0.33,
+            &quot;min&quot;: 0.8,
+            &quot;max&quot;: 1.2,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;gaps&quot;,
+            &quot;min&quot;: 2,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;farthest&quot;,
+            &quot;weight&quot;: 1
+          }
+        ],
+        &quot;maxSize&quot;: 7,
+        &quot;quota&quot;: 0.05
+      }
     },
     &quot;population&quot;: {
       &quot;type&quot;: &quot;rosomaxa&quot;,
@@ -3679,6 +3714,12 @@ represented as integer in range <code>[1, MAX_INT]</code> where the lower value 
     }
 </code></pre>
 <p>These conditions are tested against vehicle's skills.</p>
+</li>
+<li>
+<p><strong>value</strong> (optional): a value associated with the job. With <code>maximize-value</code> objective, it is used to prioritize assignment
+of specific jobs. The difference between value and priority is that priority related logic tries to assign prioritized
+jobs in the beginning of the tour. In contrast, value related logic tries to maximize total solution value by prioritizing
+assignment value scored jobs in any tour in any position.</p>
 </li>
 </ul>
 <p>A job should have at least one task property specified.</p>
@@ -4319,6 +4360,11 @@ assignment leads to more jobs unassigned.</li>
 </li>
 <li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
 <li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
+<li><code>maximize-value</code>: maximizes total value of served jobs. It has an optional parameter:
+<ul>
+<li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs.</li>
+</ul>
+</li>
 </ul>
 <h3 id="work-balance-objectives"><a class="header" href="#work-balance-objectives">Work balance objectives</a></h3>
 <p>There are four work balance objectives available:</p>
@@ -4367,6 +4413,31 @@ definition:</p>
 </code></pre>
 <p>Here, cost minimization is a secondary objective which corresponds to a classical hierarchical objective used
 by <code>Solomon</code> benchmark.</p>
+<p>If at least one job has non-zero value associated, then the following objective is used:</p>
+<pre><code class="language-json">  &quot;objectives&quot;: [
+    [
+      {
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
+      }
+    ],
+    [
+      {
+        &quot;type&quot;: &quot;minimize-tours&quot;
+      }
+    ],
+    [
+      {
+        &quot;type&quot;: &quot;maximize-value&quot;,
+        &quot;reductionFactor&quot;: 0.1
+      }
+    ],
+    [
+      {
+        &quot;type&quot;: &quot;minimize-cost&quot;
+      }
+    ]
+  ]
+</code></pre>
 <h2 id="hints"><a class="header" href="#hints">Hints</a></h2>
 <ul>
 <li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to add a threshold to balancing objective:</li>
@@ -4398,6 +4469,7 @@ by <code>Solomon</code> benchmark.</p>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1600">E1600 an empty objective specified</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1601">E1601 duplicate objective specified</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1602">E1602 missing cost objective</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1603">E1603 redundant value objective</a></li>
 </ul>
 <h2 id="examples-3"><a class="header" href="#examples-3">Examples</a></h2>
 <p>Please refer to <a href="concepts/pragmatic/problem/../../../examples/pragmatic/objectives/index.html">examples section</a> to see more examples.</p>
@@ -5188,7 +5260,7 @@ objective is set, e.g.:</p>
 }
 </code></pre>
 <p><code>objectives</code> property is optional, just remove it to fix the problem and use default objectives.</p>
-<h4 id="e1610"><a class="header" href="#e1610">E1610</a></h4>
+<h4 id="e1601"><a class="header" href="#e1601">E1601</a></h4>
 <p><code>duplicate objective specified</code> error is returned when objective of specific type specified more than once:</p>
 <pre><code class="language-json">{
   &quot;objectives&quot;: [
@@ -5209,7 +5281,7 @@ objective is set, e.g.:</p>
 }
 </code></pre>
 <p>To fix this issue, just remove one, e.g. <code>minimize-unassigned</code>.</p>
-<h4 id="e1611"><a class="header" href="#e1611">E1611</a></h4>
+<h4 id="e1602"><a class="header" href="#e1602">E1602</a></h4>
 <p><code>missing cost objective</code> error is returned when no cost objective specified (at the moment, only <code>minimize-cost</code> supported):</p>
 <pre><code class="language-json">{
   &quot;objectives&quot;: [
@@ -5222,6 +5294,10 @@ objective is set, e.g.:</p>
 }
 </code></pre>
 <p>This objective is used to calculate final costs, so it is required to be specified.</p>
+<h4 id="e1603"><a class="header" href="#e1603">E1603</a></h4>
+<p><code>redundant value objective&quot;</code> error is returned when objectives definition is overridden with <code>maximize-value</code>, but
+there is no jobs with non-zero value specified. To fix the issue, specify at least one non-zero valued job or simply
+delete 'maximize-value' objective.</p>
 <h1 id="scientific-formats"><a class="header" href="#scientific-formats">Scientific formats</a></h1>
 <p>The project supports two text formats widely used for benchmarking various a algorithms in scientific papers:</p>
 <ul>

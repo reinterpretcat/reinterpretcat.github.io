@@ -592,7 +592,7 @@ objective is set, e.g.:</p>
 }
 </code></pre>
 <p><code>objectives</code> property is optional, just remove it to fix the problem and use default objectives.</p>
-<h4 id="e1610"><a class="header" href="#e1610">E1610</a></h4>
+<h4 id="e1601"><a class="header" href="#e1601">E1601</a></h4>
 <p><code>duplicate objective specified</code> error is returned when objective of specific type specified more than once:</p>
 <pre><code class="language-json">{
   &quot;objectives&quot;: [
@@ -613,7 +613,7 @@ objective is set, e.g.:</p>
 }
 </code></pre>
 <p>To fix this issue, just remove one, e.g. <code>minimize-unassigned</code>.</p>
-<h4 id="e1611"><a class="header" href="#e1611">E1611</a></h4>
+<h4 id="e1602"><a class="header" href="#e1602">E1602</a></h4>
 <p><code>missing cost objective</code> error is returned when no cost objective specified (at the moment, only <code>minimize-cost</code> supported):</p>
 <pre><code class="language-json">{
   &quot;objectives&quot;: [
@@ -626,6 +626,10 @@ objective is set, e.g.:</p>
 }
 </code></pre>
 <p>This objective is used to calculate final costs, so it is required to be specified.</p>
+<h4 id="e1603"><a class="header" href="#e1603">E1603</a></h4>
+<p><code>redundant value objective&quot;</code> error is returned when objectives definition is overridden with <code>maximize-value</code>, but
+there is no jobs with non-zero value specified. To fix the issue, specify at least one non-zero valued job or simply
+delete 'maximize-value' objective.</p>
 
                     </main>
 
