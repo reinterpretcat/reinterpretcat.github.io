@@ -1134,7 +1134,9 @@
           &quot;vehicle_4&quot;,
           &quot;vehicle_5&quot;
         ],
-        &quot;profile&quot;: &quot;car&quot;,
+        &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;car&quot;
+        },
         &quot;costs&quot;: {
           &quot;fixed&quot;: 20.0,
           &quot;distance&quot;: 0.0002,
@@ -1165,20 +1167,19 @@
     ],
     &quot;profiles&quot;: [
       {
-        &quot;name&quot;: &quot;car&quot;,
-        &quot;type&quot;: &quot;car&quot;
+        &quot;name&quot;: &quot;car&quot;
       }
     ]
   },
   &quot;objectives&quot;: [
     [
       {
-        &quot;type&quot;: &quot;minimize-tours&quot;
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
       }
     ],
     [
       {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
+        &quot;type&quot;: &quot;minimize-tours&quot;
       }
     ],
     [
@@ -3681,12 +3682,12 @@ is total cost minimization:</p>
 <pre><code class="language-json">  &quot;objectives&quot;: [
     [
       {
-        &quot;type&quot;: &quot;minimize-tours&quot;
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
       }
     ],
     [
       {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
+        &quot;type&quot;: &quot;minimize-tours&quot;
       }
     ],
     [

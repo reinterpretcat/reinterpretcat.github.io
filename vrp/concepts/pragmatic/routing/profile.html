@@ -165,19 +165,20 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="routing-profiles"><a class="header" href="#routing-profiles">Routing profiles</a></h1>
-<p>In order to solve VRP, you need to specify at least one routing profile.</p>
+                        <h1 id="routing-matrix-profiles"><a class="header" href="#routing-matrix-profiles">Routing matrix profiles</a></h1>
+<p>In order to solve VRP, you need to specify at least one routing matrix profile.</p>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
-<p>Routing profiles are defined in <code>fleet.profiles</code>:</p>
+<p>Routing matrix profiles are defined in <code>fleet.profiles</code>:</p>
 <pre><code class="language-json">    &quot;profiles&quot;: [
       {
-        &quot;name&quot;: &quot;normal_car&quot;,
-        &quot;type&quot;: &quot;car&quot;
+        &quot;name&quot;: &quot;normal_car&quot;
       }
     ]
 </code></pre>
-<p>The <code>name</code> must be unique for each profile and it should referenced by <code>profile</code> property defined on vehicle:</p>
-<pre><code class="language-json">        &quot;profile&quot;: &quot;normal_car&quot;,
+<p>The <code>name</code> must be unique for each matrix profile and it should referenced by <code>profile.matrix</code> property defined on vehicle:</p>
+<pre><code class="language-json">        &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;normal_car&quot;
+        },
 </code></pre>
 <p>Use <code>-m</code> option to pass the matrix:</p>
 <pre><code>vrp-cli solve pragmatic problem.json -m routing_matrix.json -o solution.json

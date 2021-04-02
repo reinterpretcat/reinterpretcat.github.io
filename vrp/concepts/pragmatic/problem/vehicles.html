@@ -180,9 +180,16 @@
         ],
 </code></pre>
 <ul>
-<li><strong>profile</strong> (required): a name of routing profile</li>
+<li><strong>profile</strong> (required): a vehicle profile which is defined by two properties:
+<ul>
+<li><strong>matrix</strong> (required) : a name of matrix profile</li>
+<li><strong>scale</strong> (optional): duration scale applied to all travelling times (default is 1.0)</li>
 </ul>
-<pre><code class="language-json">        &quot;profile&quot;: &quot;normal_car&quot;,
+</li>
+</ul>
+<pre><code class="language-json">        &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;normal_car&quot;
+        },
 </code></pre>
 <ul>
 <li>
@@ -242,7 +249,9 @@ No area restrictions when omitted.</li>
         &quot;vehicleIds&quot;: [
           &quot;vehicle_1&quot;
         ],
-        &quot;profile&quot;: &quot;normal_car&quot;,
+        &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;normal_car&quot;
+        },
         &quot;costs&quot;: {
           &quot;fixed&quot;: 22.0,
           &quot;distance&quot;: 0.0002,
@@ -268,12 +277,11 @@ No area restrictions when omitted.</li>
         ],
         &quot;capacity&quot;: [
           10
-        ]
-      }
 </code></pre>
 <h2 id="shift"><a class="header" href="#shift">Shift</a></h2>
 <p>Essentially, shift specifies vehicle constraints such as time, start/end locations, etc.:</p>
-<pre><code class="language-json">          {
+<pre><code class="language-json">        &quot;shifts&quot;: [
+          {
             &quot;start&quot;: {
               &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
               &quot;location&quot;: {
@@ -289,6 +297,7 @@ No area restrictions when omitted.</li>
               }
             }
           }
+        ],
 </code></pre>
 <p>At least one shift has to be specified. More than one vehicle shift with different times means that this vehicle can be
 used more than once. This is useful for multi day scenarios. An example can be found <a href="../../../examples/pragmatic/basics/multi-day.html">here</a>.</p>

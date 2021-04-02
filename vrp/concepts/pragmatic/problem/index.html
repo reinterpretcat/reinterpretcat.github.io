@@ -209,9 +209,7 @@ type based on accumulated demand value. Total demand should not exceed capacity 
 </code></pre>
 <p>Time windows are strict: if no vehicle can visit a job in given time ranges, then the job is considered as unassigned. </p>
 <p>Vehicle time is limited per each shift and has required start optional end time:</p>
-<pre><code class="language-json">        &quot;shifts&quot;: [
-          {
-            &quot;start&quot;: {
+<pre><code class="language-json">            &quot;start&quot;: {
               &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
               &quot;location&quot;: {
                 &quot;lat&quot;: 52.5316,

@@ -527,7 +527,9 @@ following rules:</p>
   &quot;vehicleIds&quot;: [
     &quot;vehicle_1&quot;,
   ],
-  &quot;profile&quot;: &quot;car&quot;,
+          &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;car&quot;
+        },
   &quot;costs&quot;: {
     &quot;fixed&quot;: 20.0,
     /** Error: distance and time are zero **/
@@ -579,9 +581,9 @@ area limit on <code>fleet.vehicles.limits.allowedAreas</code>.</p>
 </ul>
 <p>Check locations in problem definition and matrix size.</p>
 <h4 id="e1506"><a class="header" href="#e1506">E1506</a></h4>
-<p><code>unknown vehicle profile name</code> is returned when vehicle has <code>fleet.vehicles.profile</code> name with value which is not
-specified in <code>fleet.profiles</code> collection. To fix issue, either change value to one specified or add a corresponding
-profile in profiles collection.</p>
+<p><code>unknown matrix profile name in vehicle profile</code> is returned when vehicle has <code>fleet.vehicles.profile.matrix</code>  with value
+which is not specified in <code>fleet.profiles</code> collection. To fix issue, either change value to one specified or add a
+corresponding profile in profiles collection.</p>
 <h3 id="e16xx-objectives"><a class="header" href="#e16xx-objectives">E16xx: Objectives</a></h3>
 <p>These errors are related to <code>objectives</code> property definition.</p>
 <h4 id="e1600"><a class="header" href="#e1600">E1600</a></h4>

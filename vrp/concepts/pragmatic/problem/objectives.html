@@ -180,6 +180,8 @@ split into two groups.</p>
 <p>This objectives targeting for some scalar characteristic of solution:</p>
 <ul>
 <li><code>minimize-cost</code>: minimizes total transport cost calculated for all routes</li>
+<li><code>minimize-distance</code>: minimizes total distance of all routes</li>
+<li><code>minimize-duration</code>: minimizes total duration of all routes</li>
 <li><code>minimize-unassigned</code>: minimizes amount of unassigned jobs. Although, solver tries to minimize amount of
 unassigned jobs all the time, it is possible that solution, discovered during refinement, has more unassigned jobs than
 previously accepted. The reason of that can be conflicting objective (e.g. minimize tours) and restrictive
@@ -217,13 +219,12 @@ minimization and any of work balance.</p>
 <pre><code class="language-json">      {
         &quot;type&quot;: &quot;balance-max-load&quot;,
         &quot;options&quot;: {
-          &quot;tolerance&quot;: 0.05,
           &quot;threshold&quot;: 0.01
         }
       }
 </code></pre>
 <h2 id="default-behaviour"><a class="header" href="#default-behaviour">Default behaviour</a></h2>
-<p>By default, decision maker minimizes amount of routes, unassigned jobs and total cost which is equal to the following
+<p>By default, decision maker minimizes amount of unassigned jobs, routes and then total cost. This is equal to the following
 definition:</p>
 <pre><code class="language-json">  &quot;objectives&quot;: [
     [
