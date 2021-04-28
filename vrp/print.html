@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.10.1
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.10.2
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -1887,12 +1887,13 @@ are three types which can be used simultaneously:</p>
 <p>Generation is one refinement step and it can be limited via <em>max-generations</em> parameter:</p>
 <pre><code>vrp-cli solve pragmatic problem.json --max-generations=1000
 </code></pre>
-<h4 id="cost-variation"><a class="header" href="#cost-variation">Cost variation</a></h4>
-<p>Cost variation stops refinement process when cost does not significantly change:</p>
-<pre><code>vrp-cli solve pragmatic problem.json --cost-variation=200,0.1
+<h4 id="coefficient-of-variation"><a class="header" href="#coefficient-of-variation">Coefficient of variation</a></h4>
+<p>This criteria calculates <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> for each
+objective over specific amount of generations specified by <code>sample</code> and stops algorithm when all calculated values are
+below specified <code>threshold</code>. It can be defined by <code>min-cv</code> parameter:</p>
+<pre><code>vrp-cli solve pragmatic problem.json --min-cv=200,0.1
 </code></pre>
-<p>It calculates <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> of cost change over
-specific amount of generations specified by <code>sample</code> and stops algorithm when it is below specified <code>threshold</code>.</p>
+<p>Here, the first parameter is generation amount, the second - threshold.</p>
 <h4 id="default-behavior"><a class="header" href="#default-behavior">Default behavior</a></h4>
 <p>Default termination criteria is max 3000 generations and 300 seconds at max.</p>
 <h3 id="initial-solution"><a class="header" href="#initial-solution">Initial solution</a></h3>
