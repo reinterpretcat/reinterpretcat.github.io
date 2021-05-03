@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.10.2
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.10.3
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -1891,9 +1891,10 @@ are three types which can be used simultaneously:</p>
 <p>This criteria calculates <a href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> for each
 objective over specific amount of generations specified by <code>sample</code> and stops algorithm when all calculated values are
 below specified <code>threshold</code>. It can be defined by <code>min-cv</code> parameter:</p>
-<pre><code>vrp-cli solve pragmatic problem.json --min-cv=200,0.1
+<pre><code>vrp-cli solve pragmatic problem.json --min-cv=200,0.1,true
 </code></pre>
-<p>Here, the first parameter is generation amount, the second - threshold.</p>
+<p>Here, the first parameter is generation amount, the second - threshold, the third - boolean flag whether the logic is
+applicable for all search phases, not only exploitation.</p>
 <h4 id="default-behavior"><a class="header" href="#default-behavior">Default behavior</a></h4>
 <p>Default termination criteria is max 3000 generations and 300 seconds at max.</p>
 <h3 id="initial-solution"><a class="header" href="#initial-solution">Initial solution</a></h3>
@@ -3292,7 +3293,7 @@ solution, are required:</p>
       &quot;spreadFactor&quot;: 0.25,
       &quot;distributionFactor&quot;: 0.25,
       &quot;learningRate&quot;: 0.1,
-      &quot;rebalanceMemory&quot;: 500,
+      &quot;rebalanceMemory&quot;: 100,
       &quot;rebalanceCount&quot;: 2,
       &quot;explorationRatio&quot;: 0.9
     }
@@ -3524,6 +3525,10 @@ solution, are required:</p>
           {
             &quot;weight&quot;: 1,
             &quot;type&quot;: &quot;nearest&quot;
+          },
+          {
+            &quot;weight&quot;: 1,
+            &quot;type&quot;: &quot;skip-random&quot;
           }
         ]
       },
@@ -3573,7 +3578,8 @@ solution, are required:</p>
     &quot;maxGenerations&quot;: 3000,
     &quot;variation&quot;: {
       &quot;sample&quot;: 3000,
-      &quot;cv&quot;: 1
+      &quot;cv&quot;: 1,
+      &quot;isGlobal&quot;: true
     }
   },
   &quot;telemetry&quot;: {
@@ -25949,6 +25955,7 @@ which is a growing variant of a self-organizing map. In <code>rosomaxa</code>, i
 <li>mean of route distances</li>
 <li>mean of route waiting times</li>
 <li>average distance between route medoids</li>
+<li>amount of routes</li>
 </ul>
 </li>
 <li>periodically, the network is compacted and rebalanced to keep search analyzing most prominent local optimums</li>

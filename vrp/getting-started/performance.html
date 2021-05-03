@@ -253,7 +253,7 @@ solution, are required:</p>
       &quot;spreadFactor&quot;: 0.25,
       &quot;distributionFactor&quot;: 0.25,
       &quot;learningRate&quot;: 0.1,
-      &quot;rebalanceMemory&quot;: 500,
+      &quot;rebalanceMemory&quot;: 100,
       &quot;rebalanceCount&quot;: 2,
       &quot;explorationRatio&quot;: 0.9
     }
@@ -485,6 +485,10 @@ solution, are required:</p>
           {
             &quot;weight&quot;: 1,
             &quot;type&quot;: &quot;nearest&quot;
+          },
+          {
+            &quot;weight&quot;: 1,
+            &quot;type&quot;: &quot;skip-random&quot;
           }
         ]
       },
@@ -534,7 +538,8 @@ solution, are required:</p>
     &quot;maxGenerations&quot;: 3000,
     &quot;variation&quot;: {
       &quot;sample&quot;: 3000,
-      &quot;cv&quot;: 1
+      &quot;cv&quot;: 1,
+      &quot;isGlobal&quot;: true
     }
   },
   &quot;telemetry&quot;: {
