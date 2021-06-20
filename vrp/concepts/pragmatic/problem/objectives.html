@@ -199,6 +199,11 @@ assignment leads to more jobs unassigned.</li>
 <li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs.</li>
 </ul>
 </li>
+<li><code>tour-order</code>: controls desired activity order in tours
+<ul>
+<li><code>is_constrained</code>: violating order is not allowed, even if it leads to less assigned jobs (default is false).</li>
+</ul>
+</li>
 </ul>
 <h3 id="work-balance-objectives"><a class="header" href="#work-balance-objectives">Work balance objectives</a></h3>
 <p>There are four work balance objectives available:</p>
@@ -271,6 +276,7 @@ by <code>Solomon</code> benchmark.</p>
     ]
   ]
 </code></pre>
+<p>If order on job task is specified, then it is also added to the list of objectives after <code>minimize-tours</code> objective.</p>
 <h2 id="hints"><a class="header" href="#hints">Hints</a></h2>
 <ul>
 <li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to add a threshold to balancing objective:</li>

@@ -185,11 +185,6 @@ consists of the following properties:</p>
 <p><strong>services</strong> (optional): a list of service tasks</p>
 </li>
 <li>
-<p><strong>order</strong> (optional): a job assignment order which makes preferable to serve some jobs before others in the tour. Order
-is represented as integer in range <code>[1, MAX_INT]</code> where the lower value means higher priority. By default value is set
-to 1. Please note that this is experimental feature and has limited functionality at the moment (can be improved on demand).</p>
-</li>
-<li>
 <p><strong>skills</strong> (optional): job skills defined by <code>allOf</code>, <code>oneOf</code> or <code>noneOf</code> conditions:</p>
 <pre><code class="language-json">        &quot;skills&quot;: {
       &quot;allOf&quot;: [
@@ -204,9 +199,9 @@ to 1. Please note that this is experimental feature and has limited functionalit
 </li>
 <li>
 <p><strong>value</strong> (optional): a value associated with the job. With <code>maximize-value</code> objective, it is used to prioritize assignment
-of specific jobs. The difference between value and order is that order related logic tries to assign jobs with lower
-order in the beginning of the tour. In contrast, value related logic tries to maximize total solution value by prioritizing
-assignment value scored jobs in any position of a tour.
+of specific jobs. The difference between value and order (see in <code>Tasks</code> below) is that order related logic tries to assign
+jobs with lower order in the beginning of the tour. In contrast, value related logic tries to maximize total solution value
+by prioritizing assignment value scored jobs in any position of a tour.
 See <a href="../../../examples/pragmatic/basics/job-priorities.html">job priorities</a> example.</p>
 </li>
 </ul>
@@ -218,6 +213,9 @@ defined. Each task has the following properties:</p>
 <li><strong>places</strong> (required): list of possible places from which only one has to be visited</li>
 <li><strong>demand</strong> (optional/required): a task demand. It is required for all job types, except service</li>
 <li><strong>tag</strong> (optional): a job tag which will be returned within job's activity in result solution</li>
+<li><strong>order</strong> (optional): a job task assignment order which makes preferable to serve some jobs before others in the tour.
+The order property is represented as integer greater than 1, where the lower value means higher priority. By default
+its value is set to maximum.</li>
 </ul>
 <h2 id="places"><a class="header" href="#places">Places</a></h2>
 <p>Each <code>place</code> consists of the following properties:</p>

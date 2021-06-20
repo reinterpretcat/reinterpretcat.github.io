@@ -383,6 +383,10 @@ relations with different vehicle ids:</p>
 <p><code>relation has special job id which is not defined on vehicle shift</code> error is returned when <code>plan.relations</code> has reserved
 job id and corresponding property on <code>fleet.vehicles.shifts</code> is not defined. Reserved ids are <code>break</code>, <code>dispatch</code>, <code>reload</code>
 and <code>arrival</code>.</p>
+<h4 id="e1207"><a class="header" href="#e1207">E1207</a></h4>
+<p><code>some relations have incomplete job definitions</code> error is returned when <code>plan.relations</code> has relation with incomplete
+job definitions: e.g. job has two pickups, but in relation its job id is specified only once. To fix the issue, either
+remove job ids completely or add missing ones.</p>
 <h3 id="e13xx-vehicles"><a class="header" href="#e13xx-vehicles">E13xx: Vehicles</a></h3>
 <p>These errors are related to <code>fleet.vehicles</code> property definition.</p>
 <h4 id="e1300"><a class="header" href="#e1300">E1300</a></h4>
@@ -632,6 +636,13 @@ objective is set, e.g.:</p>
 <p><code>redundant value objective&quot;</code> error is returned when objectives definition is overridden with <code>maximize-value</code>, but
 there is no jobs with non-zero value specified. To fix the issue, specify at least one non-zero valued job or simply
 delete 'maximize-value' objective.</p>
+<h4 id="e1604"><a class="header" href="#e1604">E1604</a></h4>
+<p><code>redundant tour order objective&quot;</code> error is returned when objectives definition is overridden with <code>tour-order</code>, but
+there is no jobs with non-zero order specified. To fix the issue, specify at least one job with non-zero order or simply
+delete 'tour-order' objective.</p>
+<h4 id="e1605"><a class="header" href="#e1605">E1605</a></h4>
+<p><code>value or order of a job should be greater than zero&quot;</code> error is returned when job's order or value is less than 1. To
+fix the issue, make sure that value or order of all jobs are greater than zero.</p>
 
                     </main>
 
