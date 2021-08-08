@@ -234,12 +234,12 @@ definition:</p>
 <pre><code class="language-json">  &quot;objectives&quot;: [
     [
       {
-        &quot;type&quot;: &quot;minimize-tours&quot;
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
       }
     ],
     [
       {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
+        &quot;type&quot;: &quot;minimize-tours&quot;
       }
     ],
     [
@@ -279,13 +279,16 @@ by <code>Solomon</code> benchmark.</p>
 <p>If order on job task is specified, then it is also added to the list of objectives after <code>minimize-tours</code> objective.</p>
 <h2 id="hints"><a class="header" href="#hints">Hints</a></h2>
 <ul>
+<li>pay attention to the order of objectives</li>
 <li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to add a threshold to balancing objective:</li>
 </ul>
 <pre><code class="language-json">&quot;objectives&quot;: [
     [
       {
         &quot;type&quot;: &quot;minimize-unassigned&quot;
-      },
+      }
+    ],
+    [
       {
         &quot;type&quot;: &quot;minimize-tours&quot;
       }

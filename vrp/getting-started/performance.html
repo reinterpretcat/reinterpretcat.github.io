@@ -252,6 +252,7 @@ solution, are required:</p>
       &quot;maxNodeSize&quot;: 2,
       &quot;spreadFactor&quot;: 0.25,
       &quot;distributionFactor&quot;: 0.25,
+      &quot;objectiveReshuffling&quot;: 0.01,
       &quot;learningRate&quot;: 0.1,
       &quot;rebalanceMemory&quot;: 100,
       &quot;rebalanceCount&quot;: 2,
@@ -544,7 +545,7 @@ solution, are required:</p>
     }
   },
   &quot;telemetry&quot;: {
-    &quot;logging&quot;: {
+    &quot;progress&quot;: {
       &quot;enabled&quot;: true,
       &quot;logBest&quot;: 100,
       &quot;logPopulation&quot;: 1000,
@@ -559,7 +560,12 @@ solution, are required:</p>
     &quot;parallelism&quot;: {
       &quot;numThreadPools&quot;: 6,
       &quot;threadsPerPool&quot;: 8
-    }
+    },
+    &quot;logging&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;prefix&quot;: &quot;[config.full]&quot;
+    },
+    &quot;isExperimental&quot;: false
   }
 }
 </code></pre>

@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.10.5
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.0
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -3308,6 +3308,7 @@ solution, are required:</p>
       &quot;maxNodeSize&quot;: 2,
       &quot;spreadFactor&quot;: 0.25,
       &quot;distributionFactor&quot;: 0.25,
+      &quot;objectiveReshuffling&quot;: 0.01,
       &quot;learningRate&quot;: 0.1,
       &quot;rebalanceMemory&quot;: 100,
       &quot;rebalanceCount&quot;: 2,
@@ -3600,7 +3601,7 @@ solution, are required:</p>
     }
   },
   &quot;telemetry&quot;: {
-    &quot;logging&quot;: {
+    &quot;progress&quot;: {
       &quot;enabled&quot;: true,
       &quot;logBest&quot;: 100,
       &quot;logPopulation&quot;: 1000,
@@ -3615,7 +3616,12 @@ solution, are required:</p>
     &quot;parallelism&quot;: {
       &quot;numThreadPools&quot;: 6,
       &quot;threadsPerPool&quot;: 8
-    }
+    },
+    &quot;logging&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;prefix&quot;: &quot;[config.full]&quot;
+    },
+    &quot;isExperimental&quot;: false
   }
 }
 </code></pre>
@@ -4301,8 +4307,8 @@ See examples <a href="concepts/pragmatic/problem/../../../examples/pragmatic/bas
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1303">E1303 invalid break time windows in vehicle shift</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1304">E1304 invalid reload time windows in vehicle shift</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1305">E1305 invalid allowed area definition in vehicle limits</a></li>
-<li><a href="concepts/pragmatic/problem/../errors/index.html#e1306">E1306 invalid dispatch in vehicle shift</a>
-&amp; <a href="concepts/pragmatic/problem/../errors/index.html#e1307">E1307 time and duration costs are zeros</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1306">E1306 invalid dispatch in vehicle shift</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1307">E1307 time and duration costs are zeros</a></li>
 </ul>
 <h1 id="relations"><a class="header" href="#relations">Relations</a></h1>
 <p>Relation is a mechanism to lock jobs to specific vehicles. List of relations is a part of <code>plan</code> schema and each relation
@@ -4433,12 +4439,12 @@ definition:</p>
 <pre><code class="language-json">  &quot;objectives&quot;: [
     [
       {
-        &quot;type&quot;: &quot;minimize-tours&quot;
+        &quot;type&quot;: &quot;minimize-unassigned&quot;
       }
     ],
     [
       {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
+        &quot;type&quot;: &quot;minimize-tours&quot;
       }
     ],
     [
@@ -4478,13 +4484,16 @@ by <code>Solomon</code> benchmark.</p>
 <p>If order on job task is specified, then it is also added to the list of objectives after <code>minimize-tours</code> objective.</p>
 <h2 id="hints"><a class="header" href="#hints">Hints</a></h2>
 <ul>
+<li>pay attention to the order of objectives</li>
 <li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to add a threshold to balancing objective:</li>
 </ul>
 <pre><code class="language-json">&quot;objectives&quot;: [
     [
       {
         &quot;type&quot;: &quot;minimize-unassigned&quot;
-      },
+      }
+    ],
+    [
       {
         &quot;type&quot;: &quot;minimize-tours&quot;
       }
@@ -19253,7 +19262,9 @@ cost is higher than for default objective.</p>
     [
       {
         &quot;type&quot;: &quot;minimize-unassigned&quot;
-      },
+      }
+    ],
+    [
       {
         &quot;type&quot;: &quot;minimize-tours&quot;
       }
@@ -21764,7 +21775,9 @@ cost is higher than for default objective.</p>
     [
       {
         &quot;type&quot;: &quot;minimize-unassigned&quot;
-      },
+      }
+    ],
+    [
       {
         &quot;type&quot;: &quot;minimize-tours&quot;
       }
@@ -25837,7 +25850,7 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
         &quot;vehicleIds&quot;: [
           &quot;vehicle_1&quot;
         ],
-                &quot;profile&quot;: {
+       &quot;profile&quot;: {
           &quot;matrix&quot;: &quot;normal_car&quot;
         },
         &quot;costs&quot;: {
@@ -25884,9 +25897,7 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
         // NOTE or just pass an empty array to use great-circle distance approximation
         const matrix_data= [
             {
-                        &quot;profile&quot;: {
-          &quot;matrix&quot;: &quot;normal_car&quot;
-        },
+                &quot;matrix&quot;: &quot;normal_car&quot;,
                 &quot;travelTimes&quot;: [
                    0,    609, 981, 906,
                    813,  0,   371, 590,
