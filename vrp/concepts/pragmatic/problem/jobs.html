@@ -212,7 +212,6 @@ defined. Each task has the following properties:</p>
 <ul>
 <li><strong>places</strong> (required): list of possible places from which only one has to be visited</li>
 <li><strong>demand</strong> (optional/required): a task demand. It is required for all job types, except service</li>
-<li><strong>tag</strong> (optional): a job tag which will be returned within job's activity in result solution</li>
 <li><strong>order</strong> (optional): a job task assignment order which makes preferable to serve some jobs before others in the tour.
 The order property is represented as integer greater than 1, where the lower value means higher priority. By default
 its value is set to maximum.</li>
@@ -223,6 +222,7 @@ its value is set to maximum.</li>
 <li><strong>location</strong> (required): a place location</li>
 <li><strong>duration</strong> (required): service (operational) time to serve task here</li>
 <li><strong>times</strong> (optional): time windows</li>
+<li><strong>tag</strong> (optional): a job place tag which will be returned within job's activity in result solution.</li>
 </ul>
 <p>Multiple places on single task can help model variable job location, e.g. visit customer at different location
 depending on time of the day.</p>
@@ -303,13 +303,13 @@ where capacity is decreased based on <code>job.deliveries.demand</code> values. 
                   &quot;lat&quot;: 52.5225,
                   &quot;lng&quot;: 13.4095
                 },
-                &quot;duration&quot;: 300.0
+                &quot;duration&quot;: 300.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -320,13 +320,13 @@ where capacity is decreased based on <code>job.deliveries.demand</code> values. 
                   &quot;lat&quot;: 52.5165,
                   &quot;lng&quot;: 13.3808
                 },
-                &quot;duration&quot;: 300.0
+                &quot;duration&quot;: 300.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           }
         ]
       }
@@ -349,13 +349,13 @@ them to one or many <code>job.deliveries.location</code>. The job has the follow
                   &quot;lat&quot;: 52.5622847,
                   &quot;lng&quot;: 13.4023099
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           },
           {
             &quot;places&quot;: [
@@ -364,13 +364,13 @@ them to one or many <code>job.deliveries.location</code>. The job has the follow
                   &quot;lat&quot;: 52.5330881,
                   &quot;lng&quot;: 13.3973059
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p2&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p2&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -381,13 +381,13 @@ them to one or many <code>job.deliveries.location</code>. The job has the follow
                   &quot;lat&quot;: 52.5252832,
                   &quot;lng&quot;: 13.4188422
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               2
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           }
         ]
       },
@@ -405,13 +405,13 @@ places to one single customer&quot;.</p>
                   &quot;lat&quot;: 52.52599,
                   &quot;lng&quot;: 13.45413
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               2
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -422,13 +422,13 @@ places to one single customer&quot;.</p>
                   &quot;lat&quot;: 52.4928,
                   &quot;lng&quot;: 13.4597
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           },
           {
             &quot;places&quot;: [
@@ -437,13 +437,13 @@ places to one single customer&quot;.</p>
                   &quot;lat&quot;: 52.4989,
                   &quot;lng&quot;: 13.3917
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d2&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d2&quot;
+            ]
           }
         ]
       }
@@ -522,13 +522,13 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.5252832,
                   &quot;lng&quot;: 13.4188422
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -539,13 +539,13 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.52599,
                   &quot;lng&quot;: 13.45413
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           }
         ],
         &quot;replacements&quot;: [
@@ -556,13 +556,13 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.4928,
                   &quot;lng&quot;: 13.4597
                 },
-                &quot;duration&quot;: 2400.0
+                &quot;duration&quot;: 2400.0,
+                &quot;tag&quot;: &quot;r1&quot;
               }
             ],
             &quot;demand&quot;: [
               2
-            ],
-            &quot;tag&quot;: &quot;r1&quot;
+            ]
           }
         ],
         &quot;services&quot;: [
@@ -573,17 +573,18 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.4989,
                   &quot;lng&quot;: 13.3917
                 },
-                &quot;duration&quot;: 1800.0
+                &quot;duration&quot;: 1800.0,
+                &quot;tag&quot;: &quot;s1&quot;
               }
-            ],
-            &quot;tag&quot;: &quot;s1&quot;
+            ]
           }
         ]
+      }
 </code></pre>
 <p>Similar pickup and delivery job, all these tasks has to be executed or none of them. The order is not specified except
 pickups must be scheduled before any delivery, replacement or service.</p>
 <p>Hint</p>
-<p>Use <code>tag</code> property on each job task if you want to use initial solution or checker features.</p>
+<p>Use <code>tag</code> property on each job place if you want to use initial solution or checker features.</p>
 <h2 id="related-errors"><a class="header" href="#related-errors">Related errors</a></h2>
 <ul>
 <li><a href="../errors/index.html#e1100">E1100 duplicated job ids</a></li>

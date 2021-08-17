@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.0
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.1
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -3546,6 +3546,10 @@ solution, are required:</p>
           {
             &quot;weight&quot;: 1,
             &quot;type&quot;: &quot;skip-random&quot;
+          },
+          {
+            &quot;weight&quot;: 1,
+            &quot;type&quot;: &quot;slice&quot;
           }
         ]
       },
@@ -3754,7 +3758,6 @@ defined. Each task has the following properties:</p>
 <ul>
 <li><strong>places</strong> (required): list of possible places from which only one has to be visited</li>
 <li><strong>demand</strong> (optional/required): a task demand. It is required for all job types, except service</li>
-<li><strong>tag</strong> (optional): a job tag which will be returned within job's activity in result solution</li>
 <li><strong>order</strong> (optional): a job task assignment order which makes preferable to serve some jobs before others in the tour.
 The order property is represented as integer greater than 1, where the lower value means higher priority. By default
 its value is set to maximum.</li>
@@ -3765,6 +3768,7 @@ its value is set to maximum.</li>
 <li><strong>location</strong> (required): a place location</li>
 <li><strong>duration</strong> (required): service (operational) time to serve task here</li>
 <li><strong>times</strong> (optional): time windows</li>
+<li><strong>tag</strong> (optional): a job place tag which will be returned within job's activity in result solution.</li>
 </ul>
 <p>Multiple places on single task can help model variable job location, e.g. visit customer at different location
 depending on time of the day.</p>
@@ -3845,13 +3849,13 @@ where capacity is decreased based on <code>job.deliveries.demand</code> values. 
                   &quot;lat&quot;: 52.5225,
                   &quot;lng&quot;: 13.4095
                 },
-                &quot;duration&quot;: 300.0
+                &quot;duration&quot;: 300.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -3862,13 +3866,13 @@ where capacity is decreased based on <code>job.deliveries.demand</code> values. 
                   &quot;lat&quot;: 52.5165,
                   &quot;lng&quot;: 13.3808
                 },
-                &quot;duration&quot;: 300.0
+                &quot;duration&quot;: 300.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           }
         ]
       }
@@ -3891,13 +3895,13 @@ them to one or many <code>job.deliveries.location</code>. The job has the follow
                   &quot;lat&quot;: 52.5622847,
                   &quot;lng&quot;: 13.4023099
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           },
           {
             &quot;places&quot;: [
@@ -3906,13 +3910,13 @@ them to one or many <code>job.deliveries.location</code>. The job has the follow
                   &quot;lat&quot;: 52.5330881,
                   &quot;lng&quot;: 13.3973059
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p2&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p2&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -3923,13 +3927,13 @@ them to one or many <code>job.deliveries.location</code>. The job has the follow
                   &quot;lat&quot;: 52.5252832,
                   &quot;lng&quot;: 13.4188422
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               2
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           }
         ]
       },
@@ -3947,13 +3951,13 @@ places to one single customer&quot;.</p>
                   &quot;lat&quot;: 52.52599,
                   &quot;lng&quot;: 13.45413
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               2
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -3964,13 +3968,13 @@ places to one single customer&quot;.</p>
                   &quot;lat&quot;: 52.4928,
                   &quot;lng&quot;: 13.4597
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           },
           {
             &quot;places&quot;: [
@@ -3979,13 +3983,13 @@ places to one single customer&quot;.</p>
                   &quot;lat&quot;: 52.4989,
                   &quot;lng&quot;: 13.3917
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d2&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d2&quot;
+            ]
           }
         ]
       }
@@ -4064,13 +4068,13 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.5252832,
                   &quot;lng&quot;: 13.4188422
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -4081,13 +4085,13 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.52599,
                   &quot;lng&quot;: 13.45413
                 },
-                &quot;duration&quot;: 240.0
+                &quot;duration&quot;: 240.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           }
         ],
         &quot;replacements&quot;: [
@@ -4098,13 +4102,13 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.4928,
                   &quot;lng&quot;: 13.4597
                 },
-                &quot;duration&quot;: 2400.0
+                &quot;duration&quot;: 2400.0,
+                &quot;tag&quot;: &quot;r1&quot;
               }
             ],
             &quot;demand&quot;: [
               2
-            ],
-            &quot;tag&quot;: &quot;r1&quot;
+            ]
           }
         ],
         &quot;services&quot;: [
@@ -4115,17 +4119,18 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
                   &quot;lat&quot;: 52.4989,
                   &quot;lng&quot;: 13.3917
                 },
-                &quot;duration&quot;: 1800.0
+                &quot;duration&quot;: 1800.0,
+                &quot;tag&quot;: &quot;s1&quot;
               }
-            ],
-            &quot;tag&quot;: &quot;s1&quot;
+            ]
           }
         ]
+      }
 </code></pre>
 <p>Similar pickup and delivery job, all these tasks has to be executed or none of them. The order is not specified except
 pickups must be scheduled before any delivery, replacement or service.</p>
 <p>Hint</p>
-<p>Use <code>tag</code> property on each job task if you want to use initial solution or checker features.</p>
+<p>Use <code>tag</code> property on each job place if you want to use initial solution or checker features.</p>
 <h2 id="related-errors"><a class="header" href="#related-errors">Related errors</a></h2>
 <ul>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1100">E1100 duplicated job ids</a></li>
@@ -4252,6 +4257,8 @@ No area restrictions when omitted.</li>
         ],
         &quot;capacity&quot;: [
           10
+        ]
+      }
 </code></pre>
 <h2 id="shift"><a class="header" href="#shift">Shift</a></h2>
 <p>Essentially, shift specifies vehicle constraints such as time, start/end locations, etc.:</p>
@@ -4808,6 +4815,7 @@ See activity structure below.</li>
               &quot;jobTag&quot;: &quot;p1&quot;
             }
           ]
+        },
 </code></pre>
 <h1 id="statistic"><a class="header" href="#statistic">Statistic</a></h1>
 <p>A statistic entity represents total statistic for the whole solution or one tour. It has the following structure:</p>
@@ -5473,13 +5481,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                   &quot;lat&quot;: 52.5225,
                   &quot;lng&quot;: 13.4095
                 },
-                &quot;duration&quot;: 300.0
+                &quot;duration&quot;: 300.0,
+                &quot;tag&quot;: &quot;p1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;p1&quot;
+            ]
           }
         ],
         &quot;deliveries&quot;: [
@@ -5490,13 +5498,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                   &quot;lat&quot;: 52.5165,
                   &quot;lng&quot;: 13.3808
                 },
-                &quot;duration&quot;: 300.0
+                &quot;duration&quot;: 300.0,
+                &quot;tag&quot;: &quot;d1&quot;
               }
             ],
             &quot;demand&quot;: [
               1
-            ],
-            &quot;tag&quot;: &quot;d1&quot;
+            ]
           }
         ]
       }
@@ -5861,13 +5869,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.5622847,
                  &quot;lng&quot;: 13.4023099
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;p1&quot;
              }
            ],
            &quot;demand&quot;: [
              1
-           ],
-           &quot;tag&quot;: &quot;p1&quot;
+           ]
          },
          {
            &quot;places&quot;: [
@@ -5876,13 +5884,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.5330881,
                  &quot;lng&quot;: 13.3973059
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;p2&quot;
              }
            ],
            &quot;demand&quot;: [
              1
-           ],
-           &quot;tag&quot;: &quot;p2&quot;
+           ]
          }
        ],
        &quot;deliveries&quot;: [
@@ -5893,13 +5901,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.5252832,
                  &quot;lng&quot;: 13.4188422
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;d1&quot;
              }
            ],
            &quot;demand&quot;: [
              2
-           ],
-           &quot;tag&quot;: &quot;d1&quot;
+           ]
          }
        ]
      },
@@ -5913,13 +5921,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.52599,
                  &quot;lng&quot;: 13.45413
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;p1&quot;
              }
            ],
            &quot;demand&quot;: [
              2
-           ],
-           &quot;tag&quot;: &quot;p1&quot;
+           ]
          }
        ],
        &quot;deliveries&quot;: [
@@ -5930,13 +5938,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.4928,
                  &quot;lng&quot;: 13.4597
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;d1&quot;
              }
            ],
            &quot;demand&quot;: [
              1
-           ],
-           &quot;tag&quot;: &quot;d1&quot;
+           ]
          },
          {
            &quot;places&quot;: [
@@ -5945,13 +5953,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.4989,
                  &quot;lng&quot;: 13.3917
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;d2&quot;
              }
            ],
            &quot;demand&quot;: [
              1
-           ],
-           &quot;tag&quot;: &quot;d2&quot;
+           ]
          }
        ]
      }
@@ -6276,13 +6284,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.5252832,
                  &quot;lng&quot;: 13.4188422
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;p1&quot;
              }
            ],
            &quot;demand&quot;: [
              1
-           ],
-           &quot;tag&quot;: &quot;p1&quot;
+           ]
          }
        ],
        &quot;deliveries&quot;: [
@@ -6293,13 +6301,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.52599,
                  &quot;lng&quot;: 13.45413
                },
-               &quot;duration&quot;: 240.0
+               &quot;duration&quot;: 240.0,
+               &quot;tag&quot;: &quot;d1&quot;
              }
            ],
            &quot;demand&quot;: [
              1
-           ],
-           &quot;tag&quot;: &quot;d1&quot;
+           ]
          }
        ],
        &quot;replacements&quot;: [
@@ -6310,13 +6318,13 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.4928,
                  &quot;lng&quot;: 13.4597
                },
-               &quot;duration&quot;: 2400.0
+               &quot;duration&quot;: 2400.0,
+               &quot;tag&quot;: &quot;r1&quot;
              }
            ],
            &quot;demand&quot;: [
              2
-           ],
-           &quot;tag&quot;: &quot;r1&quot;
+           ]
          }
        ],
        &quot;services&quot;: [
@@ -6327,10 +6335,10 @@ found in <code>examples</code> folder or copy-pasted from example pages and stor
                  &quot;lat&quot;: 52.4989,
                  &quot;lng&quot;: 13.3917
                },
-               &quot;duration&quot;: 1800.0
+               &quot;duration&quot;: 1800.0,
+               &quot;tag&quot;: &quot;s1&quot;
              }
-           ],
-           &quot;tag&quot;: &quot;s1&quot;
+           ]
          }
        ]
      }
@@ -8125,7 +8133,11 @@ As result, three vehicles are dispatched at different times.</p>
                   &quot;2019-07-04T12:00:00Z&quot;,
                   &quot;2019-07-04T14:00:00Z&quot;
                 ],
-                &quot;duration&quot;: 3600.0
+                &quot;places&quot;: [
+                  {
+                    &quot;duration&quot;: 3600.0
+                  }
+                ]
               }
             ]
           }
