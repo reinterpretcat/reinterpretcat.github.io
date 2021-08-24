@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.1
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.2
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -3750,6 +3750,9 @@ jobs with lower order in the beginning of the tour. In contrast, value related l
 by prioritizing assignment value scored jobs in any position of a tour.
 See <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/job-priorities.html">job priorities</a> example.</p>
 </li>
+<li>
+<p><strong>group</strong> (optional): a group name. Jobs with the same groups are scheduled in the same tour or left unassigned.</p>
+</li>
 </ul>
 <p>A job should have at least one task property specified.</p>
 <h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
@@ -4874,7 +4877,8 @@ See activity structure below.</li>
 | PRIORITY_CONSTRAINT     | <code>cannot be served due to priority</code>                             | allocate more vehicles, relax priorities?               |
 | AREA_CONSTRAINT         | <code>cannot be assigned due to area constraint</code>                    | make sure that jobs inside allowed areas                |
 | DISPATCH_CONSTRAINT     | <code>cannot be assigned due to vehicle dispatch</code>                   | make sure that vehicle dispatch definition is correct   |
-| TOUR_SIZE_CONSTRAINT    | <code>cannot be assigned due to tour size constraint of vehicle</code>    | make sure that there are enough vehicles to serve jobs  |</p>
+| TOUR_SIZE_CONSTRAINT    | <code>cannot be assigned due to tour size constraint of vehicle</code>    | make sure that there are enough vehicles to serve jobs  |
+| GROUP_CONSTRAINT_CODE   | <code>cannot be assigned due to group constraint</code>                   | try to reduce amount of jobs in the group?              |</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <p>An example of problem with unassigned jobs can be found <a href="concepts/pragmatic/solution/../../../examples/pragmatic/basics/unassigned.html">here</a>.</p>
 <h1 id="violations"><a class="header" href="#violations">Violations</a></h1>
