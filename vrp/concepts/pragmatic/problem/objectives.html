@@ -194,9 +194,10 @@ assignment leads to more jobs unassigned.</li>
 </li>
 <li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
 <li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
-<li><code>maximize-value</code>: maximizes total value of served jobs. It has an optional parameter:
+<li><code>maximize-value</code>: maximizes total value of served jobs. It has optional parameters:
 <ul>
-<li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs.</li>
+<li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs</li>
+<li><code>breaks</code>: a value penalty for skipping a break. Default value is 100.</li>
 </ul>
 </li>
 <li><code>tour-order</code>: controls desired activity order in tours

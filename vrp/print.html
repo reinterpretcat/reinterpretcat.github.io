@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.2
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.3
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -4288,26 +4288,40 @@ No area restrictions when omitted.</li>
 used more than once. This is useful for multi day scenarios. An example can be found <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/multi-day.html">here</a>.</p>
 <p>Each shift can have the following properties:</p>
 <ul>
-<li><strong>start</strong> (required) specifies vehicle start place defined via location, earliest (required) and latest (optional) departure time</li>
-<li><strong>end</strong> (optional) specifies vehicle end place defined via location, earliest (reserved) and latest (required) arrival time.
-When omitted, then vehicle ends on last job location</li>
-<li><strong>dispatch</strong> (optional) a list of dispatch places. When specified, shift start location is not considered as depot and
+<li>
+<p><strong>start</strong> (required) specifies vehicle start place defined via location, earliest (required) and latest (optional) departure time</p>
+</li>
+<li>
+<p><strong>end</strong> (optional) specifies vehicle end place defined via location, earliest (reserved) and latest (required) arrival time.
+When omitted, then vehicle ends on last job location</p>
+</li>
+<li>
+<p><strong>dispatch</strong> (optional) a list of dispatch places. When specified, shift start location is not considered as depot and
 vehicle has to navigate first to one of these places to load goods with dispatching constraints.
-Check example <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/dispatch.html">here</a></li>
-<li><strong>breaks</strong> (optional) a list of vehicle breaks. A break is specified by:
+Check example <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/dispatch.html">here</a>.</p>
+</li>
+<li>
+<p><strong>breaks</strong> (optional) a list of vehicle breaks. A break is specified by:</p>
 <ul>
-<li>time window or interval after which a break should happen (e.g. between 3 or 4 hours after start)</li>
-<li>duration of the break</li>
-<li>optional locations. When present, one of locations is used for break. If it is omitted then break is stick to
-location of job served before break.
-Please not that break is soft constraint and can be unassigned in some cases due to other hard constraints, such as
-time windows.
+<li><code>time</code> (required): time window or interval after which a break should happen (e.g. between 3 or 4 hours after start).</li>
+<li><code>places</code>: list of alternative places defined by <code>location</code> (optional), <code>duration</code> (required) and <code>tag</code> (optional).
+If location of a break is omitted then break is stick to location of job served before break.</li>
+<li><code>policy</code> (optional): a break skip policy. Possible values:
+<ul>
+<li><code>skip-if-no-intersection</code>: allows to skip break if actual tour schedule doesn't intersect with vehicle time window (default)</li>
+<li><code>skip-if-arrival-before-end</code>: allows to skip break if vehicle arrives before break's time window end.
+Please note that break is a soft constraint and can be unassigned in some cases due to other hard constraints, such
+as time windows. You can control its unassignment weight using specific property on <code>minimize-unassigned</code> objective.
 See example <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/break.html">here</a></li>
 </ul>
 </li>
-<li><strong>reloads</strong> (optional) a list of vehicle reloads. A reload is a place where vehicle can load new deliveries and unload
+</ul>
+</li>
+<li>
+<p><strong>reloads</strong> (optional) a list of vehicle reloads. A reload is a place where vehicle can load new deliveries and unload
 pickups. It can be used to model multi trip routes.
-See examples <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/reload.html">here</a>.</li>
+See examples <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/reload.html">here</a>.</p>
+</li>
 </ul>
 <h2 id="related-errors-1"><a class="header" href="#related-errors-1">Related errors</a></h2>
 <ul>
@@ -4409,9 +4423,10 @@ assignment leads to more jobs unassigned.</li>
 </li>
 <li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
 <li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
-<li><code>maximize-value</code>: maximizes total value of served jobs. It has an optional parameter:
+<li><code>maximize-value</code>: maximizes total value of served jobs. It has optional parameters:
 <ul>
-<li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs.</li>
+<li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs</li>
+<li><code>breaks</code>: a value penalty for skipping a break. Default value is 100.</li>
 </ul>
 </li>
 <li><code>tour-order</code>: controls desired activity order in tours
