@@ -209,6 +209,20 @@ solution, are required:</p>
       &quot;alternatives&quot;: {
         &quot;methods&quot;: [
           {
+            &quot;type&quot;: &quot;farthest&quot;,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;nearest&quot;,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;gaps&quot;,
+            &quot;min&quot;: 2,
+            &quot;max&quot;: 20,
+            &quot;weight&quot;: 1
+          },
+          {
             &quot;type&quot;: &quot;skip-best&quot;,
             &quot;start&quot;: 1,
             &quot;end&quot;: 2,
@@ -230,18 +244,9 @@ solution, are required:</p>
             &quot;min&quot;: 0.8,
             &quot;max&quot;: 1.2,
             &quot;weight&quot;: 1
-          },
-          {
-            &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2,
-            &quot;weight&quot;: 1
-          },
-          {
-            &quot;type&quot;: &quot;farthest&quot;,
-            &quot;weight&quot;: 1
           }
         ],
-        &quot;maxSize&quot;: 7,
+        &quot;maxSize&quot;: 4,
         &quot;quota&quot;: 0.05
       }
     },
@@ -467,7 +472,8 @@ solution, are required:</p>
           {
             &quot;weight&quot;: 5,
             &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2
+            &quot;min&quot;: 2,
+            &quot;max&quot;: 20
           },
           {
             &quot;weight&quot;: 5,

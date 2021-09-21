@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.3
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.4
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -3265,6 +3265,20 @@ solution, are required:</p>
       &quot;alternatives&quot;: {
         &quot;methods&quot;: [
           {
+            &quot;type&quot;: &quot;farthest&quot;,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;nearest&quot;,
+            &quot;weight&quot;: 1
+          },
+          {
+            &quot;type&quot;: &quot;gaps&quot;,
+            &quot;min&quot;: 2,
+            &quot;max&quot;: 20,
+            &quot;weight&quot;: 1
+          },
+          {
             &quot;type&quot;: &quot;skip-best&quot;,
             &quot;start&quot;: 1,
             &quot;end&quot;: 2,
@@ -3286,18 +3300,9 @@ solution, are required:</p>
             &quot;min&quot;: 0.8,
             &quot;max&quot;: 1.2,
             &quot;weight&quot;: 1
-          },
-          {
-            &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2,
-            &quot;weight&quot;: 1
-          },
-          {
-            &quot;type&quot;: &quot;farthest&quot;,
-            &quot;weight&quot;: 1
           }
         ],
-        &quot;maxSize&quot;: 7,
+        &quot;maxSize&quot;: 4,
         &quot;quota&quot;: 0.05
       }
     },
@@ -3523,7 +3528,8 @@ solution, are required:</p>
           {
             &quot;weight&quot;: 5,
             &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2
+            &quot;min&quot;: 2,
+            &quot;max&quot;: 20
           },
           {
             &quot;weight&quot;: 5,
@@ -14483,7 +14489,7 @@ variant with different objectives.</p>
 }
 </div>
 <div id="map"></div>
-<p>By default, the first objective for the solver is to minimize fleet usage, then amount of unassigned jobs, and the last
+<p>By default, the first objective for the solver is to minimize amount of unassigned jobs, then fleet usage, and the last
 is total cost minimization:</p>
 <pre><code class="language-json">  &quot;objectives&quot;: [
     [
