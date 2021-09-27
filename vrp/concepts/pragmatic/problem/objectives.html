@@ -216,8 +216,9 @@ assignment leads to more jobs unassigned.</li>
 </ul>
 <p>Each objective has optional parameters defined by <code>option</code> property:</p>
 <ul>
-<li><code>threshold</code>: a target coefficient of variation value which specifies desired minimum balancing level. All values below
-threshold are considered equal which helps the search algorithm to optimize conflicting objectives.</li>
+<li><code>threshold</code>: a target coefficient of variation (scale invariant statistical measure of dispersion) value which specifies
+desired minimum balancing level. All values below threshold are considered equal which helps the search algorithm to
+optimize conflicting objectives.</li>
 </ul>
 <p>It is recommended to set both option values to guide the search towards optimum for conflicting objectives, e.g. cost
 minimization and any of work balance.</p>
@@ -313,6 +314,10 @@ by <code>Solomon</code> benchmark.</p>
 <li><a href="../errors/index.html#e1601">E1601 duplicate objective specified</a></li>
 <li><a href="../errors/index.html#e1602">E1602 missing cost objective</a></li>
 <li><a href="../errors/index.html#e1603">E1603 redundant value objective</a></li>
+<li><a href="../errors/index.html#e1604">E1604 redundant tour order objective</a></li>
+<li><a href="../errors/index.html#e1605">E1605 value or order of a job should be greater than zero</a></li>
+<li><a href="../errors/index.html#e1606">E1606 missing tour order objective</a></li>
+<li><a href="../errors/index.html#e1607">E1607 missing value objective</a></li>
 </ul>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <p>Please refer to <a href="../../../examples/pragmatic/objectives/index.html">examples section</a> to see more examples.</p>

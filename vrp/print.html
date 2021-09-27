@@ -1745,7 +1745,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.4
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.11.5
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -4451,8 +4451,9 @@ assignment leads to more jobs unassigned.</li>
 </ul>
 <p>Each objective has optional parameters defined by <code>option</code> property:</p>
 <ul>
-<li><code>threshold</code>: a target coefficient of variation value which specifies desired minimum balancing level. All values below
-threshold are considered equal which helps the search algorithm to optimize conflicting objectives.</li>
+<li><code>threshold</code>: a target coefficient of variation (scale invariant statistical measure of dispersion) value which specifies
+desired minimum balancing level. All values below threshold are considered equal which helps the search algorithm to
+optimize conflicting objectives.</li>
 </ul>
 <p>It is recommended to set both option values to guide the search towards optimum for conflicting objectives, e.g. cost
 minimization and any of work balance.</p>
@@ -4548,6 +4549,10 @@ by <code>Solomon</code> benchmark.</p>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1601">E1601 duplicate objective specified</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1602">E1602 missing cost objective</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1603">E1603 redundant value objective</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1604">E1604 redundant tour order objective</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1605">E1605 value or order of a job should be greater than zero</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1606">E1606 missing tour order objective</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1607">E1607 missing value objective</a></li>
 </ul>
 <h2 id="examples-3"><a class="header" href="#examples-3">Examples</a></h2>
 <p>Please refer to <a href="concepts/pragmatic/problem/../../../examples/pragmatic/objectives/index.html">examples section</a> to see more examples.</p>
@@ -5382,16 +5387,22 @@ objective is set, e.g.:</p>
 </code></pre>
 <p>This objective is used to calculate final costs, so it is required to be specified.</p>
 <h4 id="e1603"><a class="header" href="#e1603">E1603</a></h4>
-<p><code>redundant value objective&quot;</code> error is returned when objectives definition is overridden with <code>maximize-value</code>, but
+<p><code>redundant value objective</code> error is returned when objectives definition is overridden with <code>maximize-value</code>, but
 there is no jobs with non-zero value specified. To fix the issue, specify at least one non-zero valued job or simply
 delete 'maximize-value' objective.</p>
 <h4 id="e1604"><a class="header" href="#e1604">E1604</a></h4>
-<p><code>redundant tour order objective&quot;</code> error is returned when objectives definition is overridden with <code>tour-order</code>, but
+<p><code>redundant tour order objective</code> error is returned when objectives definition is overridden with <code>tour-order</code>, but
 there is no jobs with non-zero order specified. To fix the issue, specify at least one job with non-zero order or simply
 delete 'tour-order' objective.</p>
 <h4 id="e1605"><a class="header" href="#e1605">E1605</a></h4>
-<p><code>value or order of a job should be greater than zero&quot;</code> error is returned when job's order or value is less than 1. To
+<p><code>value or order of a job should be greater than zero</code> error is returned when job's order or value is less than 1. To
 fix the issue, make sure that value or order of all jobs are greater than zero.</p>
+<h4 id="e1606"><a class="header" href="#e1606">E1606</a></h4>
+<p><code>missing tour order objective</code> error is returned when plan has jobs with order set, but user defined objective doesn't
+include the <code>tour-order</code> objective.</p>
+<h4 id="e1607"><a class="header" href="#e1607">E1607</a></h4>
+<p><code>missing value objective</code> error is returned when plan has jobs with value set, but user defined objective doesn't
+include the <code>maximize-value</code> objective.</p>
 <h1 id="scientific-formats"><a class="header" href="#scientific-formats">Scientific formats</a></h1>
 <p>The project supports two text formats widely used for benchmarking various a algorithms in scientific papers:</p>
 <ul>

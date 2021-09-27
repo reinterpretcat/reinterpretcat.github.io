@@ -633,16 +633,22 @@ objective is set, e.g.:</p>
 </code></pre>
 <p>This objective is used to calculate final costs, so it is required to be specified.</p>
 <h4 id="e1603"><a class="header" href="#e1603">E1603</a></h4>
-<p><code>redundant value objective&quot;</code> error is returned when objectives definition is overridden with <code>maximize-value</code>, but
+<p><code>redundant value objective</code> error is returned when objectives definition is overridden with <code>maximize-value</code>, but
 there is no jobs with non-zero value specified. To fix the issue, specify at least one non-zero valued job or simply
 delete 'maximize-value' objective.</p>
 <h4 id="e1604"><a class="header" href="#e1604">E1604</a></h4>
-<p><code>redundant tour order objective&quot;</code> error is returned when objectives definition is overridden with <code>tour-order</code>, but
+<p><code>redundant tour order objective</code> error is returned when objectives definition is overridden with <code>tour-order</code>, but
 there is no jobs with non-zero order specified. To fix the issue, specify at least one job with non-zero order or simply
 delete 'tour-order' objective.</p>
 <h4 id="e1605"><a class="header" href="#e1605">E1605</a></h4>
-<p><code>value or order of a job should be greater than zero&quot;</code> error is returned when job's order or value is less than 1. To
+<p><code>value or order of a job should be greater than zero</code> error is returned when job's order or value is less than 1. To
 fix the issue, make sure that value or order of all jobs are greater than zero.</p>
+<h4 id="e1606"><a class="header" href="#e1606">E1606</a></h4>
+<p><code>missing tour order objective</code> error is returned when plan has jobs with order set, but user defined objective doesn't
+include the <code>tour-order</code> objective.</p>
+<h4 id="e1607"><a class="header" href="#e1607">E1607</a></h4>
+<p><code>missing value objective</code> error is returned when plan has jobs with value set, but user defined objective doesn't
+include the <code>maximize-value</code> objective.</p>
 
                     </main>
 
