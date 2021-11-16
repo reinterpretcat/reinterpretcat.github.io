@@ -1,0 +1,1551 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Vicinity continuation - A Vehicle Routing Problem Solver Documentation</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="This book describes a Vehicle Routing Problem solver.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../../../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../../../favicon.png">
+        
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../../../resources/leaflet.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../../getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../getting-started/features.html"><strong aria-hidden="true">1.1.</strong> Features</a></li><li class="chapter-item expanded "><a href="../../../getting-started/installation.html"><strong aria-hidden="true">1.2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../../../getting-started/import.html"><strong aria-hidden="true">1.3.</strong> Defining problem</a></li><li class="chapter-item expanded "><a href="../../../getting-started/routing.html"><strong aria-hidden="true">1.4.</strong> Acquiring routing info</a></li><li class="chapter-item expanded "><a href="../../../getting-started/solver.html"><strong aria-hidden="true">1.5.</strong> Running solver</a></li><li class="chapter-item expanded "><a href="../../../getting-started/analysis.html"><strong aria-hidden="true">1.6.</strong> Analyzing results</a></li><li class="chapter-item expanded "><a href="../../../getting-started/performance.html"><strong aria-hidden="true">1.7.</strong> Evaluating performance</a></li></ol></li><li class="chapter-item expanded "><a href="../../../concepts/index.html"><strong aria-hidden="true">2.</strong> Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/index.html"><strong aria-hidden="true">2.1.</strong> Pragmatic format</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/index.html"><strong aria-hidden="true">2.1.1.</strong> Modeling a problem</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/jobs.html"><strong aria-hidden="true">2.1.1.1.</strong> Jobs</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/vehicles.html"><strong aria-hidden="true">2.1.1.2.</strong> Vehicles</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/relations.html"><strong aria-hidden="true">2.1.1.3.</strong> Relations</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/clustering.html"><strong aria-hidden="true">2.1.1.4.</strong> Clustering</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/objectives.html"><strong aria-hidden="true">2.1.1.5.</strong> Objectives</a></li></ol></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/routing/index.html"><strong aria-hidden="true">2.1.2.</strong> Routing data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/routing/format.html"><strong aria-hidden="true">2.1.2.1.</strong> Routing matrix</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/routing/profile.html"><strong aria-hidden="true">2.1.2.2.</strong> Profiles</a></li></ol></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/solution/index.html"><strong aria-hidden="true">2.1.3.</strong> Solution model</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/solution/tour-list.html"><strong aria-hidden="true">2.1.3.1.</strong> Tour list</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/solution/statistic.html"><strong aria-hidden="true">2.1.3.2.</strong> Statistic</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/solution/unassigned-jobs.html"><strong aria-hidden="true">2.1.3.3.</strong> Unassigned jobs</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/solution/violations.html"><strong aria-hidden="true">2.1.3.4.</strong> Violations</a></li></ol></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/errors/index.html"><strong aria-hidden="true">2.1.4.</strong> Error index</a></li></ol></li><li class="chapter-item expanded "><a href="../../../concepts/scientific/index.html"><strong aria-hidden="true">2.2.</strong> Scientific formats</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/scientific/solomon.html"><strong aria-hidden="true">2.2.1.</strong> Solomon benchmark</a></li><li class="chapter-item expanded "><a href="../../../concepts/scientific/lilim.html"><strong aria-hidden="true">2.2.2.</strong> Li&amp;Lim benchmark</a></li><li class="chapter-item expanded "><a href="../../../concepts/scientific/tsplib.html"><strong aria-hidden="true">2.2.3.</strong> TSPLIB format</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../examples/index.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../examples/pragmatic/index.html"><strong aria-hidden="true">3.1.</strong> Pragmatic format</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/index.html"><strong aria-hidden="true">3.1.1.</strong> Basic feature usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/job-types.html"><strong aria-hidden="true">3.1.1.1.</strong> Basic job usage</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/job-priorities.html"><strong aria-hidden="true">3.1.1.2.</strong> Job priorities</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/multi-day.html"><strong aria-hidden="true">3.1.1.3.</strong> Multi day plan</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/dispatch.html"><strong aria-hidden="true">3.1.1.4.</strong> Vehicle dispatch</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/break.html"><strong aria-hidden="true">3.1.1.5.</strong> Vehicle break</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/reload.html"><strong aria-hidden="true">3.1.1.6.</strong> Multiple trips</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/relations.html"><strong aria-hidden="true">3.1.1.7.</strong> Relations</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/skills.html"><strong aria-hidden="true">3.1.1.8.</strong> Skills</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/profiles.html"><strong aria-hidden="true">3.1.1.9.</strong> Multiple profiles</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/basics/unassigned.html"><strong aria-hidden="true">3.1.1.10.</strong> Unassigned job</a></li></ol></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/clustering/index.html"><strong aria-hidden="true">3.1.2.</strong> Clustering</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../examples/pragmatic/clustering/vicinity-continue.html" class="active"><strong aria-hidden="true">3.1.2.1.</strong> Vicinity continuation</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/clustering/vicinity-return.html"><strong aria-hidden="true">3.1.2.2.</strong> Vicinity return</a></li></ol></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/objectives/index.html"><strong aria-hidden="true">3.1.3.</strong> Objective usage</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../examples/pragmatic/objectives/objective-default.html"><strong aria-hidden="true">3.1.3.1.</strong> Default behavior</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/objectives/objective-balance-max-load.html"><strong aria-hidden="true">3.1.3.2.</strong> Balance max load</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/objectives/objective-balance-activities.html"><strong aria-hidden="true">3.1.3.3.</strong> Balance activities</a></li><li class="chapter-item expanded "><a href="../../../examples/pragmatic/objectives/objective-balance-distance.html"><strong aria-hidden="true">3.1.3.4.</strong> Balance distance</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../examples/interop/index.html"><strong aria-hidden="true">3.2.</strong> Language interop</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../examples/interop/java.html"><strong aria-hidden="true">3.2.1.</strong> Java</a></li><li class="chapter-item expanded "><a href="../../../examples/interop/kotlin.html"><strong aria-hidden="true">3.2.2.</strong> Kotlin</a></li><li class="chapter-item expanded "><a href="../../../examples/interop/javascript.html"><strong aria-hidden="true">3.2.3.</strong> Javascript</a></li><li class="chapter-item expanded "><a href="../../../examples/interop/python.html"><strong aria-hidden="true">3.2.4.</strong> Python</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../internals/index.html"><strong aria-hidden="true">4.</strong> Internals</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../internals/overview.html"><strong aria-hidden="true">4.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../../../internals/rosomaxa.html"><strong aria-hidden="true">4.2.</strong> Rosomaxa</a></li><li class="chapter-item expanded "><a href="../../../internals/hyper.html"><strong aria-hidden="true">4.3.</strong> Hyper-heuristic</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">A Vehicle Routing Problem Solver Documentation</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="vicinity-clustering-with-job-continuation"><a class="header" href="#vicinity-clustering-with-job-continuation">Vicinity clustering with job continuation</a></h1>
+<p>This examples demonstrates a <code>continue</code> type of visit: jobs are visited one by one with returning to the stop point in
+the end.</p>
+<details>
+    <summary>Problem</summary><p>
+<pre><code class="language-json">{
+  &quot;plan&quot;: {
+    &quot;jobs&quot;: [
+      {
+        &quot;id&quot;: &quot;job1&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5253538,
+                  &quot;lng&quot;: 13.4525549
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job2&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5254256,
+                  &quot;lng&quot;: 13.4527159
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job3&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5255366,
+                  &quot;lng&quot;: 13.4530162
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job4&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5253342,
+                  &quot;lng&quot;: 13.4533489
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job5&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5239243,
+                  &quot;lng&quot;: 13.4545827
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job6&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5223315,
+                  &quot;lng&quot;: 13.4555697
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job7&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5240157,
+                  &quot;lng&quot;: 13.4572220
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job8&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5243028,
+                  &quot;lng&quot;: 13.45952868
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job9&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5241593,
+                  &quot;lng&quot;: 13.4589815
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job10&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5239896,
+                  &quot;lng&quot;: 13.4600115
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job11&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5250209,
+                  &quot;lng&quot;: 13.4567821
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;job12&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 52.5223184,
+                  &quot;lng&quot;: 13.4551942
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      }
+    ],
+    &quot;clustering&quot;: {
+      &quot;type&quot;: &quot;vicinity&quot;,
+      &quot;profile&quot;: {
+        &quot;matrix&quot;: &quot;car&quot;,
+        &quot;scale&quot;: 10
+      },
+      &quot;threshold&quot;: {
+        &quot;duration&quot;: 120,
+        &quot;distance&quot;: 100
+      },
+      &quot;visiting&quot;: &quot;continue&quot;,
+      &quot;serving&quot;: {
+        &quot;type&quot;: &quot;fixed&quot;,
+        &quot;value&quot;: 180,
+        &quot;parking&quot;: 120
+      }
+    }
+  },
+  &quot;fleet&quot;: {
+    &quot;vehicles&quot;: [
+      {
+        &quot;typeId&quot;: &quot;vehicle&quot;,
+        &quot;vehicleIds&quot;: [
+          &quot;vehicle_1&quot;
+        ],
+        &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;car&quot;
+        },
+        &quot;costs&quot;: {
+          &quot;fixed&quot;: 25,
+          &quot;distance&quot;: 0.0001,
+          &quot;time&quot;: 0.005
+        },
+        &quot;shifts&quot;: [
+          {
+            &quot;start&quot;: {
+              &quot;earliest&quot;: &quot;2020-05-01T09:00:00.00Z&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5262872,
+                &quot;lng&quot;: 13.4532952
+              }
+            }
+          }
+        ],
+        &quot;capacity&quot;: [
+          20
+        ]
+      }
+    ],
+    &quot;profiles&quot;: [
+      {
+        &quot;name&quot;: &quot;car&quot;,
+        &quot;type&quot;: &quot;car&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+</p></details>
+<details>
+    <summary>Solution</summary><p>
+<pre><code class="language-json">{
+  &quot;statistic&quot;: {
+    &quot;cost&quot;: 41.648399999999995,
+    &quot;distance&quot;: 984,
+    &quot;duration&quot;: 3310,
+    &quot;times&quot;: {
+      &quot;driving&quot;: 100,
+      &quot;serving&quot;: 2520,
+      &quot;waiting&quot;: 0,
+      &quot;break&quot;: 0,
+      &quot;commuting&quot;: 330,
+      &quot;parking&quot;: 360
+    }
+  },
+  &quot;tours&quot;: [
+    {
+      &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
+      &quot;typeId&quot;: &quot;vehicle&quot;,
+      &quot;shiftIndex&quot;: 0,
+      &quot;stops&quot;: [
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5262872,
+            &quot;lng&quot;: 13.4532952
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2020-05-01T09:00:00Z&quot;,
+            &quot;departure&quot;: &quot;2020-05-01T09:00:00Z&quot;
+          },
+          &quot;distance&quot;: 0,
+          &quot;load&quot;: [
+            12
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;departure&quot;,
+              &quot;type&quot;: &quot;departure&quot;
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5253342,
+            &quot;lng&quot;: 13.4533489
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2020-05-01T09:00:11Z&quot;,
+            &quot;departure&quot;: &quot;2020-05-01T09:16:01Z&quot;
+          },
+          &quot;distance&quot;: 106,
+          &quot;load&quot;: [
+            8
+          ],
+          &quot;parking&quot;: {
+            &quot;start&quot;: &quot;2020-05-01T09:00:11Z&quot;,
+            &quot;end&quot;: &quot;2020-05-01T09:02:11Z&quot;
+          },
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job4&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5253342,
+                &quot;lng&quot;: 13.4533489
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:02:11Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:05:11Z&quot;
+              },
+              &quot;commute&quot;: {}
+            },
+            {
+              &quot;jobId&quot;: &quot;job3&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5255366,
+                &quot;lng&quot;: 13.4530162
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:05:41Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:08:41Z&quot;
+              },
+              &quot;commute&quot;: {
+                &quot;forward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5253342,
+                    &quot;lng&quot;: 13.4533489
+                  },
+                  &quot;distance&quot;: 32.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:05:11Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:05:41Z&quot;
+                  }
+                }
+              }
+            },
+            {
+              &quot;jobId&quot;: &quot;job2&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5254256,
+                &quot;lng&quot;: 13.4527159
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:09:01Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:12:01Z&quot;
+              },
+              &quot;commute&quot;: {
+                &quot;forward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5255366,
+                    &quot;lng&quot;: 13.4530162
+                  },
+                  &quot;distance&quot;: 24.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:08:41Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:09:01Z&quot;
+                  }
+                }
+              }
+            },
+            {
+              &quot;jobId&quot;: &quot;job1&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5253538,
+                &quot;lng&quot;: 13.4525549
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:12:11Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:15:11Z&quot;
+              },
+              &quot;commute&quot;: {
+                &quot;forward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5254256,
+                    &quot;lng&quot;: 13.4527159
+                  },
+                  &quot;distance&quot;: 14.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:12:01Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:12:11Z&quot;
+                  }
+                },
+                &quot;backward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5253342,
+                    &quot;lng&quot;: 13.4533489
+                  },
+                  &quot;distance&quot;: 54.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:15:11Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:16:01Z&quot;
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5239243,
+            &quot;lng&quot;: 13.4545827
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2020-05-01T09:16:19Z&quot;,
+            &quot;departure&quot;: &quot;2020-05-01T09:21:19Z&quot;
+          },
+          &quot;distance&quot;: 284,
+          &quot;load&quot;: [
+            7
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job5&quot;,
+              &quot;type&quot;: &quot;delivery&quot;
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5223315,
+            &quot;lng&quot;: 13.4555697
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2020-05-01T09:21:38Z&quot;,
+            &quot;departure&quot;: &quot;2020-05-01T09:30:38Z&quot;
+          },
+          &quot;distance&quot;: 473,
+          &quot;load&quot;: [
+            5
+          ],
+          &quot;parking&quot;: {
+            &quot;start&quot;: &quot;2020-05-01T09:21:38Z&quot;,
+            &quot;end&quot;: &quot;2020-05-01T09:23:38Z&quot;
+          },
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job6&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5223315,
+                &quot;lng&quot;: 13.4555697
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:23:38Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:26:38Z&quot;
+              },
+              &quot;commute&quot;: {}
+            },
+            {
+              &quot;jobId&quot;: &quot;job12&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5223184,
+                &quot;lng&quot;: 13.4551942
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:27:08Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:30:08Z&quot;
+              },
+              &quot;commute&quot;: {
+                &quot;forward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5223315,
+                    &quot;lng&quot;: 13.4555697
+                  },
+                  &quot;distance&quot;: 25.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:26:38Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:27:08Z&quot;
+                  }
+                },
+                &quot;backward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5223315,
+                    &quot;lng&quot;: 13.4555697
+                  },
+                  &quot;distance&quot;: 25.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:30:08Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:30:38Z&quot;
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5240157,
+            &quot;lng&quot;: 13.457222
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2020-05-01T09:31:00Z&quot;,
+            &quot;departure&quot;: &quot;2020-05-01T09:36:00Z&quot;
+          },
+          &quot;distance&quot;: 691,
+          &quot;load&quot;: [
+            4
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job7&quot;,
+              &quot;type&quot;: &quot;delivery&quot;
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5250209,
+            &quot;lng&quot;: 13.4567821
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2020-05-01T09:36:12Z&quot;,
+            &quot;departure&quot;: &quot;2020-05-01T09:41:12Z&quot;
+          },
+          &quot;distance&quot;: 807,
+          &quot;load&quot;: [
+            3
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job11&quot;,
+              &quot;type&quot;: &quot;delivery&quot;
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5241593,
+            &quot;lng&quot;: 13.4589815
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2020-05-01T09:41:30Z&quot;,
+            &quot;departure&quot;: &quot;2020-05-01T09:55:10Z&quot;
+          },
+          &quot;distance&quot;: 984,
+          &quot;load&quot;: [
+            0
+          ],
+          &quot;parking&quot;: {
+            &quot;start&quot;: &quot;2020-05-01T09:41:30Z&quot;,
+            &quot;end&quot;: &quot;2020-05-01T09:43:30Z&quot;
+          },
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job9&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5241593,
+                &quot;lng&quot;: 13.4589815
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:43:30Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:46:30Z&quot;
+              },
+              &quot;commute&quot;: {}
+            },
+            {
+              &quot;jobId&quot;: &quot;job8&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5243028,
+                &quot;lng&quot;: 13.45952868
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:47:10Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:50:10Z&quot;
+              },
+              &quot;commute&quot;: {
+                &quot;forward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5241593,
+                    &quot;lng&quot;: 13.4589815
+                  },
+                  &quot;distance&quot;: 40.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:46:30Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:47:10Z&quot;
+                  }
+                }
+              }
+            },
+            {
+              &quot;jobId&quot;: &quot;job10&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5239896,
+                &quot;lng&quot;: 13.4600115
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:51:00Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:54:00Z&quot;
+              },
+              &quot;commute&quot;: {
+                &quot;forward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5243028,
+                    &quot;lng&quot;: 13.45952868
+                  },
+                  &quot;distance&quot;: 48.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:50:10Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:51:00Z&quot;
+                  }
+                },
+                &quot;backward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5241593,
+                    &quot;lng&quot;: 13.4589815
+                  },
+                  &quot;distance&quot;: 72.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:54:00Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:55:10Z&quot;
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      &quot;statistic&quot;: {
+        &quot;cost&quot;: 41.648399999999995,
+        &quot;distance&quot;: 984,
+        &quot;duration&quot;: 3310,
+        &quot;times&quot;: {
+          &quot;driving&quot;: 100,
+          &quot;serving&quot;: 2520,
+          &quot;waiting&quot;: 0,
+          &quot;break&quot;: 0,
+          &quot;commuting&quot;: 330,
+          &quot;parking&quot;: 360
+        }
+      }
+    }
+  ]
+}
+</code></pre>
+</p></details>
+</br>
+<div id="geojson" hidden>
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "departure": "2020-05-01T09:00:00Z",
+        "tour_idx": "0",
+        "jobs_ids": "departure",
+        "stop_idx": "0",
+        "marker-color": "#3cb44b",
+        "marker-size": "medium",
+        "arrival": "2020-05-01T09:00:00Z",
+        "marker-symbol": "warehouse"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4532952,
+          52.5262872
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stop_idx": "1",
+        "marker-color": "#3cb44b",
+        "jobs_ids": "job4,job3,job2,job1",
+        "marker-symbol": "marker",
+        "marker-size": "medium",
+        "departure": "2020-05-01T09:16:01Z",
+        "tour_idx": "0",
+        "arrival": "2020-05-01T09:00:11Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4533489,
+          52.5253342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "jobs_ids": "job5",
+        "marker-size": "medium",
+        "departure": "2020-05-01T09:21:19Z",
+        "marker-symbol": "marker",
+        "marker-color": "#3cb44b",
+        "tour_idx": "0",
+        "arrival": "2020-05-01T09:16:19Z",
+        "stop_idx": "2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4545827,
+          52.5239243
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-symbol": "marker",
+        "departure": "2020-05-01T09:30:38Z",
+        "stop_idx": "3",
+        "tour_idx": "0",
+        "jobs_ids": "job6,job12",
+        "marker-size": "medium",
+        "marker-color": "#3cb44b",
+        "arrival": "2020-05-01T09:21:38Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4555697,
+          52.5223315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "jobs_ids": "job7",
+        "tour_idx": "0",
+        "marker-symbol": "marker",
+        "arrival": "2020-05-01T09:31:00Z",
+        "stop_idx": "4",
+        "marker-color": "#3cb44b",
+        "marker-size": "medium",
+        "departure": "2020-05-01T09:36:00Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.457222,
+          52.5240157
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "tour_idx": "0",
+        "stop_idx": "5",
+        "arrival": "2020-05-01T09:36:12Z",
+        "marker-color": "#3cb44b",
+        "marker-symbol": "marker",
+        "marker-size": "medium",
+        "jobs_ids": "job11",
+        "departure": "2020-05-01T09:41:12Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4567821,
+          52.5250209
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "tour_idx": "0",
+        "marker-size": "medium",
+        "departure": "2020-05-01T09:55:10Z",
+        "stop_idx": "6",
+        "marker-symbol": "marker",
+        "marker-color": "#3cb44b",
+        "jobs_ids": "job9,job8,job10",
+        "arrival": "2020-05-01T09:41:30Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4589815,
+          52.5241593
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "vehicle_id": "vehicle_1",
+        "distance": "984",
+        "stroke-width": "4",
+        "activities": "13",
+        "arrival": "2020-05-01T09:41:30Z",
+        "tour_idx": "0",
+        "shift_idx": "0",
+        "departure": "2020-05-01T09:00:00Z",
+        "stroke": "#e6194b"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4532952,
+            52.5262872
+          ],
+          [
+            13.4533489,
+            52.5253342
+          ],
+          [
+            13.4545827,
+            52.5239243
+          ],
+          [
+            13.4555697,
+            52.5223315
+          ],
+          [
+            13.457222,
+            52.5240157
+          ],
+          [
+            13.4567821,
+            52.5250209
+          ],
+          [
+            13.4589815,
+            52.5241593
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "activity_idx": "0",
+        "start": "2020-05-01T09:02:11Z",
+        "marker-size": "medium",
+        "end": "2020-05-01T09:05:11Z",
+        "jobs_id": "job4",
+        "tour_idx": "0",
+        "marker-symbol": "marker",
+        "marker-color": "#e6194b",
+        "stop_idx": "1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4533489,
+          52.5253342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "jobs_id": "job3",
+        "tour_idx": "0",
+        "marker-size": "medium",
+        "start": "2020-05-01T09:05:41Z",
+        "marker-symbol": "marker",
+        "activity_idx": "1",
+        "stop_idx": "1",
+        "end": "2020-05-01T09:08:41Z",
+        "marker-color": "#e6194b"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4530162,
+          52.5255366
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke-width": "3",
+        "stroke": "#3cb44b"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4533489,
+            52.5253342
+          ],
+          [
+            13.4530162,
+            52.5255366
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "end": "2020-05-01T09:12:01Z",
+        "start": "2020-05-01T09:09:01Z",
+        "marker-symbol": "marker",
+        "jobs_id": "job2",
+        "tour_idx": "0",
+        "stop_idx": "1",
+        "marker-color": "#e6194b",
+        "marker-size": "medium",
+        "activity_idx": "2"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4527159,
+          52.5254256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke-width": "3",
+        "stroke": "#3cb44b"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4530162,
+            52.5255366
+          ],
+          [
+            13.4527159,
+            52.5254256
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#e6194b",
+        "marker-symbol": "marker",
+        "tour_idx": "0",
+        "activity_idx": "3",
+        "marker-size": "medium",
+        "stop_idx": "1",
+        "start": "2020-05-01T09:12:11Z",
+        "end": "2020-05-01T09:15:11Z",
+        "jobs_id": "job1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4525549,
+          52.5253538
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#3cb44b",
+        "stroke-width": "3"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4527159,
+            52.5254256
+          ],
+          [
+            13.4525549,
+            52.5253538
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#3cb44b",
+        "stroke-width": "3"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4525549,
+            52.5253538
+          ],
+          [
+            13.4533489,
+            52.5253342
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "activity_idx": "0",
+        "end": "2020-05-01T09:26:38Z",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "marker-color": "#e6194b",
+        "stop_idx": "3",
+        "jobs_id": "job6",
+        "start": "2020-05-01T09:23:38Z",
+        "tour_idx": "0"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4555697,
+          52.5223315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "activity_idx": "1",
+        "marker-color": "#e6194b",
+        "jobs_id": "job12",
+        "tour_idx": "0",
+        "start": "2020-05-01T09:27:08Z",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "end": "2020-05-01T09:30:08Z",
+        "stop_idx": "3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4551942,
+          52.5223184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke-width": "3",
+        "stroke": "#3cb44b"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4555697,
+            52.5223315
+          ],
+          [
+            13.4551942,
+            52.5223184
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#3cb44b",
+        "stroke-width": "3"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4551942,
+            52.5223184
+          ],
+          [
+            13.4555697,
+            52.5223315
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "start": "2020-05-01T09:43:30Z",
+        "tour_idx": "0",
+        "end": "2020-05-01T09:46:30Z",
+        "marker-color": "#e6194b",
+        "marker-symbol": "marker",
+        "marker-size": "medium",
+        "stop_idx": "6",
+        "jobs_id": "job9",
+        "activity_idx": "0"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4589815,
+          52.5241593
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-size": "medium",
+        "end": "2020-05-01T09:50:10Z",
+        "marker-symbol": "marker",
+        "jobs_id": "job8",
+        "stop_idx": "6",
+        "start": "2020-05-01T09:47:10Z",
+        "tour_idx": "0",
+        "activity_idx": "1",
+        "marker-color": "#e6194b"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.45952868,
+          52.5243028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke-width": "3",
+        "stroke": "#3cb44b"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4589815,
+            52.5241593
+          ],
+          [
+            13.45952868,
+            52.5243028
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "end": "2020-05-01T09:54:00Z",
+        "stop_idx": "6",
+        "marker-color": "#e6194b",
+        "activity_idx": "2",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "jobs_id": "job10",
+        "start": "2020-05-01T09:51:00Z",
+        "tour_idx": "0"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4600115,
+          52.5239896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke-width": "3",
+        "stroke": "#3cb44b"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.45952868,
+            52.5243028
+          ],
+          [
+            13.4600115,
+            52.5239896
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#3cb44b",
+        "stroke-width": "3"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.4600115,
+            52.5239896
+          ],
+          [
+            13.4589815,
+            52.5241593
+          ]
+        ]
+      }
+    }
+  ]
+}
+</div>
+<div id="map"></div>
+<p>As parking time is specified in clustering settings, each stop with clustered job has an extra <code>parking</code> property:</p>
+<pre><code class="language-json">          &quot;parking&quot;: {
+            &quot;start&quot;: &quot;2020-05-01T09:00:11Z&quot;,
+            &quot;end&quot;: &quot;2020-05-01T09:02:11Z&quot;
+          },
+</code></pre>
+<p>Here, two minutes are planned for parking car at the stop location.</p>
+<p>Activities in such stops have <code>commute</code> property which contains information about time, location, distance of commute trip.
+The property is split into <code>forward</code> and <code>backward</code> parts:</p>
+<pre><code class="language-json">            {
+              &quot;jobId&quot;: &quot;job1&quot;,
+              &quot;type&quot;: &quot;delivery&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5253538,
+                &quot;lng&quot;: 13.4525549
+              },
+              &quot;time&quot;: {
+                &quot;start&quot;: &quot;2020-05-01T09:12:11Z&quot;,
+                &quot;end&quot;: &quot;2020-05-01T09:15:11Z&quot;
+              },
+              &quot;commute&quot;: {
+                &quot;forward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5254256,
+                    &quot;lng&quot;: 13.4527159
+                  },
+                  &quot;distance&quot;: 14.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:12:01Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:12:11Z&quot;
+                  }
+                },
+                &quot;backward&quot;: {
+                  &quot;location&quot;: {
+                    &quot;lat&quot;: 52.5253342,
+                    &quot;lng&quot;: 13.4533489
+                  },
+                  &quot;distance&quot;: 54.0,
+                  &quot;time&quot;: {
+                    &quot;start&quot;: &quot;2020-05-01T09:15:11Z&quot;,
+                    &quot;end&quot;: &quot;2020-05-01T09:16:01Z&quot;
+                  }
+                }
+              }
+</code></pre>
+<p>Here <code>forward</code> specifies information how to reach activity and <code>backward</code> - how to get back to the stop after the job is
+served. Original <code>time</code> on activity specifies actual service time.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../../examples/pragmatic/clustering/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../../examples/pragmatic/clustering/vicinity-return.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../../examples/pragmatic/clustering/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../../examples/pragmatic/clustering/vicinity-return.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../../../resources/leaflet.js"></script>
+        
+        <script type="text/javascript" src="../../../resources/map.js"></script>
+        
+
+        
+
+    </body>
+</html>
