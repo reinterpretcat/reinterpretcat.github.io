@@ -514,6 +514,9 @@ following rules:</p>
 }
 </code></pre>
 <p>You can fix the error by defining a small value (e.g. 0.0000001) for duration or time costs.</p>
+<h4 id="e1308"><a class="header" href="#e1308">E1308</a></h4>
+<p><code>required break is used with departure rescheduling</code> is returned when required break is used, but <code>start.latest</code> is not
+set equal to <code>start.earliest</code> in the shift.</p>
 <h3 id="e15xx-routing-profiles"><a class="header" href="#e15xx-routing-profiles">E15xx: Routing profiles</a></h3>
 <p>These errors are related to routing locations and <code>fleet.profiles</code> property definitions.</p>
 <h4 id="e1500"><a class="header" href="#e1500">E1500</a></h4>

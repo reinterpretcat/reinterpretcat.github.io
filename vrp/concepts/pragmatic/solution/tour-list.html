@@ -188,18 +188,21 @@
 <p>Stop represents a location vehicle has to visit within activities to be performed. It has the following properties:</p>
 <ul>
 <li><strong>location</strong>: a stop location</li>
-<li><strong>time</strong>: arrival and departure time from the stop</li>
+<li><strong>time</strong> (required): arrival and departure time from the stop</li>
 <li><strong>distance</strong>: distance traveled since departure from start location</li>
-<li><strong>load</strong>: vehicle capacity after departure from the stop</li>
+<li><strong>load</strong>: (required) vehicle capacity after departure from the stop</li>
 <li><strong>parking</strong> (optional): parking time. Used only with vicinity clustering.</li>
-<li><strong>activities</strong>: list of activities to be performed at the stop. Each stop can have more than one activity.
+<li><strong>activities</strong> (required): list of activities to be performed at the stop. Each stop can have more than one activity.
 See activity structure below.</li>
 </ul>
+<p>Please note, that <code>location</code> and <code>distance</code> are not required: they are omitted in case of the stop for a required break
+which during traveling.</p>
+<p>Please check examples <a href="../../../examples/pragmatic/basics/break.html">here</a>.</p>
 <h2 id="activity-structure"><a class="header" href="#activity-structure">Activity structure</a></h2>
 <p>An activity specifies work to be done and has the following structure:</p>
 <ul>
-<li><strong>jobId</strong>: id of the job or special id (<code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>)</li>
-<li><strong>type</strong>:  activity type: <code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>, <code>pickup</code> or <code>delivery</code></li>
+<li><strong>jobId</strong> (required): id of the job or special id (<code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>, <code>dispatch</code>)</li>
+<li><strong>type</strong> (required):  activity type: <code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>, <code>dispatch</code>, <code>pickup</code> or <code>delivery</code></li>
 <li><strong>location</strong> (optional): activity location. Omitted if stop list has one activity</li>
 <li><strong>time</strong> (optional): start and end time of activity. Omitted if stop list has one activity</li>
 <li><strong>jobTag</strong> (optional): a job place tag</li>

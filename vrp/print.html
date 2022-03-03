@@ -1722,7 +1722,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.15.0
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.16.0
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -4307,7 +4307,16 @@ vehicle has to navigate first to one of these places to load goods with dispatch
 Check example <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/dispatch.html">here</a>.</p>
 </li>
 <li>
-<p><strong>breaks</strong> (optional) a list of vehicle breaks. A break is specified by:</p>
+<p><strong>breaks</strong> (optional) a list of vehicle breaks. There are two types of breaks:</p>
+<ul>
+<li>required: this break is guaranteed to be assigned at cost of flexibility. It has the following properties:
+<ul>
+<li><code>time</code> (required): a fixed time or offset when the break should happen</li>
+<li><code>duration</code> (required): duration of the break</li>
+</ul>
+</li>
+<li>optional: although such break is not guaranteed for assignment, the algorithm has more flexibility for assignment.
+It is specified by:
 <ul>
 <li><code>time</code> (required): time window or interval after which a break should happen (e.g. between 3 or 4 hours after start).</li>
 <li><code>places</code>: list of alternative places defined by <code>location</code> (optional), <code>duration</code> (required) and <code>tag</code> (optional).
@@ -4319,6 +4328,8 @@ If location of a break is omitted then break is stick to location of job served 
 Please note that break is a soft constraint and can be unassigned in some cases due to other hard constraints, such
 as time windows. You can control its unassignment weight using specific property on <code>minimize-unassigned</code> objective.
 See example <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/break.html">here</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -4339,6 +4350,7 @@ See examples <a href="concepts/pragmatic/problem/../../../examples/pragmatic/bas
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1305">E1305 invalid allowed area definition in vehicle limits</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1306">E1306 invalid dispatch in vehicle shift</a></li>
 <li><a href="concepts/pragmatic/problem/../errors/index.html#e1307">E1307 time and duration costs are zeros</a></li>
+<li><a href="concepts/pragmatic/problem/../errors/index.html#e1308">E1308 required break is used with departure rescheduling</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="relations"><a class="header" href="#relations">Relations</a></h1>
 <p>Relation is a mechanism to lock jobs to specific vehicles. List of relations is a part of <code>plan</code> schema and each relation
@@ -4880,18 +4892,21 @@ to the solver:</p>
 <p>Stop represents a location vehicle has to visit within activities to be performed. It has the following properties:</p>
 <ul>
 <li><strong>location</strong>: a stop location</li>
-<li><strong>time</strong>: arrival and departure time from the stop</li>
+<li><strong>time</strong> (required): arrival and departure time from the stop</li>
 <li><strong>distance</strong>: distance traveled since departure from start location</li>
-<li><strong>load</strong>: vehicle capacity after departure from the stop</li>
+<li><strong>load</strong>: (required) vehicle capacity after departure from the stop</li>
 <li><strong>parking</strong> (optional): parking time. Used only with vicinity clustering.</li>
-<li><strong>activities</strong>: list of activities to be performed at the stop. Each stop can have more than one activity.
+<li><strong>activities</strong> (required): list of activities to be performed at the stop. Each stop can have more than one activity.
 See activity structure below.</li>
 </ul>
+<p>Please note, that <code>location</code> and <code>distance</code> are not required: they are omitted in case of the stop for a required break
+which during traveling.</p>
+<p>Please check examples <a href="concepts/pragmatic/solution/../../../examples/pragmatic/basics/break.html">here</a>.</p>
 <h2 id="activity-structure"><a class="header" href="#activity-structure">Activity structure</a></h2>
 <p>An activity specifies work to be done and has the following structure:</p>
 <ul>
-<li><strong>jobId</strong>: id of the job or special id (<code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>)</li>
-<li><strong>type</strong>:  activity type: <code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>, <code>pickup</code> or <code>delivery</code></li>
+<li><strong>jobId</strong> (required): id of the job or special id (<code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>, <code>dispatch</code>)</li>
+<li><strong>type</strong> (required):  activity type: <code>departure</code>, <code>arrival</code>, <code>break</code>, <code>reload</code>, <code>dispatch</code>, <code>pickup</code> or <code>delivery</code></li>
 <li><strong>location</strong> (optional): activity location. Omitted if stop list has one activity</li>
 <li><strong>time</strong> (optional): start and end time of activity. Omitted if stop list has one activity</li>
 <li><strong>jobTag</strong> (optional): a job place tag</li>
@@ -5410,6 +5425,9 @@ following rules:</p>
 }
 </code></pre>
 <p>You can fix the error by defining a small value (e.g. 0.0000001) for duration or time costs.</p>
+<h4 id="e1308"><a class="header" href="#e1308">E1308</a></h4>
+<p><code>required break is used with departure rescheduling</code> is returned when required break is used, but <code>start.latest</code> is not
+set equal to <code>start.earliest</code> in the shift.</p>
 <h3 id="e15xx-routing-profiles"><a class="header" href="#e15xx-routing-profiles">E15xx: Routing profiles</a></h3>
 <p>These errors are related to routing locations and <code>fleet.profiles</code> property definitions.</p>
 <h4 id="e1500"><a class="header" href="#e1500">E1500</a></h4>
@@ -8170,7 +8188,9 @@ As result, three vehicles are dispatched at different times.</p>
 }
 </div>
 <div id="map"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="vehicle-break"><a class="header" href="#vehicle-break">Vehicle break</a></h1>
-<p>This example demonstrates how to use vehicle break with omitted location and time window.</p>
+<p>In general, there are two break types: optional and required.</p>
+<h2 id="optional-break"><a class="header" href="#optional-break">Optional break</a></h2>
+<p>This example demonstrates how to use optional vehicle break with time window and omitted location.</p>
 <details>
     <summary>Problem</summary><p>
 <pre><code class="language-json">{
@@ -8471,6 +8491,180 @@ As result, three vehicles are dispatched at different times.</p>
 }
 </code></pre>
 </p></details>
+<h2 id="required-break-experimental"><a class="header" href="#required-break-experimental">Required break (experimental)</a></h2>
+<p>This example demonstrates how to use required vehicle break which has to be scheduled at specific time during travel
+between two stops.</p>
+<details>
+    <summary>Problem</summary><p>
+<pre><code class="language-json">{
+  &quot;plan&quot;: {
+    &quot;jobs&quot;: [
+      {
+        &quot;id&quot;: &quot;job1&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 51.06251,
+                  &quot;lng&quot;: 13.72133
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  &quot;fleet&quot;: {
+    &quot;vehicles&quot;: [
+      {
+        &quot;typeId&quot;: &quot;vehicle&quot;,
+        &quot;vehicleIds&quot;: [
+          &quot;vehicle_1&quot;
+        ],
+        &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;normal_car&quot;
+        },
+        &quot;costs&quot;: {
+          &quot;fixed&quot;: 22,
+          &quot;distance&quot;: 0.0002,
+          &quot;time&quot;: 0.005
+        },
+        &quot;shifts&quot;: [
+          {
+            &quot;start&quot;: {
+              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
+              &quot;latest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5316,
+                &quot;lng&quot;: 13.3884
+              }
+            },
+            &quot;breaks&quot;: [
+              {
+                &quot;time&quot;: 7200,
+                &quot;duration&quot;: 1800
+              }
+            ]
+          }
+        ],
+        &quot;capacity&quot;: [
+          10
+        ]
+      }
+    ],
+    &quot;profiles&quot;: [
+      {
+        &quot;name&quot;: &quot;normal_car&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+</p></details>
+<details>
+    <summary>Solution</summary><p>
+<pre><code class="language-json">{
+  &quot;statistic&quot;: {
+    &quot;cost&quot;: 148.0972,
+    &quot;distance&quot;: 165136,
+    &quot;duration&quot;: 18614,
+    &quot;times&quot;: {
+      &quot;driving&quot;: 16514,
+      &quot;serving&quot;: 300,
+      &quot;waiting&quot;: 0,
+      &quot;break&quot;: 1800,
+      &quot;commuting&quot;: 0,
+      &quot;parking&quot;: 0
+    }
+  },
+  &quot;tours&quot;: [
+    {
+      &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
+      &quot;typeId&quot;: &quot;vehicle&quot;,
+      &quot;shiftIndex&quot;: 0,
+      &quot;stops&quot;: [
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5316,
+            &quot;lng&quot;: 13.3884
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2019-07-04T09:00:00Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T09:00:00Z&quot;
+          },
+          &quot;distance&quot;: 0,
+          &quot;load&quot;: [
+            1
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;departure&quot;,
+              &quot;type&quot;: &quot;departure&quot;
+            }
+          ]
+        },
+        {
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2019-07-04T11:00:00Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T11:30:00Z&quot;
+          },
+          &quot;load&quot;: [
+            1
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;break&quot;,
+              &quot;type&quot;: &quot;break&quot;
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 51.06251,
+            &quot;lng&quot;: 13.72133
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2019-07-04T14:05:14Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T14:10:14Z&quot;
+          },
+          &quot;distance&quot;: 165136,
+          &quot;load&quot;: [
+            0
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job1&quot;,
+              &quot;type&quot;: &quot;delivery&quot;
+            }
+          ]
+        }
+      ],
+      &quot;statistic&quot;: {
+        &quot;cost&quot;: 148.0972,
+        &quot;distance&quot;: 165136,
+        &quot;duration&quot;: 18614,
+        &quot;times&quot;: {
+          &quot;driving&quot;: 16514,
+          &quot;serving&quot;: 300,
+          &quot;waiting&quot;: 0,
+          &quot;break&quot;: 1800,
+          &quot;commuting&quot;: 0,
+          &quot;parking&quot;: 0
+        }
+      }
+    }
+  ]
+}
+</code></pre>
+</p></details>
+<p>Please note, that departure rescheduling is disabled by setting <code>shift.start.earliest</code> equal to <code>shift.start.latest</code>.
+At the moment, this is a hard requirement when such break type is used.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="multiple-trips"><a class="header" href="#multiple-trips">Multiple trips</a></h1>
 <p>These examples demonstrates how to use vehicle reload feature which is designed to overcome vehicle capacity limitation
 in order to perform multiple trips (tours).</p>

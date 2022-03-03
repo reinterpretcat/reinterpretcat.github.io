@@ -299,7 +299,16 @@ vehicle has to navigate first to one of these places to load goods with dispatch
 Check example <a href="../../../examples/pragmatic/basics/dispatch.html">here</a>.</p>
 </li>
 <li>
-<p><strong>breaks</strong> (optional) a list of vehicle breaks. A break is specified by:</p>
+<p><strong>breaks</strong> (optional) a list of vehicle breaks. There are two types of breaks:</p>
+<ul>
+<li>required: this break is guaranteed to be assigned at cost of flexibility. It has the following properties:
+<ul>
+<li><code>time</code> (required): a fixed time or offset when the break should happen</li>
+<li><code>duration</code> (required): duration of the break</li>
+</ul>
+</li>
+<li>optional: although such break is not guaranteed for assignment, the algorithm has more flexibility for assignment.
+It is specified by:
 <ul>
 <li><code>time</code> (required): time window or interval after which a break should happen (e.g. between 3 or 4 hours after start).</li>
 <li><code>places</code>: list of alternative places defined by <code>location</code> (optional), <code>duration</code> (required) and <code>tag</code> (optional).
@@ -311,6 +320,8 @@ If location of a break is omitted then break is stick to location of job served 
 Please note that break is a soft constraint and can be unassigned in some cases due to other hard constraints, such
 as time windows. You can control its unassignment weight using specific property on <code>minimize-unassigned</code> objective.
 See example <a href="../../../examples/pragmatic/basics/break.html">here</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -331,6 +342,7 @@ See examples <a href="../../../examples/pragmatic/basics/reload.html">here</a>.<
 <li><a href="../errors/index.html#e1305">E1305 invalid allowed area definition in vehicle limits</a></li>
 <li><a href="../errors/index.html#e1306">E1306 invalid dispatch in vehicle shift</a></li>
 <li><a href="../errors/index.html#e1307">E1307 time and duration costs are zeros</a></li>
+<li><a href="../errors/index.html#e1308">E1308 required break is used with departure rescheduling</a></li>
 </ul>
 
                     </main>

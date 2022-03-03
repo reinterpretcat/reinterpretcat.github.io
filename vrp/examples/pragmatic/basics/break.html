@@ -147,7 +147,9 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="vehicle-break"><a class="header" href="#vehicle-break">Vehicle break</a></h1>
-<p>This example demonstrates how to use vehicle break with omitted location and time window.</p>
+<p>In general, there are two break types: optional and required.</p>
+<h2 id="optional-break"><a class="header" href="#optional-break">Optional break</a></h2>
+<p>This example demonstrates how to use optional vehicle break with time window and omitted location.</p>
 <details>
     <summary>Problem</summary><p>
 <pre><code class="language-json">{
@@ -448,6 +450,180 @@
 }
 </code></pre>
 </p></details>
+<h2 id="required-break-experimental"><a class="header" href="#required-break-experimental">Required break (experimental)</a></h2>
+<p>This example demonstrates how to use required vehicle break which has to be scheduled at specific time during travel
+between two stops.</p>
+<details>
+    <summary>Problem</summary><p>
+<pre><code class="language-json">{
+  &quot;plan&quot;: {
+    &quot;jobs&quot;: [
+      {
+        &quot;id&quot;: &quot;job1&quot;,
+        &quot;deliveries&quot;: [
+          {
+            &quot;places&quot;: [
+              {
+                &quot;location&quot;: {
+                  &quot;lat&quot;: 51.06251,
+                  &quot;lng&quot;: 13.72133
+                },
+                &quot;duration&quot;: 300
+              }
+            ],
+            &quot;demand&quot;: [
+              1
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  &quot;fleet&quot;: {
+    &quot;vehicles&quot;: [
+      {
+        &quot;typeId&quot;: &quot;vehicle&quot;,
+        &quot;vehicleIds&quot;: [
+          &quot;vehicle_1&quot;
+        ],
+        &quot;profile&quot;: {
+          &quot;matrix&quot;: &quot;normal_car&quot;
+        },
+        &quot;costs&quot;: {
+          &quot;fixed&quot;: 22,
+          &quot;distance&quot;: 0.0002,
+          &quot;time&quot;: 0.005
+        },
+        &quot;shifts&quot;: [
+          {
+            &quot;start&quot;: {
+              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
+              &quot;latest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
+              &quot;location&quot;: {
+                &quot;lat&quot;: 52.5316,
+                &quot;lng&quot;: 13.3884
+              }
+            },
+            &quot;breaks&quot;: [
+              {
+                &quot;time&quot;: 7200,
+                &quot;duration&quot;: 1800
+              }
+            ]
+          }
+        ],
+        &quot;capacity&quot;: [
+          10
+        ]
+      }
+    ],
+    &quot;profiles&quot;: [
+      {
+        &quot;name&quot;: &quot;normal_car&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+</p></details>
+<details>
+    <summary>Solution</summary><p>
+<pre><code class="language-json">{
+  &quot;statistic&quot;: {
+    &quot;cost&quot;: 148.0972,
+    &quot;distance&quot;: 165136,
+    &quot;duration&quot;: 18614,
+    &quot;times&quot;: {
+      &quot;driving&quot;: 16514,
+      &quot;serving&quot;: 300,
+      &quot;waiting&quot;: 0,
+      &quot;break&quot;: 1800,
+      &quot;commuting&quot;: 0,
+      &quot;parking&quot;: 0
+    }
+  },
+  &quot;tours&quot;: [
+    {
+      &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
+      &quot;typeId&quot;: &quot;vehicle&quot;,
+      &quot;shiftIndex&quot;: 0,
+      &quot;stops&quot;: [
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 52.5316,
+            &quot;lng&quot;: 13.3884
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2019-07-04T09:00:00Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T09:00:00Z&quot;
+          },
+          &quot;distance&quot;: 0,
+          &quot;load&quot;: [
+            1
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;departure&quot;,
+              &quot;type&quot;: &quot;departure&quot;
+            }
+          ]
+        },
+        {
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2019-07-04T11:00:00Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T11:30:00Z&quot;
+          },
+          &quot;load&quot;: [
+            1
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;break&quot;,
+              &quot;type&quot;: &quot;break&quot;
+            }
+          ]
+        },
+        {
+          &quot;location&quot;: {
+            &quot;lat&quot;: 51.06251,
+            &quot;lng&quot;: 13.72133
+          },
+          &quot;time&quot;: {
+            &quot;arrival&quot;: &quot;2019-07-04T14:05:14Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T14:10:14Z&quot;
+          },
+          &quot;distance&quot;: 165136,
+          &quot;load&quot;: [
+            0
+          ],
+          &quot;activities&quot;: [
+            {
+              &quot;jobId&quot;: &quot;job1&quot;,
+              &quot;type&quot;: &quot;delivery&quot;
+            }
+          ]
+        }
+      ],
+      &quot;statistic&quot;: {
+        &quot;cost&quot;: 148.0972,
+        &quot;distance&quot;: 165136,
+        &quot;duration&quot;: 18614,
+        &quot;times&quot;: {
+          &quot;driving&quot;: 16514,
+          &quot;serving&quot;: 300,
+          &quot;waiting&quot;: 0,
+          &quot;break&quot;: 1800,
+          &quot;commuting&quot;: 0,
+          &quot;parking&quot;: 0
+        }
+      }
+    }
+  ]
+}
+</code></pre>
+</p></details>
+<p>Please note, that departure rescheduling is disabled by setting <code>shift.start.earliest</code> equal to <code>shift.start.latest</code>.
+At the moment, this is a hard requirement when such break type is used.</p>
 
                     </main>
 
