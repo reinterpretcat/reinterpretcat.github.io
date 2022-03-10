@@ -158,7 +158,7 @@ the same inner array have the same priority.</p>
 <p>The solver already provides multiple built-in objectives distinguished by their <code>type</code>. All these objectives can be
 split into two groups.</p>
 <h3 id="scalar-objectives"><a class="header" href="#scalar-objectives">Scalar objectives</a></h3>
-<p>This objectives targeting for some scalar characteristic of solution:</p>
+<p>These objectives targeting for some scalar characteristic of solution:</p>
 <ul>
 <li><code>minimize-cost</code>: minimizes total transport cost calculated for all routes</li>
 <li><code>minimize-distance</code>: minimizes total distance of all routes</li>
@@ -175,6 +175,11 @@ assignment leads to more jobs unassigned.</li>
 </li>
 <li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
 <li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
+<li><code>minimize-arrival-time</code>: prefers solutions where work is finished earlier</li>
+</ul>
+<h3 id="job-distribution-objectives"><a class="header" href="#job-distribution-objectives">Job distribution objectives</a></h3>
+<p>These objectives provide some extra control on job assignment:</p>
+<ul>
 <li><code>maximize-value</code>: maximizes total value of served jobs. It has optional parameters:
 <ul>
 <li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs</li>
@@ -189,7 +194,7 @@ assignment leads to more jobs unassigned.</li>
 <li><code>area-order</code>: controls jobs assignment for vehicles using areas
 <ul>
 <li><code>isConstrained</code>: violating are order is not allowed</li>
-<li><code>isValuePreferred</code>: prefer total value over order violations (can be used with <code>isConstrained=false</code>) </li>
+<li><code>isValuePreferred</code>: prefer total value over order violations (can be used with <code>isConstrained=false</code>)</li>
 <li><code>breaks</code>: a value penalty for skipping a break. Default value is 100.</li>
 </ul>
 </li>

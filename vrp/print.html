@@ -1722,7 +1722,7 @@ the job.</p>
 <h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
 <p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
 (not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.16.0
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.16.1
 </code></pre>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
 <p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
@@ -4531,7 +4531,7 @@ the same inner array have the same priority.</p>
 <p>The solver already provides multiple built-in objectives distinguished by their <code>type</code>. All these objectives can be
 split into two groups.</p>
 <h3 id="scalar-objectives"><a class="header" href="#scalar-objectives">Scalar objectives</a></h3>
-<p>This objectives targeting for some scalar characteristic of solution:</p>
+<p>These objectives targeting for some scalar characteristic of solution:</p>
 <ul>
 <li><code>minimize-cost</code>: minimizes total transport cost calculated for all routes</li>
 <li><code>minimize-distance</code>: minimizes total distance of all routes</li>
@@ -4548,6 +4548,11 @@ assignment leads to more jobs unassigned.</li>
 </li>
 <li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
 <li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
+<li><code>minimize-arrival-time</code>: prefers solutions where work is finished earlier</li>
+</ul>
+<h3 id="job-distribution-objectives"><a class="header" href="#job-distribution-objectives">Job distribution objectives</a></h3>
+<p>These objectives provide some extra control on job assignment:</p>
+<ul>
 <li><code>maximize-value</code>: maximizes total value of served jobs. It has optional parameters:
 <ul>
 <li><code>reductionFactor</code>: a factor to reduce value cost compared to max routing costs</li>
@@ -4562,7 +4567,7 @@ assignment leads to more jobs unassigned.</li>
 <li><code>area-order</code>: controls jobs assignment for vehicles using areas
 <ul>
 <li><code>isConstrained</code>: violating are order is not allowed</li>
-<li><code>isValuePreferred</code>: prefer total value over order violations (can be used with <code>isConstrained=false</code>) </li>
+<li><code>isValuePreferred</code>: prefer total value over order violations (can be used with <code>isConstrained=false</code>)</li>
 <li><code>breaks</code>: a value penalty for skipping a break. Default value is 100.</li>
 </ul>
 </li>
