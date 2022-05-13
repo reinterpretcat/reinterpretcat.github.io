@@ -147,7 +147,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="unassigned-jobs"><a class="header" href="#unassigned-jobs">Unassigned jobs</a></h1>
-<p>This example demonstrates one job which is unassigned due to unreachable location.</p>
+<p>This example demonstrates one job which is unassigned due to time window constraints.</p>
 <details>
     <summary>Problem</summary><p>
 <pre><code class="language-json">{
@@ -189,8 +189,8 @@
             &quot;places&quot;: [
               {
                 &quot;location&quot;: {
-                  &quot;lat&quot;: 52.4576,
-                  &quot;lng&quot;: 13.1778
+                  &quot;lat&quot;: 50.4576,
+                  &quot;lng&quot;: 11.1778
                 },
                 &quot;duration&quot;: 240.0,
                 &quot;times&quot;: [
@@ -279,14 +279,16 @@
     <summary>Solution</summary><p>
 <pre><code class="language-json">{
   &quot;statistic&quot;: {
-    &quot;cost&quot;: 43.091514000000004,
-    &quot;distance&quot;: 13687,
-    &quot;duration&quot;: 3819,
+    &quot;cost&quot;: 29.538104,
+    &quot;distance&quot;: 6836,
+    &quot;duration&quot;: 1284,
     &quot;times&quot;: {
-      &quot;driving&quot;: 3219,
+      &quot;driving&quot;: 684,
       &quot;serving&quot;: 600,
       &quot;waiting&quot;: 0,
-      &quot;break&quot;: 0
+      &quot;break&quot;: 0,
+      &quot;commuting&quot;: 0,
+      &quot;parking&quot;: 0
     }
   },
   &quot;tours&quot;: [
@@ -321,10 +323,10 @@
             &quot;lng&quot;: 13.3808
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T09:12:41Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:17:41Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T09:02:56Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T09:07:56Z&quot;
           },
-          &quot;distance&quot;: 2641,
+          &quot;distance&quot;: 1758,
           &quot;load&quot;: [
             1
           ],
@@ -341,10 +343,10 @@
             &quot;lng&quot;: 13.45413
           },
           &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T09:38:22Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:43:22Z&quot;
+            &quot;arrival&quot;: &quot;2019-07-04T09:16:24Z&quot;,
+            &quot;departure&quot;: &quot;2019-07-04T09:21:24Z&quot;
           },
-          &quot;distance&quot;: 8404,
+          &quot;distance&quot;: 6836,
           &quot;load&quot;: [
             0
           ],
@@ -354,37 +356,19 @@
               &quot;type&quot;: &quot;delivery&quot;
             }
           ]
-        },
-        {
-          &quot;location&quot;: {
-            &quot;lat&quot;: 52.5316,
-            &quot;lng&quot;: 13.3884
-          },
-          &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:03:39Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:03:39Z&quot;
-          },
-          &quot;distance&quot;: 13687,
-          &quot;load&quot;: [
-            0
-          ],
-          &quot;activities&quot;: [
-            {
-              &quot;jobId&quot;: &quot;arrival&quot;,
-              &quot;type&quot;: &quot;arrival&quot;
-            }
-          ]
         }
       ],
       &quot;statistic&quot;: {
-        &quot;cost&quot;: 43.091514000000004,
-        &quot;distance&quot;: 13687,
-        &quot;duration&quot;: 3819,
+        &quot;cost&quot;: 29.538104,
+        &quot;distance&quot;: 6836,
+        &quot;duration&quot;: 1284,
         &quot;times&quot;: {
-          &quot;driving&quot;: 3219,
+          &quot;driving&quot;: 684,
           &quot;serving&quot;: 600,
           &quot;waiting&quot;: 0,
-          &quot;break&quot;: 0
+          &quot;break&quot;: 0,
+          &quot;commuting&quot;: 0,
+          &quot;parking&quot;: 0
         }
       }
     }
@@ -394,8 +378,12 @@
       &quot;jobId&quot;: &quot;job2&quot;,
       &quot;reasons&quot;: [
         {
-          &quot;code&quot;: &quot;REACHABLE_CONSTRAINT&quot;,
-          &quot;description&quot;: &quot;location unreachable&quot;
+          &quot;code&quot;: &quot;TIME_WINDOW_CONSTRAINT&quot;,
+          &quot;description&quot;: &quot;cannot be visited within time window&quot;,
+          &quot;detail&quot;: {
+            &quot;vehicle_id&quot;: &quot;vehicle_1&quot;,
+            &quot;shift_index&quot;: 0
+          }
         }
       ]
     }

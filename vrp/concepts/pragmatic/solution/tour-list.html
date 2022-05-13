@@ -149,26 +149,20 @@
                         <h1 id="tour-list"><a class="header" href="#tour-list">Tour list</a></h1>
 <p>List of tours is essentially individual vehicle routes. Each tour consists of the following properties:</p>
 <ul>
-<li>
-<p><strong>typeId</strong>: id of vehicle type</p>
+<li><strong>typeId</strong>: id of vehicle type
 <pre><code class="language-json">      &quot;typeId&quot;: &quot;vehicle&quot;,
 </code></pre>
 </li>
-<li>
-<p><strong>vehicleId</strong>: id of used vehicle. Id of the vehicle is generated from the tour using pattern <code>$typeId_sequenceIndex</code>:</p>
+<li><strong>vehicleId</strong>: id of used vehicle. Id of the vehicle is generated from the tour using pattern <code>$typeId_sequenceIndex</code>:
 <pre><code class="language-json">      &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
 </code></pre>
 </li>
-<li>
-<p><strong>shiftIndex</strong>: vehicle's shift index:</p>
+<li><strong>shiftIndex</strong>: vehicle's shift index:
 <pre><code class="language-json">      &quot;shiftIndex&quot;: 0,
 </code></pre>
 </li>
-<li>
-<p><strong>stops</strong>: list of stops. See stop structure below</p>
-</li>
-<li>
-<p><strong>statistic</strong>: statistic of the tour.</p>
+<li><strong>stops</strong>: list of stops. See stop structure below</li>
+<li><strong>statistic</strong>: statistic of the tour.
 <pre><code class="language-json">      &quot;statistic&quot;: {
     &quot;cost&quot;: 41.504842000000004,
     &quot;distance&quot;: 13251,

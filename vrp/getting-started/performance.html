@@ -388,11 +388,27 @@ solution, are required:</p>
             ]
           },
           {
-            &quot;weight&quot;: 1,
+            &quot;weight&quot;: 2,
             &quot;methods&quot;: [
               {
                 &quot;probability&quot;: 1,
                 &quot;type&quot;: &quot;close-route&quot;
+              },
+              {
+                &quot;probability&quot;: 0.1,
+                &quot;type&quot;: &quot;random-job&quot;,
+                &quot;min&quot;: 8,
+                &quot;max&quot;: 16,
+                &quot;threshold&quot;: 0.1
+              }
+            ]
+          },
+          {
+            &quot;weight&quot;: 1,
+            &quot;methods&quot;: [
+              {
+                &quot;probability&quot;: 1,
+                &quot;type&quot;: &quot;worst-route&quot;
               },
               {
                 &quot;probability&quot;: 0.1,

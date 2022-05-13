@@ -153,32 +153,38 @@
       &quot;jobId&quot;: &quot;job2&quot;,
       &quot;reasons&quot;: [
         {
-          &quot;code&quot;: &quot;REACHABLE_CONSTRAINT&quot;,
-          &quot;description&quot;: &quot;location unreachable&quot;
+          &quot;code&quot;: &quot;TIME_WINDOW_CONSTRAINT&quot;,
+          &quot;description&quot;: &quot;cannot be visited within time window&quot;,
+          &quot;detail&quot;: {
+            &quot;vehicle_id&quot;: &quot;vehicle_1&quot;,
+            &quot;shift_index&quot;: 0
+          }
         }
       ]
     }
   ]
 </code></pre>
-<p>Each item in this list has job id, reason code and description.</p>
+<p>Each item in this list has job id, reason code, description and, optionally, some extra details like vehicle id and
+shift index. You will get as many reasons as tours in the solution. This information can be used to understand why the
+job was not added to the existing tours.</p>
 <h2 id="reasons-of-unassigned-jobs"><a class="header" href="#reasons-of-unassigned-jobs">Reasons of unassigned jobs</a></h2>
-<p>|         code                  |                        description                             |                  possible action                        |
-|-------------------------------|----------------------------------------------------------------|---------------------------------------------------------|
-| NO_REASON_FOUND               | <code>unknown</code>                                                      |                                                         |
-| SKILL_CONSTRAINT              | <code>cannot serve required skill</code>                                  | allocate more vehicles with given skill?                |
-| TIME_WINDOW_CONSTRAINT        | <code>cannot be visited within time window</code>                         | allocate more vehicles, relax time windows, etc.?       |
-| CAPACITY_CONSTRAINT           | <code>does not fit into any vehicle due to capacity</code>                | allocate more vehicles?                                 |
-| REACHABLE_CONSTRAINT          | <code>location unreachable</code>                                         | change job location to routable place?                  |
-| MAX_DISTANCE_CONSTRAINT       | <code>cannot be assigned due to max distance constraint of vehicle</code> | allocate more vehicles?                                 |
-| SHIFT_TIME_CONSTRAINT         | <code>cannot be assigned due to shift time constraint of vehicle</code>   | allocate more vehicles?                                 |
-| BREAK_CONSTRAINT              | <code>break is not assignable</code>                                      | correct break location or/and time window?              |
-| LOCKING_CONSTRAINT            | <code>cannot be served due to relation lock</code>                        | review relations?                                       |
-| AREA_CONSTRAINT               | <code>cannot be assigned due to area constraint</code>                    | make sure that jobs inside allowed areas                |
-| DISPATCH_CONSTRAINT           | <code>cannot be assigned due to vehicle dispatch</code>                   | make sure that vehicle dispatch definition is correct   |
-| TOUR_SIZE_CONSTRAINT          | <code>cannot be assigned due to tour size constraint of vehicle</code>    | make sure that there are enough vehicles to serve jobs  |
-| TOUR_ORDER_CONSTRAINT         | <code>cannot be assigned due to tour order constraint</code>              | tour order might be too strict or not vehicles enough   |
-| GROUP_CONSTRAINT              | <code>cannot be assigned due to group constraint</code>                   | try to reduce amount of jobs in the group?              |
-| COMPATIBILITY_CONSTRAINT      | <code>cannot be assigned due to compatibility constraint</code>           | review job's compatibilities                            |</p>
+<table><thead><tr><th>code</th><th>description</th><th>possible action</th></tr></thead><tbody>
+<tr><td>NO_REASON_FOUND</td><td><code>unknown</code></td><td></td></tr>
+<tr><td>SKILL_CONSTRAINT</td><td><code>cannot serve required skill</code></td><td>allocate more vehicles with given skill?</td></tr>
+<tr><td>TIME_WINDOW_CONSTRAINT</td><td><code>cannot be visited within time window</code></td><td>allocate more vehicles, relax time windows, etc.?</td></tr>
+<tr><td>CAPACITY_CONSTRAINT</td><td><code>does not fit into any vehicle due to capacity</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>REACHABLE_CONSTRAINT</td><td><code>location unreachable</code></td><td>change job location to routable place?</td></tr>
+<tr><td>MAX_DISTANCE_CONSTRAINT</td><td><code>cannot be assigned due to max distance constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>SHIFT_TIME_CONSTRAINT</td><td><code>cannot be assigned due to shift time constraint of vehicle</code></td><td>allocate more vehicles?</td></tr>
+<tr><td>BREAK_CONSTRAINT</td><td><code>break is not assignable</code></td><td>correct break location or/and time window?</td></tr>
+<tr><td>LOCKING_CONSTRAINT</td><td><code>cannot be served due to relation lock</code></td><td>review relations?</td></tr>
+<tr><td>AREA_CONSTRAINT</td><td><code>cannot be assigned due to area constraint</code></td><td>make sure that jobs inside allowed areas</td></tr>
+<tr><td>DISPATCH_CONSTRAINT</td><td><code>cannot be assigned due to vehicle dispatch</code></td><td>make sure that vehicle dispatch definition is correct</td></tr>
+<tr><td>TOUR_SIZE_CONSTRAINT</td><td><code>cannot be assigned due to tour size constraint of vehicle</code></td><td>make sure that there are enough vehicles to serve jobs</td></tr>
+<tr><td>TOUR_ORDER_CONSTRAINT</td><td><code>cannot be assigned due to tour order constraint</code></td><td>tour order might be too strict or not vehicles enough</td></tr>
+<tr><td>GROUP_CONSTRAINT</td><td><code>cannot be assigned due to group constraint</code></td><td>try to reduce amount of jobs in the group?</td></tr>
+<tr><td>COMPATIBILITY_CONSTRAINT</td><td><code>cannot be assigned due to compatibility constraint</code></td><td>review job's compatibilities</td></tr>
+</tbody></table>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <p>An example of problem with unassigned jobs can be found <a href="../../../examples/pragmatic/basics/unassigned.html">here</a>.</p>
 

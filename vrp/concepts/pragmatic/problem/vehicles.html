@@ -217,9 +217,9 @@ clustered activities are counted as one in case of vicinity clustering.</p>
 <p><strong>areas</strong> (optional): a list of areas where vehicle is allowed/preferred to serve jobs. Each area is defined by:</p>
 <ul>
 <li><strong>area_id</strong> (required): one of area ids specified by <code>plan.areas</code></li>
-<li><strong>job_value</strong> (required): a value added to total value for each job served by the vehicle in given area
-No area restrictions when omitted.</li>
+<li><strong>job_value</strong> (required): a value added to total value for each job served by the vehicle in given area</li>
 </ul>
+<p>No area restrictions when omitted.</p>
 </li>
 </ul>
 </li>
@@ -316,15 +316,15 @@ If location of a break is omitted then break is stick to location of job served 
 <li><code>policy</code> (optional): a break skip policy. Possible values:
 <ul>
 <li><code>skip-if-no-intersection</code>: allows to skip break if actual tour schedule doesn't intersect with vehicle time window (default)</li>
-<li><code>skip-if-arrival-before-end</code>: allows to skip break if vehicle arrives before break's time window end.
-Please note that break is a soft constraint and can be unassigned in some cases due to other hard constraints, such
+<li><code>skip-if-arrival-before-end</code>: allows to skip break if vehicle arrives before break's time window end.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Please note that break is a soft constraint and can be unassigned in some cases due to other hard constraints, such
 as time windows. You can control its unassignment weight using specific property on <code>minimize-unassigned</code> objective.
-See example <a href="../../../examples/pragmatic/basics/break.html">here</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+See example <a href="../../../examples/pragmatic/basics/break.html">here</a></p>
 </li>
 <li>
 <p><strong>reloads</strong> (optional) a list of vehicle reloads. A reload is a place where vehicle can load new deliveries and unload

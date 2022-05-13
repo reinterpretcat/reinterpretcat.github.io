@@ -150,23 +150,12 @@
 <p>A job is used to model customer demand, additionally, with different constraints, such as time, skills, etc. A job schema
 consists of the following properties:</p>
 <ul>
-<li>
-<p><strong>id</strong> (required): an unique job id</p>
-</li>
-<li>
-<p><strong>pickups</strong> (optional): a list of pickup tasks</p>
-</li>
-<li>
-<p><strong>deliveries</strong> (optional): a list of delivery tasks</p>
-</li>
-<li>
-<p><strong>replacements</strong> (optional): a list of replacement tasks</p>
-</li>
-<li>
-<p><strong>services</strong> (optional): a list of service tasks</p>
-</li>
-<li>
-<p><strong>skills</strong> (optional): job skills defined by <code>allOf</code>, <code>oneOf</code> or <code>noneOf</code> conditions:</p>
+<li><strong>id</strong> (required): an unique job id</li>
+<li><strong>pickups</strong> (optional): a list of pickup tasks</li>
+<li><strong>deliveries</strong> (optional): a list of delivery tasks</li>
+<li><strong>replacements</strong> (optional): a list of replacement tasks</li>
+<li><strong>services</strong> (optional): a list of service tasks</li>
+<li><strong>skills</strong> (optional): job skills defined by <code>allOf</code>, <code>oneOf</code> or <code>noneOf</code> conditions:
 <pre><code class="language-json">        &quot;skills&quot;: {
       &quot;allOf&quot;: [
         &quot;fridge&quot;
@@ -176,22 +165,15 @@ consists of the following properties:</p>
       ]
     }
 </code></pre>
-<p>These conditions are tested against vehicle's skills.</p>
-</li>
-<li>
-<p><strong>value</strong> (optional): a value associated with the job. With <code>maximize-value</code> objective, it is used to prioritize assignment
+These conditions are tested against vehicle's skills.</li>
+<li><strong>value</strong> (optional): a value associated with the job. With <code>maximize-value</code> objective, it is used to prioritize assignment
 of specific jobs. The difference between value and order (see in <code>Tasks</code> below) is that order related logic tries to assign
 jobs with lower order in the beginning of the tour. In contrast, value related logic tries to maximize total solution value
 by prioritizing assignment value scored jobs in any position of a tour.
-See <a href="../../../examples/pragmatic/basics/job-priorities.html">job priorities</a> example.</p>
-</li>
-<li>
-<p><strong>group</strong> (optional): a group name. Jobs with the same groups are scheduled in the same tour or left unassigned.</p>
-</li>
-<li>
-<p><strong>compatibility</strong> (optional): compatibility class. Jobs with different compatibility classes cannot be assigned in
-the same tour. This is useful to avoid mixing cargo, such as hazardous goods and food.</p>
-</li>
+See <a href="../../../examples/pragmatic/basics/job-priorities.html">job priorities</a> example.</li>
+<li><strong>group</strong> (optional): a group name. Jobs with the same groups are scheduled in the same tour or left unassigned.</li>
+<li><strong>compatibility</strong> (optional): compatibility class. Jobs with different compatibility classes cannot be assigned in
+the same tour. This is useful to avoid mixing cargo, such as hazardous goods and food.</li>
 </ul>
 <p>A job should have at least one task property specified.</p>
 <h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
