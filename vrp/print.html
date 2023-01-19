@@ -1719,21 +1719,47 @@ the job.</p>
 </ul>
 <p>In general, all these variations can be combined together in one single problem definition in <code>pragmatic</code> format.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
-<h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
-<p>The fastest way to try vrp solver on your environment is to use public <code>docker</code> image from <code>Github Container Registry</code>
-(not performance optimized):</p>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.19.0
+<p>Depending on your development environment, you can use different ways to install the solver:</p>
+<h2 id="install-with-python"><a class="header" href="#install-with-python">Install with Python</a></h2>
+<p>The functionality of <code>vrp-cli</code> is published to <a href="https://pypi.org/project/vrp-cli/">pypi.org</a>, so you can just install it
+using pip and use from python:</p>
+<pre><code class="language-shell">pip install vrp-cli
+python examples/python-interop/example.py # run test example
 </code></pre>
+<p>Alternatively, you can use <a href="https://github.com/PyO3/maturin">maturin</a> tool to build solver locally.</p>
+<p>You can find extra information in <a href="https://reinterpretcat.github.io/vrp/examples/interop/python.html">python example section</a>
+of the docs. The <a href="getting-started/./examples/python-interop/example.py">full source code</a> of python example is available in the repo which
+contains useful model wrappers with help of <code>pydantic</code> lib.</p>
+<h2 id="install-from-docker"><a class="header" href="#install-from-docker">Install from Docker</a></h2>
+<p>Another fast way to try vrp solver on your environment is to use <code>docker</code> image (not performance optimized):</p>
+<ul>
+<li><strong>run public image</strong> from <code>Github Container Registry</code>:</li>
+</ul>
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.19.1
+</code></pre>
+<ul>
+<li><strong>build image locally</strong> using <code>Dockerfile</code> provided:</li>
+</ul>
+<pre><code class="language-bash">docker build -t vrp_solver .
+docker run -it -v $(pwd):/repo --rm vrp_solver
+</code></pre>
+<p>Please note that the docker image is built using <code>musl</code>, not <code>glibc</code> standard library. So there might be some performance
+implications.</p>
+<h2 id="install-from-cargo"><a class="header" href="#install-from-cargo">Install from Cargo</a></h2>
+<p>You can install vrp solver <code>cli</code> tool directly with <code>cargo install</code>:</p>
+<pre><code>cargo install vrp-cli
+</code></pre>
+<p>Ensure that your <code>$PATH</code> is properly configured to source the crates binaries, and then run solver using the <code>vrp-cli</code> command.</p>
 <h2 id="install-from-source"><a class="header" href="#install-from-source">Install from source</a></h2>
-<p>VRP solver is built in Rust. You would need to install <code>cargo</code> to built it:</p>
-<pre><code class="language-bash">cargo build --release
+<p>Once pulled the source code, you can build it using <code>cargo</code>:</p>
+<pre><code>cargo build --release
 </code></pre>
 <p>Built binaries can be found in the <code>./target/release</code> directory.</p>
-<h2 id="install-from-cargo"><a class="header" href="#install-from-cargo">Install from Cargo</a></h2>
-<p>You can install vrp solver directly with <code>cargo install</code>:</p>
-<pre><code class="language-bash">cargo install vrp-cli
+<p>Alternatively, you can try to run the following script from the project root:</p>
+<pre><code>./solve_problem.sh examples/data/pragmatic/objectives/berlin.default.problem.json
 </code></pre>
-<p>Ensure that your <code>$PATH</code> is properly configured to source the Crates binaries, and then run solver using the <code>vrp-cli</code> command.</p>
+<p>It will build the executable and automatically launch the solver with the specified VRP definition. Results are
+stored in the folder where a problem definition is located.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="defining-problem"><a class="header" href="#defining-problem">Defining problem</a></h1>
 <p>In general, expressing an arbitrary VRP problem in one simple and universal format is a challenging task. <code>pragmatic</code>
 format aims to do that and there are <a href="getting-started/../concepts/pragmatic/index.html">concept</a> and <a href="getting-started/../examples/pragmatic/index.html">example</a>
@@ -29449,7 +29475,161 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
 &lt;/html&gt;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="python"><a class="header" href="#python">Python</a></h1>
-<p>The easiest way to run the solver from python is to use <code>subprocess</code> to run <code>vrp-cli</code>:</p>
+<h2 id="using-pip"><a class="header" href="#using-pip">Using pip</a></h2>
+<p>This is the easiest way to start using the solver's latest version:</p>
+<pre><code class="language-shell">pip install vrp-cli
+python examples/python-interop/example.py # test example
+</code></pre>
+<p>See python code example in repo or in next section.</p>
+<h2 id="using-maturin"><a class="header" href="#using-maturin">Using maturin</a></h2>
+<p>You can use <a href="https://github.com/PyO3/maturin">maturin</a> tool to build solver locally for you. Here are the steps:</p>
+<ol>
+<li>
+<p>Create a virtual environment and install maturin (and pydantic):</p>
+<pre><code class="language-shell">cd vrp-cli # directory of the crate where with python bindings are located
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -U pip maturin[patchelf] pydantic
+pip freeze
+</code></pre>
+</li>
+<li>
+<p>Use maturin to build and install the solver library in your current environment:</p>
+<pre><code class="language-shell">maturin develop --release
+</code></pre>
+</li>
+<li>
+<p>Import and use the library in your python code:</p>
+</li>
+</ol>
+<pre><code class="language-python">import vrp_cli
+import pragmatic_types as prg
+import config_types as cfg
+import json
+from pydantic.json import pydantic_encoder
+
+# if you want to use approximation, you can skip this definition and pass empty list later
+# also there is a get_locations method to get list of locations in expected order.
+# you can use this list to fetch routing matrix externally
+matrix = prg.Matrix(
+    profile='normal_car',
+    travelTimes=[0, 609, 981, 906, 813, 0, 371, 590, 1055, 514, 0, 439, 948, 511, 463, 0],
+    distances=[0, 3840, 5994, 5333, 4696, 0, 2154, 3226, 5763, 2674, 0, 2145, 5112, 2470, 2152, 0]
+)
+
+
+# specify termination criteria: max running time in seconds or max amount of refinement generations
+config = cfg.Config(
+    termination=cfg.Termination(
+        maxTime=5,
+        maxGenerations=1000
+    )
+)
+
+# specify test problem
+problem = prg.Problem(
+    plan=prg.Plan(
+        jobs=[
+            prg.Job(
+                id='delivery_job1',
+                deliveries=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.52599, lng=13.45413),
+                                duration=300,
+                                times=[['2019-07-04T09:00:00Z', '2019-07-04T18:00:00Z']]
+                            ),
+                        ],
+                        demand=[1]
+                    )
+                ]
+            ),
+            prg.Job(
+                id='pickup_job2',
+                pickups=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.5225, lng=13.4095),
+                                duration=240,
+                                times=[['2019-07-04T10:00:00Z', '2019-07-04T16:00:00Z']]
+                            )
+                        ],
+                        demand=[1]
+                    )
+                ]
+            ),
+            prg.Job(
+                id=&quot;pickup_delivery_job3&quot;,
+                pickups=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.5225, lng=13.4095),
+                                duration=300,
+                                tag=&quot;p1&quot;
+                            )
+                        ],
+                        demand=[1]
+                    )
+                ],
+                deliveries=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.5165, lng=13.3808),
+                                duration=300,
+                                tag=&quot;d1&quot;
+                            ),
+                        ],
+                        demand=[1]
+                    )
+                ]
+            )
+        ]
+    ),
+    fleet=prg.Fleet(
+        vehicles=[
+            prg.VehicleType(
+                typeId='vehicle',
+                vehicleIds=['vehicle_1'],
+                profile=prg.VehicleProfile(matrix='normal_car'),
+                costs=prg.VehicleCosts(fixed=22, distance=0.0002, time=0.005),
+                shifts=[
+                    prg.VehicleShift(
+                        start=prg.VehicleShiftStart(
+                            earliest=&quot;2019-07-04T09:00:00Z&quot;,
+                            location=prg.Location(lat=52.5316, lng=13.3884),
+                        ),
+                        end=prg.VehicleShiftEnd(
+                            latest=&quot;2019-07-04T18:00:00Z&quot;,
+                            location=prg.Location(lat=52.5316, lng=13.3884),
+                        )
+                    )
+                ],
+                capacity=[10]
+            )
+        ],
+        profiles=[prg.RoutingProfile(name='normal_car')]
+    )
+
+)
+
+# run solver and deserialize result into solution model
+solution = prg.Solution(**json.loads(vrp_cli.solve_pragmatic(
+    problem=json.dumps(problem, default=pydantic_encoder),
+    matrices=[json.dumps(matrix, default=pydantic_encoder)],
+    config=json.dumps(config, default=pydantic_encoder),
+)))
+
+print(solution)
+</code></pre>
+<p>You can check the project repository for complete example.</p>
+<p><strong>Please note</strong>, that type wrappers, defined in examples with <code>pydantic</code>, are incomplete. However, it should be enough to
+get started, and you can tweak them according to the documentation or rust source code.</p>
+<h2 id="using-local-build"><a class="header" href="#using-local-build">Using local build</a></h2>
+<p>Another way to run the solver, built locally, from python is to use <code>subprocess</code> to run <code>vrp-cli</code> directly:</p>
 <pre><code class="language-python">import subprocess
 import json
 
@@ -29487,6 +29667,7 @@ solution = solver.solve_pragmatic(problem_path, solution_path, geojson_solution_
 
 print(f&quot;Total cost is {solution.statistic.cost}, tours: {len(solution.tours)}&quot;)
 </code></pre>
+<p><strong>Please note</strong>, that the solver expects file paths instead of json strings as input arguments.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="internals"><a class="header" href="#internals">Internals</a></h1>
 <p>This chapter describes some internals of the project.</p>
 <h2 id="project-structure"><a class="header" href="#project-structure">Project structure</a></h2>

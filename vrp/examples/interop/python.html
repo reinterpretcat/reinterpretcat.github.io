@@ -147,7 +147,161 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="python"><a class="header" href="#python">Python</a></h1>
-<p>The easiest way to run the solver from python is to use <code>subprocess</code> to run <code>vrp-cli</code>:</p>
+<h2 id="using-pip"><a class="header" href="#using-pip">Using pip</a></h2>
+<p>This is the easiest way to start using the solver's latest version:</p>
+<pre><code class="language-shell">pip install vrp-cli
+python examples/python-interop/example.py # test example
+</code></pre>
+<p>See python code example in repo or in next section.</p>
+<h2 id="using-maturin"><a class="header" href="#using-maturin">Using maturin</a></h2>
+<p>You can use <a href="https://github.com/PyO3/maturin">maturin</a> tool to build solver locally for you. Here are the steps:</p>
+<ol>
+<li>
+<p>Create a virtual environment and install maturin (and pydantic):</p>
+<pre><code class="language-shell">cd vrp-cli # directory of the crate where with python bindings are located
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -U pip maturin[patchelf] pydantic
+pip freeze
+</code></pre>
+</li>
+<li>
+<p>Use maturin to build and install the solver library in your current environment:</p>
+<pre><code class="language-shell">maturin develop --release
+</code></pre>
+</li>
+<li>
+<p>Import and use the library in your python code:</p>
+</li>
+</ol>
+<pre><code class="language-python">import vrp_cli
+import pragmatic_types as prg
+import config_types as cfg
+import json
+from pydantic.json import pydantic_encoder
+
+# if you want to use approximation, you can skip this definition and pass empty list later
+# also there is a get_locations method to get list of locations in expected order.
+# you can use this list to fetch routing matrix externally
+matrix = prg.Matrix(
+    profile='normal_car',
+    travelTimes=[0, 609, 981, 906, 813, 0, 371, 590, 1055, 514, 0, 439, 948, 511, 463, 0],
+    distances=[0, 3840, 5994, 5333, 4696, 0, 2154, 3226, 5763, 2674, 0, 2145, 5112, 2470, 2152, 0]
+)
+
+
+# specify termination criteria: max running time in seconds or max amount of refinement generations
+config = cfg.Config(
+    termination=cfg.Termination(
+        maxTime=5,
+        maxGenerations=1000
+    )
+)
+
+# specify test problem
+problem = prg.Problem(
+    plan=prg.Plan(
+        jobs=[
+            prg.Job(
+                id='delivery_job1',
+                deliveries=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.52599, lng=13.45413),
+                                duration=300,
+                                times=[['2019-07-04T09:00:00Z', '2019-07-04T18:00:00Z']]
+                            ),
+                        ],
+                        demand=[1]
+                    )
+                ]
+            ),
+            prg.Job(
+                id='pickup_job2',
+                pickups=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.5225, lng=13.4095),
+                                duration=240,
+                                times=[['2019-07-04T10:00:00Z', '2019-07-04T16:00:00Z']]
+                            )
+                        ],
+                        demand=[1]
+                    )
+                ]
+            ),
+            prg.Job(
+                id=&quot;pickup_delivery_job3&quot;,
+                pickups=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.5225, lng=13.4095),
+                                duration=300,
+                                tag=&quot;p1&quot;
+                            )
+                        ],
+                        demand=[1]
+                    )
+                ],
+                deliveries=[
+                    prg.JobTask(
+                        places=[
+                            prg.JobPlace(
+                                location=prg.Location(lat=52.5165, lng=13.3808),
+                                duration=300,
+                                tag=&quot;d1&quot;
+                            ),
+                        ],
+                        demand=[1]
+                    )
+                ]
+            )
+        ]
+    ),
+    fleet=prg.Fleet(
+        vehicles=[
+            prg.VehicleType(
+                typeId='vehicle',
+                vehicleIds=['vehicle_1'],
+                profile=prg.VehicleProfile(matrix='normal_car'),
+                costs=prg.VehicleCosts(fixed=22, distance=0.0002, time=0.005),
+                shifts=[
+                    prg.VehicleShift(
+                        start=prg.VehicleShiftStart(
+                            earliest=&quot;2019-07-04T09:00:00Z&quot;,
+                            location=prg.Location(lat=52.5316, lng=13.3884),
+                        ),
+                        end=prg.VehicleShiftEnd(
+                            latest=&quot;2019-07-04T18:00:00Z&quot;,
+                            location=prg.Location(lat=52.5316, lng=13.3884),
+                        )
+                    )
+                ],
+                capacity=[10]
+            )
+        ],
+        profiles=[prg.RoutingProfile(name='normal_car')]
+    )
+
+)
+
+# run solver and deserialize result into solution model
+solution = prg.Solution(**json.loads(vrp_cli.solve_pragmatic(
+    problem=json.dumps(problem, default=pydantic_encoder),
+    matrices=[json.dumps(matrix, default=pydantic_encoder)],
+    config=json.dumps(config, default=pydantic_encoder),
+)))
+
+print(solution)
+</code></pre>
+<p>You can check the project repository for complete example.</p>
+<p><strong>Please note</strong>, that type wrappers, defined in examples with <code>pydantic</code>, are incomplete. However, it should be enough to
+get started, and you can tweak them according to the documentation or rust source code.</p>
+<h2 id="using-local-build"><a class="header" href="#using-local-build">Using local build</a></h2>
+<p>Another way to run the solver, built locally, from python is to use <code>subprocess</code> to run <code>vrp-cli</code> directly:</p>
 <pre><code class="language-python">import subprocess
 import json
 
@@ -185,6 +339,7 @@ solution = solver.solve_pragmatic(problem_path, solution_path, geojson_solution_
 
 print(f&quot;Total cost is {solution.statistic.cost}, tours: {len(solution.tours)}&quot;)
 </code></pre>
+<p><strong>Please note</strong>, that the solver expects file paths instead of json strings as input arguments.</p>
 
                     </main>
 
