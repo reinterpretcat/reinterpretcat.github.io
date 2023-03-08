@@ -1,0 +1,26 @@
+{
+  "name": "heuristic-research",
+  "collaborators": [
+    "Ilya Builuk <ilya.builuk@gmail.com>"
+  ],
+  "description": "A playground for heuristic research",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reinterpretcat/vrp"
+  },
+  "files": [
+    "heuristic_research_bg.wasm",
+    "heuristic_research.js",
+    "heuristic_research.d.ts"
+  ],
+  "module": "heuristic_research.js",
+  "homepage": "https://github.com/reinterpretcat/vrp",
+  "types": "heuristic_research.d.ts",
+  "sideEffects": false,
+  "keywords": [
+    "heuristics",
+    "optimization"
+  ]
+}
