@@ -197,6 +197,18 @@ assignment leads to more jobs unassigned.</li>
 <li><code>isConstrained</code>: violating order is not allowed, even if it leads to less assigned jobs (default is true).</li>
 </ul>
 </li>
+<li><code>compact-tour</code>: controls how tour is shaped by limiting amount of shared jobs, assigned in different routes,
+for a given job' neighbourhood. It has the following mandatory parameters:
+<ul>
+<li><code>options</code>: options to relax objective:
+<ul>
+<li><code>threshold</code>: a minimum shared jobs to count</li>
+<li><code>distance</code>:  a minimum relative distance between counts when comparing different solutions.
+This objective is supposed to be on the same level within cost ones.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="work-balance-objectives"><a class="header" href="#work-balance-objectives">Work balance objectives</a></h3>
 <p>There are four work balance objectives available:</p>

@@ -1735,7 +1735,7 @@ contains useful model wrappers with help of <code>pydantic</code> lib.</p>
 <ul>
 <li><strong>run public image</strong> from <code>Github Container Registry</code>:</li>
 </ul>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.19.2
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.21.0
 </code></pre>
 <ul>
 <li><strong>build image locally</strong> using <code>Dockerfile</code> provided:</li>
@@ -3315,7 +3315,6 @@ solution, are required:</p>
       &quot;spreadFactor&quot;: 0.75,
       &quot;distributionFactor&quot;: 0.75,
       &quot;objectiveReshuffling&quot;: 0.01,
-      &quot;learningRate&quot;: 0.1,
       &quot;rebalanceMemory&quot;: 100,
       &quot;explorationRatio&quot;: 0.9
     }
@@ -4218,8 +4217,8 @@ different job types.</p>
 <li>
 <p><strong>limits</strong> (optional): vehicle limits. There are two:</p>
 <ul>
-<li><strong>shiftTime</strong> (optional): max shift time</li>
-<li><strong>maxDistance</strong> (optional): max distance</li>
+<li><strong>maxDuration</strong> (optional): max tour duration</li>
+<li><strong>maxDistance</strong> (optional): max tour distance</li>
 <li><strong>tourSize</strong> (optional): max amount of activities in the tour (without departure/arrival). Please note, that
 clustered activities are counted as one in case of vicinity clustering.</li>
 </ul>
@@ -4604,6 +4603,18 @@ assignment leads to more jobs unassigned.</li>
 <li><code>tour-order</code>: controls desired activity order in tours
 <ul>
 <li><code>isConstrained</code>: violating order is not allowed, even if it leads to less assigned jobs (default is true).</li>
+</ul>
+</li>
+<li><code>compact-tour</code>: controls how tour is shaped by limiting amount of shared jobs, assigned in different routes,
+for a given job' neighbourhood. It has the following mandatory parameters:
+<ul>
+<li><code>options</code>: options to relax objective:
+<ul>
+<li><code>threshold</code>: a minimum shared jobs to count</li>
+<li><code>distance</code>:  a minimum relative distance between counts when comparing different solutions.
+This objective is supposed to be on the same level within cost ones.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -5080,7 +5091,7 @@ job was not added to the existing tours.</p>
 | CAPACITY_CONSTRAINT           | <code>does not fit into any vehicle due to capacity</code>                | allocate more vehicles?                                 |
 | REACHABLE_CONSTRAINT          | <code>location unreachable</code>                                         | change job location to routable place?                  |
 | MAX_DISTANCE_CONSTRAINT       | <code>cannot be assigned due to max distance constraint of vehicle</code> | allocate more vehicles?                                 |
-| SHIFT_TIME_CONSTRAINT         | <code>cannot be assigned due to shift time constraint of vehicle</code>   | allocate more vehicles?                                 |
+| MAX_DURATION_CONSTRAINT       | <code>cannot be assigned due to max duration constraint of vehicle</code> | allocate more vehicles?                                 |
 | BREAK_CONSTRAINT              | <code>break is not assignable</code>                                      | correct break location or/and time window?              |
 | LOCKING_CONSTRAINT            | <code>cannot be served due to relation lock</code>                        | review relations?                                       |
 | AREA_CONSTRAINT               | <code>cannot be assigned due to area constraint</code>                    | make sure that jobs inside allowed areas                |
@@ -29162,7 +29173,7 @@ class Application {
         String problem = new String(Files.readAllBytes(Paths.get(args[0])));
         String[] matrices = new String[args.length - 1];
         for (int i = 1; i &lt; args.length; i++) {
-            matrices[i] = new String(Files.readAllBytes(Paths.get(args[i])));
+            matrices[i - 1] = new String(Files.readAllBytes(Paths.get(args[i])));
         }
 
         Solver solver = Native.load(&quot;vrp_cli&quot;, Solver.class);
@@ -29495,7 +29506,7 @@ pip freeze
 </li>
 <li>
 <p>Use maturin to build and install the solver library in your current environment:</p>
-<pre><code class="language-shell">maturin develop --release
+<pre><code class="language-shell">maturin develop --release --features &quot;py_bindings&quot;
 </code></pre>
 </li>
 <li>
