@@ -1735,7 +1735,7 @@ contains useful model wrappers with help of <code>pydantic</code> lib.</p>
 <ul>
 <li><strong>run public image</strong> from <code>Github Container Registry</code>:</li>
 </ul>
-<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.21.0
+<pre><code class="language-bash">    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.22.0
 </code></pre>
 <ul>
 <li><strong>build image locally</strong> using <code>Dockerfile</code> provided:</li>
@@ -1784,7 +1784,7 @@ problem with a lot of jobs and vehicles converted into it.</p>
 <li>zero: <code>service</code></li>
 </ul>
 </li>
-<li><code>DURATION</code> <strong>(integer)</strong>: job duration in minutes</li>
+<li><code>DURATION</code> <strong>(integer)</strong>: job duration in seconds</li>
 <li><code>TW_START</code> <strong>(date in RFC3999)</strong>: earliest time when job can be served</li>
 <li><code>TW_END</code> <strong>(date in RFC3999)</strong>: latest time when job can be served</li>
 </ul>
@@ -1920,7 +1920,18 @@ overridden using <code>init-size</code> option.</p>
 <h3 id="writing-solution-to-file"><a class="header" href="#writing-solution-to-file">Writing solution to file</a></h3>
 <p>Writing solution into file is controlled by <code>-o</code> or <code>--out-result</code> setting. When it is omitted, then solution is written
 in std out.</p>
-<p>Pragmatic format supports option <code>-g</code> or <code>--geo-json</code> which writes solution in separate file in geojson format.</p>
+<h4 id="geojson"><a class="header" href="#geojson">Geojson</a></h4>
+<p>Pragmatic format supports option <code>-g</code> or <code>--geo-json</code> which writes solution in separate file in geojson format.
+If the library iw used from the interop api (e.g. python or c), then solution in geojson can be returned inside <code>extras.features</code>
+with the config option specified:
+s</p>
+<pre><code class="language-json">{
+  &quot;output&quot;: {
+    &quot;includeGeojson&quot;: true
+  }
+}
+</code></pre>
+<p>s</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="analyzing-results"><a class="header" href="#analyzing-results">Analyzing results</a></h1>
 <p>In this example, solution is returned in a <code>pragmatic</code> format which model is described in details
 <a href="getting-started/../concepts/pragmatic/solution/index.html">here</a>. However, analyzing VRP solution might be a difficult task. That's why
@@ -3298,8 +3309,8 @@ solution, are required:</p>
           {
             &quot;type&quot;: &quot;perturbation&quot;,
             &quot;probability&quot;: 0.33,
-            &quot;min&quot;: 0.8,
-            &quot;max&quot;: 1.2,
+            &quot;min&quot;: -0.2,
+            &quot;max&quot;: 0.2,
             &quot;weight&quot;: 1
           }
         ],
@@ -3366,8 +3377,8 @@ solution, are required:</p>
             &quot;type&quot;: &quot;inter-route-best&quot;,
             &quot;noise&quot;: {
               &quot;probability&quot;: 0.1,
-              &quot;min&quot;: 0.9,
-              &quot;max&quot;: 1.1
+              &quot;min&quot;: -0.1,
+              &quot;max&quot;: 0.1
             }
           },
           {
@@ -3375,8 +3386,8 @@ solution, are required:</p>
             &quot;type&quot;: &quot;inter-route-random&quot;,
             &quot;noise&quot;: {
               &quot;probability&quot;: 0.1,
-              &quot;min&quot;: 0.9,
-              &quot;max&quot;: 1.1
+              &quot;min&quot;: -0.1,
+              &quot;max&quot;: 0.1
             }
           },
           {
@@ -3384,8 +3395,8 @@ solution, are required:</p>
             &quot;type&quot;: &quot;intra-route-random&quot;,
             &quot;noise&quot;: {
               &quot;probability&quot;: 1,
-              &quot;min&quot;: 0.9,
-              &quot;max&quot;: 1.1
+              &quot;min&quot;: -0.1,
+              &quot;max&quot;: 0.1
             }
           }
         ]
@@ -3512,8 +3523,8 @@ solution, are required:</p>
             &quot;weight&quot;: 10,
             &quot;type&quot;: &quot;perturbation&quot;,
             &quot;probability&quot;: 0.33,
-            &quot;min&quot;: 0.8,
-            &quot;max&quot;: 1.2
+            &quot;min&quot;: -0.2,
+            &quot;max&quot;: 0.2
           },
           {
             &quot;weight&quot;: 5,
@@ -3570,8 +3581,8 @@ solution, are required:</p>
             &quot;type&quot;: &quot;inter-route-best&quot;,
             &quot;noise&quot;: {
               &quot;probability&quot;: 0.1,
-              &quot;min&quot;: 0.9,
-              &quot;max&quot;: 1.1
+              &quot;min&quot;: -0.1,
+              &quot;max&quot;: 0.1
             }
           },
           {
@@ -3579,8 +3590,8 @@ solution, are required:</p>
             &quot;type&quot;: &quot;inter-route-random&quot;,
             &quot;noise&quot;: {
               &quot;probability&quot;: 0.1,
-              &quot;min&quot;: 0.9,
-              &quot;max&quot;: 1.1
+              &quot;min&quot;: -0.1,
+              &quot;max&quot;: 0.1
             }
           },
           {
@@ -3588,8 +3599,8 @@ solution, are required:</p>
             &quot;type&quot;: &quot;intra-route-random&quot;,
             &quot;noise&quot;: {
               &quot;probability&quot;: 1,
-              &quot;min&quot;: 0.9,
-              &quot;max&quot;: 1.1
+              &quot;min&quot;: -0.1,
+              &quot;max&quot;: 0.1
             }
           },
           {
@@ -3632,6 +3643,9 @@ solution, are required:</p>
       &quot;prefix&quot;: &quot;[config.full]&quot;
     },
     &quot;isExperimental&quot;: false
+  },
+  &quot;output&quot;: {
+    &quot;includeGeojson&quot;: true
   }
 }
 </code></pre>
@@ -3781,7 +3795,7 @@ its value is set to maximum.</li>
 <p>Each <code>place</code> consists of the following properties:</p>
 <ul>
 <li><strong>location</strong> (required): a place location</li>
-<li><strong>duration</strong> (required): service (operational) time to serve task here</li>
+<li><strong>duration</strong> (required): service (operational) time to serve task here (in seconds)</li>
 <li><strong>times</strong> (optional): time windows</li>
 <li><strong>tag</strong> (optional): a job place tag which will be returned within job's activity in result solution.</li>
 </ul>
@@ -4301,23 +4315,26 @@ Check example <a href="concepts/pragmatic/problem/../../../examples/pragmatic/ba
 <li>
 <p><strong>breaks</strong> (optional) a list of vehicle breaks. There are two types of breaks:</p>
 <ul>
-<li>required: this break is guaranteed to be assigned at cost of flexibility. It has the following properties:
+<li><strong>required</strong>: this break is guaranteed to be assigned at cost of flexibility. It has the following properties:
 <ul>
-<li><code>time</code> (required): a fixed time or offset when the break should happen</li>
+<li><code>time</code> (required): a fixed time or offset range when the break should happen specified by <code>earliest</code> and <code>latest</code> properties.
+The break will be assigned not earlier, and not later than the range specified.</li>
 <li><code>duration</code> (required): duration of the break</li>
 </ul>
 </li>
-<li>optional: although such break is not guaranteed for assignment, the algorithm has more flexibility for assignment.
-It is specified by:
+<li><strong>optional</strong>: although such break is not guaranteed for assignment, it has some advantages over required break:
 <ul>
+<li>aribatry break location is supported</li>
+<li>the algorithm has more flexibility for assignment
+It is specified by:</li>
 <li><code>time</code> (required): time window or interval after which a break should happen (e.g. between 3 or 4 hours after start).</li>
 <li><code>places</code>: list of alternative places defined by <code>location</code> (optional), <code>duration</code> (required) and <code>tag</code> (optional).
-If location of a break is omitted then break is stick to location of job served before break.</li>
+If location of a break is omitted then break is stick to location of a job served before break.</li>
 <li><code>policy</code> (optional): a break skip policy. Possible values:
 <ul>
 <li><code>skip-if-no-intersection</code>: allows to skip break if actual tour schedule doesn't intersect with vehicle time window (default)</li>
 <li><code>skip-if-arrival-before-end</code>: allows to skip break if vehicle arrives before break's time window end.
-Please note that break is a soft constraint and can be unassigned in some cases due to other hard constraints, such
+Please note that optional break is a soft constraint and can be unassigned in some cases due to other hard constraints, such
 as time windows. You can control its unassignment weight using specific property on <code>minimize-unassigned</code> objective.
 See example <a href="concepts/pragmatic/problem/../../../examples/pragmatic/basics/break.html">here</a></li>
 </ul>
@@ -8600,7 +8617,10 @@ between two stops.</p>
             },
             &quot;breaks&quot;: [
               {
-                &quot;time&quot;: 7200,
+                &quot;time&quot;: {
+                  &quot;earliest&quot;: 7200,
+                  &quot;latest&quot;: 7200
+                },
                 &quot;duration&quot;: 1800
               }
             ]
@@ -29978,24 +29998,8 @@ which is a growing variant of a self-organizing map. In <code>rosomaxa</code>, i
 <li>add control of <code>exploration</code> vs <code>exploitation</code> ratio</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hyper-heuristic"><a class="header" href="#hyper-heuristic">Hyper-heuristic</a></h1>
-<p>By default, the solver tries to use the dynamic hyper-heuristic which uses <a href="https://en.wikipedia.org/wiki/Markov_decision_process">Markov Decision Process</a>
-mechanism to choose one of pre-defined meta-heuristics on each solution refinement step.</p>
-<figure><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="424px" preserveAspectRatio="none" style="width:749px;height:424px;" version="1.1" viewBox="0 0 749 424" width="749px" zoomAndPan="magnify"><defs><filter height="300%" id="f1m286l06au3jf" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><ellipse cx="397" cy="18" fill="#000000" filter="url(#f1m286l06au3jf)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="181" x="205.5" y="88"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="205.5" x2="386.5" y1="114.2969" y2="114.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="256.5" y="105.9951">BestKnown</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="161" x="210.5" y="130.4355">best known solution used</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="154" x="422" y="88"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="422" x2="576" y1="114.2969" y2="114.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="52" x="473" y="105.9951">Diverse</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="134" x="427" y="130.4355">diverse solution used</text><polygon fill="#FEFECE" filter="url(#f1m286l06au3jf)" points="304,198.5,316,210.5,304,222.5,292,210.5,304,198.5" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M49.5,198 L49.5,223.1328 A0,0 0 0 0 49.5,223.1328 L256.5,223.1328 A0,0 0 0 0 256.5,223.1328 L256.5,216 L291.76,210.5 L256.5,208 L256.5,208 L246.5,198 L49.5,198 A0,0 0 0 0 49.5,198 " fill="#FBFB77" filter="url(#f1m286l06au3jf)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M246.5,198 L246.5,208 L256.5,208 L246.5,198 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="186" x="55.5" y="215.0669">select one of meta-heuristics</text><polygon fill="#FEFECE" filter="url(#f1m286l06au3jf)" points="483,198.5,495,210.5,483,222.5,471,210.5,483,198.5" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M530.5,198 L530.5,206.5 L495.09,210.5 L530.5,214.5 L530.5,223.1328 A0,0 0 0 0 530.5,223.1328 L737.5,223.1328 A0,0 0 0 0 737.5,223.1328 L737.5,208 L727.5,198 L530.5,198 A0,0 0 0 0 530.5,198 " fill="#FBFB77" filter="url(#f1m286l06au3jf)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M727.5,198 L727.5,208 L737.5,208 L727.5,198 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="186" x="536.5" y="215.0669">select one of meta-heuristics</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="180" x="6" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="6" x2="186" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="160" x="16" y="300.9951">BestMajorImprovement</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="93" x="11" y="325.4355">reward: +1000</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="181" x="221.5" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="221.5" x2="402.5" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="161" x="231.5" y="300.9951">BestMinorImprovement</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="85" x="226.5" y="325.4355">reward: +100</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="163" x="563.5" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="563.5" x2="726.5" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="143" x="573.5" y="300.9951">DiverseImprovement</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="77" x="568.5" y="325.4355">reward: +10</text><rect fill="#FEFECE" filter="url(#f1m286l06au3jf)" height="50.2656" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="91" x="437.5" y="283"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="437.5" x2="528.5" y1="309.2969" y2="309.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="447.5" y="300.9951">Stagnated</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="442.5" y="325.4355">reward: -1</text><ellipse cx="397" cy="403" fill="none" filter="url(#f1m286l06au3jf)" rx="10" ry="10" style="stroke: #000000; stroke-width: 1.0;"/><ellipse cx="397.5" cy="403.5" fill="#000000" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"/><!--MD5=[ba4656287dda875cf9961fabc34f0d5a]
-link *start to BestKnown--><path d="M390.06,25.39 C377.08,37.34 348.45,63.71 326.16,84.23 " fill="none" id="*start-&gt;BestKnown" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="322.36,87.73,331.694,84.5873,326.0422,84.3475,326.282,78.6957,322.36,87.73" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[f00f3501008a1bc5d02e86bd43ced50d]
-link *start to Diverse--><path d="M404.01,25.39 C417.12,37.34 446.03,63.71 468.54,84.23 " fill="none" id="*start-&gt;Diverse" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="472.38,87.73,468.4199,78.7124,468.6835,84.3631,463.0328,84.6267,472.38,87.73" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[642b491557e2a954b95b94995d38d7ce]
-link BestKnown to m1--><path d="M298.02,138.1 C299.49,155.62 301.43,178.82 302.7,193.95 " fill="none" id="BestKnown-&gt;m1" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="303.13,199.13,306.3445,189.8205,302.7018,194.1484,298.3739,190.5056,303.13,199.13" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[05528e425a44ec55339d8c3107156509]
-link Diverse to m2--><path d="M494.96,138.1 C491.99,155.82 488.05,179.34 485.52,194.46 " fill="none" id="Diverse-&gt;m2" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="484.66,199.62,490.0967,191.4077,485.4889,194.6892,482.2075,190.0814,484.66,199.62" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[df6f24df87bbf0444eb2cb2014e6de17]
-link m1 to BestMajorImprovement--><path d="M296.1,215.13 C272.95,225.76 203.74,257.53 153.18,280.75 " fill="none" id="m1-&gt;BestMajorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="148.34,282.97,158.1881,282.85,152.884,280.8838,154.8502,275.5796,148.34,282.97" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[ed698268c0ab8d5225d9e96de795ed43]
-link m1 to BestMinorImprovement--><path d="M304.86,221.72 C305.96,234.92 307.93,258.44 309.52,277.44 " fill="none" id="m1-&gt;BestMinorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="309.96,282.67,313.201,273.3697,309.546,277.6872,305.2285,274.0321,309.96,282.67" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[77143bca659862ae9a33afb28f301dfe]
-link m1 to Stagnated--><path d="M311.24,215.36 C331.5,226.17 390.1,257.43 433.24,280.45 " fill="none" id="m1-&gt;Stagnated" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="437.89,282.93,431.8259,275.1694,433.4766,280.58,428.066,282.2307,437.89,282.93" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[493e2748ef39ac8a1a11af5c9117ab85]
-link m2 to BestMajorImprovement--><path d="M473.82,213.77 C436.05,223.09 290.07,259.11 191.02,283.55 " fill="none" id="m2-&gt;BestMajorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="186.05,284.78,195.7467,286.5046,190.9041,283.5808,193.8279,278.7381,186.05,284.78" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[3414052786975f17d78f1eaaedc1f09e]
-link m2 to BestMinorImprovement--><path d="M475.65,215.6 C455.91,226.63 400.47,257.59 359.56,280.44 " fill="none" id="m2-&gt;BestMinorImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="355.15,282.9,364.9565,281.9877,359.5113,280.4548,361.0442,275.0096,355.15,282.9" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[b3e040e00708f3f7223b8c6b9f8bd39f]
-link m2 to DiverseImprovement--><path d="M489.96,215.6 C508.58,226.58 560.76,257.34 599.47,280.16 " fill="none" id="m2-&gt;DiverseImprovement" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="604.12,282.9,598.3976,274.8841,599.8125,280.3612,594.3355,281.7761,604.12,282.9" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[99bb4f3eac9947ca2501c95e960b6300]
-link m2 to Stagnated--><path d="M483,222.83 C483,236.29 483,259.25 483,277.79 " fill="none" id="m2-&gt;Stagnated" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="483,282.9,487,273.9,483,277.9,479,273.9,483,282.9" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[3a50b4cfdc025b09a00cc83d2eff6100]
-link BestMajorImprovement to *end--><path d="M173.91,333.07 C245.3,355.13 345.34,386.04 382.43,397.5 " fill="none" id="BestMajorImprovement-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="387.43,399.04,380.003,392.5717,382.6508,397.5706,377.6519,400.2184,387.43,399.04" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[0448552424524cc15fc8465d0ca0abdf]
-link BestMinorImprovement to *end--><path d="M334.33,333.43 C351.45,352.16 374.25,377.11 387.1,391.17 " fill="none" id="BestMinorImprovement-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="390.75,395.16,387.6449,385.8134,387.3824,391.4642,381.7316,391.2016,390.75,395.16" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[e4375ed2ad30ce4bfe6ff3649782363f]
-link DiverseImprovement to *end--><path d="M580.81,333.07 C523.29,354.64 443.18,384.68 411.1,396.71 " fill="none" id="DiverseImprovement-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="406.03,398.61,415.8615,399.1952,410.7116,396.8544,413.0525,391.7046,406.03,398.61" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[3b2ecdc910b46c2db0779ae253c9767c]
-link Stagnated to *end--><path d="M460.4,333.43 C443.09,352.16 420.02,377.11 407.02,391.17 " fill="none" id="Stagnated-&gt;*end" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="403.32,395.16,412.37,391.2745,406.7173,391.4915,406.5004,385.8388,403.32,395.16" style="stroke: #A80036; stroke-width: 1.0;"/></g></svg></figure>
+<p>By default, the solver tries to use the dynamic hyper-heuristic which uses some reinforcement learning technics to
+choose one of pre-defined meta-heuristics on each solution refinement step.</p>
 
                     </main>
 

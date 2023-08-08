@@ -237,7 +237,18 @@ overridden using <code>init-size</code> option.</p>
 <h3 id="writing-solution-to-file"><a class="header" href="#writing-solution-to-file">Writing solution to file</a></h3>
 <p>Writing solution into file is controlled by <code>-o</code> or <code>--out-result</code> setting. When it is omitted, then solution is written
 in std out.</p>
-<p>Pragmatic format supports option <code>-g</code> or <code>--geo-json</code> which writes solution in separate file in geojson format.</p>
+<h4 id="geojson"><a class="header" href="#geojson">Geojson</a></h4>
+<p>Pragmatic format supports option <code>-g</code> or <code>--geo-json</code> which writes solution in separate file in geojson format.
+If the library iw used from the interop api (e.g. python or c), then solution in geojson can be returned inside <code>extras.features</code>
+with the config option specified:
+s</p>
+<pre><code class="language-json">{
+  &quot;output&quot;: {
+    &quot;includeGeojson&quot;: true
+  }
+}
+</code></pre>
+<p>s</p>
 
                     </main>
 

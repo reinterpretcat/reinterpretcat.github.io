@@ -1,6 +1,9 @@
 class Chart {}
 
-const canvas = document.getElementById("canvas");
+const canvas1 = document.getElementById("canvas1");
+const canvas2 = document.getElementById("canvas2");
+const canvas3 = document.getElementById("canvas3");
+
 const coord = document.getElementById("coord");
 const fileSelector = document.getElementById("file-selector");
 const plotPopulation = document.getElementById("plot-population");
@@ -14,13 +17,18 @@ const generations = document.getElementById("generations");
 /** Main entry point */
 export function main() {
     setupUI();
-    setupCanvas();
+    setupCanvas(canvas1);
+    setupCanvas(canvas2);
+    setupCanvas(canvas3);
+    updateDynamicPlots();
+    updateStaticPlots();
 }
 
 /** This function is used in `vector.bootstrap.js` to setup imports. */
-export function setup(WasmChart, run_function_experiment, clear) {
+export function setup(WasmChart, run_function_experiment, load_state, clear) {
     Chart = WasmChart;
     Chart.run_experiment = run_function_experiment;
+    Chart.load_state = load_state;
     Chart.clear = clear;
 }
 
@@ -30,34 +38,34 @@ function setupUI() {
     fileSelector.addEventListener("change", openFile);
     plotPopulation.addEventListener("change", changePlot);
 
-    yaw.addEventListener("change", updatePlot);
-    pitch.addEventListener("change", updatePlot);
-    generations.addEventListener("change", updatePlot);
+    yaw.addEventListener("change", updateDynamicPlots);
+    pitch.addEventListener("change", updateDynamicPlots);
+    generations.addEventListener("change", updateDynamicPlots);
 
-    yaw.addEventListener("input", updatePlot);
-    pitch.addEventListener("input", updatePlot);
-    generations.addEventListener("input", updatePlot);
+    yaw.addEventListener("input", updateDynamicPlots);
+    pitch.addEventListener("input", updateDynamicPlots);
+    generations.addEventListener("input", updateDynamicPlots);
 
     run.addEventListener("click", runExperiment)
     window.addEventListener("resize", setupCanvas);
 }
 
 /** Setup canvas to properly handle high DPI and redraw current plot. */
-function setupCanvas() {
+function setupCanvas(canvas) {
     const aspectRatio = canvas.width / canvas.height;
     const size = canvas.parentNode.offsetWidth * 1.2;
     canvas.style.width = size + "px";
     canvas.style.height = size / aspectRatio + "px";
     canvas.width = size;
     canvas.height = size / aspectRatio;
-    updatePlot();
 }
 
 /** Changes plot **/
 function changePlot() {
     Chart.clear()
     generations.classList.add("hide");
-    updatePlot()
+    updateDynamicPlots()
+    updateStaticPlots();
 }
 
 function openFile(event) {
@@ -68,7 +76,7 @@ function openFile(event) {
         let content = reader.result;
         console.log(content.substring(0, 300));
 
-        Chart.problem = content;
+        Chart.data = content;
 
         run.classList.remove("hide");
     };
@@ -76,14 +84,16 @@ function openFile(event) {
 }
 
 /** Redraw currently selected plot. */
-function updatePlot() {
+function updateDynamicPlots() {
     let yaw_value = Number(yaw.value) / 100.0;
     let pitch_value = Number(pitch.value) / 100.0;
     let generation_value = Number(generations.value);
+    let heuristic_kind = "best";
 
     const start = performance.now();
 
-    Chart.vrp(canvas, generation_value, pitch_value, yaw_value);
+    Chart.vrp(canvas1, generation_value, pitch_value, yaw_value);
+    Chart.heuristic_estimations(canvas2, generation_value, heuristic_kind);
     
     const end = performance.now();
 
@@ -91,15 +101,26 @@ function updatePlot() {
     status.innerText = `Generation: ${generation_value} in ${Math.ceil(end - start)}ms`;
 }
 
+function updateStaticPlots() {
+    Chart.fitness_vrp(canvas3)
+}
+
 /** Runs experiment. */
 function runExperiment() {
     // TODO configure parameters from outside
     let max_gen = 2000
-    let population_type = plotPopulation.selectedOptions[0].value;
     let format_type = vrpFormat.selectedOptions[0].value;
 
-    Chart.run_experiment(format_type, Chart.problem, population_type, max_gen);
-    updatePlot();
+    if (format_type === "state") {
+        max_gen = Chart.load_state(Chart.data);
+    } else {
+        let population_type = plotPopulation.selectedOptions[0].value;
+        Chart.run_experiment(format_type, Chart.data, population_type, max_gen);
+    }
+
+
+    updateDynamicPlots();
+    updateStaticPlots();
     generations.max = max_gen;
     generations.classList.remove("hide");
 }

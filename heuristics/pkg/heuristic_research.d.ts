@@ -18,6 +18,12 @@ export function run_function_experiment(function_name: string, population_type: 
 */
 export function run_vrp_experiment(format_type: string, problem: string, population_type: string, generations: number): void;
 /**
+* Loads experiment data from json serialized representation.
+* @param {string} data
+* @returns {number}
+*/
+export function load_state(data: string): number;
+/**
 * Clears experiment data.
 */
 export function clear(): void;
@@ -31,6 +37,16 @@ export function get_generation(): number;
 */
 export class Chart {
   free(): void;
+/**
+* Draws best known fitness progression for benchmark functions.
+* @param {HTMLCanvasElement} canvas
+*/
+  static fitness_func(canvas: HTMLCanvasElement): void;
+/**
+* Draws best known fitness progression for vrp problem.
+* @param {HTMLCanvasElement} canvas
+*/
+  static fitness_vrp(canvas: HTMLCanvasElement): void;
 /**
 * Draws plot for rosenbrock function.
 * @param {HTMLCanvasElement} canvas
@@ -79,25 +95,36 @@ export class Chart {
 * @param {number} yaw
 */
   static vrp(canvas: HTMLCanvasElement, generation: number, pitch: number, yaw: number): void;
+/**
+* Draws plot for heuristic estimations.
+* @param {HTMLCanvasElement} canvas
+* @param {number} generation
+* @param {string} kind
+*/
+  static heuristic_estimations(canvas: HTMLCanvasElement, generation: number, kind: string): void;
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
+  readonly chart_fitness_func: (a: number, b: number) => void;
+  readonly chart_fitness_vrp: (a: number, b: number) => void;
   readonly chart_rosenbrock: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_rastrigin: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_himmelblau: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_ackley: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_matyas: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_vrp: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly chart_heuristic_estimations: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly run_function_experiment: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
   readonly run_vrp_experiment: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
+  readonly load_state: (a: number, b: number) => number;
   readonly clear: () => void;
   readonly get_generation: () => number;
   readonly __wbg_chart_free: (a: number) => void;
-  readonly __wbindgen_malloc: (a: number) => number;
-  readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
+  readonly __wbindgen_malloc: (a: number, b: number) => number;
+  readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_exn_store: (a: number) => void;
 }
@@ -121,4 +148,4 @@ export function initSync(module: SyncInitInput): InitOutput;
 *
 * @returns {Promise<InitOutput>}
 */
-export default function init (module_or_path?: InitInput | Promise<InitInput>): Promise<InitOutput>;
+export default function __wbg_init (module_or_path?: InitInput | Promise<InitInput>): Promise<InitOutput>;
