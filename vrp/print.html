@@ -1643,6 +1643,7 @@ the project aims to support a very wide range of VRP variations known as Rich VR
 through various extension points: custom constraints, objective functions, acceptance criteria, etc.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
 <p>This chapter describes basic information regarding the project and gives some instructions how to start with it.</p>
+<p>Alternative, more example based, tutorial can be found in dedicated <a href="https://github.com/reinterpretcat/vrp/tree/master/examples/python-interop/tutorial.ipynb">jupyter notebook</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="features"><a class="header" href="#features">Features</a></h1>
 <p>The main focus of the project is to support solving multiple variations of VRP within their combination. This non-complete
 list describes common VRP variations supported by the project:</p>
@@ -3829,8 +3830,8 @@ depending on time of the day.</p>
         ]
       },
 </code></pre>
-<p>The vehicle picks some <code>good</code> at pickup locations, which leads to capacity growth according to <code>job.pickups.demand</code> value,
-and brings it till the end of the tour. Each pickup task has its own properties such as <code>demand</code> and <code>places</code>.</p>
+<p>The vehicle picks some <code>good</code> at pickup locations, which leads to capacity consumption growth according to <code>job.pickups.demand</code>
+value, and brings it till the end of the tour (or next reload). Each pickup task has its own properties such as <code>demand</code> and <code>places</code>.</p>
 <h2 id="delivery-job"><a class="header" href="#delivery-job">Delivery job</a></h2>
 <p>Delivery job is a job with <code>job.deliveries</code> property specified, without <code>job.pickups</code>:</p>
 <pre><code class="language-json">      {
@@ -3863,9 +3864,9 @@ and brings it till the end of the tour. Each pickup task has its own properties 
         ]
       },
 </code></pre>
-<p>The vehicle picks some <code>goods</code> at the start stop, which leads to initial capacity growth, and brings it to job's locations,
-where capacity is decreased based on <code>job.deliveries.demand</code> values. Each delivery task has its own properties such as
-<code>demand</code> and <code>places</code>.</p>
+<p>The vehicle picks some <code>goods</code> at the start stop, which leads to initial capacity consumption growth, and brings it to
+job's locations, where capacity consumption is decreased based on <code>job.deliveries.demand</code> values. Each delivery task has
+its own properties such as <code>demand</code> and <code>places</code>.</p>
 <h2 id="pickup-and-delivery-job"><a class="header" href="#pickup-and-delivery-job">Pickup and delivery job</a></h2>
 <p>Pickup and delivery job is a job with both <code>job.pickups</code> and <code>job.deliveries</code> properties specified:</p>
 <pre><code class="language-json">      {
@@ -29542,9 +29543,9 @@ from pydantic.json import pydantic_encoder
 # if you want to use approximation, you can skip this definition and pass empty list later
 # also there is a get_locations method to get list of locations in expected order.
 # you can use this list to fetch routing matrix externally
-matrix = prg.Matrix(
+matrix = prg.RoutingMatrix(
     profile='normal_car',
-    travelTimes=[0, 609, 981, 906, 813, 0, 371, 590, 1055, 514, 0, 439, 948, 511, 463, 0],
+    durations=[0, 609, 981, 906, 813, 0, 371, 590, 1055, 514, 0, 439, 948, 511, 463, 0],
     distances=[0, 3840, 5994, 5333, 4696, 0, 2154, 3226, 5763, 2674, 0, 2145, 5112, 2470, 2152, 0]
 )
 

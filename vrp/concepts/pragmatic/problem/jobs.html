@@ -242,8 +242,8 @@ depending on time of the day.</p>
         ]
       },
 </code></pre>
-<p>The vehicle picks some <code>good</code> at pickup locations, which leads to capacity growth according to <code>job.pickups.demand</code> value,
-and brings it till the end of the tour. Each pickup task has its own properties such as <code>demand</code> and <code>places</code>.</p>
+<p>The vehicle picks some <code>good</code> at pickup locations, which leads to capacity consumption growth according to <code>job.pickups.demand</code>
+value, and brings it till the end of the tour (or next reload). Each pickup task has its own properties such as <code>demand</code> and <code>places</code>.</p>
 <h2 id="delivery-job"><a class="header" href="#delivery-job">Delivery job</a></h2>
 <p>Delivery job is a job with <code>job.deliveries</code> property specified, without <code>job.pickups</code>:</p>
 <pre><code class="language-json">      {
@@ -276,9 +276,9 @@ and brings it till the end of the tour. Each pickup task has its own properties 
         ]
       },
 </code></pre>
-<p>The vehicle picks some <code>goods</code> at the start stop, which leads to initial capacity growth, and brings it to job's locations,
-where capacity is decreased based on <code>job.deliveries.demand</code> values. Each delivery task has its own properties such as
-<code>demand</code> and <code>places</code>.</p>
+<p>The vehicle picks some <code>goods</code> at the start stop, which leads to initial capacity consumption growth, and brings it to
+job's locations, where capacity consumption is decreased based on <code>job.deliveries.demand</code> values. Each delivery task has
+its own properties such as <code>demand</code> and <code>places</code>.</p>
 <h2 id="pickup-and-delivery-job"><a class="header" href="#pickup-and-delivery-job">Pickup and delivery job</a></h2>
 <p>Pickup and delivery job is a job with both <code>job.pickups</code> and <code>job.deliveries</code> properties specified:</p>
 <pre><code class="language-json">      {
