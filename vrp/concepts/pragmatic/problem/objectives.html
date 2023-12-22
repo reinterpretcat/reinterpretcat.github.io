@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js navy">
+<html lang="en" class="navy" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -8,10 +8,9 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="This book describes a Vehicle Routing Problem solver.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../../../favicon.svg">
         <link rel="shortcut icon" href="../../../favicon.png">
@@ -33,15 +32,16 @@
         <link rel="stylesheet" href="../../../resources/leaflet.css">
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -57,45 +57,76 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('navy')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../../getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../getting-started/features.html"><strong aria-hidden="true">1.1.</strong> Features</a></li><li class="chapter-item "><a href="../../../getting-started/installation.html"><strong aria-hidden="true">1.2.</strong> Installation</a></li><li class="chapter-item "><a href="../../../getting-started/import.html"><strong aria-hidden="true">1.3.</strong> Defining problem</a></li><li class="chapter-item "><a href="../../../getting-started/routing.html"><strong aria-hidden="true">1.4.</strong> Acquiring routing info</a></li><li class="chapter-item "><a href="../../../getting-started/solver.html"><strong aria-hidden="true">1.5.</strong> Running solver</a></li><li class="chapter-item "><a href="../../../getting-started/analysis.html"><strong aria-hidden="true">1.6.</strong> Analyzing results</a></li><li class="chapter-item "><a href="../../../getting-started/performance.html"><strong aria-hidden="true">1.7.</strong> Evaluating performance</a></li></ol></li><li class="chapter-item expanded "><a href="../../../concepts/index.html"><strong aria-hidden="true">2.</strong> Concepts</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/index.html"><strong aria-hidden="true">2.1.</strong> Pragmatic format</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/index.html"><strong aria-hidden="true">2.1.1.</strong> Modeling a problem</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/jobs.html"><strong aria-hidden="true">2.1.1.1.</strong> Jobs</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/vehicles.html"><strong aria-hidden="true">2.1.1.2.</strong> Vehicles</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/resources.html"><strong aria-hidden="true">2.1.1.3.</strong> Resources</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/relations.html"><strong aria-hidden="true">2.1.1.4.</strong> Relations</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/clustering.html"><strong aria-hidden="true">2.1.1.5.</strong> Clustering</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/objectives.html" class="active"><strong aria-hidden="true">2.1.1.6.</strong> Objectives</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/pragmatic/routing/index.html"><strong aria-hidden="true">2.1.2.</strong> Routing data</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/pragmatic/routing/format.html"><strong aria-hidden="true">2.1.2.1.</strong> Routing matrix</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/routing/profile.html"><strong aria-hidden="true">2.1.2.2.</strong> Profiles</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/index.html"><strong aria-hidden="true">2.1.3.</strong> Solution model</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/tour-list.html"><strong aria-hidden="true">2.1.3.1.</strong> Tour list</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/statistic.html"><strong aria-hidden="true">2.1.3.2.</strong> Statistic</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/unassigned-jobs.html"><strong aria-hidden="true">2.1.3.3.</strong> Unassigned jobs</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/violations.html"><strong aria-hidden="true">2.1.3.4.</strong> Violations</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/pragmatic/errors/index.html"><strong aria-hidden="true">2.1.4.</strong> Error index</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/scientific/index.html"><strong aria-hidden="true">2.2.</strong> Scientific formats</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/scientific/solomon.html"><strong aria-hidden="true">2.2.1.</strong> Solomon benchmark</a></li><li class="chapter-item "><a href="../../../concepts/scientific/lilim.html"><strong aria-hidden="true">2.2.2.</strong> Li&amp;Lim benchmark</a></li><li class="chapter-item "><a href="../../../concepts/scientific/tsplib.html"><strong aria-hidden="true">2.2.3.</strong> TSPLIB format</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../examples/index.html"><strong aria-hidden="true">3.</strong> Examples</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/index.html"><strong aria-hidden="true">3.1.</strong> Pragmatic format</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/basics/index.html"><strong aria-hidden="true">3.1.1.</strong> Basic feature usage</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/basics/job-types.html"><strong aria-hidden="true">3.1.1.1.</strong> Basic job usage</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/job-priorities.html"><strong aria-hidden="true">3.1.1.2.</strong> Job priorities</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/multi-day.html"><strong aria-hidden="true">3.1.1.3.</strong> Multi day plan</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/dispatch.html"><strong aria-hidden="true">3.1.1.4.</strong> Vehicle dispatch</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/break.html"><strong aria-hidden="true">3.1.1.5.</strong> Vehicle break</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/reload.html"><strong aria-hidden="true">3.1.1.6.</strong> Multiple trips</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/recharge.html"><strong aria-hidden="true">3.1.1.7.</strong> Recharge stations</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/relations.html"><strong aria-hidden="true">3.1.1.8.</strong> Relations</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/skills.html"><strong aria-hidden="true">3.1.1.9.</strong> Skills</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/profiles.html"><strong aria-hidden="true">3.1.1.10.</strong> Multiple profiles</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/unassigned.html"><strong aria-hidden="true">3.1.1.11.</strong> Unassigned job</a></li></ol></li><li class="chapter-item "><a href="../../../examples/pragmatic/clustering/index.html"><strong aria-hidden="true">3.1.2.</strong> Clustering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/clustering/vicinity-continue.html"><strong aria-hidden="true">3.1.2.1.</strong> Vicinity continuation</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/clustering/vicinity-return.html"><strong aria-hidden="true">3.1.2.2.</strong> Vicinity return</a></li></ol></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/index.html"><strong aria-hidden="true">3.1.3.</strong> Objective usage</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-default.html"><strong aria-hidden="true">3.1.3.1.</strong> Default behavior</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-balance-max-load.html"><strong aria-hidden="true">3.1.3.2.</strong> Balance max load</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-balance-activities.html"><strong aria-hidden="true">3.1.3.3.</strong> Balance activities</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-balance-distance.html"><strong aria-hidden="true">3.1.3.4.</strong> Balance distance</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../examples/interop/index.html"><strong aria-hidden="true">3.2.</strong> Language interop</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/interop/java.html"><strong aria-hidden="true">3.2.1.</strong> Java</a></li><li class="chapter-item "><a href="../../../examples/interop/kotlin.html"><strong aria-hidden="true">3.2.2.</strong> Kotlin</a></li><li class="chapter-item "><a href="../../../examples/interop/javascript.html"><strong aria-hidden="true">3.2.3.</strong> Javascript</a></li><li class="chapter-item "><a href="../../../examples/interop/python.html"><strong aria-hidden="true">3.2.4.</strong> Python</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../internals/index.html"><strong aria-hidden="true">4.</strong> Internals</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../internals/overview.html"><strong aria-hidden="true">4.1.</strong> Overview</a></li><li class="chapter-item "><a href="../../../internals/development/index.html"><strong aria-hidden="true">4.2.</strong> Development</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../internals/development/structure.html"><strong aria-hidden="true">4.2.1.</strong> Project Structure</a></li><li class="chapter-item "><a href="../../../internals/development/extension.html"><strong aria-hidden="true">4.2.2.</strong> Solver extension</a></li><li class="chapter-item "><a href="../../../internals/development/best-practices.html"><strong aria-hidden="true">4.2.3.</strong> Development practices</a></li><li class="chapter-item "><a href="../../../internals/development/testing.html"><strong aria-hidden="true">4.2.4.</strong> Testing</a></li></ol></li><li class="chapter-item "><a href="../../../internals/algorithms/index.html"><strong aria-hidden="true">4.3.</strong> Algorithms</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../internals/algorithms/heuristics.html"><strong aria-hidden="true">4.3.1.</strong> Heuristics</a></li><li class="chapter-item "><a href="../../../internals/algorithms/rosomaxa.html"><strong aria-hidden="true">4.3.2.</strong> Rosomaxa</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../../getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../getting-started/features.html"><strong aria-hidden="true">1.1.</strong> Features</a></li><li class="chapter-item "><a href="../../../getting-started/installation.html"><strong aria-hidden="true">1.2.</strong> Installation</a></li><li class="chapter-item "><a href="../../../getting-started/import.html"><strong aria-hidden="true">1.3.</strong> Defining problem</a></li><li class="chapter-item "><a href="../../../getting-started/routing.html"><strong aria-hidden="true">1.4.</strong> Acquiring routing info</a></li><li class="chapter-item "><a href="../../../getting-started/solver.html"><strong aria-hidden="true">1.5.</strong> Running solver</a></li><li class="chapter-item "><a href="../../../getting-started/analysis.html"><strong aria-hidden="true">1.6.</strong> Analyzing results</a></li><li class="chapter-item "><a href="../../../getting-started/performance.html"><strong aria-hidden="true">1.7.</strong> Evaluating performance</a></li></ol></li><li class="chapter-item expanded "><a href="../../../concepts/index.html"><strong aria-hidden="true">2.</strong> Concepts</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/index.html"><strong aria-hidden="true">2.1.</strong> Pragmatic format</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/index.html"><strong aria-hidden="true">2.1.1.</strong> Modeling a problem</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/jobs.html"><strong aria-hidden="true">2.1.1.1.</strong> Jobs</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/vehicles.html"><strong aria-hidden="true">2.1.1.2.</strong> Vehicles</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/resources.html"><strong aria-hidden="true">2.1.1.3.</strong> Resources</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/relations.html"><strong aria-hidden="true">2.1.1.4.</strong> Relations</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/problem/clustering.html"><strong aria-hidden="true">2.1.1.5.</strong> Clustering</a></li><li class="chapter-item expanded "><a href="../../../concepts/pragmatic/problem/objectives.html" class="active"><strong aria-hidden="true">2.1.1.6.</strong> Objectives</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/pragmatic/routing/index.html"><strong aria-hidden="true">2.1.2.</strong> Routing data</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/pragmatic/routing/format.html"><strong aria-hidden="true">2.1.2.1.</strong> Routing matrix</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/routing/profile.html"><strong aria-hidden="true">2.1.2.2.</strong> Profiles</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/index.html"><strong aria-hidden="true">2.1.3.</strong> Solution model</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/tour-list.html"><strong aria-hidden="true">2.1.3.1.</strong> Tour list</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/statistic.html"><strong aria-hidden="true">2.1.3.2.</strong> Statistic</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/unassigned-jobs.html"><strong aria-hidden="true">2.1.3.3.</strong> Unassigned jobs</a></li><li class="chapter-item "><a href="../../../concepts/pragmatic/solution/violations.html"><strong aria-hidden="true">2.1.3.4.</strong> Violations</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/pragmatic/errors/index.html"><strong aria-hidden="true">2.1.4.</strong> Error index</a></li></ol></li><li class="chapter-item "><a href="../../../concepts/scientific/index.html"><strong aria-hidden="true">2.2.</strong> Scientific formats</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../concepts/scientific/solomon.html"><strong aria-hidden="true">2.2.1.</strong> Solomon benchmark</a></li><li class="chapter-item "><a href="../../../concepts/scientific/lilim.html"><strong aria-hidden="true">2.2.2.</strong> Li&Lim benchmark</a></li><li class="chapter-item "><a href="../../../concepts/scientific/tsplib.html"><strong aria-hidden="true">2.2.3.</strong> TSPLIB format</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../examples/index.html"><strong aria-hidden="true">3.</strong> Examples</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/index.html"><strong aria-hidden="true">3.1.</strong> Pragmatic format</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/basics/index.html"><strong aria-hidden="true">3.1.1.</strong> Basic feature usage</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/basics/job-types.html"><strong aria-hidden="true">3.1.1.1.</strong> Basic job usage</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/job-priorities.html"><strong aria-hidden="true">3.1.1.2.</strong> Job priorities</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/multi-day.html"><strong aria-hidden="true">3.1.1.3.</strong> Multi day plan</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/break.html"><strong aria-hidden="true">3.1.1.4.</strong> Vehicle break</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/reload.html"><strong aria-hidden="true">3.1.1.5.</strong> Multiple trips</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/recharge.html"><strong aria-hidden="true">3.1.1.6.</strong> Recharge stations</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/relations.html"><strong aria-hidden="true">3.1.1.7.</strong> Relations</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/skills.html"><strong aria-hidden="true">3.1.1.8.</strong> Skills</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/profiles.html"><strong aria-hidden="true">3.1.1.9.</strong> Multiple profiles</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/basics/unassigned.html"><strong aria-hidden="true">3.1.1.10.</strong> Unassigned job</a></li></ol></li><li class="chapter-item "><a href="../../../examples/pragmatic/clustering/index.html"><strong aria-hidden="true">3.1.2.</strong> Clustering</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/clustering/vicinity-continue.html"><strong aria-hidden="true">3.1.2.1.</strong> Vicinity continuation</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/clustering/vicinity-return.html"><strong aria-hidden="true">3.1.2.2.</strong> Vicinity return</a></li></ol></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/index.html"><strong aria-hidden="true">3.1.3.</strong> Objective usage</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-default.html"><strong aria-hidden="true">3.1.3.1.</strong> Default behavior</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-balance-max-load.html"><strong aria-hidden="true">3.1.3.2.</strong> Balance max load</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-balance-activities.html"><strong aria-hidden="true">3.1.3.3.</strong> Balance activities</a></li><li class="chapter-item "><a href="../../../examples/pragmatic/objectives/objective-balance-distance.html"><strong aria-hidden="true">3.1.3.4.</strong> Balance distance</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../../examples/interop/index.html"><strong aria-hidden="true">3.2.</strong> Language interop</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../examples/interop/java.html"><strong aria-hidden="true">3.2.1.</strong> Java</a></li><li class="chapter-item "><a href="../../../examples/interop/kotlin.html"><strong aria-hidden="true">3.2.2.</strong> Kotlin</a></li><li class="chapter-item "><a href="../../../examples/interop/javascript.html"><strong aria-hidden="true">3.2.3.</strong> Javascript</a></li><li class="chapter-item "><a href="../../../examples/interop/python.html"><strong aria-hidden="true">3.2.4.</strong> Python</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../../internals/index.html"><strong aria-hidden="true">4.</strong> Internals</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../internals/overview.html"><strong aria-hidden="true">4.1.</strong> Overview</a></li><li class="chapter-item "><a href="../../../internals/development/index.html"><strong aria-hidden="true">4.2.</strong> Development</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../internals/development/structure.html"><strong aria-hidden="true">4.2.1.</strong> Project Structure</a></li><li class="chapter-item "><a href="../../../internals/development/extension.html"><strong aria-hidden="true">4.2.2.</strong> Solver extension</a></li><li class="chapter-item "><a href="../../../internals/development/best-practices.html"><strong aria-hidden="true">4.2.3.</strong> Development practices</a></li><li class="chapter-item "><a href="../../../internals/development/testing.html"><strong aria-hidden="true">4.2.4.</strong> Testing</a></li></ol></li><li class="chapter-item "><a href="../../../internals/algorithms/index.html"><strong aria-hidden="true">4.3.</strong> Algorithms</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../../internals/algorithms/heuristics.html"><strong aria-hidden="true">4.3.1.</strong> Heuristics</a></li><li class="chapter-item "><a href="../../../internals/algorithms/rosomaxa.html"><strong aria-hidden="true">4.3.2.</strong> Rosomaxa</a></li></ol></li></ol></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -103,7 +134,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
@@ -136,7 +167,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -182,6 +213,7 @@ assignment leads to more jobs unassigned.</li>
 <li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
 <li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
 <li><code>minimize-arrival-time</code>: prefers solutions where work is finished earlier</li>
+<li><code>fast-service</code>: prefers solutions when jobs are served early in tours</li>
 </ul>
 <h3 id="job-distribution-objectives"><a class="header" href="#job-distribution-objectives">Job distribution objectives</a></h3>
 <p>These objectives provide some extra control on job assignment:</p>
@@ -335,7 +367,7 @@ by <code>Solomon</code> benchmark.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../../../concepts/pragmatic/routing/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../concepts/pragmatic/routing/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -349,7 +381,7 @@ by <code>Solomon</code> benchmark.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../../../concepts/pragmatic/routing/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../concepts/pragmatic/routing/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -359,23 +391,24 @@ by <code>Solomon</code> benchmark.</p>
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
 
-        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script type="text/javascript" src="../../../resources/leaflet.js"></script>
-        <script type="text/javascript" src="../../../resources/map.js"></script>
+        <script src="../../../resources/leaflet.js"></script>
+        <script src="../../../resources/map.js"></script>
 
 
+    </div>
     </body>
 </html>
