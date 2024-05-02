@@ -96,12 +96,26 @@ export class Chart {
 */
   static vrp(canvas: HTMLCanvasElement, generation: number, pitch: number, yaw: number): void;
 /**
-* Draws plot for heuristic estimations.
+* Draws plot for search estimations.
 * @param {HTMLCanvasElement} canvas
 * @param {number} generation
 * @param {string} kind
 */
-  static heuristic_estimations(canvas: HTMLCanvasElement, generation: number, kind: string): void;
+  static search_iteration(canvas: HTMLCanvasElement, generation: number, kind: string): void;
+/**
+* Draws plot for best statistics.
+* @param {HTMLCanvasElement} canvas
+* @param {number} generation
+* @param {string} kind
+*/
+  static search_best_statistics(canvas: HTMLCanvasElement, generation: number, kind: string): void;
+/**
+* Draws plot for overall statistics.
+* @param {HTMLCanvasElement} canvas
+* @param {number} generation
+* @param {string} kind
+*/
+  static search_overall_statistics(canvas: HTMLCanvasElement, generation: number, kind: string): void;
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -116,12 +130,14 @@ export interface InitOutput {
   readonly chart_ackley: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_matyas: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_vrp: (a: number, b: number, c: number, d: number, e: number) => void;
-  readonly chart_heuristic_estimations: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly chart_search_iteration: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly chart_search_best_statistics: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly chart_search_overall_statistics: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly run_function_experiment: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
   readonly run_vrp_experiment: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
   readonly load_state: (a: number, b: number) => number;
-  readonly clear: () => void;
   readonly get_generation: () => number;
+  readonly clear: () => void;
   readonly __wbg_chart_free: (a: number) => void;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;

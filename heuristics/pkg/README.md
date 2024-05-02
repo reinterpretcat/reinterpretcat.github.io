@@ -3,7 +3,8 @@
 ![build](https://github.com/reinterpretcat/vrp/actions/workflows/build.yaml/badge.svg)
 [![downloads](https://img.shields.io/crates/d/vrp-core)](https://crates.io/crates/vrp-core)
 [![codecov](https://codecov.io/gh/reinterpretcat/vrp/branch/master/graph/badge.svg)](https://codecov.io/gh/reinterpretcat/vrp)
-[![dependency status](https://deps.rs/crate/vrp-cli/1.22.0/status.svg)](https://deps.rs/crate/vrp-cli/1.22.0)
+[![CodeScene Code Health](https://codescene.io/projects/46594/status-badges/code-health)](https://codescene.io/projects/46594)
+[![dependency status](https://deps.rs/crate/vrp-cli/1.23.0/status.svg)](https://deps.rs/crate/vrp-cli/1.23.0)
 [![DOI](https://zenodo.org/badge/238436117.svg)](https://zenodo.org/badge/latestdoi/238436117)
 
 ![VRP example](docs/resources/vrp-example.png "VRP with Route Balance")
@@ -16,10 +17,10 @@ custom hyper- and meta-heuristic implementations, shortly described [here](https
 If you use the project in academic work, please consider citing:
 
 ```
-@misc{builuk_rosomaxa_2022,
+@misc{builuk_rosomaxa_2023,
     author       = {Ilya Builuk},
     title        = {{A new solver for rich Vehicle Routing Problem}},
-    year         = 2022,
+    year         = 2023,
     doi          = {10.5281/zenodo.4624037},
     publisher    = {Zenodo},
     url          = {https://doi.org/10.5281/zenodo.4624037}
@@ -38,6 +39,8 @@ points: custom constraints, objective functions, acceptance criteria, etc.
 For general installation steps and basic usage options, please check next sections. More detailed overview of features
 and full description of the usage is presented in [A Vehicle Routing Problem Solver Documentation](https://reinterpretcat.github.io/vrp).
 
+Probably, the easiest way to learn how to use the solver, would be to play with [interactive tutorial](https://github.com/reinterpretcat/vrp/tree/master/examples/python-interop/tutorial.ipynb),
+written as jupyter notebook.
 
 # Installation
 
@@ -56,9 +59,9 @@ python examples/python-interop/example.py # run test example
 Alternatively, you can use [maturin](https://github.com/PyO3/maturin) tool to build solver locally. You need to enable
 `py_bindings` feature which is not enabled by default.
 
-You can find extra information in [python example section](https://reinterpretcat.github.io/vrp/examples/interop/python.html)
+Additionally, to jupyter notebook mentioned above, you can find extra information in [python example section](https://reinterpretcat.github.io/vrp/examples/interop/python.html)
 of the docs. The [full source code](./examples/python-interop/example.py) of python example is available in the repo which
-contains useful model wrappers with help of `pydantic` lib.
+contains useful model wrappers with help of `pydantic` lib (reused by tutorial as well).
 
 
 ## Install from Docker
@@ -68,7 +71,7 @@ Another fast way to try vrp solver on your environment is to use `docker` image 
 * **run public image** from `Github Container Registry`:
 
 ```bash
-    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.22.0
+    docker run -it -v $(pwd):/repo --name vrp-cli --rm ghcr.io/reinterpretcat/vrp/vrp-cli:1.23.0
 ```
 
 * **build image locally** using `Dockerfile` provided:
@@ -137,8 +140,8 @@ to call the library from it.
 The goal is to reduce burnout by limiting the maintenance overhead of reviewing and validating third-party code.
 
 Please submit an [issue](https://github.com/reinterpretcat/vrp/issues/new) or [discussion](https://github.com/reinterpretcat/vrp/discussions/new/choose)
-if you have a MR proposal.
+if you have ideas for improvement.
 
 # Status
 
-Experimental.
+Experimental. Active development is on pause, so very limited support at this time.
