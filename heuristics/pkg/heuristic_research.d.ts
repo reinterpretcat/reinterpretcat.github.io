@@ -110,6 +110,13 @@ export class Chart {
 */
   static search_best_statistics(canvas: HTMLCanvasElement, generation: number, kind: string): void;
 /**
+* Draws plot for duration statistics.
+* @param {HTMLCanvasElement} canvas
+* @param {number} generation
+* @param {string} kind
+*/
+  static search_duration_statistics(canvas: HTMLCanvasElement, generation: number, kind: string): void;
+/**
 * Draws plot for overall statistics.
 * @param {HTMLCanvasElement} canvas
 * @param {number} generation
@@ -132,6 +139,7 @@ export interface InitOutput {
   readonly chart_vrp: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_search_iteration: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_search_best_statistics: (a: number, b: number, c: number, d: number, e: number) => void;
+  readonly chart_search_duration_statistics: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly chart_search_overall_statistics: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly run_function_experiment: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;
   readonly run_vrp_experiment: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => void;

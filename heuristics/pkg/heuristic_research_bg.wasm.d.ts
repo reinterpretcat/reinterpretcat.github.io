@@ -11,6 +11,7 @@ export function chart_matyas(a: number, b: number, c: number, d: number, e: numb
 export function chart_vrp(a: number, b: number, c: number, d: number, e: number): void;
 export function chart_search_iteration(a: number, b: number, c: number, d: number, e: number): void;
 export function chart_search_best_statistics(a: number, b: number, c: number, d: number, e: number): void;
+export function chart_search_duration_statistics(a: number, b: number, c: number, d: number, e: number): void;
 export function chart_search_overall_statistics(a: number, b: number, c: number, d: number, e: number): void;
 export function run_function_experiment(a: number, b: number, c: number, d: number, e: number, f: number, g: number): void;
 export function run_vrp_experiment(a: number, b: number, c: number, d: number, e: number, f: number, g: number): void;
