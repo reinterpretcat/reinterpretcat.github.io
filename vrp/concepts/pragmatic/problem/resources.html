@@ -191,23 +191,23 @@ but it has only limited amount of deliveries.</p>
 <li><code>capacity</code> (required): total amount of resource. It has the same type as vehicle's <code>capacity</code> property.</li>
 </ul>
 <p>An example of a reload resource definition:</p>
-<pre><code class="language-json">    &quot;resources&quot;: [
+<pre><code class="language-json">    "resources": [
       {
-        &quot;type&quot;: &quot;reload&quot;,
-        &quot;id&quot;: &quot;warehouse_a&quot;,
-        &quot;capacity&quot;: [1]
+        "type": "reload",
+        "id": "warehouse_a",
+        "capacity": [1]
       }
     ]
 </code></pre>
 <p>An example of a vehicle reload with a reference to the resource definition:</p>
-<pre><code class="language-json">            &quot;reloads&quot;: [
+<pre><code class="language-json">            "reloads": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5103,
-                  &quot;lng&quot;: 13.3898
+                "location": {
+                  "lat": 52.5103,
+                  "lng": 13.3898
                 },
-                &quot;duration&quot;: 600.0,
-                &quot;resourceId&quot;: &quot;warehouse_a&quot;
+                "duration": 600.0,
+                "resourceId": "warehouse_a"
               }
             ]
 </code></pre>

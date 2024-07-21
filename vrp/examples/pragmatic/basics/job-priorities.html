@@ -194,62 +194,62 @@ on top of default.</p>
 <details>
     <summary>Problem</summary><p>
 <pre><code class="language-json">{
-  &quot;plan&quot;: {
-    &quot;jobs&quot;: [
+  "plan": {
+    "jobs": [
       {
-        &quot;id&quot;: &quot;job1&quot;,
-        &quot;deliveries&quot;: [
+        "id": "job1",
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.52599,
-                  &quot;lng&quot;: 13.45413
+                "location": {
+                  "lat": 52.52599,
+                  "lng": 13.45413
                 },
-                &quot;duration&quot;: 300
+                "duration": 300
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ],
-        &quot;value&quot;: 50
+        "value": 50
       },
       {
-        &quot;id&quot;: &quot;job2&quot;,
-        &quot;deliveries&quot;: [
+        "id": "job2",
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5225,
-                  &quot;lng&quot;: 13.4095
+                "location": {
+                  "lat": 52.5225,
+                  "lng": 13.4095
                 },
-                &quot;duration&quot;: 240
+                "duration": 240
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ],
-        &quot;value&quot;: 100
+        "value": 100
       },
       {
-        &quot;id&quot;: &quot;job3&quot;,
-        &quot;deliveries&quot;: [
+        "id": "job3",
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5320,
-                  &quot;lng&quot;: 13.3950
+                "location": {
+                  "lat": 52.5320,
+                  "lng": 13.3950
                 },
-                &quot;duration&quot;: 60
+                "duration": 60
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
@@ -257,40 +257,40 @@ on top of default.</p>
       }
     ]
   },
-  &quot;fleet&quot;: {
-    &quot;vehicles&quot;: [
+  "fleet": {
+    "vehicles": [
       {
-        &quot;typeId&quot;: &quot;vehicle&quot;,
-        &quot;vehicleIds&quot;: [
-          &quot;vehicle_1&quot;
+        "typeId": "vehicle",
+        "vehicleIds": [
+          "vehicle_1"
         ],
-        &quot;profile&quot;: {
-          &quot;matrix&quot;: &quot;normal_car&quot;
+        "profile": {
+          "matrix": "normal_car"
         },
-        &quot;costs&quot;: {
-          &quot;fixed&quot;: 22.0,
-          &quot;distance&quot;: 0.0002,
-          &quot;time&quot;: 0.005
+        "costs": {
+          "fixed": 22.0,
+          "distance": 0.0002,
+          "time": 0.005
         },
-        &quot;shifts&quot;: [
+        "shifts": [
           {
-            &quot;start&quot;: {
-              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "start": {
+              "earliest": "2019-07-04T09:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             }
           }
         ],
-        &quot;capacity&quot;: [
+        "capacity": [
           2
         ]
       }
     ],
-    &quot;profiles&quot;: [
+    "profiles": [
       {
-        &quot;name&quot;: &quot;normal_car&quot;
+        "name": "normal_car"
       }
     ]
   }
@@ -300,104 +300,104 @@ on top of default.</p>
 <details>
     <summary>Solution</summary><p>
 <pre><code class="language-json">{
-  &quot;statistic&quot;: {
-    &quot;cost&quot;: 28.060000000000002,
-    &quot;distance&quot;: 4800,
-    &quot;duration&quot;: 1020,
-    &quot;times&quot;: {
-      &quot;driving&quot;: 480,
-      &quot;serving&quot;: 540,
-      &quot;waiting&quot;: 0,
-      &quot;break&quot;: 0
+  "statistic": {
+    "cost": 28.060000000000002,
+    "distance": 4800,
+    "duration": 1020,
+    "times": {
+      "driving": 480,
+      "serving": 540,
+      "waiting": 0,
+      "break": 0
     }
   },
-  &quot;tours&quot;: [
+  "tours": [
     {
-      &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
-      &quot;typeId&quot;: &quot;vehicle&quot;,
-      &quot;shiftIndex&quot;: 0,
-      &quot;stops&quot;: [
+      "vehicleId": "vehicle_1",
+      "typeId": "vehicle",
+      "shiftIndex": 0,
+      "stops": [
         {
-          &quot;location&quot;: {
-            &quot;lat&quot;: 52.5316,
-            &quot;lng&quot;: 13.3884
+          "location": {
+            "lat": 52.5316,
+            "lng": 13.3884
           },
-          &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:00:00Z&quot;
+          "time": {
+            "arrival": "2019-07-04T09:00:00Z",
+            "departure": "2019-07-04T09:00:00Z"
           },
-          &quot;distance&quot;: 0,
-          &quot;load&quot;: [
+          "distance": 0,
+          "load": [
             2
           ],
-          &quot;activities&quot;: [
+          "activities": [
             {
-              &quot;jobId&quot;: &quot;departure&quot;,
-              &quot;type&quot;: &quot;departure&quot;
+              "jobId": "departure",
+              "type": "departure"
             }
           ]
         },
         {
-          &quot;location&quot;: {
-            &quot;lat&quot;: 52.5225,
-            &quot;lng&quot;: 13.4095
+          "location": {
+            "lat": 52.5225,
+            "lng": 13.4095
           },
-          &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T09:02:55Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:06:55Z&quot;
+          "time": {
+            "arrival": "2019-07-04T09:02:55Z",
+            "departure": "2019-07-04T09:06:55Z"
           },
-          &quot;distance&quot;: 1752,
-          &quot;load&quot;: [
+          "distance": 1752,
+          "load": [
             1
           ],
-          &quot;activities&quot;: [
+          "activities": [
             {
-              &quot;jobId&quot;: &quot;job2&quot;,
-              &quot;type&quot;: &quot;delivery&quot;
+              "jobId": "job2",
+              "type": "delivery"
             }
           ]
         },
         {
-          &quot;location&quot;: {
-            &quot;lat&quot;: 52.52599,
-            &quot;lng&quot;: 13.45413
+          "location": {
+            "lat": 52.52599,
+            "lng": 13.45413
           },
-          &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T09:12:00Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:17:00Z&quot;
+          "time": {
+            "arrival": "2019-07-04T09:12:00Z",
+            "departure": "2019-07-04T09:17:00Z"
           },
-          &quot;distance&quot;: 4800,
-          &quot;load&quot;: [
+          "distance": 4800,
+          "load": [
             0
           ],
-          &quot;activities&quot;: [
+          "activities": [
             {
-              &quot;jobId&quot;: &quot;job1&quot;,
-              &quot;type&quot;: &quot;delivery&quot;
+              "jobId": "job1",
+              "type": "delivery"
             }
           ]
         }
       ],
-      &quot;statistic&quot;: {
-        &quot;cost&quot;: 28.060000000000002,
-        &quot;distance&quot;: 4800,
-        &quot;duration&quot;: 1020,
-        &quot;times&quot;: {
-          &quot;driving&quot;: 480,
-          &quot;serving&quot;: 540,
-          &quot;waiting&quot;: 0,
-          &quot;break&quot;: 0
+      "statistic": {
+        "cost": 28.060000000000002,
+        "distance": 4800,
+        "duration": 1020,
+        "times": {
+          "driving": 480,
+          "serving": 540,
+          "waiting": 0,
+          "break": 0
         }
       }
     }
   ],
-  &quot;unassigned&quot;: [
+  "unassigned": [
     {
-      &quot;jobId&quot;: &quot;job3&quot;,
-      &quot;reasons&quot;: [
+      "jobId": "job3",
+      "reasons": [
         {
-          &quot;code&quot;: &quot;CAPACITY_CONSTRAINT&quot;,
-          &quot;description&quot;: &quot;does not fit into any vehicle due to capacity&quot;
+          "code": "CAPACITY_CONSTRAINT",
+          "description": "does not fit into any vehicle due to capacity"
         }
       ]
     }

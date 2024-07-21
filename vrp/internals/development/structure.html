@@ -180,15 +180,15 @@
                         <h1 id="project-structure"><a class="header" href="#project-structure">Project structure</a></h1>
 <p>The project consists of the main and auxiliary crates. Additionally, there is some logical separation inside each group.</p>
 <h2 id="main-crates"><a class="header" href="#main-crates">Main crates</a></h2>
-<p>The following crates are &quot;the heart&quot; of VRP solver:</p>
+<p>The following crates are "the heart" of VRP solver:</p>
 <ul>
 <li><a href="https://docs.rs/rosomaxa/latest"><code>rosomaxa</code></a>: contains key algorithms for solving optimization problems <strong>without</strong>
 locking to the VRP domain such as hyper heuristics, evolution strategies, etc.</li>
-<li><a href="https://docs.rs/vrp_core/latest"><code>vrp_core</code></a>: this crate provides all core VRP models with various meta heuristics to
+<li><a href="https://docs.rs/vrp_core/latest"><code>vrp_core</code></a>: this crate provides all core VRP models / features with various meta heuristics to
 solve rich VRP</li>
 <li><a href="https://docs.rs/vrp_scientific/latest"><code>vrp_scientific</code></a>: has a building blocks to solve problems from some of scientific
 benchmarks. It is useful to evaluate the solver performance in terms of solution quality, search stability and running time.</li>
-<li><a href="https://docs.rs/vrp_pragmatic/latest"><code>vrp_pragmatic</code></a>: provides models and features to support rich VRP. It includes:
+<li><a href="https://docs.rs/vrp_pragmatic/latest"><code>vrp_pragmatic</code></a>: provides models to support rich VRP. It includes:
 <ul>
 <li>pragmatic model, serializable in json</li>
 <li>solution checker</li>

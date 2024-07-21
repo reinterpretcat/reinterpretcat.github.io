@@ -182,13 +182,13 @@
 <ul>
 <li><strong>typeId</strong> (required): a vehicle type id</li>
 </ul>
-<pre><code class="language-json">        &quot;typeId&quot;: &quot;vehicle&quot;,
+<pre><code class="language-json">        "typeId": "vehicle",
 </code></pre>
 <ul>
 <li><strong>vehicleIds</strong> (required): a list of concrete vehicle ids available for usage.</li>
 </ul>
-<pre><code class="language-json">        &quot;vehicleIds&quot;: [
-          &quot;vehicle_1&quot;
+<pre><code class="language-json">        "vehicleIds": [
+          "vehicle_1"
         ],
 </code></pre>
 <ul>
@@ -199,8 +199,8 @@
 </ul>
 </li>
 </ul>
-<pre><code class="language-json">        &quot;profile&quot;: {
-          &quot;matrix&quot;: &quot;normal_car&quot;
+<pre><code class="language-json">        "profile": {
+          "matrix": "normal_car"
         },
 </code></pre>
 <ul>
@@ -219,15 +219,15 @@
 <p><strong>capacity</strong> (required): specifies vehicle capacity symmetric to job demand</p>
 </li>
 </ul>
-<pre><code class="language-json">        &quot;capacity&quot;: [
+<pre><code class="language-json">        "capacity": [
           10
         ]
 </code></pre>
 <ul>
 <li><strong>skills</strong> (optional): vehicle skills needed by some jobs</li>
 </ul>
-<pre><code class="language-json">        &quot;skills&quot;: [
-          &quot;handyman&quot;
+<pre><code class="language-json">        "skills": [
+          "handyman"
         ]
 </code></pre>
 <ul>
@@ -243,57 +243,57 @@ clustered activities are counted as one in case of vicinity clustering.</li>
 </ul>
 <p>An example:</p>
 <pre><code class="language-json">      {
-        &quot;typeId&quot;: &quot;vehicle&quot;,
-        &quot;vehicleIds&quot;: [
-          &quot;vehicle_1&quot;
+        "typeId": "vehicle",
+        "vehicleIds": [
+          "vehicle_1"
         ],
-        &quot;profile&quot;: {
-          &quot;matrix&quot;: &quot;normal_car&quot;
+        "profile": {
+          "matrix": "normal_car"
         },
-        &quot;costs&quot;: {
-          &quot;fixed&quot;: 22.0,
-          &quot;distance&quot;: 0.0002,
-          &quot;time&quot;: 0.004806
+        "costs": {
+          "fixed": 22.0,
+          "distance": 0.0002,
+          "time": 0.004806
         },
-        &quot;shifts&quot;: [
+        "shifts": [
           {
-            &quot;start&quot;: {
-              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "start": {
+              "earliest": "2019-07-04T09:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             },
-            &quot;end&quot;: {
-              &quot;latest&quot;: &quot;2019-07-04T18:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "end": {
+              "latest": "2019-07-04T18:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             }
           }
         ],
-        &quot;capacity&quot;: [
+        "capacity": [
           10
         ]
       }
 </code></pre>
 <h2 id="shift"><a class="header" href="#shift">Shift</a></h2>
 <p>Essentially, shift specifies vehicle constraints such as time, start/end locations, etc.:</p>
-<pre><code class="language-json">        &quot;shifts&quot;: [
+<pre><code class="language-json">        "shifts": [
           {
-            &quot;start&quot;: {
-              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "start": {
+              "earliest": "2019-07-04T09:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             },
-            &quot;end&quot;: {
-              &quot;latest&quot;: &quot;2019-07-04T18:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "end": {
+              "latest": "2019-07-04T18:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             }
           }

@@ -182,14 +182,14 @@
 require different objective function or even more than one considered simultaneously. That's why the solver has a concept
 of multi objective.</p>
 <h2 id="understanding-multi-objective-structure"><a class="header" href="#understanding-multi-objective-structure">Understanding multi objective structure</a></h2>
-<p>A multi objective is defined by <code>objectives</code> property which has array of array type and defines some kind of &quot;hierarchical&quot;
-objective function where priority of objectives decreases from first to the last element of outer array. Objectives inside
-the same inner array have the same priority.</p>
+<p>A multi objective is defined by <code>objectives</code> property which has array of objectives and defines lexicographical ordered
+objective function. Here, priority of objectives decreases from first to the last element of the array. For the same
+priority (or in other words, competitive) objectives, a special <code>multi-objective</code> type can be used.</p>
 <h2 id="available-objectives"><a class="header" href="#available-objectives">Available objectives</a></h2>
 <p>The solver already provides multiple built-in objectives distinguished by their <code>type</code>. All these objectives can be
 split into the following groups.</p>
 <h3 id="cost-objectives"><a class="header" href="#cost-objectives">Cost objectives</a></h3>
-<p>These objectives specify how &quot;total&quot; cost of job insertion is calculated:</p>
+<p>These objectives specify how "total" cost of job insertion is calculated:</p>
 <ul>
 <li><code>minimize-cost</code>: minimizes total transport cost calculated for all routes. Here, total transport cost is seen as linear
 combination of total time and distance</li>
@@ -213,7 +213,12 @@ assignment leads to more jobs unassigned.</li>
 <li><code>minimize-tours</code>: minimizes total amount of tours present in solution</li>
 <li><code>maximize-tours</code>: maximizes total amount of tours present in solution</li>
 <li><code>minimize-arrival-time</code>: prefers solutions where work is finished earlier</li>
-<li><code>fast-service</code>: prefers solutions when jobs are served early in tours</li>
+<li><code>fast-service</code>: prefers solutions when jobs are served early in tours. Optional parameter:
+<ul>
+<li><code>tolerance</code>: an objective tolerance specifies how different objective values have to be to consider them different.
+Relative distance metric is used.</li>
+</ul>
+</li>
 </ul>
 <h3 id="job-distribution-objectives"><a class="header" href="#job-distribution-objectives">Job distribution objectives</a></h3>
 <p>These objectives provide some extra control on job assignment:</p>
@@ -251,98 +256,83 @@ This objective is supposed to be on the same level within cost ones.</li>
 <li><code>balance-distance</code>: balances travelled distance per tour</li>
 <li><code>balance-duration</code>: balances tour durations</li>
 </ul>
-<p>Each objective has optional parameters defined by <code>option</code> property:</p>
-<ul>
-<li><code>threshold</code>: a target coefficient of variation (scale invariant statistical measure of dispersion) value which specifies
-desired minimum balancing level. All values below threshold are considered equal which helps the search algorithm to
-optimize conflicting objectives.</li>
-</ul>
-<p>It is recommended to set both option values to guide the search towards optimum for conflicting objectives, e.g. cost
-minimization and any of work balance.</p>
+<p>Typically, you need to use these objective with one from the cost group combined under single <code>multi-objective</code>.</p>
 <p>An usage example:</p>
-<pre><code class="language-json">      {
-        &quot;type&quot;: &quot;balance-max-load&quot;,
-        &quot;options&quot;: {
-          &quot;threshold&quot;: 0.01
+<pre><code class="language-json">    {
+      "type": "multi-objective",
+      "strategy": {
+        "name": "sum"
+      },
+      "objectives": [
+        {
+          "type": "minimize-cost"
+        },
+        {
+          "type": "balance-max-load"
         }
-      }
+      ]
+    }
 </code></pre>
 <h2 id="default-behaviour"><a class="header" href="#default-behaviour">Default behaviour</a></h2>
-<p>By default, decision maker minimizes amount of unassigned jobs, routes and then total cost. This is equal to the following
-definition:</p>
-<pre><code class="language-json">  &quot;objectives&quot;: [
-    [
-      {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-tours&quot;
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-cost&quot;
-      }
-    ]
+<p>By default, decision maker minimizes the number of unassigned jobs, routes and then total cost. This is equal to the
+following definition:</p>
+<pre><code class="language-json">  "objectives": [
+    {
+      "type": "minimize-unassigned"
+    },
+    {
+      "type": "minimize-tours"
+    },
+    {
+      "type": "minimize-cost"
+    }
   ]
 </code></pre>
-<p>Here, cost minimization is a secondary objective which corresponds to a classical hierarchical objective used
+<p>Here, cost minimization is a secondary objective that corresponds to a classical hierarchical objective used, for example,
 by <code>Solomon</code> benchmark.</p>
 <p>If at least one job has non-zero value associated, then the following objective is used:</p>
-<pre><code class="language-json">  &quot;objectives&quot;: [
-    [
-      {
-        &quot;type&quot;: &quot;maximize-value&quot;,
-        &quot;reductionFactor&quot;: 0.1
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-tours&quot;
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-cost&quot;
-      }
-    ]
-  ]
+<pre><code class="language-json">  "objectives": [
+    {
+      "type": "maximize-value",
+      "reductionFactor": 0.1
+    },
+    {
+      "type": "minimize-unassigned"
+    },
+    {
+      "type": "minimize-tours"
+    },
+    {
+      "type": "minimize-cost"
+    }
 </code></pre>
 <p>If order on job task is specified, then it is also added to the list of objectives after <code>minimize-tours</code> objective.</p>
 <h2 id="hints"><a class="header" href="#hints">Hints</a></h2>
 <ul>
 <li>pay attention to the order of objectives</li>
-<li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to add a threshold to balancing objective:</li>
+<li>if you're using balancing objective and getting high cost or non-realistic, but balanced routes, try to use multi-objective:</li>
 </ul>
-<pre><code class="language-json">&quot;objectives&quot;: [
-    [
+<pre><code class="language-json">"objectives": [
+  {
+    "type": "minimize-unassigned"
+  },
+  {
+    "type": "minimize-tours"
+  },
+  {
+    "type": "multi-objective",
+    "strategy": {
+      "name": "sum"
+    },
+    "objectives": [
       {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-tours&quot;
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-cost&quot;
+        "type": "minimize-cost"
       },
       {
-        &quot;type&quot;: &quot;balance-distance&quot;,
-        &quot;options&quot;: {
-          &quot;threshold&quot;: 0.01
-        }
+        "type": "balance-max-load"
       }
     ]
+  }
 ]
 </code></pre>
 <h2 id="related-errors"><a class="header" href="#related-errors">Related errors</a></h2>

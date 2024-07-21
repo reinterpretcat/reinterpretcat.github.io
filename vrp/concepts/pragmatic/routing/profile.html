@@ -181,15 +181,15 @@
 <p>In order to solve VRP, you need to specify at least one routing matrix profile.</p>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
 <p>Routing matrix profiles are defined in <code>fleet.profiles</code>:</p>
-<pre><code class="language-json">    &quot;profiles&quot;: [
+<pre><code class="language-json">    "profiles": [
       {
-        &quot;name&quot;: &quot;normal_car&quot;
+        "name": "normal_car"
       }
     ]
 </code></pre>
 <p>The <code>name</code> must be unique for each matrix profile and it should referenced by <code>profile.matrix</code> property defined on vehicle:</p>
-<pre><code class="language-json">        &quot;profile&quot;: {
-          &quot;matrix&quot;: &quot;normal_car&quot;
+<pre><code class="language-json">        "profile": {
+          "matrix": "normal_car"
         },
 </code></pre>
 <p>Use <code>-m</code> option to pass the matrix:</p>

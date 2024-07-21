@@ -210,12 +210,12 @@ collection of names that are automatically brought into scope of every module in
 for i in 1..11 {
     sum += i;
 }
-println!(&quot;{}&quot;, sum);
+println!("{}", sum);
 <span class="boring">}</span></code></pre></pre>
 <p>vs</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>println!(&quot;{}&quot;, (1..11).fold(0, |a, b| a + b));
+</span>println!("{}", (1..11).fold(0, |a, b| a + b));
 <span class="boring">}</span></code></pre></pre>
 <h3 id="prefer-linear-style-to-multiple-one-several-lines-functions-which-are-called-just-once"><a class="header" href="#prefer-linear-style-to-multiple-one-several-lines-functions-which-are-called-just-once">prefer linear style to multiple one-several lines functions which are called just once</a></h3>
 <p>Advantages (personal taste):</p>
@@ -271,7 +271,7 @@ ends up coupling code that should not have to evolve together.</p>
 </ul>
 <h3 id="analyze-hot-spots"><a class="header" href="#analyze-hot-spots">analyze hot-spots</a></h3>
 <p>The following command is useful to get a list of most modified files for last two years according to the git history:</p>
-<pre><code>git log --pretty=format: --since=&quot;2 years ago&quot; --name-only -- &quot;*.rs&quot; | sed '/^\s*$/d' | sort | uniq -c | sort -rg | head -20
+<pre><code>git log --pretty=format: --since="2 years ago" --name-only -- "*.rs" | sed '/^\s*$/d' | sort | uniq -c | sort -rg | head -20
 </code></pre>
 <p>The idea is to look closely at top of the list and refactor the big files to have more fine-grained and isolated abstractions
 in separate modules (and files). This will help to reduce amount of changes in the same files, potentially done simultaneously

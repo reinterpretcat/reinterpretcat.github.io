@@ -212,383 +212,383 @@ solution, are required:</p>
 <details>
     <summary>Configuration file</summary><p>
 <pre><code class="language-json">{
-  &quot;evolution&quot;: {
-    &quot;initial&quot;: {
-      &quot;method&quot;: {
-        &quot;type&quot;: &quot;cheapest&quot;,
-        &quot;weight&quot;: 1
+  "evolution": {
+    "initial": {
+      "method": {
+        "type": "cheapest",
+        "weight": 1
       },
-      &quot;alternatives&quot;: {
-        &quot;methods&quot;: [
+      "alternatives": {
+        "methods": [
           {
-            &quot;type&quot;: &quot;farthest&quot;,
-            &quot;weight&quot;: 1
+            "type": "farthest",
+            "weight": 1
           },
           {
-            &quot;type&quot;: &quot;nearest&quot;,
-            &quot;weight&quot;: 1
+            "type": "nearest",
+            "weight": 1
           },
           {
-            &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2,
-            &quot;max&quot;: 20,
-            &quot;weight&quot;: 1
+            "type": "gaps",
+            "min": 2,
+            "max": 20,
+            "weight": 1
           },
           {
-            &quot;type&quot;: &quot;skip-best&quot;,
-            &quot;start&quot;: 1,
-            &quot;end&quot;: 2,
-            &quot;weight&quot;: 1
+            "type": "skip-best",
+            "start": 1,
+            "end": 2,
+            "weight": 1
           },
           {
-            &quot;type&quot;: &quot;regret&quot;,
-            &quot;start&quot;: 2,
-            &quot;end&quot;: 3,
-            &quot;weight&quot;: 1
+            "type": "regret",
+            "start": 2,
+            "end": 3,
+            "weight": 1
           },
           {
-            &quot;type&quot;: &quot;blinks&quot;,
-            &quot;weight&quot;: 1
+            "type": "blinks",
+            "weight": 1
           },
           {
-            &quot;type&quot;: &quot;perturbation&quot;,
-            &quot;probability&quot;: 0.33,
-            &quot;min&quot;: -0.2,
-            &quot;max&quot;: 0.2,
-            &quot;weight&quot;: 1
+            "type": "perturbation",
+            "probability": 0.33,
+            "min": -0.2,
+            "max": 0.2,
+            "weight": 1
           }
         ],
-        &quot;maxSize&quot;: 4,
-        &quot;quota&quot;: 0.05
+        "maxSize": 4,
+        "quota": 0.05
       }
     },
-    &quot;population&quot;: {
-      &quot;type&quot;: &quot;rosomaxa&quot;,
-      &quot;selectionSize&quot;: 8,
-      &quot;maxEliteSize&quot;: 2,
-      &quot;maxNodeSize&quot;: 2,
-      &quot;spreadFactor&quot;: 0.75,
-      &quot;distributionFactor&quot;: 0.75,
-      &quot;rebalanceMemory&quot;: 100,
-      &quot;explorationRatio&quot;: 0.9
+    "population": {
+      "type": "rosomaxa",
+      "selectionSize": 8,
+      "maxEliteSize": 2,
+      "maxNodeSize": 2,
+      "spreadFactor": 0.75,
+      "distributionFactor": 0.75,
+      "rebalanceMemory": 100,
+      "explorationRatio": 0.9
     }
   },
-  &quot;hyper&quot;: {
-    &quot;type&quot;: &quot;static-selective&quot;,
-    &quot;operators&quot;: [
+  "hyper": {
+    "type": "static-selective",
+    "operators": [
       {
-        &quot;type&quot;: &quot;decomposition&quot;,
-        &quot;maxSelected&quot;: 2,
-        &quot;repeat&quot;: 4,
-        &quot;routes&quot;: {
-          &quot;min&quot;: 2,
-          &quot;max&quot;: 4
+        "type": "decomposition",
+        "maxSelected": 2,
+        "repeat": 4,
+        "routes": {
+          "min": 2,
+          "max": 4
         },
-        &quot;probability&quot;: {
-          &quot;threshold&quot;: {
-            &quot;jobs&quot;: 300,
-            &quot;routes&quot;: 10
+        "probability": {
+          "threshold": {
+            "jobs": 300,
+            "routes": 10
           },
-          &quot;phases&quot;: [
+          "phases": [
             {
-              &quot;type&quot;: &quot;exploration&quot;,
-              &quot;chance&quot;: 0.05
+              "type": "exploration",
+              "chance": 0.05
             },
             {
-              &quot;type&quot;: &quot;exploitation&quot;,
-              &quot;chance&quot;: 0.05
+              "type": "exploitation",
+              "chance": 0.05
             }
           ]
         }
       },
       {
-        &quot;type&quot;: &quot;local-search&quot;,
-        &quot;probability&quot;: {
-          &quot;scalar&quot;: 0.05
+        "type": "local-search",
+        "probability": {
+          "scalar": 0.05
         },
-        &quot;times&quot;: {
-          &quot;min&quot;: 1,
-          &quot;max&quot;: 2
+        "times": {
+          "min": 1,
+          "max": 2
         },
-        &quot;operators&quot;: [
+        "operators": [
           {
-            &quot;weight&quot;: 200,
-            &quot;type&quot;: &quot;swap-star&quot;
+            "weight": 200,
+            "type": "swap-star"
           },
           {
-            &quot;weight&quot;: 100,
-            &quot;type&quot;: &quot;inter-route-best&quot;,
-            &quot;noise&quot;: {
-              &quot;probability&quot;: 0.1,
-              &quot;min&quot;: -0.1,
-              &quot;max&quot;: 0.1
+            "weight": 100,
+            "type": "inter-route-best",
+            "noise": {
+              "probability": 0.1,
+              "min": -0.1,
+              "max": 0.1
             }
           },
           {
-            &quot;weight&quot;: 30,
-            &quot;type&quot;: &quot;inter-route-random&quot;,
-            &quot;noise&quot;: {
-              &quot;probability&quot;: 0.1,
-              &quot;min&quot;: -0.1,
-              &quot;max&quot;: 0.1
+            "weight": 30,
+            "type": "inter-route-random",
+            "noise": {
+              "probability": 0.1,
+              "min": -0.1,
+              "max": 0.1
             }
           },
           {
-            &quot;weight&quot;: 30,
-            &quot;type&quot;: &quot;intra-route-random&quot;,
-            &quot;noise&quot;: {
-              &quot;probability&quot;: 1,
-              &quot;min&quot;: -0.1,
-              &quot;max&quot;: 0.1
+            "weight": 30,
+            "type": "intra-route-random",
+            "noise": {
+              "probability": 1,
+              "min": -0.1,
+              "max": 0.1
             }
           }
         ]
       },
       {
-        &quot;type&quot;: &quot;ruin-recreate&quot;,
-        &quot;probability&quot;: {
-          &quot;scalar&quot;: 1
+        "type": "ruin-recreate",
+        "probability": {
+          "scalar": 1
         },
-        &quot;ruins&quot;: [
+        "ruins": [
           {
-            &quot;weight&quot;: 100,
-            &quot;methods&quot;: [
+            "weight": 100,
+            "methods": [
               {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;adjusted-string&quot;,
-                &quot;lmax&quot;: 10,
-                &quot;cavg&quot;: 10,
-                &quot;alpha&quot;: 0.01
+                "probability": 1,
+                "type": "adjusted-string",
+                "lmax": 10,
+                "cavg": 10,
+                "alpha": 0.01
               }
             ]
           },
           {
-            &quot;weight&quot;: 10,
-            &quot;methods&quot;: [
+            "weight": 10,
+            "methods": [
               {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;neighbour&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16
+                "probability": 1,
+                "type": "neighbour",
+                "min": 8,
+                "max": 16
               }
             ]
           },
           {
-            &quot;weight&quot;: 10,
-            &quot;methods&quot;: [
+            "weight": 10,
+            "methods": [
               {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;worst-job&quot;,
-                &quot;skip&quot;: 4,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16
+                "probability": 1,
+                "type": "worst-job",
+                "skip": 4,
+                "min": 8,
+                "max": 16
               }
             ]
           },
           {
-            &quot;weight&quot;: 5,
-            &quot;methods&quot;: [
+            "weight": 5,
+            "methods": [
               {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;cluster&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16,
-                &quot;minItems&quot;: 4
+                "probability": 1,
+                "type": "cluster",
+                "min": 8,
+                "max": 16,
+                "minItems": 4
               }
             ]
           },
           {
-            &quot;weight&quot;: 2,
-            &quot;methods&quot;: [
+            "weight": 2,
+            "methods": [
               {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;close-route&quot;
+                "probability": 1,
+                "type": "close-route"
               },
               {
-                &quot;probability&quot;: 0.1,
-                &quot;type&quot;: &quot;random-job&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16
+                "probability": 0.1,
+                "type": "random-job",
+                "min": 8,
+                "max": 16
               }
             ]
           },
           {
-            &quot;weight&quot;: 1,
-            &quot;methods&quot;: [
+            "weight": 1,
+            "methods": [
               {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;worst-route&quot;
+                "probability": 1,
+                "type": "worst-route"
               },
               {
-                &quot;probability&quot;: 0.1,
-                &quot;type&quot;: &quot;random-job&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16
+                "probability": 0.1,
+                "type": "random-job",
+                "min": 8,
+                "max": 16
               }
             ]
           },
           {
-            &quot;weight&quot;: 1,
-            &quot;methods&quot;: [
+            "weight": 1,
+            "methods": [
               {
-                &quot;probability&quot;: 1,
-                &quot;type&quot;: &quot;random-route&quot;,
-                &quot;min&quot;: 1,
-                &quot;max&quot;: 4
+                "probability": 1,
+                "type": "random-route",
+                "min": 1,
+                "max": 4
               },
               {
-                &quot;probability&quot;: 0.1,
-                &quot;type&quot;: &quot;random-job&quot;,
-                &quot;min&quot;: 8,
-                &quot;max&quot;: 16
+                "probability": 0.1,
+                "type": "random-job",
+                "min": 8,
+                "max": 16
               }
             ]
           }
         ],
-        &quot;recreates&quot;: [
+        "recreates": [
           {
-            &quot;weight&quot;: 50,
-            &quot;type&quot;: &quot;skip-best&quot;,
-            &quot;start&quot;: 1,
-            &quot;end&quot;: 2
+            "weight": 50,
+            "type": "skip-best",
+            "start": 1,
+            "end": 2
           },
           {
-            &quot;weight&quot;: 20,
-            &quot;type&quot;: &quot;regret&quot;,
-            &quot;start&quot;: 2,
-            &quot;end&quot;: 3
+            "weight": 20,
+            "type": "regret",
+            "start": 2,
+            "end": 3
           },
           {
-            &quot;weight&quot;: 20,
-            &quot;type&quot;: &quot;cheapest&quot;
+            "weight": 20,
+            "type": "cheapest"
           },
           {
-            &quot;weight&quot;: 10,
-            &quot;type&quot;: &quot;perturbation&quot;,
-            &quot;probability&quot;: 0.33,
-            &quot;min&quot;: -0.2,
-            &quot;max&quot;: 0.2
+            "weight": 10,
+            "type": "perturbation",
+            "probability": 0.33,
+            "min": -0.2,
+            "max": 0.2
           },
           {
-            &quot;weight&quot;: 5,
-            &quot;type&quot;: &quot;skip-best&quot;,
-            &quot;start&quot;: 3,
-            &quot;end&quot;: 4
+            "weight": 5,
+            "type": "skip-best",
+            "start": 3,
+            "end": 4
           },
           {
-            &quot;weight&quot;: 5,
-            &quot;type&quot;: &quot;gaps&quot;,
-            &quot;min&quot;: 2,
-            &quot;max&quot;: 20
+            "weight": 5,
+            "type": "gaps",
+            "min": 2,
+            "max": 20
           },
           {
-            &quot;weight&quot;: 5,
-            &quot;type&quot;: &quot;blinks&quot;
+            "weight": 5,
+            "type": "blinks"
           },
           {
-            &quot;weight&quot;: 2,
-            &quot;type&quot;: &quot;farthest&quot;
+            "weight": 2,
+            "type": "farthest"
           },
           {
-            &quot;weight&quot;: 2,
-            &quot;type&quot;: &quot;skip-best&quot;,
-            &quot;start&quot;: 4,
-            &quot;end&quot;: 8
+            "weight": 2,
+            "type": "skip-best",
+            "start": 4,
+            "end": 8
           },
           {
-            &quot;weight&quot;: 1,
-            &quot;type&quot;: &quot;nearest&quot;
+            "weight": 1,
+            "type": "nearest"
           },
           {
-            &quot;weight&quot;: 1,
-            &quot;type&quot;: &quot;skip-random&quot;
+            "weight": 1,
+            "type": "skip-random"
           },
           {
-            &quot;weight&quot;: 1,
-            &quot;type&quot;: &quot;slice&quot;
+            "weight": 1,
+            "type": "slice"
           }
         ]
       },
       {
-        &quot;type&quot;: &quot;local-search&quot;,
-        &quot;probability&quot;: {
-          &quot;scalar&quot;: 0.01
+        "type": "local-search",
+        "probability": {
+          "scalar": 0.01
         },
-        &quot;times&quot;: {
-          &quot;min&quot;: 1,
-          &quot;max&quot;: 2
+        "times": {
+          "min": 1,
+          "max": 2
         },
-        &quot;operators&quot;: [
+        "operators": [
           {
-            &quot;weight&quot;: 100,
-            &quot;type&quot;: &quot;inter-route-best&quot;,
-            &quot;noise&quot;: {
-              &quot;probability&quot;: 0.1,
-              &quot;min&quot;: -0.1,
-              &quot;max&quot;: 0.1
+            "weight": 100,
+            "type": "inter-route-best",
+            "noise": {
+              "probability": 0.1,
+              "min": -0.1,
+              "max": 0.1
             }
           },
           {
-            &quot;weight&quot;: 30,
-            &quot;type&quot;: &quot;inter-route-random&quot;,
-            &quot;noise&quot;: {
-              &quot;probability&quot;: 0.1,
-              &quot;min&quot;: -0.1,
-              &quot;max&quot;: 0.1
+            "weight": 30,
+            "type": "inter-route-random",
+            "noise": {
+              "probability": 0.1,
+              "min": -0.1,
+              "max": 0.1
             }
           },
           {
-            &quot;weight&quot;: 30,
-            &quot;type&quot;: &quot;intra-route-random&quot;,
-            &quot;noise&quot;: {
-              &quot;probability&quot;: 1,
-              &quot;min&quot;: -0.1,
-              &quot;max&quot;: 0.1
+            "weight": 30,
+            "type": "intra-route-random",
+            "noise": {
+              "probability": 1,
+              "min": -0.1,
+              "max": 0.1
             }
           },
           {
-            &quot;weight&quot;: 100,
-            &quot;type&quot;: &quot;sequence&quot;
+            "weight": 100,
+            "type": "sequence"
           }
         ]
       }
     ]
   },
-  &quot;termination&quot;: {
-    &quot;maxTime&quot;: 300,
-    &quot;maxGenerations&quot;: 3000,
-    &quot;variation&quot;: {
-      &quot;intervalType&quot;: &quot;sample&quot;,
-      &quot;value&quot;: 3000,
-      &quot;cv&quot;: 1,
-      &quot;isGlobal&quot;: true
+  "termination": {
+    "maxTime": 300,
+    "maxGenerations": 3000,
+    "variation": {
+      "intervalType": "sample",
+      "value": 3000,
+      "cv": 1,
+      "isGlobal": true
     }
   },
-  &quot;telemetry&quot;: {
-    &quot;progress&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;logBest&quot;: 100,
-      &quot;logPopulation&quot;: 1000,
-      &quot;dumpPopulation&quot;: false
+  "telemetry": {
+    "progress": {
+      "enabled": true,
+      "logBest": 100,
+      "logPopulation": 1000,
+      "dumpPopulation": false
     },
-    &quot;metrics&quot;: {
-      &quot;enabled&quot;: false,
-      &quot;trackPopulation&quot;: 1000
+    "metrics": {
+      "enabled": false,
+      "trackPopulation": 1000
     }
   },
-  &quot;environment&quot;: {
-    &quot;parallelism&quot;: {
-      &quot;numThreadPools&quot;: 6,
-      &quot;threadsPerPool&quot;: 8
+  "environment": {
+    "parallelism": {
+      "numThreadPools": 6,
+      "threadsPerPool": 8
     },
-    &quot;logging&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;prefix&quot;: &quot;[config.full]&quot;
+    "logging": {
+      "enabled": true,
+      "prefix": "[config.full]"
     },
-    &quot;isExperimental&quot;: false
+    "isExperimental": false
   },
-  &quot;output&quot;: {
-    &quot;includeGeojson&quot;: true
+  "output": {
+    "includeGeojson": true
   }
 }
 </code></pre>

@@ -188,10 +188,10 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
 <p>To test it, use the following index.html file:</p>
 <pre><code class="language-html">&lt;html&gt;
 &lt;head&gt;
-    &lt;meta content=&quot;text/html;charset=utf-8&quot; http-equiv=&quot;Content-Type&quot;/&gt;
+    &lt;meta content="text/html;charset=utf-8" http-equiv="Content-Type"/&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;script type=&quot;module&quot;&gt;
+&lt;script type="module"&gt;
     import init, { get_routing_locations, solve_pragmatic } from './pkg/vrp_cli.js';
 
     async function run() {
@@ -199,142 +199,142 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
 
         const pragmatic_problem = JSON.parse(`
 {
-  &quot;plan&quot;: {
-    &quot;jobs&quot;: [
+  "plan": {
+    "jobs": [
       {
-        &quot;id&quot;: &quot;job1&quot;,
-        &quot;deliveries&quot;: [
+        "id": "job1",
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.52599,
-                  &quot;lng&quot;: 13.45413
+                "location": {
+                  "lat": 52.52599,
+                  "lng": 13.45413
                 },
-                &quot;duration&quot;: 300.0,
-                &quot;times&quot;: [
+                "duration": 300.0,
+                "times": [
                   [
-                    &quot;2019-07-04T09:00:00Z&quot;,
-                    &quot;2019-07-04T18:00:00Z&quot;
+                    "2019-07-04T09:00:00Z",
+                    "2019-07-04T18:00:00Z"
                   ],
                   [
-                    &quot;2019-07-05T09:00:00Z&quot;,
-                    &quot;2019-07-05T18:00:00Z&quot;
+                    "2019-07-05T09:00:00Z",
+                    "2019-07-05T18:00:00Z"
                   ]
                 ]
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ]
       },
       {
-        &quot;id&quot;: &quot;job2&quot;,
-        &quot;pickups&quot;: [
+        "id": "job2",
+        "pickups": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5225,
-                  &quot;lng&quot;: 13.4095
+                "location": {
+                  "lat": 52.5225,
+                  "lng": 13.4095
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;times&quot;: [
+                "duration": 240.0,
+                "times": [
                   [
-                    &quot;2019-07-04T10:00:00Z&quot;,
-                    &quot;2019-07-04T16:00:00Z&quot;
+                    "2019-07-04T10:00:00Z",
+                    "2019-07-04T16:00:00Z"
                   ]
                 ]
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ]
       },
       {
-        &quot;id&quot;: &quot;job3&quot;,
-        &quot;pickups&quot;: [
+        "id": "job3",
+        "pickups": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5225,
-                  &quot;lng&quot;: 13.4095
+                "location": {
+                  "lat": 52.5225,
+                  "lng": 13.4095
                 },
-                &quot;duration&quot;: 300.0
+                "duration": 300.0
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ],
-            &quot;tag&quot;: &quot;p1&quot;
+            "tag": "p1"
           }
         ],
-        &quot;deliveries&quot;: [
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5165,
-                  &quot;lng&quot;: 13.3808
+                "location": {
+                  "lat": 52.5165,
+                  "lng": 13.3808
                 },
-                &quot;duration&quot;: 300.0
+                "duration": 300.0
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ],
-            &quot;tag&quot;: &quot;d1&quot;
+            "tag": "d1"
           }
         ]
       }
     ]
   },
-  &quot;fleet&quot;: {
-    &quot;vehicles&quot;: [
+  "fleet": {
+    "vehicles": [
       {
-        &quot;typeId&quot;: &quot;vehicle&quot;,
-        &quot;vehicleIds&quot;: [
-          &quot;vehicle_1&quot;
+        "typeId": "vehicle",
+        "vehicleIds": [
+          "vehicle_1"
         ],
-       &quot;profile&quot;: {
-          &quot;matrix&quot;: &quot;normal_car&quot;
+       "profile": {
+          "matrix": "normal_car"
         },
-        &quot;costs&quot;: {
-          &quot;fixed&quot;: 22.0,
-          &quot;distance&quot;: 0.0002,
-          &quot;time&quot;: 0.004806
+        "costs": {
+          "fixed": 22.0,
+          "distance": 0.0002,
+          "time": 0.004806
         },
-        &quot;shifts&quot;: [
+        "shifts": [
           {
-            &quot;start&quot;: {
-              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "start": {
+              "earliest": "2019-07-04T09:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             },
-            &quot;end&quot;: {
-              &quot;latest&quot;: &quot;2019-07-04T18:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "end": {
+              "latest": "2019-07-04T18:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             }
           }
         ],
-        &quot;capacity&quot;: [
+        "capacity": [
           10
         ]
       }
     ],
-    &quot;profiles&quot;: [
+    "profiles": [
       {
-        &quot;name&quot;: &quot;normal_car&quot;
+        "name": "normal_car"
       }
     ]
   }
@@ -348,14 +348,14 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
         // NOTE or just pass an empty array to use great-circle distance approximation
         const matrix_data= [
             {
-                &quot;matrix&quot;: &quot;normal_car&quot;,
-                &quot;travelTimes&quot;: [
+                "matrix": "normal_car",
+                "travelTimes": [
                    0,    609, 981, 906,
                    813,  0,   371, 590,
                    1055, 514, 0,   439,
                    948,  511, 463,   0
                 ],
-                &quot;distances&quot;: [
+                "distances": [
                    0,    3840,  5994,  5333,
                    4696, 0,     2154,  3226,
                    5763, 2674,  0,     2145,
@@ -366,9 +366,9 @@ to build without default features: <code>csv-format</code>, <code>hre-format</co
 
         // config provides the way to tweak algorithm behavior
         const config = {
-            &quot;termination&quot;: {
-                 &quot;maxTime&quot;: 10,
-                 &quot;maxGenerations&quot;: 1000
+            "termination": {
+                 "maxTime": 10,
+                 "maxGenerations": 1000
             }
         };
 

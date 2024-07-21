@@ -215,18 +215,18 @@ private interface OnError : Callback {
 
 fun main(args: Array&lt;String&gt;) {
     if (args.count() &lt; 1) {
-        throw IllegalStateException(&quot;Specify problem and, optionally, routing matrices paths&quot;)
+        throw IllegalStateException("Specify problem and, optionally, routing matrices paths")
     }
 
     val problem = String(Files.readAllBytes(Paths.get(args[0])))
     val matrices = args.drop(1).map { String(Files.readAllBytes(Paths.get(it))) }.toTypedArray()
 
-    val solver = Native.load(&quot;vrp_cli&quot;, Solver::class.java)
+    val solver = Native.load("vrp_cli", Solver::class.java)
 
     solver.get_routing_locations(problem,
             onSuccess = object : OnSuccess {
                 override fun result(json: String) {
-                    println(&quot;locations: $json&quot;)
+                    println("locations: $json")
                 }
             },
             onError = object : OnError {
@@ -236,10 +236,10 @@ fun main(args: Array&lt;String&gt;) {
             }
     )
 
-    solver.solve_pragmatic(problem, matrices, matrices.size, &quot;{}&quot;,
+    solver.solve_pragmatic(problem, matrices, matrices.size, "{}",
             onSuccess = object : OnSuccess {
                 override fun result(json: String) {
-                    println(&quot;solution: $json&quot;)
+                    println("solution: $json")
                 }
             },
             onError = object : OnError {

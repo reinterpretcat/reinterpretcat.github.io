@@ -198,7 +198,7 @@ pip freeze
 </li>
 <li>
 <p>Use maturin to build and install the solver library in your current environment:</p>
-<pre><code class="language-shell">maturin develop --release --features &quot;py_bindings&quot;
+<pre><code class="language-shell">maturin develop --release --features "py_bindings"
 </code></pre>
 </li>
 <li>
@@ -264,14 +264,14 @@ problem = prg.Problem(
                 ]
             ),
             prg.Job(
-                id=&quot;pickup_delivery_job3&quot;,
+                id="pickup_delivery_job3",
                 pickups=[
                     prg.JobTask(
                         places=[
                             prg.JobPlace(
                                 location=prg.Location(lat=52.5225, lng=13.4095),
                                 duration=300,
-                                tag=&quot;p1&quot;
+                                tag="p1"
                             )
                         ],
                         demand=[1]
@@ -283,7 +283,7 @@ problem = prg.Problem(
                             prg.JobPlace(
                                 location=prg.Location(lat=52.5165, lng=13.3808),
                                 duration=300,
-                                tag=&quot;d1&quot;
+                                tag="d1"
                             ),
                         ],
                         demand=[1]
@@ -302,11 +302,11 @@ problem = prg.Problem(
                 shifts=[
                     prg.VehicleShift(
                         start=prg.VehicleShiftStart(
-                            earliest=&quot;2019-07-04T09:00:00Z&quot;,
+                            earliest="2019-07-04T09:00:00Z",
                             location=prg.Location(lat=52.5316, lng=13.3884),
                         ),
                         end=prg.VehicleShiftEnd(
-                            latest=&quot;2019-07-04T18:00:00Z&quot;,
+                            latest="2019-07-04T18:00:00Z",
                             location=prg.Location(lat=52.5316, lng=13.3884),
                         )
                     )
@@ -337,10 +337,10 @@ get started, and you can tweak them according to the documentation or rust sourc
 import json
 
 # NOTE: ensure that paths are correct on your environment
-cli_path = &quot;./target/release/vrp-cli&quot;
-problem_path = &quot;./examples/data/pragmatic/simple.basic.problem.json&quot;
-solution_path = &quot;./examples/data/pragmatic/simple.basic.solution.json&quot;
-geojson_solution_path = &quot;./examples/data/pragmatic/simple.basic.solution.geojson&quot;
+cli_path = "./target/release/vrp-cli"
+problem_path = "./examples/data/pragmatic/simple.basic.problem.json"
+solution_path = "./examples/data/pragmatic/simple.basic.solution.json"
+geojson_solution_path = "./examples/data/pragmatic/simple.basic.solution.geojson"
 
 class Deserializer:
     @classmethod
@@ -368,7 +368,7 @@ class SolverClient:
 solver = SolverClient(cli_path)
 solution = solver.solve_pragmatic(problem_path, solution_path, geojson_solution_path)
 
-print(f&quot;Total cost is {solution.statistic.cost}, tours: {len(solution.tours)}&quot;)
+print(f"Total cost is {solution.statistic.cost}, tours: {len(solution.tours)}")
 </code></pre>
 <p><strong>Please note</strong>, that the solver expects file paths instead of json strings as input arguments.</p>
 

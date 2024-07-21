@@ -181,30 +181,30 @@
 <p>List of tours is essentially individual vehicle routes. Each tour consists of the following properties:</p>
 <ul>
 <li><strong>typeId</strong>: id of vehicle type
-<pre><code class="language-json">      &quot;typeId&quot;: &quot;vehicle&quot;,
+<pre><code class="language-json">      "typeId": "vehicle",
 </code></pre>
 </li>
 <li><strong>vehicleId</strong>: id of used vehicle. Id of the vehicle is generated from the tour using pattern <code>$typeId_sequenceIndex</code>:
-<pre><code class="language-json">      &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
+<pre><code class="language-json">      "vehicleId": "vehicle_1",
 </code></pre>
 </li>
 <li><strong>shiftIndex</strong>: vehicle's shift index:
-<pre><code class="language-json">      &quot;shiftIndex&quot;: 0,
+<pre><code class="language-json">      "shiftIndex": 0,
 </code></pre>
 </li>
 <li><strong>stops</strong>: list of stops. See stop structure below</li>
 <li><strong>statistic</strong>: statistic of the tour.
-<pre><code class="language-json">      &quot;statistic&quot;: {
-    &quot;cost&quot;: 41.504842000000004,
-    &quot;distance&quot;: 13251,
-    &quot;duration&quot;: 3507,
-    &quot;times&quot;: {
-      &quot;driving&quot;: 2367,
-      &quot;serving&quot;: 1140,
-      &quot;waiting&quot;: 0,
-      &quot;break&quot;: 0,
-      &quot;commuting&quot;: 0,
-      &quot;parking&quot;: 0
+<pre><code class="language-json">      "statistic": {
+    "cost": 41.504842000000004,
+    "distance": 13251,
+    "duration": 3507,
+    "times": {
+      "driving": 2367,
+      "serving": 1140,
+      "waiting": 0,
+      "break": 0,
+      "commuting": 0,
+      "parking": 0
     }
 </code></pre>
 </li>
@@ -236,65 +236,65 @@ which during traveling.</p>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <p>An example of stop with one activity:</p>
 <pre><code class="language-json">        {
-          &quot;location&quot;: {
-            &quot;lat&quot;: 52.5316,
-            &quot;lng&quot;: 13.3884
+          "location": {
+            "lat": 52.5316,
+            "lng": 13.3884
           },
-          &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T09:51:29Z&quot;
+          "time": {
+            "arrival": "2019-07-04T09:00:00Z",
+            "departure": "2019-07-04T09:51:29Z"
           },
-          &quot;distance&quot;: 0,
-          &quot;load&quot;: [
+          "distance": 0,
+          "load": [
             1
           ],
-          &quot;activities&quot;: [
+          "activities": [
             {
-              &quot;jobId&quot;: &quot;departure&quot;,
-              &quot;type&quot;: &quot;departure&quot;
+              "jobId": "departure",
+              "type": "departure"
             }
           ]
         },
 </code></pre>
 <p>An example of stop with two activities:</p>
 <pre><code class="language-json">        {
-          &quot;location&quot;: {
-            &quot;lat&quot;: 52.5225,
-            &quot;lng&quot;: 13.4095
+          "location": {
+            "lat": 52.5225,
+            "lng": 13.4095
           },
-          &quot;time&quot;: {
-            &quot;arrival&quot;: &quot;2019-07-04T10:22:26Z&quot;,
-            &quot;departure&quot;: &quot;2019-07-04T10:31:26Z&quot;
+          "time": {
+            "arrival": "2019-07-04T10:22:26Z",
+            "departure": "2019-07-04T10:31:26Z"
           },
-          &quot;distance&quot;: 8952,
-          &quot;load&quot;: [
+          "distance": 8952,
+          "load": [
             2
           ],
-          &quot;activities&quot;: [
+          "activities": [
             {
-              &quot;jobId&quot;: &quot;job2&quot;,
-              &quot;type&quot;: &quot;pickup&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5225,
-                &quot;lng&quot;: 13.4095
+              "jobId": "job2",
+              "type": "pickup",
+              "location": {
+                "lat": 52.5225,
+                "lng": 13.4095
               },
-              &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:22:26Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:26:26Z&quot;
+              "time": {
+                "start": "2019-07-04T10:22:26Z",
+                "end": "2019-07-04T10:26:26Z"
               }
             },
             {
-              &quot;jobId&quot;: &quot;job3&quot;,
-              &quot;type&quot;: &quot;pickup&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5225,
-                &quot;lng&quot;: 13.4095
+              "jobId": "job3",
+              "type": "pickup",
+              "location": {
+                "lat": 52.5225,
+                "lng": 13.4095
               },
-              &quot;time&quot;: {
-                &quot;start&quot;: &quot;2019-07-04T10:26:26Z&quot;,
-                &quot;end&quot;: &quot;2019-07-04T10:31:26Z&quot;
+              "time": {
+                "start": "2019-07-04T10:26:26Z",
+                "end": "2019-07-04T10:31:26Z"
               },
-              &quot;jobTag&quot;: &quot;p1&quot;
+              "jobTag": "p1"
             }
           ]
         },

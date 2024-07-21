@@ -187,12 +187,12 @@ consists of the following properties:</p>
 <li><strong>replacements</strong> (optional): a list of replacement tasks</li>
 <li><strong>services</strong> (optional): a list of service tasks</li>
 <li><strong>skills</strong> (optional): job skills defined by <code>allOf</code>, <code>oneOf</code> or <code>noneOf</code> conditions:
-<pre><code class="language-json">        &quot;skills&quot;: {
-      &quot;allOf&quot;: [
-        &quot;fridge&quot;
+<pre><code class="language-json">        "skills": {
+      "allOf": [
+        "fridge"
       ],
-      &quot;noneOf&quot;: [
-        &quot;washing_machine&quot;
+      "noneOf": [
+        "washing_machine"
       ]
     }
 </code></pre>
@@ -230,25 +230,25 @@ depending on time of the day.</p>
 <h2 id="pickup-job"><a class="header" href="#pickup-job">Pickup job</a></h2>
 <p>Pickup job is a job with <code>job.pickups</code> property specified,   without <code>job.deliveries</code>:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;job2&quot;,
-        &quot;pickups&quot;: [
+        "id": "job2",
+        "pickups": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5225,
-                  &quot;lng&quot;: 13.4095
+                "location": {
+                  "lat": 52.5225,
+                  "lng": 13.4095
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;times&quot;: [
+                "duration": 240.0,
+                "times": [
                   [
-                    &quot;2019-07-04T10:00:00Z&quot;,
-                    &quot;2019-07-04T16:00:00Z&quot;
+                    "2019-07-04T10:00:00Z",
+                    "2019-07-04T16:00:00Z"
                   ]
                 ]
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
@@ -260,29 +260,29 @@ value, and brings it till the end of the tour (or next reload). Each pickup task
 <h2 id="delivery-job"><a class="header" href="#delivery-job">Delivery job</a></h2>
 <p>Delivery job is a job with <code>job.deliveries</code> property specified, without <code>job.pickups</code>:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;job1&quot;,
-        &quot;deliveries&quot;: [
+        "id": "job1",
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.52599,
-                  &quot;lng&quot;: 13.45413
+                "location": {
+                  "lat": 52.52599,
+                  "lng": 13.45413
                 },
-                &quot;duration&quot;: 300.0,
-                &quot;times&quot;: [
+                "duration": 300.0,
+                "times": [
                   [
-                    &quot;2019-07-04T09:00:00Z&quot;,
-                    &quot;2019-07-04T18:00:00Z&quot;
+                    "2019-07-04T09:00:00Z",
+                    "2019-07-04T18:00:00Z"
                   ],
                   [
-                    &quot;2019-07-05T09:00:00Z&quot;,
-                    &quot;2019-07-05T18:00:00Z&quot;
+                    "2019-07-05T09:00:00Z",
+                    "2019-07-05T18:00:00Z"
                   ]
                 ]
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
@@ -295,37 +295,37 @@ its own properties such as <code>demand</code> and <code>places</code>.</p>
 <h2 id="pickup-and-delivery-job"><a class="header" href="#pickup-and-delivery-job">Pickup and delivery job</a></h2>
 <p>Pickup and delivery job is a job with both <code>job.pickups</code> and <code>job.deliveries</code> properties specified:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;job3&quot;,
-        &quot;pickups&quot;: [
+        "id": "job3",
+        "pickups": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5225,
-                  &quot;lng&quot;: 13.4095
+                "location": {
+                  "lat": 52.5225,
+                  "lng": 13.4095
                 },
-                &quot;duration&quot;: 300.0,
-                &quot;tag&quot;: &quot;p1&quot;
+                "duration": 300.0,
+                "tag": "p1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ],
-        &quot;deliveries&quot;: [
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5165,
-                  &quot;lng&quot;: 13.3808
+                "location": {
+                  "lat": 52.5165,
+                  "lng": 13.3808
                 },
-                &quot;duration&quot;: 300.0,
-                &quot;tag&quot;: &quot;d1&quot;
+                "duration": 300.0,
+                "tag": "d1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
@@ -341,108 +341,108 @@ them to one or many <code>job.deliveries.location</code>. The job has the follow
 </ul>
 <p>A good example of such job is a job with more than two places with variable demand:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;multi_job1&quot;,
-        &quot;pickups&quot;: [
+        "id": "multi_job1",
+        "pickups": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5622847,
-                  &quot;lng&quot;: 13.4023099
+                "location": {
+                  "lat": 52.5622847,
+                  "lng": 13.4023099
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;p1&quot;
+                "duration": 240.0,
+                "tag": "p1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           },
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5330881,
-                  &quot;lng&quot;: 13.3973059
+                "location": {
+                  "lat": 52.5330881,
+                  "lng": 13.3973059
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;p2&quot;
+                "duration": 240.0,
+                "tag": "p2"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ],
-        &quot;deliveries&quot;: [
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5252832,
-                  &quot;lng&quot;: 13.4188422
+                "location": {
+                  "lat": 52.5252832,
+                  "lng": 13.4188422
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;d1&quot;
+                "duration": 240.0,
+                "tag": "d1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               2
             ]
           }
         ]
       },
 </code></pre>
-<p>This job contains two pickups and one delivery. Interpretation of such job can be &quot;bring two parcels from two different
-places to one single customer&quot;.</p>
+<p>This job contains two pickups and one delivery. Interpretation of such job can be "bring two parcels from two different
+places to one single customer".</p>
 <p>Another example is one pickup and two deliveries:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;multi_job2&quot;,
-        &quot;pickups&quot;: [
+        "id": "multi_job2",
+        "pickups": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.52599,
-                  &quot;lng&quot;: 13.45413
+                "location": {
+                  "lat": 52.52599,
+                  "lng": 13.45413
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;p1&quot;
+                "duration": 240.0,
+                "tag": "p1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               2
             ]
           }
         ],
-        &quot;deliveries&quot;: [
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.4928,
-                  &quot;lng&quot;: 13.4597
+                "location": {
+                  "lat": 52.4928,
+                  "lng": 13.4597
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;d1&quot;
+                "duration": 240.0,
+                "tag": "d1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           },
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.4989,
-                  &quot;lng&quot;: 13.3917
+                "location": {
+                  "lat": 52.4989,
+                  "lng": 13.3917
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;d2&quot;
+                "duration": 240.0,
+                "tag": "d2"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
@@ -454,25 +454,25 @@ places to one single customer&quot;.</p>
 <h2 id="replacement-job"><a class="header" href="#replacement-job">Replacement job</a></h2>
 <p>A replacement job is a job with <code>job.replacement</code> property specified:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;simple_replacement_job&quot;,
-        &quot;replacements&quot;: [
+        "id": "simple_replacement_job",
+        "replacements": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5622847,
-                  &quot;lng&quot;: 13.4023099
+                "location": {
+                  "lat": 52.5622847,
+                  "lng": 13.4023099
                 },
-                &quot;duration&quot;: 3600.0,
-                &quot;times&quot;: [
+                "duration": 3600.0,
+                "times": [
                   [
-                    &quot;2019-07-04T09:00:00Z&quot;,
-                    &quot;2019-07-04T18:00:00Z&quot;
+                    "2019-07-04T09:00:00Z",
+                    "2019-07-04T18:00:00Z"
                   ]
                 ]
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               3
             ]
           }
@@ -484,24 +484,24 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
 <h2 id="service-job"><a class="header" href="#service-job">Service job</a></h2>
 <p>A service job is a job with <code>job.service</code> property specified:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;simple_service_job&quot;,
-        &quot;services&quot;: [
+        "id": "simple_service_job",
+        "services": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5330881,
-                  &quot;lng&quot;: 13.3973059
+                "location": {
+                  "lat": 52.5330881,
+                  "lng": 13.3973059
                 },
-                &quot;duration&quot;: 3600.0,
-                &quot;times&quot;: [
+                "duration": 3600.0,
+                "times": [
                   [
-                    &quot;2019-07-04T08:00:00Z&quot;,
-                    &quot;2019-07-04T12:00:00Z&quot;
+                    "2019-07-04T08:00:00Z",
+                    "2019-07-04T12:00:00Z"
                   ],
                   [
-                    &quot;2019-07-04T14:00:00Z&quot;,
-                    &quot;2019-07-04T18:00:00Z&quot;
+                    "2019-07-04T14:00:00Z",
+                    "2019-07-04T18:00:00Z"
                   ]
                 ]
               }
@@ -514,68 +514,68 @@ to be loaded at the beginning of the journey and old replaced one brought to jou
 <h2 id="mixing-job-tasks"><a class="header" href="#mixing-job-tasks">Mixing job tasks</a></h2>
 <p>You can specify multiple tasks properties to get some mixed job:</p>
 <pre><code class="language-json">      {
-        &quot;id&quot;: &quot;mixed_job&quot;,
-        &quot;pickups&quot;: [
+        "id": "mixed_job",
+        "pickups": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.5252832,
-                  &quot;lng&quot;: 13.4188422
+                "location": {
+                  "lat": 52.5252832,
+                  "lng": 13.4188422
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;p1&quot;
+                "duration": 240.0,
+                "tag": "p1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ],
-        &quot;deliveries&quot;: [
+        "deliveries": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.52599,
-                  &quot;lng&quot;: 13.45413
+                "location": {
+                  "lat": 52.52599,
+                  "lng": 13.45413
                 },
-                &quot;duration&quot;: 240.0,
-                &quot;tag&quot;: &quot;d1&quot;
+                "duration": 240.0,
+                "tag": "d1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               1
             ]
           }
         ],
-        &quot;replacements&quot;: [
+        "replacements": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.4928,
-                  &quot;lng&quot;: 13.4597
+                "location": {
+                  "lat": 52.4928,
+                  "lng": 13.4597
                 },
-                &quot;duration&quot;: 2400.0,
-                &quot;tag&quot;: &quot;r1&quot;
+                "duration": 2400.0,
+                "tag": "r1"
               }
             ],
-            &quot;demand&quot;: [
+            "demand": [
               2
             ]
           }
         ],
-        &quot;services&quot;: [
+        "services": [
           {
-            &quot;places&quot;: [
+            "places": [
               {
-                &quot;location&quot;: {
-                  &quot;lat&quot;: 52.4989,
-                  &quot;lng&quot;: 13.3917
+                "location": {
+                  "lat": 52.4989,
+                  "lng": 13.3917
                 },
-                &quot;duration&quot;: 1800.0,
-                &quot;tag&quot;: &quot;s1&quot;
+                "duration": 1800.0,
+                "tag": "s1"
               }
             ]
           }

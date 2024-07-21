@@ -199,7 +199,7 @@ lock jobs to a specific vehicle in any or predefined order.</p>
 <p>There are multiple strict constraints that should be matched on jobs and vehicles.</p>
 <h3 id="demand-and-capacity"><a class="header" href="#demand-and-capacity">Demand and capacity</a></h3>
 <p>Each job should have <code>demand</code> property which models a <em>good</em> size in abstract integral units:</p>
-<pre><code class="language-json">            &quot;demand&quot;: [
+<pre><code class="language-json">            "demand": [
               1
             ]
 </code></pre>
@@ -208,31 +208,31 @@ lock jobs to a specific vehicle in any or predefined order.</p>
 type based on accumulated demand value. Total demand should not exceed capacity value.</p>
 <h3 id="time-windows"><a class="header" href="#time-windows">Time windows</a></h3>
 <p>Optionally, each job can have one or more time window:</p>
-<pre><code class="language-json">                &quot;times&quot;: [
+<pre><code class="language-json">                "times": [
                   [
-                    &quot;2019-07-04T09:00:00Z&quot;,
-                    &quot;2019-07-04T18:00:00Z&quot;
+                    "2019-07-04T09:00:00Z",
+                    "2019-07-04T18:00:00Z"
                   ],
                   [
-                    &quot;2019-07-05T09:00:00Z&quot;,
-                    &quot;2019-07-05T18:00:00Z&quot;
+                    "2019-07-05T09:00:00Z",
+                    "2019-07-05T18:00:00Z"
                   ]
                 ]
 </code></pre>
-<p>Time windows are strict: if no vehicle can visit a job in given time ranges, then the job is considered as unassigned. </p>
+<p>Time windows are strict: if no vehicle can visit a job in given time ranges, then the job is considered as unassigned.</p>
 <p>Vehicle time is limited per each shift and has required start optional end time:</p>
-<pre><code class="language-json">            &quot;start&quot;: {
-              &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+<pre><code class="language-json">            "start": {
+              "earliest": "2019-07-04T09:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             },
-            &quot;end&quot;: {
-              &quot;latest&quot;: &quot;2019-07-04T18:00:00Z&quot;,
-              &quot;location&quot;: {
-                &quot;lat&quot;: 52.5316,
-                &quot;lng&quot;: 13.3884
+            "end": {
+              "latest": "2019-07-04T18:00:00Z",
+              "location": {
+                "lat": 52.5316,
+                "lng": 13.3884
               }
             }
 </code></pre>

@@ -221,21 +221,21 @@ which specifies how much time has to be reserved at initial parking at stop loca
 </li>
 </ul>
 <p>An example:</p>
-<pre><code class="language-json">    &quot;clustering&quot;: {
-      &quot;type&quot;: &quot;vicinity&quot;,
-      &quot;profile&quot;: {
-        &quot;matrix&quot;: &quot;car&quot;,
-        &quot;scale&quot;: 10
+<pre><code class="language-json">    "clustering": {
+      "type": "vicinity",
+      "profile": {
+        "matrix": "car",
+        "scale": 10
       },
-      &quot;threshold&quot;: {
-        &quot;duration&quot;: 120,
-        &quot;distance&quot;: 100
+      "threshold": {
+        "duration": 120,
+        "distance": 100
       },
-      &quot;visiting&quot;: &quot;continue&quot;,
-      &quot;serving&quot;: {
-        &quot;type&quot;: &quot;fixed&quot;,
-        &quot;value&quot;: 180,
-        &quot;parking&quot;: 120
+      "visiting": "continue",
+      "serving": {
+        "type": "fixed",
+        "value": 180,
+        "parking": 120
       }
     }
 </code></pre>
@@ -252,27 +252,27 @@ specify information about activity place visit:
 </li>
 </ul>
 <p>An example:</p>
-<pre><code class="language-json">              &quot;commute&quot;: {
-                &quot;forward&quot;: {
-                  &quot;location&quot;: {
-                    &quot;lat&quot;: 52.5254256,
-                    &quot;lng&quot;: 13.4527159
+<pre><code class="language-json">              "commute": {
+                "forward": {
+                  "location": {
+                    "lat": 52.5254256,
+                    "lng": 13.4527159
                   },
-                  &quot;distance&quot;: 14.0,
-                  &quot;time&quot;: {
-                    &quot;start&quot;: &quot;2020-05-01T09:12:01Z&quot;,
-                    &quot;end&quot;: &quot;2020-05-01T09:12:11Z&quot;
+                  "distance": 14.0,
+                  "time": {
+                    "start": "2020-05-01T09:12:01Z",
+                    "end": "2020-05-01T09:12:11Z"
                   }
                 },
-                &quot;backward&quot;: {
-                  &quot;location&quot;: {
-                    &quot;lat&quot;: 52.5253342,
-                    &quot;lng&quot;: 13.4533489
+                "backward": {
+                  "location": {
+                    "lat": 52.5253342,
+                    "lng": 13.4533489
                   },
-                  &quot;distance&quot;: 54.0,
-                  &quot;time&quot;: {
-                    &quot;start&quot;: &quot;2020-05-01T09:15:11Z&quot;,
-                    &quot;end&quot;: &quot;2020-05-01T09:16:01Z&quot;
+                  "distance": 54.0,
+                  "time": {
+                    "start": "2020-05-01T09:15:11Z",
+                    "end": "2020-05-01T09:16:01Z"
                   }
                 }
               }

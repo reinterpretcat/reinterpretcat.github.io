@@ -190,12 +190,12 @@ has the following properties:</p>
 <h2 id="any-type"><a class="header" href="#any-type">Any type</a></h2>
 <p>A <code>any</code> relation is used to lock specific jobs to certain vehicle in any order:</p>
 <pre><code class="language-json">      {
-        &quot;type&quot;: &quot;any&quot;,
-        &quot;jobs&quot;: [
-          &quot;job1&quot;,
-          &quot;job3&quot;
+        "type": "any",
+        "jobs": [
+          "job1",
+          "job3"
         ],
-        &quot;vehicleId&quot;: &quot;vehicle_1&quot;
+        "vehicleId": "vehicle_1"
       }
 </code></pre>
 <h2 id="sequence-type"><a class="header" href="#sequence-type">Sequence type</a></h2>
@@ -204,13 +204,13 @@ between.</p>
 <h2 id="strict-type"><a class="header" href="#strict-type">Strict type</a></h2>
 <p>In contrast to <code>sequence</code> relation, <code>strict</code> locks jobs to certain vehicle without ability to insert new jobs in between:</p>
 <pre><code class="language-json">      {
-        &quot;type&quot;: &quot;strict&quot;,
-        &quot;jobs&quot;: [
-          &quot;departure&quot;,
-          &quot;job4&quot;,
-          &quot;job1&quot;
+        "type": "strict",
+        "jobs": [
+          "departure",
+          "job4",
+          "job1"
         ],
-        &quot;vehicleId&quot;: &quot;vehicle_1&quot;
+        "vehicleId": "vehicle_1"
       }
 </code></pre>
 <p>In this example, new jobs can be inserted only after job with id <code>job1</code>.</p>

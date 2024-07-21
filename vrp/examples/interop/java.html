@@ -217,7 +217,7 @@ interface OnError extends Callback {
 class Application {
     public static void main(String[] args) throws IOException {
         if (args.length &lt; 1) {
-            throw new IllegalStateException(&quot;Specify problem and, optionally, routing matrices paths&quot;);
+            throw new IllegalStateException("Specify problem and, optionally, routing matrices paths");
         }
 
         String problem = new String(Files.readAllBytes(Paths.get(args[0])));
@@ -226,7 +226,7 @@ class Application {
             matrices[i - 1] = new String(Files.readAllBytes(Paths.get(args[i])));
         }
 
-        Solver solver = Native.load(&quot;vrp_cli&quot;, Solver.class);
+        Solver solver = Native.load("vrp_cli", Solver.class);
 
         solver.get_routing_locations(problem,
                 new OnSuccess() {
@@ -241,7 +241,7 @@ class Application {
                     }
                 });
 
-        solver.solve_pragmatic(problem, matrices, matrices.length, &quot;{}&quot;,
+        solver.solve_pragmatic(problem, matrices, matrices.length, "{}",
                 new OnSuccess() {
                     @Override
                     public void result(String json) {

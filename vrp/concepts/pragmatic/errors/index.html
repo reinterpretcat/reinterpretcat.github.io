@@ -205,15 +205,15 @@ a valid json schema and valid parameters.</p>
 <h4 id="e1100"><a class="header" href="#e1100">E1100</a></h4>
 <p><code>duplicated job ids</code> error is returned when <code>plan.jobs</code> has jobs with the same ids:</p>
 <pre><code class="language-json">{
-  &quot;plan&quot;: {
-    &quot;jobs&quot;: [
+  "plan": {
+    "jobs": [
       {
-        &quot;id&quot;: &quot;job1&quot;,
+        "id": "job1",
         /** omitted **/
       },
       {
         /** Error: this id is already used by another job **/
-        &quot;id&quot;: &quot;job1&quot;,
+        "id": "job1",
         /** omitted **/
       }
       /** omitted **/
@@ -226,19 +226,19 @@ a valid json schema and valid parameters.</p>
 <p><code>invalid job task demand</code> error is returned when job has invalid demand: <code>pickup</code>, <code>delivery</code>, <code>replacement</code> job types should
 have demand specified on each job task, <code>service</code> type should have no demand specified:</p>
 <pre><code class="language-json">{
-  &quot;id&quot;: &quot;job1&quot;,
-  &quot;deliveries&quot;: [
+  "id": "job1",
+  "deliveries": [
     {
       /** omitted **/
       /** Error: delivery task should have demand set**/
-      &quot;demand&quot;: null
+      "demand": null
     }
  ],
- &quot;services&quot;: [
+ "services": [
    {
      /** omitted **/
      /** Error: service task should have no demand specified**/
-     &quot;demand&quot;: [1]
+     "demand": [1]
    }
  ]
 }
@@ -248,22 +248,22 @@ have demand specified on each job task, <code>service</code> type should have no
 <p><code>invalid pickup and delivery demand</code> error code is returned when job has both pickups and deliveries, but the sum of
 pickups demand does not match to the sum of deliveries demand:</p>
 <pre><code class="language-json">{
-  &quot;id&quot;: &quot;job&quot;,
-  &quot;pickups&quot;: [
+  "id": "job",
+  "pickups": [
     {
-      &quot;places&quot;: [/** omitted **/],
-      &quot;demand&quot;: [1],
+      "places": [/** omitted **/],
+      "demand": [1],
     },
     {
-      &quot;places&quot;: [/** omitted **/],
-      &quot;demand&quot;: [1]
+      "places": [/** omitted **/],
+      "demand": [1]
     }
   ],
-  &quot;deliveries&quot;: [
+  "deliveries": [
     {
-      &quot;places&quot;: [/** omitted **/],
+      "places": [/** omitted **/],
       /** Error: should be 2 as the sum of pickups is 2 **/
-      &quot;demand&quot;: [1]
+      "demand": [1]
     }
   ]
 }
@@ -272,10 +272,10 @@ pickups demand does not match to the sum of deliveries demand:</p>
 <p><code>invalid time windows in jobs</code> error is returned when there is a job which has invalid time windows, e.g.:</p>
 <pre><code class="language-json">{
   /** Error: end time is one hour earlier than start time**/
-  &quot;times&quot;: [
+  "times": [
     [
-      &quot;2020-07-04T12:00:00Z&quot;,
-      &quot;2020-07-04T11:00:00Z&quot;
+      "2020-07-04T12:00:00Z",
+      "2020-07-04T11:00:00Z"
     ]
   ]
 }
@@ -289,14 +289,14 @@ the second - as end</li>
 </ul>
 <pre><code class="language-json">{
   /** Error: second time window intersects with first one: [13:00, 14:00] **/
-  &quot;times&quot;: [
+  "times": [
     [
-      &quot;2020-07-04T10:00:00Z&quot;,
-      &quot;2020-07-04T14:00:00Z&quot;
+      "2020-07-04T10:00:00Z",
+      "2020-07-04T14:00:00Z"
     ],
     [
-      &quot;2020-07-04T13:00:00Z&quot;,
-      &quot;2020-07-04T17:00:00Z&quot;
+      "2020-07-04T13:00:00Z",
+      "2020-07-04T17:00:00Z"
     ]
   ]
 }
@@ -305,7 +305,7 @@ the second - as end</li>
 <p><code>reserved job id is used</code> error is returned when there is a job which has reserved job id:</p>
 <pre><code class="language-json">{
   /** Error: 'departure' is reserved job id **/
-  &quot;id&quot;: &quot;departure&quot;
+  "id": "departure"
 }
 </code></pre>
 <p>To avoid confusion, the following ids are reserved: <code>departure</code>, <code>arrival</code>, <code>break</code>, and <code>reload</code>. These
@@ -314,22 +314,22 @@ ids are not allowed to be used within <code>job.id</code> property.</p>
 <p><code>empty job</code> error is returned when there is a job which has no or empty job tasks:</p>
 <pre><code class="language-json">{
   /** Error: at least one job task has to be defined **/
-  &quot;id&quot;: &quot;job1&quot;,
-  &quot;pickups&quot;: null,
-  &quot;deliveries&quot;: []
+  "id": "job1",
+  "pickups": null,
+  "deliveries": []
 }
 </code></pre>
 <p>To fix the error, remove job from the plan or add at least one job task to it.</p>
 <h4 id="e1106"><a class="header" href="#e1106">E1106</a></h4>
 <p><code>job has negative duration</code> error is returned when there is a job place with negative duration:</p>
 <pre><code class="language-json">{
-  &quot;id&quot;: &quot;job&quot;,
-  &quot;pickups&quot;: [
+  "id": "job",
+  "pickups": [
     {
-      &quot;places&quot;: [{
+      "places": [{
         /** Error: negative duration does not make sense **/
-        &quot;duration&quot;: -10,
-        &quot;location&quot;: {/* omitted */}
+        "duration": -10,
+        "location": {/* omitted */}
        }]
        /* omitted */
     }
@@ -340,12 +340,12 @@ ids are not allowed to be used within <code>job.id</code> property.</p>
 <h4 id="e1107"><a class="header" href="#e1107">E1107</a></h4>
 <p><code>job has negative demand</code> error is returned when there is a job with negative demand in any of dimensions:</p>
 <pre><code class="language-json">{
-  &quot;id&quot;: &quot;job&quot;,
-  &quot;pickups&quot;: [
+  "id": "job",
+  "pickups": [
     {
-      &quot;places&quot;: [/* omitted */],
+      "places": [/* omitted */],
       /** Error: negative demand is not allowed **/
-      &quot;demand&quot;: [10, -1]
+      "demand": [10, -1]
     }
   ]
 }
@@ -370,17 +370,17 @@ strict or sequence relation which refers one or many jobs with multiple places a
 <p><code>job is assigned to different vehicles in relations</code> error is returned when <code>plan.relations</code> has a job assigned to several
 relations with different vehicle ids:</p>
 <pre><code class="language-json">{
-  &quot;plan&quot;: {
-    &quot;relations&quot;: [
+  "plan": {
+    "relations": [
       {
-        &quot;vehicleId&quot;: &quot;vehicle_1&quot;,
-        &quot;jobs&quot;: [&quot;job1&quot;],
+        "vehicleId": "vehicle_1",
+        "jobs": ["job1"],
         /** omitted **/
       },
       {
         /** Error: this job id is already assigned to another vehicle **/
-        &quot;vehicleId&quot;: &quot;vehicle_2&quot;,
-        &quot;jobs&quot;: [&quot;job1&quot;],
+        "vehicleId": "vehicle_2",
+        "jobs": ["job1"],
         /** omitted **/
       }
     ]
@@ -403,15 +403,15 @@ remove job ids completely or add missing ones.</p>
 <h4 id="e1300"><a class="header" href="#e1300">E1300</a></h4>
 <p><code>duplicated vehicle type ids</code> error is returned when <code>fleet.vehicles</code> has vehicle types with the same <code>typeId</code>:</p>
 <pre><code class="language-json">{
-  &quot;fleet&quot;: {
-    &quot;vehicles&quot;: [
+  "fleet": {
+    "vehicles": [
       {
-        &quot;typeId&quot;: &quot;vehicle_1&quot;,
+        "typeId": "vehicle_1",
         /** omitted **/
       },
       {
         /** Error: this id is already used by another vehicle type **/
-        &quot;typeId&quot;: &quot;vehicle_1&quot;,
+        "typeId": "vehicle_1",
         /** omitted **/
       }
       /** omitted **/
@@ -422,24 +422,24 @@ remove job ids completely or add missing ones.</p>
 <h4 id="e1301"><a class="header" href="#e1301">E1301</a></h4>
 <p><code>duplicated vehicle ids</code> error is returned when <code>fleet.vehicles</code> has vehicle types with the same <code>vehicleIds</code>:</p>
 <pre><code class="language-json">{
-  &quot;fleet&quot;: {
-    &quot;vehicles&quot;: [
+  "fleet": {
+    "vehicles": [
       {
-        &quot;typeId&quot;: &quot;vehicle_1&quot;,
-        &quot;vehicleIds&quot;: [
-          &quot;vehicle_1_a&quot;,
-          &quot;vehicle_1_b&quot;,
+        "typeId": "vehicle_1",
+        "vehicleIds": [
+          "vehicle_1_a",
+          "vehicle_1_b",
           /** Error: vehicle_1_b is used second time **/
-          &quot;vehicle_1_b&quot;
+          "vehicle_1_b"
         ],
         /** omitted **/
       },
       {
-        &quot;typeId&quot;: &quot;vehicle_2&quot;,
-        &quot;vehicleIds&quot;: [
+        "typeId": "vehicle_2",
+        "vehicleIds": [
           /** Error: vehicle_1_a is used second time **/
-          &quot;vehicle_1_a&quot;,
-          &quot;vehicle_2_b&quot;
+          "vehicle_1_a",
+          "vehicle_2_b"
         ],
         /** omitted **/
       }
@@ -457,24 +457,24 @@ time windows rules defined for jobs in E1103.</p>
 break should follow time window rules defined for jobs in E1103. Additionally, break time should be inside vehicle shift
 it is specified:</p>
 <pre><code class="language-json">{
-  &quot;start&quot;: {
-    &quot;time&quot;: &quot;2019-07-04T08:00:00Z&quot;,
+  "start": {
+    "time": "2019-07-04T08:00:00Z",
     /** omitted **/
   },
-  &quot;end&quot;: {
-    &quot;time&quot;: &quot;2019-07-04T15:00:00Z&quot;,
+  "end": {
+    "time": "2019-07-04T15:00:00Z",
     /** omitted **/
   },
-  &quot;breaks&quot;: [
+  "breaks": [
     {
       /** Error: break is outside of vehicle shift times **/
-      &quot;times&quot;: [
+      "times": [
         [
-          &quot;2019-07-04T17:00:00Z&quot;,
-          &quot;2019-07-04T18:00:00Z&quot;
+          "2019-07-04T17:00:00Z",
+          "2019-07-04T18:00:00Z"
         ]
       ],
-      &quot;duration&quot;: 3600.0
+      "duration": 3600.0
     }
   ]
 }
@@ -484,25 +484,25 @@ it is specified:</p>
 list should follow time window rules defined for jobs in E1003 except multiple reloads can have time window intersections.
 Additionally, reload time should be inside vehicle shift it is specified:</p>
 <pre><code class="language-json">{
-  &quot;start&quot;: {
-    &quot;time&quot;: &quot;2019-07-04T08:00:00Z&quot;,
+  "start": {
+    "time": "2019-07-04T08:00:00Z",
     /** omitted **/
   },
-  &quot;end&quot;: {
-    &quot;time&quot;: &quot;2019-07-04T15:00:00Z&quot;,
+  "end": {
+    "time": "2019-07-04T15:00:00Z",
     /** omitted **/
   },
-  &quot;reloads&quot;: [
+  "reloads": [
     {
       /** Error: reload is outside of vehicle shift times **/
-      &quot;times&quot;: [
+      "times": [
         [
-          &quot;2019-07-04T17:00:00Z&quot;,
-          &quot;2019-07-04T18:00:00Z&quot;
+          "2019-07-04T17:00:00Z",
+          "2019-07-04T18:00:00Z"
         ]
       ],
-      &quot;location&quot;: { /** omitted **/ },
-      &quot;duration&quot;: 3600.0
+      "location": { /** omitted **/ },
+      "duration": 3600.0
     }
   ]
 }
@@ -510,18 +510,18 @@ Additionally, reload time should be inside vehicle shift it is specified:</p>
 <h4 id="e1306"><a class="header" href="#e1306">E1306</a></h4>
 <p><code>time and duration costs are zeros</code> is returned when both time and duration costs are zeros in vehicle type definition:</p>
 <pre><code class="language-json">{
-  &quot;typeId&quot;: &quot;vehicle&quot;,
-  &quot;vehicleIds&quot;: [
-    &quot;vehicle_1&quot;
+  "typeId": "vehicle",
+  "vehicleIds": [
+    "vehicle_1"
   ],
-  &quot;profile&quot;: {
-    &quot;matrix&quot;: &quot;car&quot;
+  "profile": {
+    "matrix": "car"
   },
-  &quot;costs&quot;: {
-    &quot;fixed&quot;: 20.0,
+  "costs": {
+    "fixed": 20.0,
     /** Error: distance and time are zero **/
-    &quot;distance&quot;: 0,
-    &quot;time&quot;: 0
+    "distance": 0,
+    "time": 0
   },
   /** omitted **/
 }
@@ -531,15 +531,15 @@ Additionally, reload time should be inside vehicle shift it is specified:</p>
 <p><code>time offset interval for break is used with departure rescheduling</code> is returned when time offset interval is specified for break,
 but <code>start.latest</code> is not set equal to <code>start.earliest</code> in the shift.</p>
 <pre><code class="language-json">  {
-    &quot;start&quot;: {
-      &quot;earliest&quot;: &quot;2019-07-04T09:00:00Z&quot;,
-      /** Error: need to set latest to  &quot;2019-07-04T09:00:00Z&quot; explicitely **/
-      &quot;location&quot;: { &quot;lat&quot;: 52.5316, &quot;lng&quot;: 13.3884 }
+    "start": {
+      "earliest": "2019-07-04T09:00:00Z",
+      /** Error: need to set latest to  "2019-07-04T09:00:00Z" explicitely **/
+      "location": { "lat": 52.5316, "lng": 13.3884 }
     },
-    &quot;breaks&quot;: [{
+    "breaks": [{
         /** Note: offset time is used here **/
-        &quot;time&quot;: [3600, 4000],
-        &quot;places&quot;: [{ &quot;duration&quot;: 1800 } ]
+        "time": [3600, 4000],
+        "places": [{ "duration": 1800 } ]
      }]
   }
 </code></pre>
@@ -555,14 +555,14 @@ but <code>start.latest</code> is not set equal to <code>start.earliest</code> in
 <h4 id="e1500"><a class="header" href="#e1500">E1500</a></h4>
 <p><code>duplicate profile names</code> error is returned when <code>fleet.profiles</code> has more than one profile with the same name:</p>
 <pre><code class="language-json">{
-  &quot;profiles&quot;: [
+  "profiles": [
     {
-      &quot;name&quot;: &quot;vehicle_profile&quot;,
-      &quot;type&quot;: &quot;car&quot;
+      "name": "vehicle_profile",
+      "type": "car"
     },
     {
-      &quot;name&quot;: &quot;vehicle_profile&quot;,
-      &quot;type&quot;: &quot;truck&quot;
+      "name": "vehicle_profile",
+      "type": "truck"
     }
   ]
 }
@@ -571,7 +571,7 @@ but <code>start.latest</code> is not set equal to <code>start.earliest</code> in
 <h4 id="e1501"><a class="header" href="#e1501">E1501</a></h4>
 <p><code>empty profile collection</code> error is returned when <code>fleet.profiles</code> is empty:</p>
 <pre><code class="language-json">{
-  &quot;profiles&quot;: []
+  "profiles": []
 }
 </code></pre>
 <h4 id="e1502"><a class="header" href="#e1502">E1502</a></h4>
@@ -597,27 +597,23 @@ value to one specified or add a corresponding profile in profiles collection.</p
 <p><code>an empty objective specified</code> error is returned when objective property is present in the problem, but no single
 objective is set, e.g.:</p>
 <pre><code class="language-json">{
-  &quot;objectives&quot;: []
+  "objectives": []
 }
 </code></pre>
 <p><code>objectives</code> property is optional, just remove it to fix the problem and use default objectives.</p>
 <h4 id="e1601"><a class="header" href="#e1601">E1601</a></h4>
 <p><code>duplicate objective specified</code> error is returned when objective of specific type specified more than once:</p>
 <pre><code class="language-json">{
-  &quot;objectives&quot;: [
-    [
-      {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
-      },
-      {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
-      }
-    ],
-    [
-      {
-        &quot;type&quot;: &quot;minimize-cost&quot;
-      }
-    ]
+  "objectives": [
+    {
+      "type": "minimize-unassigned"
+    },
+    {
+      "type": "minimize-unassigned"
+    },
+    {
+      "type": "minimize-cost"
+    }
   ]
 }
 </code></pre>
@@ -625,12 +621,10 @@ objective is set, e.g.:</p>
 <h4 id="e1602"><a class="header" href="#e1602">E1602</a></h4>
 <p><code>missing one of cost objectives</code> error is returned when no cost objective specified:</p>
 <pre><code class="language-json">{
-  &quot;objectives&quot;: [
-    [
-      {
-        &quot;type&quot;: &quot;minimize-unassigned&quot;
-      }
-    ]
+  "objectives": [
+    {
+      "type": "minimize-unassigned"
+    }
   ]
 }
 </code></pre>
