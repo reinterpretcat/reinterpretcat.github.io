@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Memory Remains</title>
+    <!-- Ensure CSS loads with high priority -->
+    <link rel="preload" href="styles/layout.css" as="style">
+    <link rel="preload" href="styles/file-explorer.css" as="style">
+    <link rel="preload" href="styles/card-system.css" as="style">
+    <link rel="preload" href="styles/settings-view.css" as="style">
+    <link rel="preload" href="styles/image-zoom.css" as="style">
+
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/file-explorer.css">
+    <link rel="stylesheet" href="styles/card-system.css">
+    <link rel="stylesheet" href="styles/settings-view.css">
+    <link rel="stylesheet" href="styles/image-zoom.css">
+
+    <!-- Add a small script to handle FOUC -->
+    <script>
+        // Hide body until styles are loaded
+        document.documentElement.style.visibility = 'hidden';
+        window.addEventListener('load', function () {
+            document.documentElement.style.visibility = '';
+        });
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>Memory Remains</h1>
+            <!-- Header controls with visual separator -->
+            <div class="header-controls">
+                <!-- Settings button -->
+                <button id="settings-button" class="settings-button header-icon" aria-label="Settings">⚙️</button>
+            </div>
+        </header>
+        <main>
+            <!-- Navigation Bar -->
+            <div id="navigation-bar" class="navigation-bar">
+                <button id="back-button">← Back</button>
+                <div class="path-container">
+                    <div id="path-indicator" class="path-indicator">Path: root</div>
+                    <div class="search-container">
+                        <span class="search-icon" title="Search files (Ctrl+F)">🔍</span>
+                        <input type="text" id="search-input" class="search-input hidden" placeholder="Search files...">
+                        <button class="clear-search-button hidden" title="Clear search">×</button>
+                    </div>
+                </div>
+            </div>
+            <div id="panels">
+                <div id="left-panel" class="panel"></div>
+                <div id="middle-panel" class="panel"></div>
+                <div id="right-panel" class="panel">
+                    <ul id="items"></ul>
+                </div>
+            </div>
+            <!-- Statistics panel -->
+            <div id="selection-stats" class="selection-stats">No items selected</div>
+            <!-- Continue button -->
+            <button id="continue-button">Continue</button>
+            <!-- New memorization cards section -->
+            <div id="memorization-cards" style="display: none;" class="hidden">
+                <div class="card">
+                    <!-- Progress bar and text with source info -->
+                    <div class="progress-container-wrapper">
+                        <div class="source-info"></div>
+                        <div class="progress-text">0/0 cards</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
+
+                    <!-- Separate container for card content -->
+                    <div class="card-content-wrapper">
+                        <div class="card-content">
+                            <div class="card-front"></div>
+                            <div class="card-back hidden"></div>
+                        </div>
+                    </div>
+
+                    <!-- Fixed position controls -->
+                    <div class="card-controls">
+                        <button id="show-answer-button">Show Answer</button>
+                        <div id="difficulty-buttons" class="hidden">
+                            <button class="difficulty-button" data-difficulty="easy">Easy</button>
+                            <button class="difficulty-button" data-difficulty="medium">Medium</button>
+                            <button class="difficulty-button" data-difficulty="hard">Hard</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Move back button here, outside the card -->
+                <button id="back-to-selection" class="back-to-selection">← Back to File Selection</button>
+            </div>
+            <!-- Add a modal for settings -->
+            <div id="settings-modal" class="hidden" tabindex="-1">
+                <div class="modal-content">
+                    <h2>Settings</h2>
+                    <form id="settings-form">
+                        <!-- Split settings into two columns for better space utilization -->
+                        <div class="settings-grid">
+                            <!-- Left Column -->
+                            <div class="settings-column">
+                                <!-- Theme toggle moved into first column with title -->
+                                <div class="settings-section">
+                                    <h3>Appearance</h3>
+                                    <div class="theme-toggle-container">
+                                        <label class="theme-toggle" for="theme-switch">
+                                            <span class="theme-toggle-icon dark">🌙</span>
+                                            <input type="checkbox" id="theme-switch">
+                                            <span class="theme-toggle-slider"></span>
+                                            <span class="theme-toggle-icon light">☀️</span>
+                                        </label>
+                                        <span class="setting-label">Light Mode</span>
+                                    </div>
+                                </div>
+
+                                <!-- Card Behavior Section -->
+                                <div class="settings-section">
+                                    <h3>Card Behavior</h3>
+                                    <div class="setting-item">
+                                        <label>
+                                            <input type="checkbox" id="shuffle-cards" />
+                                            <span class="setting-label">Shuffle Cards</span>
+                                        </label>
+                                        <p class="settings-description">
+                                            Randomizes card order to prevent sequence-based memorization.
+                                        </p>
+                                    </div>
+
+                                    <div class="setting-item">
+                                        <label>
+                                            <input type="checkbox" id="reversed-mode" />
+                                            <span class="setting-label">Reversed Mode</span>
+                                        </label>
+                                        <p class="settings-description">
+                                            Swaps questions and answers for bidirectional learning.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="settings-column">
+                                <div class="settings-section">
+                                    <h3>Study Options</h3>
+                                    <div class="setting-item">
+                                        <label>
+                                            <input type="checkbox" id="srs-mode" />
+                                            <span class="setting-label">Enable Spaced Repetition</span>
+                                        </label>
+                                        <p class="settings-description">
+                                            Uses intelligent algorithm to optimize review intervals.
+                                        </p>
+                                    </div>
+
+                                    <div class="setting-item">
+                                        <div id="max-cards-container" class="input-with-label compact">
+                                            <label id="max-cards-label" for="max-cards">Max Cards:</label>
+                                            <input type="number" id="max-cards" min="0" value="0" />
+                                        </div>
+                                        <p class="settings-description">
+                                            Limit the number of cards (0 = no limit).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Full width section for tags (below columns) -->
+                        <div id="tag-filter-container" class="settings-section full-width">
+                            <h3>Filter by Tags</h3>
+                            <div class="tag-filter-wrapper">
+                                <input type="text" id="tag-filter" placeholder="Type to search tags..." />
+                                <ul id="tag-suggestions" class="dropdown hidden"></ul>
+                            </div>
+                            <div id="added-tags-container" class="added-tags-container"></div>
+                            <div class="filter-rule-container">
+                                <label>
+                                    <input type="radio" name="filter-rule" value="any" checked />
+                                    Match any tag
+                                </label>
+                                <label>
+                                    <input type="radio" name="filter-rule" value="all" />
+                                    Match all tags
+                                </label>
+                            </div>
+                            <p class="settings-description">
+                                Filter cards by tags. Type to see available options.
+                            </p>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button type="button" id="apply-settings">Apply</button>
+                            <button type="button" id="close-settings">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Image zoom overlay -->
+            <div id="image-zoom-overlay" class="image-zoom-overlay">
+                <div class="zoomed-image-container">
+                    <img class="zoomed-image" alt="Enlarged image">
+                    <button class="zoom-close-btn" aria-label="Close enlarged image">×</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js" type="module"></script>
+</body>
+
+</html>

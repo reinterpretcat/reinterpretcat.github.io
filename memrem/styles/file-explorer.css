@@ -1,0 +1,663 @@
+/* Panel layout */
+#panels {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    height: 0;
+    overflow-y: auto;
+    /* Allow scrolling for the panels */
+    margin-bottom: 120px;
+    /* Ensure space for stats and button */
+}
+
+.panel {
+    flex: 1;
+    border-right: 1px solid var(--panel-border);
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    padding: 1rem;
+    position: relative;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: var(--highlight-color) var(--hover-color); /* For Firefox */
+}
+
+.panel::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.panel::-webkit-scrollbar-track {
+    background: var(--hover-color);
+    border-radius: 4px;
+}
+
+.panel::-webkit-scrollbar-thumb {
+    background-color: var(--highlight-color);
+    border-radius: 4px;
+    border: 2px solid var(--hover-color);
+}
+
+.panel::-webkit-scrollbar-thumb:hover {
+    background-color: #3daa8c;
+}
+
+.panel:last-child {
+    border-right: none;
+}
+
+/* Button styles */
+button {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all var(--transition-speed) ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: var(--highlight-color);
+    color: white;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+#controls {
+    display: none;
+    /* Remove controls styling */
+}
+
+#continue-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 101;
+    /* Ensure it appears above other elements */
+    background-color: var(--highlight-color);
+    color: white;
+    text-align: center;
+    padding: 0.8rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#continue-button:hover {
+    background-color: #4a89c7;
+}
+
+/* Navigation bar */
+.navigation-bar {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--panel-border);
+    height: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+/* Path container and search */
+.path-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    margin-left: 0.5rem;
+}
+
+/* Path indicator */
+.path-indicator {
+    margin: 0;
+    flex-grow: 1;
+    padding: 0.4rem 0.7rem;
+    background-color: var(--hover-color);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--disabled-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Light theme override for path-indicator */
+html.light-theme .path-indicator {
+    background-color: var(--header-bg); /* Light background */
+    color: var(--text-color); /* Dark text */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    position: relative;
+}
+
+.search-icon {
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all var(--transition-speed) ease;
+}
+
+.search-icon:hover {
+    background-color: var(--hover-color);
+    color: var(--highlight-color);
+}
+
+.search-input {
+    background-color: var(--hover-color);
+    border: none;
+    border-radius: 4px;
+    color: var(--text-color);
+    padding: 4px 28px 4px 8px;
+    width: 180px;
+    font-size: 0.85rem;
+    transition: all var(--transition-speed) ease;
+    outline: none;
+}
+
+.search-input:focus {
+    background-color: var(--background);
+    border: 1px solid var(--highlight-color);
+    box-shadow: 0 0 4px rgba(86, 156, 214, 0.4);
+}
+
+.search-input.hidden {
+    display: none;
+}
+
+.clear-search-button {
+    position: absolute;
+    right: 4px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-speed) ease;
+}
+
+.clear-search-button:hover {
+    color: var(--highlight-color);
+}
+
+.clear-search-button.hidden {
+    display: none;
+}
+
+#back-button {
+    height: 28px;
+    padding: 0 1rem;
+    margin: 0 0 0 0.5rem;
+    border-radius: 4px;
+    width: 80px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+    white-space: nowrap;
+    /* Prevent text wrapping */
+    font-size: 0.85rem;
+    /* Slightly smaller font size */
+    padding: 0 0.8rem;
+    /* Adjust padding for better fit */
+    width: auto;
+    /* Allow dynamic width based on content */
+    max-width: 100%;
+    /* Ensure it doesn't exceed container width */
+    text-align: center;
+    /* Center the text */
+}
+
+#back-button.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* File and folder items */
+.folder,
+.file,
+li.folder,
+li.file,
+li {
+    cursor: pointer;
+    padding: var(--item-padding);
+    border-radius: 0;
+    transition: all var(--transition-speed);
+    border-bottom: 1px solid rgba(60, 60, 60, 0.2);
+    border-left: 3px solid transparent;
+    margin: 0;
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    touch-action: manipulation; /* Prevents default touch behaviors */
+    box-sizing: border-box;
+    /* Ensure padding doesn't affect width */
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Common hover style */
+.folder:hover,
+.file:hover,
+#left-panel .folder:hover,
+#left-panel .file:hover,
+#right-panel li:hover {
+    background-color: var(--hover-color);
+    border-left-color: rgba(86, 156, 214, 0.3);
+}
+
+/* No hover effect for middle panel items */
+#middle-panel .folder:hover,
+#middle-panel .file:hover {
+    background-color: transparent;
+}
+
+/* Icons for files and folders */
+.folder:before,
+.file:before,
+li.folder:before,
+li.file:before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.7rem;
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
+}
+
+.folder:before,
+li.folder:before {
+    content: "📁";
+}
+
+.file:before,
+li.file:before {
+    content: "📄";
+}
+
+/* Selection style */
+.selected,
+li.selected {
+    background-color: var(--highlight-color) !important;
+    color: white;
+    font-weight: 500;
+    border-left: 3px solid white;
+    /* White border for active selection */
+    box-shadow: 0 0 8px rgba(86, 156, 214, 0.5);
+    /* Subtle glow effect */
+    z-index: 1;
+    /* Ensure selected items appear above others */
+}
+
+/* Add a subtle indicator for selected items */
+.selected:before,
+li.selected:before {
+    opacity: 1;
+}
+
+/* Add styling for items selected with spacebar in the middle panel */
+.item-selected {
+    background-color: var(--select-bg-color) !important;
+    border-left: 3px solid var(--select-color) !important;
+}
+
+/* Handle both selected and item-selected states together */
+.selected.item-selected {
+    background-color: var(--highlight-color) !important;
+    border-left: 3px solid var(--select-color) !important;
+    box-shadow: 0 0 10px rgba(78, 201, 176, 0.8);
+    /* Enhanced glow for double selection */
+    /* Add a special indicator for dual-selected state */
+    position: relative;
+}
+
+/* Improve checkbox items in the right panel */
+li {
+    padding: var(--item-padding);
+    list-style-type: none;
+    border-bottom: 1px solid rgba(60, 60, 60, 0.2);
+    display: flex;
+    align-items: center;
+    transition: background-color var(--transition-speed);
+    cursor: pointer;
+    /* Make items look clickable */
+}
+
+/* Improve styling for selected right panel items */
+li.item-selected {
+    background-color: rgba(86, 156, 214, 0.3) !important;
+    border-left: 3px solid var(--highlight-color);
+    padding-left: calc(var(--item-padding) - 3px);
+}
+
+/* Adjust styling for selected checkbox items */
+li.item-selected input[type="checkbox"] {
+    /* Make checkbox more noticeable when selected */
+    transform: scale(1.1);
+}
+
+/* Improve visual hierarchy when item has both selected classes */
+li.selected.item-selected {
+    background-color: var(--highlight-color) !important;
+    border-left: 3px solid white;
+    color: white;
+}
+
+/* Add focus-like outline for selected items in right panel */
+#right-panel li.selected,
+#right-panel li.item-selected {
+    outline: 1px solid rgba(86, 156, 214, 0.3);
+    outline-offset: -1px;
+}
+
+
+/* Add a selection indicator for right panel items */
+li.item-selected::after {
+    content: "✓";
+    position: absolute;
+    right: 10px;
+    color: var(--select-color);
+    font-weight: bold;
+}
+
+/* Update selection indicator for navigation focus */
+.selected::after,
+li.selected::after {
+    content: "●";
+    position: absolute;
+    right: 10px;
+    color: white;
+    font-size: 8px;
+}
+
+/* Special indicator for both states */
+.selected.item-selected::after {
+    content: "✓";
+    position: absolute;
+    right: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Add styles for partially selected folders */
+.partially-selected {
+    background-color: rgba(78, 201, 176, 0.15) !important;
+    border-left: 3px solid var(--select-color) !important;
+    position: relative;
+}
+
+/* Add visual indicator for partially selected folders */
+.partially-selected::after {
+    content: "◐";
+    position: absolute;
+    right: 10px;
+    color: var (--select-color);
+    font-size: 12px;
+}
+
+/* Add striped background pattern for partially selected folders */
+.folder.partially-selected {
+    background-image: linear-gradient(45deg,
+            rgba(78, 201, 176, 0.1) 25%,
+            rgba(78, 201, 176, 0.2) 25%,
+            rgba(78, 201, 176, 0.2) 50%,
+            rgba(78, 201, 176, 0.1) 50%,
+            rgba(78, 201, 176, 0.1) 75%,
+            rgba(78, 201, 176, 0.2) 75%,
+            rgba(78, 201, 176, 0.2) 100%);
+    background-size: 20px 20px;
+}
+
+/* Enhance folder selection states for better visibility */
+.folder.item-selected::before {
+    color: var(--select-color);
+}
+
+/* Add selection effect to folder name when selected */
+.folder.item-selected,
+.folder.partially-selected {
+    font-weight: 500;
+}
+
+/* Extra specificity for handling dual states */
+.folder.selected.item-selected::before,
+.folder.selected.partially-selected::before {
+    color: white;
+}
+
+#items {
+    padding: 0;
+    margin: 0;
+}
+
+/* Empty message styling */
+.empty-message {
+    color: var(--disabled-color);
+    font-style: italic;
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+
+/* Add a separate header class for sticky elements */
+.panel-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--header-bg);
+    margin: -1rem -1rem 1rem -1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+/* Add some responsive adjustments */
+@media (max-width: 768px) {
+    #panels {
+        flex-direction: column;
+        margin-bottom: 140px;
+        /* Extra space for smaller screens */
+    }
+
+    .panel {
+        border-right: none;
+        border-bottom: 1px solid var(--panel-border);
+        max-height: 33vh;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+        scroll-behavior: smooth;
+        padding: 0.75rem;
+    }
+
+    .panel:last-child {
+        border-bottom: none;
+    }
+
+    .panel::-webkit-scrollbar {
+        width: 8px; /* Slightly smaller on mobile */
+    }
+
+    /* Add visual indicator for scrollable content on mobile */
+    .panel::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 24px;
+        background: linear-gradient(to top, var(--background) 0%, transparent 100%);
+        pointer-events: none;
+        opacity: 0.6;
+        display: none;
+    }
+
+    .panel.scrollable::after {
+        display: block;
+    }
+
+    .navigation-bar {
+        padding: 0.5rem;
+    }
+
+    .path-indicator {
+        font-size: 0.8rem;
+    }
+
+    #selection-stats {
+        font-size: 0.8rem;
+        /* Slightly smaller text for mobile */
+    }
+
+    /* Hide the left panel on mobile screens */
+    #left-panel {
+        display: none;
+    }
+
+    /* Back button adjustments for mobile screens */
+    #back-button {
+        white-space: nowrap;
+        /* Prevent text wrapping */
+        font-size: 0.85rem;
+        /* Slightly smaller font size */
+        padding: 0 0.6rem;
+        /* Adjust padding for better fit */
+        width: auto;
+        /* Allow dynamic width based on content */
+    }
+
+    .panel-header {
+        margin: -0.75rem -0.75rem 0.75rem -0.75rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Fix for partially-selected folders when navigated */
+.folder.partially-selected.selected,
+.file.partially-selected.selected {
+    /* Ensure navigation style is more prominent */
+    background-color: var(--highlight-color) !important;
+    color: white !important;
+    border-left: 3px solid white !important;
+
+    /* Add a distinctive visual indicator showing both states */
+    background-image: linear-gradient(45deg,
+            var(--highlight-color) 25%,
+            rgba(78, 201, 176, 0.4) 25%,
+            rgba(78, 201, 176, 0.4) 50%,
+            var(--highlight-color) 50%,
+            var(--highlight-color) 75%,
+            rgba(78, 201, 176, 0.4) 75%,
+            rgba(78, 201, 176, 0.4) 100%) !important;
+    background-size: 10px 10px !important;
+    box-shadow: 0 0 12px rgba(86, 156, 214, 0.7) !important;
+}
+
+/* Make folder icon white when selected but DO NOT override the content */
+.folder.partially-selected.selected:before {
+    color: white !important;
+    /* Remove the content override to preserve the folder icon */
+    content: "📁" !important;
+}
+
+/* Same for file icon */
+.file.partially-selected.selected:before {
+    color: white !important;
+    content: "📄" !important;
+}
+
+/* Keep outline styling */
+.folder.partially-selected.selected,
+.file.partially-selected.selected,
+.folder.item-selected.selected,
+.file.item-selected.selected {
+    outline: 2px solid white !important;
+    outline-offset: -2px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* Fix selection indicators for dual-state items - use ::after for the dot */
+.folder.partially-selected.selected::after,
+.file.partially-selected.selected::after {
+    content: "●" !important;
+    position: absolute !important;
+    right: 10px !important;
+    color: white !important;
+    font-size: 8px !important;
+}
+
+/* Add an additional span for the partial selection indicator instead of using ::before */
+.folder.partially-selected.selected::after {
+    content: "●◐" !important;
+    /* Combine both indicators */
+    right: 10px !important;
+}
+
+/* Selection statistics panel */
+.selection-stats {
+    background-color: var(--header-bg);
+    color: var(--disabled-color);
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+    border-top: 1px solid var(--panel-border);
+}
+
+.selection-stats.has-selections {
+    color: var(--text-color);
+    background-color: rgba(86, 156, 214, 0.1);
+}
+
+.selection-stats strong {
+    color: var(--highlight-color);
+    font-weight: 600;
+}
+
+
+/* Statistics and Continue button container */
+#selection-stats {
+    position: fixed;
+    bottom: 40px;
+    /* Adjust to align with the top of the "Continue" button */
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: var(--header-bg);
+    text-align: center;
+    padding: 0.8rem;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--panel-border);
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+/* Remove margin between stats and button */
+#selection-stats+#continue-button {
+    margin-top: 0;
+}

@@ -1,0 +1,691 @@
+/* Memorization cards section */
+#memorization-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px);
+    background-color: var(--background);
+    color: var(--text-color);
+    position: relative;
+    width: 100%;
+    z-index: 10;
+}
+
+#memorization-cards.hidden {
+    display: none !important;
+}
+
+/* Card container */
+.card {
+    background-color: var(--header-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 2.5rem 2.5rem 8rem 2.5rem;
+    width: 85%;
+    max-width: 650px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    padding-bottom: 5rem;
+    /* Increased bottom padding to accommodate controls */
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Card content */
+.card-content {
+    position: relative;
+    min-height: 200px;
+    margin-bottom: 1.5rem;
+    flex: 1;
+    overflow: visible;
+}
+
+/* Ensure the card content wrapper handles overflow correctly */
+.card-content-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    max-height: calc(100vh - 280px);
+    /* Limit height while leaving space for controls */
+    margin-bottom: 0;
+    /* Remove margin that can cause layout issues */
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Card sides */
+.card-front,
+.card-back {
+    width: calc(100% - 1.6rem);
+    min-height: 180px;
+    padding: 0.4rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--header-bg);
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    max-height: 60vh;
+    position: relative;
+    /* Change from absolute to relative positioning */
+    top: auto;
+    left: auto;
+    padding-bottom: 1.5rem;
+    /* Add padding at bottom for breathing room */
+    transition: opacity 0.15s ease;
+    backface-visibility: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--hover-color) transparent;
+}
+
+.card-front {
+    transform: rotateX(0deg);
+}
+
+.card-back {
+    display: none;
+    opacity: 1;
+}
+
+.card-front:not(.hidden),
+.card-back:not(.hidden) {
+    display: block;
+}
+
+/* Card controls */
+.card-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    position: absolute;
+    bottom: 0.5rem;
+    left: 2.5rem;
+    right: 2.5rem;
+    background-color: var(--header-bg);
+    padding-top: 0.8rem;
+    z-index: 10;
+    border-top: 1px solid var(--panel-border);
+    /* Add subtle separator */
+}
+
+/* Base button style */
+.card-controls button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 4px;
+    text-align: center;
+    transition: all 0.2s ease;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Show answer button */
+#show-answer-button {
+    background-color: var(--highlight-color);
+    color: white;
+    margin: 0 auto;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+}
+
+#show-answer-button:hover {
+    background-color: #4a89c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#show-answer-button:active {
+    transform: translateY(1px);
+}
+
+/* Difficulty buttons - hidden on front side */
+#difficulty-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+button.difficulty-button {
+    flex: 1;
+    background-color: var(--hover-color);
+    color: var (--text-color);
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+button.difficulty-button:hover {
+    transform: translateY(-2px);
+}
+
+button.difficulty-button[data-difficulty="easy"] {
+    background-color: rgba(78, 201, 176, 0.2);
+    color: var(--select-color);
+}
+
+button.difficulty-button[data-difficulty="medium"] {
+    background-color: rgba(218, 170, 42, 0.2);
+    color: #daaa2a;
+}
+
+button.difficulty-button[data-difficulty="hard"] {
+    background-color: rgba(206, 86, 86, 0.2);
+    color: #ce5656;
+}
+
+button.difficulty-button[data-difficulty="easy"]:hover {
+    background-color: rgba(78, 201, 176, 0.3);
+}
+
+button.difficulty-button[data-difficulty="medium"]:hover {
+    background-color: rgba(218, 170, 42, 0.3);
+}
+
+button.difficulty-button[data-difficulty="hard"]:hover {
+    background-color: rgba(206, 86, 86, 0.3);
+}
+
+.card-back:not(.hidden)+.card-controls #difficulty-buttons,
+.card-back:not(.hidden) #difficulty-buttons {
+    display: flex;
+    /* Show when back side is visible */
+    flex-direction: row;
+}
+
+/* Back button */
+.back-to-selection {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem;
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    border-radius: 0;
+    border: none;
+    text-align: center;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.back-to-selection:hover {
+    background-color: #505050;
+    color: white;
+}
+
+/* Progress indicator */
+.progress-container {
+    height: 6px;
+    width: 100%;
+    background-color: var(--hover-color);
+    border-radius: 3px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--highlight-color);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+.progress-text {
+    font-size: 0.85rem;
+    color: var(--disabled-color);
+    text-align: right;
+    margin-bottom: 8px;
+}
+
+/* Card items and content */
+.card-item {
+    margin-bottom: 0.3rem;
+    position: relative;
+}
+
+
+.card-text {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 0.3rem 0;
+    text-align: left;
+}
+
+/* Card images - Make them larger for text readability */
+.card-image-container {
+    margin: 1.5rem auto;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.card-image {
+    max-width: 100%;
+    max-height: 350px; /* Increased from 250px */
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px; /* Increased from 5px */
+    transition: transform 0.3s ease;
+}
+
+.card-image:hover {
+    transform: scale(1.03);
+}
+
+/* Scrollbar styling */
+.card-front::-webkit-scrollbar,
+.card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-front::-webkit-scrollbar-track,
+.card-back::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.card-front::-webkit-scrollbar-thumb,
+.card-back::-webkit-scrollbar-thumb {
+    background-color: var(--hover-color);
+    border-radius: 4px;
+}
+
+/* Animations */
+.card-fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+.card-exit {
+    animation: exitRight 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes exitRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+}
+
+/* Card flipping animation */
+.card-content.flipping {
+    transform: rotateX(180deg);
+}
+
+/* Empty state */
+.empty-state {
+    padding: 2rem;
+    color: var(--disabled-color);
+    text-align: center;
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p.small {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Source file info */
+.source-info {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--disabled-color);
+    font-style: italic;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+/* Keyboard shortcut hints */
+.card-controls::after {
+    content: "Keyboard shortcuts: Space to flip/next, E(1), M(2), H(3) for difficulty";
+    display: block;
+    font-size: 0.75rem;
+    color: var(--disabled-color);
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--panel-border);
+}
+
+/* Preview styles */
+.preview-header {
+    padding: var(--item-padding);
+    font-weight: 500;
+    color: var(--highlight-color);
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.preview-item {
+    padding: var(--item-padding);
+    padding-left: 1.5rem;
+    color: var(--text-color);
+    border-bottom: 1px solid rgba(60, 60, 60, 0.1);
+    cursor: default;
+}
+
+.select-file-message {
+    padding: var(--item-padding);
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: var(--disabled-color);
+    text-align: center;
+    border-top: 1px dashed var(--panel-border);
+}
+
+/* Ensure hidden elements are completely hidden */
+.hidden {
+    display: none !important;
+}
+
+/* Properly position tags within the scrollable content area */
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+    margin-top: 0.8rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    /* Ensure tags stay with content */
+}
+
+.card-tag {
+    display: inline-block;
+    /* Ensure proper inline display */
+    margin-bottom: 0.3rem;
+    /* Add bottom margin for wrap spacing */
+    font-size: 0.85rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+    background-color: var(--select-background);
+    color: var(--select-color);
+    font-weight: 400;
+    text-transform: lowercase;
+    border: 1px solid rgba(78, 201, 176, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        width: 95%;
+        padding: 1.5rem 1.5rem 6.5rem 1.5rem;
+        padding-bottom: 6rem;
+        /* More padding on mobile for stacked buttons */
+    }
+
+    .card-text {
+        font-size: 1.1rem;
+        line-height: 1.3;
+        margin: 0.2rem 0;
+    }
+
+    #difficulty-buttons {
+        flex-direction: column;
+    }
+
+    .card-controls::after {
+        display: none;
+    }
+
+    .card-content-wrapper {
+        max-height: calc(100vh - 300px);
+        /* Adjusted for mobile to leave room for controls */
+    }
+
+    .card-tags {
+        margin-top: 0.6rem;
+        margin-bottom: 0.3rem;
+        gap: 0.3rem;
+    }
+
+    /* Increase bottom padding on card-back for mobile to avoid overlap with buttons */
+    .card-back {
+        padding-bottom: 4rem !important; /* Important to override existing styles */
+    }
+
+    .card-item {
+        margin-bottom: 0.2rem;
+    }
+
+    .source-info {
+        margin-top: 0.3rem;
+        font-size: 0.75rem;
+    }
+
+    .progress-text {
+        margin-top: 0.3rem;
+        font-size: 0.75rem;
+    }
+
+    /* Reduce card controls spacing on mobile */
+    .card-controls {
+        gap: 0.6rem;
+        padding-top: 0.6rem;
+    }
+
+    .srs-details {
+        font-size: 0.7rem;
+        margin-top: 0.3rem;
+        padding-top: 0.2rem;
+        padding-bottom: 0.3rem;
+        /* Stack elements vertically on mobile */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+    }
+
+    .review-date {
+        margin-left: 0;
+        /* Remove left margin on mobile */
+        margin-top: 0.2rem;
+        /* Add top margin instead */
+    }
+
+    .reset-srs-button {
+        margin: 0.3rem auto 0;
+        /* Center the button */
+    }
+}
+
+/* Completion message styling */
+.completion-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.completion-banner {
+    margin-bottom: 2rem;
+    animation: bounceIn 0.8s;
+}
+
+.completion-banner h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--highlight-color);
+}
+
+.completion-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+.action-button {
+    background-color: var(--highlight-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.action-button:hover {
+    background-color: #4a89c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Stats display for completion screen */
+.session-stats {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0 2rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+.stats-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Animation for completion banner */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/* SRS details */
+.srs-details {
+    font-size: 0.8rem;
+    color: var(--disabled-color);
+    text-align: center;
+    margin-top: 0.5rem;
+    padding-top: 0.3rem;
+    border-top: 1px dashed var(--panel-border);
+    font-style: italic;
+    width: 100%;
+    /* Ensure full width on all devices */
+    box-sizing: border-box;
+    /* Include padding in width calculation */
+    overflow: hidden;
+    /* Prevent overflow */
+    text-overflow: ellipsis;
+    /* Show ellipsis for overflow */
+    padding-bottom: 0.5rem; /* Add bottom padding to create space between content and buttons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.review-date {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* SRS badge */
+.srs-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: var(--select-color);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.reset-srs-button {
+    background-color: rgba(0, 0, 0, 0.15);
+    color: var(--disabled-color);
+    border: none;
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-size: 0.9rem; /* Increased from 0.7rem */
+    cursor: pointer;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+}
+
+.reset-srs-button:hover {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+}
+
+
+/* Progress container wrapper for progress text and source info */
+.progress-container-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+

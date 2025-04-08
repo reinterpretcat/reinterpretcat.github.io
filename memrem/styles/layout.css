@@ -1,0 +1,199 @@
+/* Base dark theme (default) */
+:root {
+    /* Colors for dark theme */
+    --background: #1e1e1e;
+    --header-bg: #252526;
+    --panel-border: #3c3c3c;
+    --text-color: #d4d4d4;
+    --highlight-color: #569cd6;
+    --hover-color: #3c3c3c;
+    --disabled-color: #888;
+    --select-color: #4EC9B0;
+    --select-bg-color: rgba(78, 201, 176, 0.25);
+
+    /* Other variables remain the same */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --item-padding: 0.6rem 0.8rem;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.85rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.2rem;
+    --font-size-xl: 1.5rem;
+
+    --transition-speed: 0.15s;
+
+    --z-modal: 200;
+    --z-controls: 100;
+    --z-navigation: 50;
+    --z-content: 1;
+}
+
+/* Transition for theme changes */
+body,
+body * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Global reset and base styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+main {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px);
+}
+
+/* Light theme - improved colors */
+html.light-theme {
+    --background: #f2f2f2;
+    --header-bg: #f8f8f8;
+    --panel-border: #c5c5c5;
+    --text-color: #2a2a2a;
+    --highlight-color: #0063b1;
+    --hover-color: #dddddd;
+    --disabled-color: #6e6e6e;
+    --select-color: #0e6c39;
+    --select-bg-color: rgba(14, 108, 57, 0.18);
+}
+
+/* Layout components */
+header {
+    background-color: var(--header-bg);
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--highlight-color);
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+/* Header controls styling for settings button and theme toggle */
+.header-controls {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Increased from default */
+}
+
+
+/* Theme toggle container adjustments */
+.theme-toggle-container {
+    position: static;
+    transform: none;
+    padding: 4px 6px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Settings button in header */
+.settings-button.header-icon {
+    background-color: rgba(86, 156, 214, 0.1); /* Slight background */
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 1.6rem;
+    color: var(--highlight-color);
+    transition: all 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-button.header-icon:hover {
+    background-color: rgba(86, 156, 214, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+    border-radius: 50%;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .header-controls {
+        right: 10px;
+        gap: 8px;
+    }
+
+    .settings-button.header-icon {
+        font-size: 1.4rem;
+        padding: 5px 6px;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+        max-width: 65%;
+    }
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.theme-toggle-icon {
+    font-size: 14px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.theme-toggle-slider {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    background-color: var(--hover-color);
+    border-radius: 20px;
+    transition: var(--transition-speed);
+}
+
+.theme-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+    transition: var(--transition-speed);
+}
+
+input:checked+.theme-toggle-slider {
+    background-color: var(--highlight-color);
+}
+
+input:checked+.theme-toggle-slider:before {
+    transform: translateX(20px);
+}
