@@ -9,3 +9,6 @@
     - 03_phrase.md
     - 03_uebung.md
     - 03_woerter.md
+    - 04_grammatik.md
+    - 04_uebung.md
+    - 04_woerter.md

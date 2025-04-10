@@ -1,4 +1,4 @@
-# 03 # 02 Übung
+# 03 Übung
 
 ## Sich ein Auto leisten
 - Она может позволить себе эту машину.

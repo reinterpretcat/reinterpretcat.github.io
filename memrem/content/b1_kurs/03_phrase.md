@@ -54,8 +54,6 @@
 * (Um) 12 Uhr ist prima/perfekt.
 > telefongespräch, phrase
 
-# Человека нет на месте / Person ist nicht erreichbar
-
 ## Person ist nicht erreichbar / Hauptsätze
 - Человека нет на месте
 * ... ist nicht da/nicht im Büro/nicht zu Hause.
@@ -64,8 +62,6 @@
 * Könnten Sie ihr Folgendes ausrichten?
 * Möchten Sie eine Nachricht hinterlassen?
 > telefongespräch, phrase
-
-# Благодарим / Dank ausdrücken
 
 ## Dankesformeln
 - Благодарим

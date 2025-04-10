@@ -16,13 +16,13 @@
 - отдыхать  (расслабляться)
 * sich ausruhen
 * (er ruht  sich aus – ruhte  sich aus – hat sich ausgeruht)
-> verb, reflexive unregelmäßig
+> verb, reflexive, unregelmäßig
 
 ## sich befinden
 - находиться
 * sich befinden
 * (er befindet  sich – befand  sich – hat sich befunden)
-> verb, reflexive unregelmäßig
+> verb, reflexive, unregelmäßig
 
 ## sich freuen
 - радоваться  чему -то
