@@ -11,12 +11,14 @@
     <link rel="preload" href="styles/card-system.css" as="style">
     <link rel="preload" href="styles/settings-view.css" as="style">
     <link rel="preload" href="styles/image-zoom.css" as="style">
+    <link rel="preload" href="styles/chat-interface.css" as="style">
 
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/file-explorer.css">
     <link rel="stylesheet" href="styles/card-system.css">
     <link rel="stylesheet" href="styles/settings-view.css">
     <link rel="stylesheet" href="styles/image-zoom.css">
+    <link rel="stylesheet" href="styles/chat-interface.css">
 
     <!-- Add a small script to handle FOUC -->
     <script>
@@ -51,17 +53,23 @@
                     </div>
                 </div>
             </div>
-            <div id="panels">
-                <div id="left-panel" class="panel"></div>
-                <div id="middle-panel" class="panel"></div>
-                <div id="right-panel" class="panel">
-                    <ul id="items"></ul>
+            <!-- File Explorer View -->
+            <div id="file-explorer-view" class="view-container">
+                <div id="panels">
+                    <div id="left-panel" class="panel"></div>
+                    <div id="middle-panel" class="panel"></div>
+                    <div id="right-panel" class="panel">
+                        <ul id="items"></ul>
+                    </div>
+                </div>
+                <!-- Statistics panel -->
+                <div id="selection-stats" class="selection-stats">No items selected</div>
+                <!-- Split button container instead of single button -->
+                <div class="split-button-container">
+                    <button id="chat-llm-button">Chat with LLM</button>
+                    <button id="continue-button">Learn Cards</button>
                 </div>
             </div>
-            <!-- Statistics panel -->
-            <div id="selection-stats" class="selection-stats">No items selected</div>
-            <!-- Continue button -->
-            <button id="continue-button">Continue</button>
             <!-- New memorization cards section -->
             <div id="memorization-cards" style="display: none;" class="hidden">
                 <div class="card">
@@ -95,6 +103,22 @@
                 <!-- Move back button here, outside the card -->
                 <button id="back-to-selection" class="back-to-selection">← Back to File Selection</button>
             </div>
+
+            <!-- Chat UI as separate screen -->
+            <div id="llm-chat-screen" class="hidden">
+                <div class="chat-header">
+                    <h2 id="chat-title">Chat about Card Content</h2>
+                </div>
+                <div id="chat-container" class="chat-container">
+                    <div id="chat-messages" class="chat-messages"></div>
+                    <div class="chat-input-area">
+                        <textarea id="chat-input" class="chat-input" placeholder="Type your message..." rows="2"></textarea>
+                        <button id="chat-send-button" class="chat-send-button">Send</button>
+                    </div>
+                </div>
+                <button id="back-to-file-explorer" class="back-to-file-explorer">Back to File Explorer</button>
+            </div>
+
             <!-- Add a modal for settings -->
             <div id="settings-modal" class="hidden" tabindex="-1">
                 <div class="modal-content">

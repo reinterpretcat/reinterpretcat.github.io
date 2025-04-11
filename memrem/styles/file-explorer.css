@@ -1,4 +1,11 @@
 /* Panel layout */
+#file-explorer-view {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+}
+
 #panels {
     display: flex;
     flex-grow: 1;
@@ -79,8 +86,8 @@ button:active {
 #continue-button {
     position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 50%;
     z-index: 101;
     /* Ensure it appears above other elements */
     background-color: var(--highlight-color);
@@ -95,6 +102,32 @@ button:active {
 
 #continue-button:hover {
     background-color: #4a89c7;
+}
+
+/* Split button container styles */
+.split-button-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    z-index: 101;
+}
+
+#chat-llm-button {
+    width: 50%;
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    padding: 0.8rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#chat-llm-button:hover {
+    background-color: var(--select-color);
+    color: white;
 }
 
 /* Navigation bar */
@@ -482,8 +515,8 @@ li.selected::after {
 @media (max-width: 768px) {
     #panels {
         flex-direction: column;
-        margin-bottom: 140px;
-        /* Extra space for smaller screens */
+        /* Remove the margin-bottom as it's now handled by the container */
+        margin-bottom: 0;
     }
 
     .panel {

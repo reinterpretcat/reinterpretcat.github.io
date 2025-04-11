@@ -3,6 +3,7 @@ import { CardSystem } from "./scripts/card-system.js";
 import { SettingsManager } from "./scripts/settings-manager.js";
 import { UIController } from "./scripts/ui-controller.js";
 import { ThemeController } from "./scripts/theme-controller.js";
+import { LLMChat } from "./scripts/llm-chat.js";
 
 /**
  * Main application entry point
@@ -16,13 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get DOM elements
     const elements = {
         // File explorer elements
+        fileExplorerView: document.getElementById("file-explorer-view"),
         navigationBar: document.getElementById("navigation-bar") || null, // Will be created later
+        statsPanel: document.getElementById("selection-stats"),
         panels: document.getElementById("panels"),
         leftPanel: document.getElementById("left-panel"),
         middlePanel: document.getElementById("middle-panel"),
         rightPanel: document.getElementById("right-panel"),
         itemsList: document.getElementById("items"),
-        continueButton: document.getElementById("continue-button"),
+        cardLearningButton: document.getElementById("continue-button"),
+        chatLLMButton: document.getElementById("chat-llm-button"),
 
         // Card system elements
         memorizationCards: document.getElementById("memorization-cards"),
@@ -30,9 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
         difficultyButtons: document.getElementById("difficulty-buttons"),
         cardFront: document.querySelector(".card-front"),
         cardBack: document.querySelector(".card-back"),
-        
+
         // Add settings button reference back
         settingsButton: document.getElementById("settings-button"),
+
+        // Chat elements (will be populated by the LLMChat class)
+        chatScreen: document.getElementById("llm-chat-screen")
     };
 
     // Ensure initial UI state
@@ -45,41 +52,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const explorer = new FileExplorer(elements);
     const uiController = new UIController(elements, explorer);
     const settingsManager = new SettingsManager(cardSystem);
+    const llmChat = new LLMChat(elements);
 
-    // Create a reference to the explorer for global access
+    // Create a reference to the explorer and uiController for global access
     window.fileExplorer = explorer;
+    window.cardSystem = cardSystem;
+    window.uiController = uiController;
+
     elements.explorer = explorer;
 
     // Register callback to process selected files
-    explorer.onSelection(selectedFiles => {
-        console.log("Selection complete:", selectedFiles.length, "files selected");
-
-        // Ensure we have proper file access
-        if (!explorer.state.fileContents) {
-            explorer.state.fileContents = {};
-        }
-
-        // Ensure all selected files have their content loaded
-        const contentPromises = selectedFiles.map(file => {
-            if (!explorer.state.fileContents[file]) {
-                return explorer.loadFileContent(file)
-                    .then(content => {
-                        if (content) {
-                            explorer.state.fileContents[file] = content;
-                        }
-                    })
-                    .catch(error => {
-                        console.error(`Failed to load content for ${file}:`, error);
-                    });
-            }
-            return Promise.resolve();
-        });
+    explorer.onCardLearning(selectedFiles => {
+        console.log("Card learning:", selectedFiles.length, "files selected");
 
         // Load selected files into card system once all content is available
-        Promise.all(contentPromises).then(() => {
+        explorer.loadAllFiles(selectedFiles).then(() => {
             cardSystem.setCards(selectedFiles);
             // Transition to memorization cards UI
             uiController.showMemorizationCards();
+        });
+    });
+
+    explorer.onChatLLM(selectedFiles => {
+        console.log("Chat with LLM:", selectedFiles.length, "files selected");
+
+        // Load selected files into card system once all content is available
+        explorer.loadAllFiles(selectedFiles).then(() => {
+            // create context from all selected files
+            const context = {
+                title: selectedFiles.length === 1 ? selectedFiles[0].split('/').pop() : `${selectedFiles.length} selected files`,
+                content: selectedFiles.map(file => {
+                    const content = explorer.state.fileContents[file];
+                    return `File: ${file}\n${content}`;
+                }).join('\n\n'),
+                source: selectedFiles.join(', ')
+            };
+            
+            // Start the chat session
+            llmChat.startChat(context);
         });
     });
 
@@ -93,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cardSystem.init();
             uiController.init();
             settingsManager.init();
+            llmChat.init();
             
             // Show the file explorer UI initially
             uiController.showFileExplorer();

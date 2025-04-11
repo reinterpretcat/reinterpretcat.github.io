@@ -161,8 +161,8 @@
     content: "";
     height: 20px;
     width: 20px;
-    left: 4px;
-    bottom: 4px;
+    left: 0px;
+    bottom: 0px;
     background-color: white;
     transition: .4s;
     border-radius: 50%;
@@ -173,22 +173,22 @@ input:checked+.theme-toggle-slider {
 }
 
 input:checked+.theme-toggle-slider:before {
-    transform: translateX(32px);
+    transform: translateX(20px);
 }
 
 .theme-toggle-icon {
     position: absolute;
-    top: 5px;
+    top: 20px;
     z-index: 1;
     font-size: 14px;
 }
 
 .theme-toggle-icon.light {
-    right: 5px;
+    right: 10px;
 }
 
 .theme-toggle-icon.dark {
-    left: 5px;
+    left: -6px;
 }
 
 /* Tag filter styles */

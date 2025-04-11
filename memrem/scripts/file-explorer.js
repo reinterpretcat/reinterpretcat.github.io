@@ -41,12 +41,11 @@ export class FileExplorer {
             originalMiddlePanelContent: null, // Store original content when searching
         };
 
-        // Callback for selection events
-        this.onSelectionCallback = null;
+        this.onCardLearningCallback = null;
+        this.chatLLMButtonCallback = null;
 
         // Add a property to store the long press timer
         this.longPressTimer = null;
-        this.elements.statsPanel = document.getElementById("selection-stats"); // Reference the stats panel from HTML
     }
 
     /**
@@ -59,18 +58,19 @@ export class FileExplorer {
     }
 
     /**
-     * Register callback for selection changes
+     * Register callback for card learning
      */
-    onSelection(callback) {
-        this.onSelectionCallback = callback;
-        return this; // For chaining
+    onCardLearning(callback) {
+        this.onCardLearningCallback = callback;
+        return this;
     }
 
     /**
-     * Get all currently selected files
-     */
-    getSelectedFiles() {
-        return this.getAllSelectedFiles();
+     * Register callback for Chat with LLM
+    */
+    onChatLLM(callback) {
+        this.onChatLLMCallback = callback;
+        return this;
     }
 
     /**
@@ -80,15 +80,21 @@ export class FileExplorer {
         this.setupNavigationBar();
         this.setupKeyboardNavigation();
         this.setupTouchMouseSelection();
-        // Removed setupSelectionStatsPanel as stats panel is now in HTML
+        this.setupButtonHandlers();
+    }
+
+    /**
+     * Setup button handlers for Card Learning and Chat with LLM buttons
+     */
+    setupButtonHandlers() {
+        this.elements.cardLearningButton.addEventListener("click", () => this.onCardLearningCallback(this.getAllSelectedFiles()));
+        this.elements.chatLLMButton.addEventListener("click", () => this.onChatLLMCallback(this.getAllSelectedFiles()));
     }
 
     /**
      * Setup touch/mouse selection for elements with long press detection
      */
     setupTouchMouseSelection() {
-        this.elements.continueButton.addEventListener("click", () => this.handleContinue());
-
         [this.PANEL.LEFT, this.PANEL.MIDDLE, this.PANEL.RIGHT].forEach(panelIndex => {
             const panel = this.getPanelElement(panelIndex);
 
@@ -830,6 +836,12 @@ export class FileExplorer {
             return; // Exit early if settings modal is open
         }
 
+        // Skip keyboard handling when chat interface is active
+        const chatScreen = document.getElementById('llm-chat-screen');
+        if (chatScreen && chatScreen.style.display !== 'none' && !chatScreen.classList.contains('hidden')) {
+            return; // Exit early if chat interface is active
+        }
+
         // Handle search shortcut (Ctrl+F)
         if (event.ctrlKey && event.key === 'f') {
             this.toggleSearch();
@@ -1008,20 +1020,6 @@ export class FileExplorer {
                 this.populateRightPanel(fullPath);
             }
         }
-    }
-
-    /**
-     * Handle continue button click
-     */
-    handleContinue() {
-        const selectedFiles = this.getAllSelectedFiles();
-
-        // Let the callback handle UI transitions
-        if (this.onSelectionCallback) {
-            this.onSelectionCallback(selectedFiles);
-        }
-
-        return selectedFiles;
     }
 
     /**
@@ -1394,6 +1392,31 @@ export class FileExplorer {
             (folders.size > 0 ? ` from <strong>${folders.size}</strong> ${folderText}` : "");
 
         this.elements.statsPanel.classList.add("has-selections");
+    }
+
+    loadAllFiles(files) {
+        // Ensure we have proper file access
+        if (!this.state.fileContents) {
+            this.state.fileContents = {};
+        }
+
+        // Ensure all selected files have their content loaded
+        const contentPromises = files.map(file => {
+            if (!this.state.fileContents[file]) {
+                return this.loadFileContent(file)
+                    .then(content => {
+                        if (content) {
+                            this.state.fileContents[file] = content;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`Failed to load content for ${file}:`, error);
+                    });
+            }
+            return Promise.resolve();
+        });
+
+        return Promise.all(contentPromises);
     }
 
     /**

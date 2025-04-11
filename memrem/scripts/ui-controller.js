@@ -14,7 +14,8 @@ export class UIController {
      */
     init() {
         this.setupBackButton();
-        this.setupSettingsButton(); // Re-add settings button setup
+        this.setupSettingsButton();
+        this.setupChatBackButton();
         return this;
     }
 
@@ -34,6 +35,19 @@ export class UIController {
             console.log("Back button clicked");
             this.showFileExplorer();
         });
+    }
+
+    /**
+     * Set up the back button from chat screen
+     */
+    setupChatBackButton() {
+        const backToFileExplorerButton = document.getElementById("back-to-file-explorer");
+        
+        if (backToFileExplorerButton) {
+            backToFileExplorerButton.addEventListener("click", () => {
+                this.showFileExplorer();
+            });
+        }
     }
 
     /**
@@ -73,7 +87,7 @@ export class UIController {
     }
 
     /**
-     * Show file explorer UI, hide cards
+     * Show file explorer UI, hide cards and chat
      */
     showFileExplorer() {
         console.log("Showing file explorer");
@@ -83,7 +97,8 @@ export class UIController {
 
         // Show file explorer elements
         this.elements.panels.style.display = 'flex';
-        this.elements.continueButton.style.display = 'block';
+        this.elements.cardLearningButton.style.display = 'block';
+        this.elements.chatLLMButton.style.display = 'block';
         if (this.elements.navigationBar) {
             this.elements.navigationBar.style.display = 'flex';
         }
@@ -95,10 +110,17 @@ export class UIController {
 
         // Hide card UI
         this.elements.memorizationCards.style.display = 'none';
+        
+        // Hide chat UI if it exists
+        if (this.elements.chatScreen) {
+            this.elements.chatScreen.style.display = 'none';
+            this.elements.chatScreen.classList.add('hidden');
+        }
 
         // Also update classes for any CSS transitions
         this.elements.panels.classList.remove("hidden");
-        this.elements.continueButton.classList.remove("hidden");
+        this.elements.cardLearningButton.classList.remove("hidden");
+        this.elements.chatLLMButton.classList.remove("hidden");
         if (this.elements.navigationBar) {
             this.elements.navigationBar.classList.remove("hidden");
         }
@@ -106,7 +128,7 @@ export class UIController {
     }
 
     /**
-     * Show memorization cards UI, hide file explorer
+     * Show memorization cards UI, hide file explorer and chat
      */
     showMemorizationCards() {
         console.log("Showing memorization cards");
@@ -116,7 +138,49 @@ export class UIController {
 
         // Hide file explorer elements
         this.elements.panels.style.display = 'none';
-        this.elements.continueButton.style.display = 'none';
+        this.elements.cardLearningButton.style.display = 'none';
+        this.elements.chatLLMButton.style.display = 'none';
+        if (this.elements.navigationBar) {
+            this.elements.navigationBar.style.display = 'none';
+        }
+
+        // Hide the selection statistics panel if it exists
+        if (this.explorer.elements.statsPanel) {
+            this.explorer.elements.statsPanel.style.display = 'none';
+        }
+        
+        // Hide chat UI if it exists
+        if (this.elements.chatScreen) {
+            this.elements.chatScreen.style.display = 'none';
+            this.elements.chatScreen.classList.add('hidden');
+        }
+
+        // Show card UI
+        this.elements.memorizationCards.style.display = 'flex';
+
+        // Also update classes for any CSS transitions
+        this.elements.panels.classList.add("hidden");
+        this.elements.cardLearningButton.classList.add("hidden");
+        this.elements.chatLLMButton.classList.add("hidden");
+        if (this.elements.navigationBar) {
+            this.elements.navigationBar.classList.add("hidden");
+        }
+        this.elements.memorizationCards.classList.remove("hidden");
+    }
+    
+    /**
+     * Show chat UI, hide file explorer and cards
+     */
+    showChatInterface() {
+        console.log("Showing chat interface");
+
+        // Update navigation bar reference
+        this.updateNavigationBarReference();
+
+        // Hide file explorer elements
+        this.elements.panels.style.display = 'none';
+        this.elements.cardLearningButton.style.display = 'none';
+        this.elements.chatLLMButton.style.display = 'none';
         if (this.elements.navigationBar) {
             this.elements.navigationBar.style.display = 'none';
         }
@@ -126,15 +190,22 @@ export class UIController {
             this.explorer.elements.statsPanel.style.display = 'none';
         }
 
-        // Show card UI
-        this.elements.memorizationCards.style.display = 'flex';
+        // Hide card UI
+        this.elements.memorizationCards.style.display = 'none';
+        this.elements.memorizationCards.classList.add("hidden");
+
+        // Show chat UI
+        if (this.elements.chatScreen) {
+            this.elements.chatScreen.style.display = 'flex';
+            this.elements.chatScreen.classList.remove('hidden');
+        }
 
         // Also update classes for any CSS transitions
         this.elements.panels.classList.add("hidden");
-        this.elements.continueButton.classList.add("hidden");
+        this.elements.cardLearningButton.classList.add("hidden");
+        this.elements.chatLLMButton.classList.add("hidden");
         if (this.elements.navigationBar) {
             this.elements.navigationBar.classList.add("hidden");
         }
-        this.elements.memorizationCards.classList.remove("hidden");
     }
 }

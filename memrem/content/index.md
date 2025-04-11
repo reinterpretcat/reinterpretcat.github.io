@@ -12,3 +12,6 @@
     - 04_grammatik.md
     - 04_uebung.md
     - 04_woerter.md
+    - 05_grammatik.md
+    - 05_uebung.md
+    - 05_woerter.md
