@@ -15,3 +15,6 @@
     - 05_grammatik.md
     - 05_uebung.md
     - 05_woerter.md
+    - 06_grammatik.md
+    - 06_uebung.md
+    - 06_woerter.md
