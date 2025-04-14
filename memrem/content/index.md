@@ -18,3 +18,6 @@
     - 06_grammatik.md
     - 06_uebung.md
     - 06_woerter.md
+    - 07_grammatik.md
+    - 07_uebung.md
+    - 07_woerter.md
