@@ -21,3 +21,6 @@
     - 07_grammatik.md
     - 07_uebung.md
     - 07_woerter.md
+    - 08_grammatik.md
+    - 08_uebung.md
+    - 08_woerter.md
