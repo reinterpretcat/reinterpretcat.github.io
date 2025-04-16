@@ -24,3 +24,6 @@
     - 08_grammatik.md
     - 08_uebung.md
     - 08_woerter.md
+    - 09_grammatik.md
+    - 09_uebung.md
+    - 09_woerter.md

@@ -31,13 +31,6 @@
 * (er kämpft – kämpfte – hat gekämpft)
 > verb
 
-## zufrieden sein
-- быть довольным чем -либо
-* zufrieden sein
-
-## fertig sein
-- закончить с чем -либо
-* fertig sein
 
 ## sich abtrocknen
 - вытираться
@@ -62,11 +55,6 @@
 * sparen auf etwas / für etwas
 * (er spart – sparte – hat gespart)
 > verb
-
-## zusammen sein
-- быть вместе , встречаться
-* zusammen sein
-> expression
 
 ## bezahlen
 - оплачивать
