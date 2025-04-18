@@ -21,7 +21,7 @@ export class SettingsManager {
             tagFilterInput: document.getElementById('tag-filter'),
             tagSuggestions: document.getElementById('tag-suggestions'),
             addedTagsContainer: document.getElementById('added-tags-container'),
-            filterRuleContainer: document.getElementById('tag-filter-container').querySelector('.filter-rule-container'),
+            filterRuleContainer: document.getElementById('tag-filter-container')?.querySelector('.filter-rule-container'),
         };
 
         this.listenersAdded = false;
@@ -53,9 +53,49 @@ export class SettingsManager {
     init() {
         // Add reversed mode checkbox to elements
         this.elements.reversedModeCheckbox = document.getElementById("reversed-mode");
+        
+        // Create language selection section if it doesn't exist
+        this.createLanguageSection();
 
         this.setupEventListeners();
         return this; // For chaining
+    }
+
+    /**
+     * Create language selection section in the settings
+     */
+    createLanguageSection() {
+        // Get reference to the existing language section
+        const languageSection = document.getElementById('language-section');
+        if (!languageSection) return;
+
+        // Import i18n singleton
+        const { i18n } = window;
+        if (!i18n) return;
+
+        // Get available languages and current language
+        const languages = i18n.getAvailableLanguages();
+        const currentLanguage = i18n.getLanguage();
+
+        // Get the existing select element
+        const selectElement = document.getElementById('language-select');
+        if (!selectElement) return;
+
+        // Clear existing options
+        selectElement.innerHTML = '';
+        
+        // Add options for each language
+        languages.forEach(lang => {
+            const option = document.createElement('option');
+            option.value = lang.code;
+            option.textContent = lang.name;
+            option.selected = lang.code === currentLanguage;
+            selectElement.appendChild(option);
+        });
+        
+        // Store references to elements
+        this.elements.languageSelectionContainer = document.querySelector('.language-selection-container');
+        this.elements.languageSelect = selectElement;
     }
 
     /**
@@ -116,6 +156,9 @@ export class SettingsManager {
             const tags = this.cardSystem.preferences.tagFilter.split(',').map(tag => tag.trim());
             this.updateAddedTags(tags);
         }
+
+        // Create language section if needed
+        this.createLanguageSection();
 
         // Show the modal
         this.elements.settingsModal.classList.remove("hidden");
@@ -236,13 +279,30 @@ export class SettingsManager {
         const currentTags = this.getCurrentTags();
         this.cardSystem.preferences.tagFilter = currentTags.length > 0 ? currentTags.join(', ') : null;
 
-        // Get the selected filter rule (AND/OR)
-        const selectedRule = this.elements.filterRuleContainer.querySelector('input[name="filter-rule"]:checked').value;
-        this.cardSystem.preferences.filterRule = selectedRule;
+        // Get the selected filter rule (AND/OR) - safely check if the element exists
+        if (this.elements.filterRuleContainer) {
+            const selectedRule = this.elements.filterRuleContainer.querySelector('input[name="filter-rule"]:checked')?.value || 'any';
+            this.cardSystem.preferences.filterRule = selectedRule;
+        } else {
+            // Default to 'any' if the element doesn't exist
+            this.cardSystem.preferences.filterRule = 'any';
+        }
+
+        // Get the selected language from dropdown
+        if (this.elements.languageSelect && window.i18n) {
+            const newLanguage = this.elements.languageSelect.value;
+            const currentLanguage = window.i18n.getLanguage();
+            
+            // Only update if language changed
+            if (newLanguage !== currentLanguage) {
+                window.i18n.setLanguage(newLanguage);
+                window.i18n.updateUI();
+            }
+        }
 
         // Debug output for selected tags and rule
         console.debug("Selected tags for filtering:", this.cardSystem.preferences.tagFilter);
-        console.debug("Selected filter rule:", selectedRule);
+        console.debug("Selected filter rule:", this.cardSystem.preferences.filterRule);
         console.debug("SRS mode enabled:", this.cardSystem.preferences.srsMode);
         console.debug("Max cards:", this.cardSystem.preferences.maxCards);
 

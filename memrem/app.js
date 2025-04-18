@@ -4,16 +4,21 @@ import { SettingsManager } from "./scripts/settings-manager.js";
 import { UIController } from "./scripts/ui-controller.js";
 import { ThemeController } from "./scripts/theme-controller.js";
 import { LLMChat } from "./scripts/llm-chat.js";
+import { setupImageZoom } from "./scripts/image-zoom.js";
+import { i18n } from "./scripts/localization.js";
 
 /**
  * Main application entry point
  * Sets up and initializes the file explorer and memorization cards
  */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    // Store module references in window for debugging and cross-module access
+    window.i18n = i18n;
+
     // Initialize theme controller first for consistent theming
     const themeController = new ThemeController();
     themeController.init();
-    
+
     // Get DOM elements
     const elements = {
         // File explorer elements
@@ -58,39 +63,44 @@ document.addEventListener("DOMContentLoaded", () => {
     window.fileExplorer = explorer;
     window.cardSystem = cardSystem;
     window.uiController = uiController;
+    window.settingsManager = settingsManager;
+    window.llmChat = llmChat;
 
     elements.explorer = explorer;
 
     // Register callback to process selected files
-    explorer.onCardLearning(selectedFiles => {
+    explorer.onCardLearning(async (selectedFiles) => {
+        if (selectedFiles.length === 0) return;
+
         console.log("Card learning:", selectedFiles.length, "files selected");
 
         // Load selected files into card system once all content is available
-        explorer.loadAllFiles(selectedFiles).then(() => {
-            cardSystem.setCards(selectedFiles);
-            // Transition to memorization cards UI
-            uiController.showMemorizationCards();
-        });
+        await explorer.loadAllFiles(selectedFiles);
+        cardSystem.setCards(selectedFiles);
+        // Transition to memorization cards UI
+        uiController.showMemorizationCards();
     });
 
-    explorer.onChatLLM(selectedFiles => {
+    explorer.onChatLLM(async (selectedFiles) => {
+        if (selectedFiles.length === 0) return;
+
         console.log("Chat with LLM:", selectedFiles.length, "files selected");
 
         // Load selected files into card system once all content is available
-        explorer.loadAllFiles(selectedFiles).then(() => {
-            // create context from all selected files
-            const context = {
-                title: selectedFiles.length === 1 ? selectedFiles[0].split('/').pop() : `${selectedFiles.length} selected files`,
-                content: selectedFiles.map(file => {
-                    const content = explorer.state.fileContents[file];
-                    return `File: ${file}\n${content}`;
-                }).join('\n\n'),
-                source: selectedFiles.join(', ')
-            };
-            
-            // Start the chat session
-            llmChat.startChat(context);
-        });
+        await explorer.loadAllFiles(selectedFiles);
+
+        // create context from all selected files
+        const context = {
+            title: selectedFiles.length === 1 ? selectedFiles[0].split('/').pop() : `${selectedFiles.length} selected files`,
+            content: selectedFiles.map(file => {
+                const content = explorer.state.fileContents[file];
+                return `File: ${file}\n${content}`;
+            }).join('\n\n'),
+            source: selectedFiles.join(', ')
+        };
+
+        // Start the chat session
+        llmChat.startChat(context);
     });
 
     // Initialize the application components
@@ -98,24 +108,32 @@ document.addEventListener("DOMContentLoaded", () => {
     explorer.init()
         .then(() => {
             console.log("Explorer initialized successfully");
-            
+
             // Initialize all other components
             cardSystem.init();
             uiController.init();
             settingsManager.init();
             llmChat.init();
-            
+
             // Show the file explorer UI initially
             uiController.showFileExplorer();
+
+            // Setup image zoom
+            setupImageZoom();
+
+            // Initialize language system and update UI
+            i18n.updateUI();
+
+            console.log("Application initialized successfully");
         })
         .catch(error => {
             console.error("Error initializing application:", error);
             // Show an error message to the user if needed
             elements.middlePanel.innerHTML = `
-                <div class="empty-message">
-                    <p>Error loading application: ${error.message}</p>
-                    <p>Please check the console for more details.</p>
-                </div>
-            `;
+            <div class="empty-message">
+                <p>Error loading application: ${error.message}</p>
+                <p>Please check the console for more details.</p>
+            </div>
+        `;
         });
 });

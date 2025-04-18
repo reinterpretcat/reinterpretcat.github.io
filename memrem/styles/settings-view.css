@@ -64,9 +64,6 @@
 .modal-content h2 {
     margin-top: 0;
     color: var(--highlight-color);
-    border-bottom: 1px solid var(--panel-border);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
     font-size: 1.5rem;
 }
 
@@ -81,21 +78,20 @@
 .settings-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 12px;
     margin-bottom: 20px;
 }
 
 .settings-column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
 }
 
 .settings-section {
     background-color: var(--header-bg);
     border-radius: 8px;
     padding: 15px;
-    margin-bottom: 15px;
     border: 1px solid var(--panel-border);
 }
 
@@ -148,7 +144,7 @@
     position: absolute;
     cursor: pointer;
     top: 0;
-    left: 0;
+    left: 8px;
     right: 0;
     bottom: 0;
     background-color: #ccc;
@@ -178,17 +174,16 @@ input:checked+.theme-toggle-slider:before {
 
 .theme-toggle-icon {
     position: absolute;
-    top: 20px;
     z-index: 1;
     font-size: 14px;
 }
 
 .theme-toggle-icon.light {
-    right: 10px;
+    right: -8px;
 }
 
 .theme-toggle-icon.dark {
-    left: -6px;
+    left: -14px;
 }
 
 /* Tag filter styles */
@@ -252,6 +247,29 @@ input:checked+.theme-toggle-slider:before {
     border-radius: 4px;
     background-color: var(--background);
     border: 1px dashed var(--panel-border);
+}
+
+/* Language selection styles */
+.language-selection-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+}
+
+.language-option label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.language-option input[type="radio"] {
+    margin-right: 8px;
+    accent-color: var(--highlight-color);
 }
 
 .tag {
@@ -333,7 +351,6 @@ input:checked+.theme-toggle-slider:before {
     justify-content: flex-end;
     gap: 10px;
     margin-top: 20px;
-    border-top: 1px solid var(--panel-border);
     padding-top: 15px;
 }
 
@@ -378,6 +395,50 @@ input:checked+.theme-toggle-slider:before {
 
 .settings-button:hover {
     background-color: var(--hover-color);
+}
+
+/* Languages dropdown styles */
+.select-container {
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.language-select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--panel-border);
+    background-color: var(--background);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Custom dropdown arrow */
+.select-container::after {
+    content: '▼';
+    font-size: 0.7rem;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--highlight-color);
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+    box-shadow: 0 0 0 2px rgba(86, 156, 214, 0.25);
+}
+
+.language-select option {
+    background-color: var(--background);
+    color: var(--text-color);
+    padding: 8px;
 }
 
 /* Mobile adjustments */

@@ -50,11 +50,6 @@
 * Ich überlege mir, ob … (ich ihn zurückrufen soll)
 > phrase, nebensatz
 
-## elena udalova..
-- Я знаю, что Елена Удалова... (имеет канал на YouTube)
-* Ich weiß, dass Elena Udalova ... (einen Kanal auf YouTube hat)
-> phrase, nebensatz
-
 ## nichts zu tun..
 - Так как... (мне нечего делать), я уже 2 часа сижу в интернете.
 * Da ... (ich nichts zu tun habe), surfe ich schon seit 2 Stunden im Internet.

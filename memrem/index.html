@@ -50,6 +50,7 @@
                         <span class="search-icon" title="Search files (Ctrl+F)">🔍</span>
                         <input type="text" id="search-input" class="search-input hidden" placeholder="Search files...">
                         <button class="clear-search-button hidden" title="Clear search">×</button>
+                        <button class="select-all-button hidden" title="Select All Filtered Files">✓</button>
                     </div>
                 </div>
             </div>
@@ -191,6 +192,23 @@
                                         </p>
                                     </div>
                                 </div>
+
+                                <!-- Language Section -->
+                                <div id="language-section" class="settings-section">
+                                    <h3>Language</h3>
+                                    <div class="language-selection-container">
+                                        <div class="select-container">
+                                            <select id="language-select" class="language-select">
+                                                <option value="en">English</option>
+                                                <option value="de">Deutsch</option>
+                                                <option value="ru">Русский</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <p class="settings-description">
+                                        Change the interface language.
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
@@ -205,11 +223,11 @@
                             <div class="filter-rule-container">
                                 <label>
                                     <input type="radio" name="filter-rule" value="any" checked />
-                                    Match any tag
+                                    <span>Match any tag</span>
                                 </label>
                                 <label>
                                     <input type="radio" name="filter-rule" value="all" />
-                                    Match all tags
+                                    <span>Match all tags</span>
                                 </label>
                             </div>
                             <p class="settings-description">

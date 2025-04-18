@@ -341,6 +341,7 @@ export class FileExplorer {
         const searchIcon = document.querySelector(".search-container .search-icon");
         const searchInput = document.getElementById("search-input");
         const clearSearchButton = document.querySelector(".clear-search-button");
+        const selectAllButton = document.querySelector(".select-all-button"); // Add reference to select all button
 
         // Set up event listeners
         backButton.addEventListener("click", () => this.navigateUp());
@@ -353,11 +354,13 @@ export class FileExplorer {
             }
         });
         clearSearchButton.addEventListener("click", () => this.clearSearch());
+        selectAllButton.addEventListener("click", () => this.selectAllVisibleFiles()); // Add event listener for select all button
 
         // Store references to the search elements
         this.elements.searchIcon = searchIcon;
         this.elements.searchInput = searchInput;
         this.elements.clearSearchButton = clearSearchButton;
+        this.elements.selectAllButton = selectAllButton; // Store reference to select all button
         this.elements.pathIndicator = pathIndicator;
     }
 
@@ -680,11 +683,18 @@ export class FileExplorer {
             return parts[parts.length - 1];
         });
 
-        this.elements.pathIndicator.textContent = `Path: ${displayPath.length > 0 ? displayPath.join(" > ") : "root"}`;
+        // Use localization
+        const pathText = window.i18n.get('path');
+        const rootText = window.i18n.get('root');
+
+        if (displayPath.length > 0) {
+            this.elements.pathIndicator.textContent = `${pathText}: ${displayPath.join(" > ")}`;
+        } else {
+            this.elements.pathIndicator.textContent = `${pathText}: ${rootText}`;
+        }
 
         // Toggle back button visibility
-        const backButton = document.getElementById("back-button");
-        backButton.classList.toggle('visible', this.state.currentPath.length > 0);
+        document.getElementById("back-button").classList.toggle('visible', this.state.currentPath.length > 0);
     }
 
     /**
@@ -1447,10 +1457,13 @@ export class FileExplorer {
     toggleSearch() {
         const searchInput = this.elements.searchInput;
         const isHidden = searchInput.classList.contains('hidden');
+        const searchContainer = searchInput.closest('.search-container');
 
         if (isHidden) {
             searchInput.classList.remove('hidden');
             this.elements.clearSearchButton.classList.remove('hidden');
+            this.elements.selectAllButton.classList.remove('hidden');
+            searchContainer.classList.add('active'); // Add active class to container
             searchInput.focus();
         } else {
             this.clearSearch();
@@ -1462,9 +1475,13 @@ export class FileExplorer {
      */
     clearSearch() {
         const searchInput = this.elements.searchInput;
+        const searchContainer = searchInput.closest('.search-container');
+        
         searchInput.value = '';
         searchInput.classList.add('hidden');
         this.elements.clearSearchButton.classList.add('hidden');
+        this.elements.selectAllButton.classList.add('hidden');
+        searchContainer.classList.remove('active'); // Remove active class from container
         this.state.searchQuery = '';
         this.state.searchActive = false;
 
@@ -1552,5 +1569,25 @@ export class FileExplorer {
 
         // Update UI elements
         this.updateVisibleElements();
+    }
+
+    /**
+     * Select all visible files in the middle panel
+     * This selects only files that match the current search results
+     */
+    selectAllVisibleFiles() {
+        if (!this.state.searchActive) return;
+
+        const visibleFiles = this.elements.middlePanel.querySelectorAll('.file');
+        visibleFiles.forEach(fileElement => {
+            const filePath = fileElement.dataset.item;
+            if (!this.state.middlePanelSelectedItems.has(filePath)) {
+                this.state.middlePanelSelectedItems.add(filePath);
+                fileElement.classList.add('item-selected');
+            }
+        });
+
+        // Update selection statistics
+        this.updateSelectionStatistics();
     }
 }

@@ -72,12 +72,16 @@ export class LLMChat {
         this.chatHistory = [];
         this.currentContext = context;
 
-        this.elements.chatTitle.textContent = `Chat about: ${context.title}`;
+        // Use localization if available
+        this.elements.chatTitle.textContent = window.i18n.get('chatTitle', context.title);
 
         window.uiController.showChatInterface();
 
         // Process the content from markdown files
         const contextContent = context.content || '';
+
+        // Determine UI language and user's learning language
+        const uiLang = window.i18n.getLanguage();
 
         // Create a context-aware system prompt for language learning
         this.chatHistory.push({
@@ -107,7 +111,10 @@ As a language tutor, you should:
 
 Stick to the languages of the content provided. Do not switch to other languages.
 Always keep your responses relevant to the user's learning material.
-Maintain a supportive, encouraging tone.`
+Maintain a supportive, encouraging tone.
+
+The user interface language is currently set to: ${uiLang} (en=English, de=German, ru=Russian).
+When possible, provide your explanations in this language to match the user's interface.`
         });
 
         // Create task buttons container
@@ -127,7 +134,7 @@ Maintain a supportive, encouraging tone.`
 
         // Add heading for the buttons
         const heading = document.createElement('h3');
-        heading.textContent = 'What would you like to do?';
+        heading.textContent = window.i18n.get('whatToDo');
         heading.className = 'task-buttons-heading';
         taskButtonsContainer.appendChild(heading);
 
@@ -188,26 +195,29 @@ Maintain a supportive, encouraging tone.`
             }
         }
 
+        // Use localization for task labels and prompts if available
+        const i18n = window.i18n;
+
         // Default tasks that work for any language content
         return [
-            { 
-                label: 'Generate Similar Cards', 
-                prompt: 'Generate 10 more language cards similar to the ones in the content. Use the exact same format and languages as the example content.', 
+            {
+                label: i18n.get('generateCards'),
+                prompt: i18n.get('generateCardsPrompt'),
                 icon: '🃏'
             },
-            { 
-                label: 'Explain Grammar Rules', 
-                prompt: 'Explain the grammar rules related to the content I\'m studying. Focus on the patterns shown in the examples.', 
+            {
+                label: i18n.get('explainGrammar'),
+                prompt: i18n.get('explainGrammarPrompt'),
                 icon: '📚'
             },
-            { 
-                label: 'Create Practice Exercises', 
-                prompt: 'Create 5 practice exercises using the vocabulary and grammar from the examples that will help me master their usage.', 
+            {
+                label: i18n.get('practiceExercises'),
+                prompt: i18n.get('practiceExercisesPrompt'),
                 icon: '✏️'
             },
-            { 
-                label: 'Get Usage Examples', 
-                prompt: 'For each term in the content, provide 2 additional example sentences showing how to use it in different contexts.', 
+            {
+                label: i18n.get('usageExamples'),
+                prompt: i18n.get('usageExamplesPrompt'),
                 icon: '💬'
             }
         ];
@@ -233,13 +243,14 @@ Maintain a supportive, encouraging tone.`
                 if (response) {
                     this.addChatMessage(response, 'assistant');
                 } else {
-                    this.addChatMessage("Sorry, I couldn't generate a response. Please try again.", 'assistant');
+                    this.addChatMessage(window.i18n.get('generationError'), 'assistant');
                 }
             })
             .catch(error => {
                 console.error('Error calling LLM API:', error);
                 loadingElement.remove();
-                this.addChatMessage("There was an error connecting to the AI service. Please try again later.", 'assistant');
+                const errorMsg = window.i18n.get('apiError');
+                this.addChatMessage(errorMsg, 'assistant');
             });
     }
 
@@ -281,7 +292,7 @@ Maintain a supportive, encouraging tone.`
                 // Create a Learn Cards button
                 const learnCardsButton = document.createElement('button');
                 learnCardsButton.className = 'learn-cards-button';
-                learnCardsButton.textContent = 'Learn Cards';
+                learnCardsButton.textContent = window.i18n.get('learnCards');
                 learnCardsButton.addEventListener('click', () => this.handleLearnCardsClick(extractedContent));
 
                 // Add button after the message content
@@ -381,7 +392,7 @@ Maintain a supportive, encouraging tone.`
             if (response) {
                 this.addChatMessage(response, 'assistant');
             } else {
-                this.addChatMessage("Sorry, I couldn't generate a response. Please try again.", 'assistant');
+                this.addChatMessage(window.i18n.get('generationError'), 'assistant');
             }
         } catch (error) {
             console.error('Error calling LLM API:', error);
@@ -390,7 +401,7 @@ Maintain a supportive, encouraging tone.`
             loadingElement.remove();
 
             // Show error message
-            this.addChatMessage("There was an error connecting to the AI service. Please try again later.", 'assistant');
+            this.addChatMessage(window.i18n.get('apiError'), 'assistant');
         }
     }
 
@@ -422,13 +433,36 @@ Maintain a supportive, encouraging tone.`
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
+                // Try to parse error response
+                let errorData = {};
+                try {
+                    errorData = await response.json();
+                } catch (e) {
+                    // If can't parse JSON, use status text
+                    errorData = { error: { message: response.statusText } };
+                }
+
                 console.error('OpenRouter API error:', errorData);
                 throw new Error(`API returned ${response.status}: ${errorData.error?.message || 'Unknown error'}`);
             }
 
+            // Parse response
             const data = await response.json();
+            console.log('OpenRouter API response:', data);
+
+            // Validate response structure
+            if (!data || !data.choices || !Array.isArray(data.choices) || data.choices.length === 0) {
+                console.error('Invalid response format from OpenRouter API:', data);
+                throw new Error('Invalid response format from API');
+            }
+
+            // Extract assistant response safely
             const assistantResponse = data.choices[0]?.message?.content;
+
+            if (!assistantResponse) {
+                console.error('No content in API response:', data);
+                throw new Error('No content in API response');
+            }
 
             // Add assistant response to history
             this.chatHistory.push({
