@@ -28,20 +28,20 @@
 - подходить к концу / закончиться
 * zu Ende gehen / sein
 * (er geht  – ging – ist gegangen)
-> verb
+> verb, unregelmäßig
 
 ## Geheimnisse bewahren / für sich behalten
 - хранить секреты
 * Geheimnisse bewahren / für sich behalten
 * (er bewahrt  – bewahrte  – hat bewahrt)
 * (er behält - behielt - hat behalten)
-> verb
+> verb, unregelmäßig
 
 ## Geheimnisse verraten
 - раскрыть секреты
 * Geheimnisse verraten
 * (er verrät  – verriet  – hat verraten)
-> verb
+> verb, unregelmäßig
 
 ## jemanden vermissen
 - скучать по кому -либо
@@ -83,7 +83,7 @@
 - простить кого -то
 * jemandem verzeihen
 * (er verzeiht  – verzieh  – hat verziehen)
-> verb
+> verb, unregelmäßig
 
 ## jemandem zuhören
 - слушать кого -то
