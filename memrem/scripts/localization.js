@@ -28,6 +28,9 @@ export class Localization {
                 selectFileMessage: "Select this file to include all cards",
                 previewHeader: "This file contains {0} card(s):",
                 noCards: "No card sections found in this file",
+                question: "Question",
+                answer: "Answer",
+                tags: "Tags",
 
                 // Card system
                 showAnswer: "Show Answer",
@@ -118,6 +121,9 @@ export class Localization {
                 selectFileMessage: "Wählen Sie diese Datei aus, um alle Karten einzuschließen",
                 previewHeader: "Diese Datei enthält {0} Karte(n):",
                 noCards: "Keine Kartenabschnitte in dieser Datei gefunden",
+                question: "Frage",
+                answer: "Antwort",
+                tags: "Tags",
 
                 // Card system
                 showAnswer: "Antwort zeigen",
@@ -208,6 +214,9 @@ export class Localization {
                 selectFileMessage: "Выберите этот файл, чтобы включить все карточки",
                 previewHeader: "Этот файл содержит {0} карточек:",
                 noCards: "В этом файле не найдено разделов карточек",
+                question: "Вопрос",
+                answer: "Ответ",
+                tags: "Теги",
 
                 // Card system
                 showAnswer: "Показать ответ",

@@ -651,25 +651,280 @@ export class FileExplorer {
 
         console.log(`Loaded file content for: ${fullPath}`);
 
-        // Extract card headers (lines starting with "## ")
-        const headers = text
-            .split("\n")
-            .filter(line => line.trim().startsWith("## "))
-            .map(line => line.replace("## ", "").trim());
+        // Extract card sections (lines starting with "## ")
+        const cardSections = this.parseCardSections(text);
 
-        if (headers.length === 0) {
-            this.elements.itemsList.innerHTML = `<li>No card sections found in this file</li>`;
+        if (cardSections.length === 0) {
+            this.elements.itemsList.innerHTML = `<li>${window.i18n.get('noCards')}</li>`;
             return;
         }
 
-        // Show card sections as preview only - we'll select the whole file
-        this.elements.itemsList.innerHTML = `
-            <li class="preview-header">This file contains ${headers.length} card(s):</li>
-            ${headers.map(header =>
-            `<li class="preview-item">${header}</li>`
-        ).join("")}
-            <li class="select-file-message">Select this file to include all cards</li>
+        // Show card sections as preview with clickable items
+        let htmlContent = `
+            <li class="preview-header">${window.i18n.get('previewHeader', cardSections.length)}</li>
         `;
+
+        // Add each card section as a preview item with expandable content
+        cardSections.forEach((card, index) => {
+            const cardId = `card-preview-${index}`;
+            const contentId = `card-content-${index}`;
+            
+            htmlContent += `
+                <li class="preview-item" data-card-index="${index}" data-content-id="${contentId}" id="${cardId}">
+                    ${card.title}
+                </li>
+                <div id="${contentId}" class="card-preview-content">
+                    ${this.formatCardPreviewContent(card)}
+                </div>
+            `;
+        });
+
+        htmlContent += `<li class="select-file-message">${window.i18n.get('selectFileMessage')}</li>`;
+        
+        this.elements.itemsList.innerHTML = htmlContent;
+        
+        // Add click handlers to preview items
+        this.setupCardPreviewHandlers(cardSections);
+    }
+
+    /**
+     * Parse card sections from content
+     */
+    parseCardSections(content) {
+        const cards = [];
+        const lines = content.split('\n');
+        let sectionStart = -1;
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+
+            // Found a section header
+            if (line.startsWith('## ')) {
+                // If we were already processing a section, finish it
+                if (sectionStart !== -1) {
+                    const sectionLines = lines.slice(sectionStart, i);
+                    const card = this.processSectionContent(sectionLines);
+                    if (card) cards.push(card);
+                }
+
+                // Start a new section
+                sectionStart = i;
+            }
+        }
+
+        // Process the last section if there is one
+        if (sectionStart !== -1) {
+            const sectionLines = lines.slice(sectionStart);
+            const card = this.processSectionContent(sectionLines);
+            if (card) cards.push(card);
+        }
+
+        return cards;
+    }
+
+    /**
+     * Process section content into front and back parts
+     */
+    processSectionContent(sectionLines) {
+        if (sectionLines.length === 0) return null;
+
+        // Extract section title from the first line (## Title)
+        const titleMatch = sectionLines[0].match(/^## (.+)/);
+        if (!titleMatch) return null;
+
+        const title = titleMatch[1].trim();
+        const contentLines = sectionLines.slice(1);
+
+        // Process content lines to extract front and back parts
+        const frontParts = [];
+        const backParts = [];
+        let currentPart = null;
+        let isInFront = false;
+        let isInBack = false;
+        let tags = [];
+
+        for (const line of contentLines) {
+            const trimmedLine = line.trim();
+
+            // If line starts with >, it's a tag line
+            if (trimmedLine.startsWith('>')) {
+                // Extract tags (remove '>' prefix and split by commas)
+                const tagText = trimmedLine.substring(1).trim();
+                tags = tagText.split(',').map(tag => tag.trim()).filter(tag => tag);
+                continue;
+            }
+
+            // New front item (starts with dash)
+            if (trimmedLine.startsWith('- ')) {
+                // Save previous part if exists
+                if (currentPart) {
+                    if (isInFront) frontParts.push(currentPart);
+                    else if (isInBack) backParts.push(currentPart);
+                }
+
+                // Start new front part
+                currentPart = trimmedLine.substring(2);
+                isInFront = true;
+                isInBack = false;
+            }
+            // New back item (starts with asterisk)
+            else if (trimmedLine.startsWith('* ')) {
+                // Save previous part if exists
+                if (currentPart) {
+                    if (isInFront) frontParts.push(currentPart);
+                    else if (isInBack) backParts.push(currentPart);
+                }
+
+                // Start new back part
+                currentPart = trimmedLine.substring(2);
+                isInFront = false;
+                isInBack = true;
+            }
+            // Continuation line (add to current part)
+            else if (trimmedLine && (isInFront || isInBack)) {
+                currentPart += '\n' + trimmedLine;
+            }
+        }
+
+        // Save final part if exists
+        if (currentPart) {
+            if (isInFront) frontParts.push(currentPart);
+            else if (isInBack) backParts.push(currentPart);
+        }
+
+        // Ensure we have at least some content
+        if (frontParts.length === 0 && backParts.length === 0) {
+            console.warn(`No content found for section "${title}"`);
+            return null;
+        }
+
+        return {
+            title: title,
+            front: frontParts,
+            back: backParts,
+            tags: tags
+        };
+    }
+
+    /**
+     * Format card preview content for display
+     */
+    formatCardPreviewContent(card) {
+        let html = '';
+        
+        // Format front content
+        if (card.front && card.front.length > 0) {
+            html += `<div class="preview-section">
+                <h4>${window.i18n ? window.i18n.get('question') : 'Question'}</h4>
+                ${card.front.map(part => `<p class="preview-text">${this.formatContentWithImages(part)}</p>`).join('')}
+            </div>`;
+        }
+        
+        // Format back content
+        if (card.back && card.back.length > 0) {
+            html += `<div class="preview-section">
+                <h4>${window.i18n ? window.i18n.get('answer') : 'Answer'}</h4>
+                ${card.back.map(part => `<p class="preview-text">${this.formatContentWithImages(part)}</p>`).join('')}
+            </div>`;
+        }
+        
+        // Add tags if present
+        if (card.tags && card.tags.length > 0) {
+            html += `<div class="preview-section">
+                <h4>${window.i18n ? window.i18n.get('tags') : 'Tags'}</h4>
+                <div class="preview-tags">
+                    ${card.tags.map(tag => `<span class="preview-tag">${tag}</span>`).join('')}
+                </div>
+            </div>`;
+        }
+        
+        return html;
+    }
+
+    /**
+     * Format content with markdown image support
+     * @param {string} content - The content to format
+     * @returns {string} - The formatted HTML
+     */
+    formatContentWithImages(content) {
+        if (!content) return '';
+        
+        // Check if content contains image markdown
+        if (content.includes('![') && content.includes('](')) {
+            // Replace image markdown with HTML
+            let processedContent = content;
+            const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
+            let match;
+            
+            while ((match = imageRegex.exec(content)) !== null) {
+                const fullMatch = match[0];
+                const altText = match[1];
+                const imageUrl = match[2];
+                
+                // Create image HTML with class for styling
+                const imageHtml = `<img src="${imageUrl}" alt="${altText}" class="preview-image" title="${altText}" />`;
+                
+                // Replace the markdown with HTML
+                processedContent = processedContent.replace(fullMatch, imageHtml);
+            }
+            
+            return processedContent;
+        }
+        
+        // If no images, return the content as is
+        return content;
+    }
+
+    /**
+     * Set up click handlers for card preview items
+     */
+    setupCardPreviewHandlers(cardSections) {
+        const previewItems = this.elements.itemsList.querySelectorAll('.preview-item');
+        
+        // Track currently expanded content
+        let currentlyExpanded = null;
+        
+        previewItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Prevent triggering other click handlers
+                e.stopPropagation();
+                
+                const contentId = item.getAttribute('data-content-id');
+                const contentElement = document.getElementById(contentId);
+                
+                // If we have a currently expanded item that's different, collapse it
+                if (currentlyExpanded && currentlyExpanded !== contentElement) {
+                    currentlyExpanded.classList.remove('expanded');
+                    document.querySelector(`.preview-item[data-content-id="${currentlyExpanded.id}"]`).classList.remove('expanded');
+                }
+                
+                // Toggle the clicked item
+                const isExpanded = contentElement.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    // Collapse
+                    contentElement.classList.remove('expanded');
+                    item.classList.remove('expanded');
+                    currentlyExpanded = null;
+                } else {
+                    // Expand
+                    contentElement.classList.add('expanded');
+                    item.classList.add('expanded');
+                    currentlyExpanded = contentElement;
+                    
+                    // Ensure the element is visible by scrolling if needed
+                    setTimeout(() => {
+                        const itemBottom = item.getBoundingClientRect().bottom;
+                        const panelBottom = this.elements.rightPanel.getBoundingClientRect().bottom;
+                        
+                        // If the expanded content would go off-screen, scroll to show it
+                        if (itemBottom + 150 > panelBottom) { // 150px is an estimated height
+                            item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 10);
+                }
+            });
+        });
     }
 
     clearRightPanel() {
