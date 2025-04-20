@@ -861,8 +861,8 @@ export class FileExplorer {
                 const altText = match[1];
                 const imageUrl = match[2];
                 
-                // Create image HTML with class for styling
-                const imageHtml = `<img src="${imageUrl}" alt="${altText}" class="preview-image" title="${altText}" />`;
+                // Create image HTML with class for styling - use same 'zoomable' class as in card system
+                const imageHtml = `<img src="${imageUrl}" alt="${altText}" class="preview-image zoomable" title="${altText}" />`;
                 
                 // Replace the markdown with HTML
                 processedContent = processedContent.replace(fullMatch, imageHtml);
@@ -921,6 +921,9 @@ export class FileExplorer {
                         if (itemBottom + 150 > panelBottom) { // 150px is an estimated height
                             item.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
+                        
+                        // Initialize image zoom for the preview content
+                        window.setupImageZoom();
                     }, 10);
                 }
             });

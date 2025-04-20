@@ -2,8 +2,8 @@
  * Setup image zoom functionality
  */
 export function setupImageZoom() {
-    // Get all zoomable images
-    const images = document.querySelectorAll('.card-image.zoomable');
+    // Get all zoomable images - include both card images and preview images
+    const images = document.querySelectorAll('.card-image.zoomable, .preview-image.zoomable');
 
     // Get overlay elements (already in HTML)
     const overlay = document.getElementById('image-zoom-overlay');

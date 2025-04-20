@@ -4,16 +4,22 @@ import { SettingsManager } from "./scripts/settings-manager.js";
 import { UIController } from "./scripts/ui-controller.js";
 import { ThemeController } from "./scripts/theme-controller.js";
 import { LLMChat } from "./scripts/llm-chat.js";
-import { setupImageZoom } from "./scripts/image-zoom.js";
+import { setupImageZoom, zoomImage, closeZoomedImage } from "./scripts/image-zoom.js";
 import { i18n } from "./scripts/localization.js";
 
 /**
  * Main application entry point
  * Sets up and initializes the file explorer and memorization cards
  */
+
 document.addEventListener("DOMContentLoaded", async () => {
     // Store module references in window for debugging and cross-module access
     window.i18n = i18n;
+
+    // Expose image zoom functions globally
+    window.zoomImage = zoomImage;
+    window.closeZoomedImage = closeZoomedImage;
+    window.setupImageZoom = setupImageZoom;
 
     // Initialize theme controller first for consistent theming
     const themeController = new ThemeController();
