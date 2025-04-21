@@ -37,3 +37,9 @@
         - 11_woerter.md
         - 12_uebung.md
         - 12_woerter.md
+- b1_schreiben
+    - inoffiziell_phrases.md
+    - inoffiziell_schablone.md
+    - offiziell_gruppe.md
+    - offiziell_phrases.md
+    - offiziell_schablone.md
