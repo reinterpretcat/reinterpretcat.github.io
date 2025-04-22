@@ -38,6 +38,8 @@
         - 12_uebung.md
         - 12_woerter.md
 - b1_schreiben
+    - forum_phrases.md
+    - forum_schablone.md
     - inoffiziell_phrases.md
     - inoffiziell_schablone.md
     - offiziell_gruppe.md
