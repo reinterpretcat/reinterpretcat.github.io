@@ -668,7 +668,7 @@ export class FileExplorer {
         cardSections.forEach((card, index) => {
             const cardId = `card-preview-${index}`;
             const contentId = `card-content-${index}`;
-            
+
             htmlContent += `
                 <li class="preview-item" data-card-index="${index}" data-content-id="${contentId}" id="${cardId}">
                     ${card.title}
@@ -680,9 +680,9 @@ export class FileExplorer {
         });
 
         htmlContent += `<li class="select-file-message">${window.i18n.get('selectFileMessage')}</li>`;
-        
+
         this.elements.itemsList.innerHTML = htmlContent;
-        
+
         // Add click handlers to preview items
         this.setupCardPreviewHandlers(cardSections);
     }
@@ -811,7 +811,7 @@ export class FileExplorer {
      */
     formatCardPreviewContent(card) {
         let html = '';
-        
+
         // Format front content
         if (card.front && card.front.length > 0) {
             html += `<div class="preview-section">
@@ -819,7 +819,7 @@ export class FileExplorer {
                 ${card.front.map(part => `<p class="preview-text">${this.formatContentWithImages(part)}</p>`).join('')}
             </div>`;
         }
-        
+
         // Format back content
         if (card.back && card.back.length > 0) {
             html += `<div class="preview-section">
@@ -827,7 +827,7 @@ export class FileExplorer {
                 ${card.back.map(part => `<p class="preview-text">${this.formatContentWithImages(part)}</p>`).join('')}
             </div>`;
         }
-        
+
         // Add tags if present
         if (card.tags && card.tags.length > 0) {
             html += `<div class="preview-section">
@@ -837,7 +837,7 @@ export class FileExplorer {
                 </div>
             </div>`;
         }
-        
+
         return html;
     }
 
@@ -848,29 +848,29 @@ export class FileExplorer {
      */
     formatContentWithImages(content) {
         if (!content) return '';
-        
+
         // Check if content contains image markdown
         if (content.includes('![') && content.includes('](')) {
             // Replace image markdown with HTML
             let processedContent = content;
             const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
             let match;
-            
+
             while ((match = imageRegex.exec(content)) !== null) {
                 const fullMatch = match[0];
                 const altText = match[1];
                 const imageUrl = match[2];
-                
+
                 // Create image HTML with class for styling - use same 'zoomable' class as in card system
                 const imageHtml = `<img src="${imageUrl}" alt="${altText}" class="preview-image zoomable" title="${altText}" />`;
-                
+
                 // Replace the markdown with HTML
                 processedContent = processedContent.replace(fullMatch, imageHtml);
             }
-            
+
             return processedContent;
         }
-        
+
         // If no images, return the content as is
         return content;
     }
@@ -880,27 +880,27 @@ export class FileExplorer {
      */
     setupCardPreviewHandlers(cardSections) {
         const previewItems = this.elements.itemsList.querySelectorAll('.preview-item');
-        
+
         // Track currently expanded content
         let currentlyExpanded = null;
-        
+
         previewItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 // Prevent triggering other click handlers
                 e.stopPropagation();
-                
+
                 const contentId = item.getAttribute('data-content-id');
                 const contentElement = document.getElementById(contentId);
-                
+
                 // If we have a currently expanded item that's different, collapse it
                 if (currentlyExpanded && currentlyExpanded !== contentElement) {
                     currentlyExpanded.classList.remove('expanded');
                     document.querySelector(`.preview-item[data-content-id="${currentlyExpanded.id}"]`).classList.remove('expanded');
                 }
-                
+
                 // Toggle the clicked item
                 const isExpanded = contentElement.classList.contains('expanded');
-                
+
                 if (isExpanded) {
                     // Collapse
                     contentElement.classList.remove('expanded');
@@ -911,17 +911,17 @@ export class FileExplorer {
                     contentElement.classList.add('expanded');
                     item.classList.add('expanded');
                     currentlyExpanded = contentElement;
-                    
+
                     // Ensure the element is visible by scrolling if needed
                     setTimeout(() => {
                         const itemBottom = item.getBoundingClientRect().bottom;
                         const panelBottom = this.elements.rightPanel.getBoundingClientRect().bottom;
-                        
+
                         // If the expanded content would go off-screen, scroll to show it
                         if (itemBottom + 150 > panelBottom) { // 150px is an estimated height
                             item.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
-                        
+
                         // Initialize image zoom for the preview content
                         window.setupImageZoom();
                     }, 10);
@@ -1200,6 +1200,12 @@ export class FileExplorer {
         const selectedElement = this.getSelectedElement();
         if (!selectedElement) return;
 
+        if (this.state.activePanel === this.PANEL.RIGHT && selectedElement.classList.contains('preview-item')) {
+            // Simulate a click on the preview item to expand/collapse it
+            selectedElement.click();
+            return;
+        }
+
         this.handleSelectionLogic(selectedElement);
     }
 
@@ -1354,6 +1360,8 @@ export class FileExplorer {
     }
 
     toggleItemSelection(itemPath, element) {
+        if (!itemPath) return; // Add early return if path is undefined
+
         const isSelected = this.state.rightPanelSelectedItems.has(itemPath);
 
         // Toggle selection state
@@ -1366,7 +1374,9 @@ export class FileExplorer {
         }
 
         // Update UI
-        this.updateAncestorFolderStates(itemPath);
+        if (itemPath.includes('/')) { // Only update ancestors if it's a valid path
+            this.updateAncestorFolderStates(itemPath);
+        }
         this.updateVisibleElements();
         this.updateSelectionStatistics();
     }
@@ -1399,6 +1409,8 @@ export class FileExplorer {
     }
 
     updateAncestorFolderStates(path) {
+        if (!path) return; // Early return if path is undefined
+
         const parts = path.split('/');
 
         // Build all ancestor paths and recalculate their states
@@ -1734,7 +1746,7 @@ export class FileExplorer {
     clearSearch() {
         const searchInput = this.elements.searchInput;
         const searchContainer = searchInput.closest('.search-container');
-        
+
         searchInput.value = '';
         searchInput.classList.add('hidden');
         this.elements.clearSearchButton.classList.add('hidden');

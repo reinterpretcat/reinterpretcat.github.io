@@ -42,6 +42,9 @@
         - 13_phrase.md
         - 13_uebung.md
         - 13_woerter.md
+        - 14_grammatik.md
+        - 14_uebung.md
+        - 14_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md

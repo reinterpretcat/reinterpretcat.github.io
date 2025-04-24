@@ -978,10 +978,16 @@ export class CardSystem {
      * Reset the session to allow starting over
      */
     resetSession() {
-        this.filteredCards = [...this.cards];
+        // Instead of directly copying all cards, apply the filters
+        this.applyFilters();
+
+        // Reset session statistics
         this.currentCardIndex = 0;
         this.sessionStats.cardsReviewed = 0;
         this.sessionStats.results = { easy: 0, medium: 0, hard: 0 };
+        this.sessionStats.started = new Date(); // Reset the session start time
+
+        // Show the first card and update progress
         this.showCurrentCard();
         this.updateProgressBar();
     }
