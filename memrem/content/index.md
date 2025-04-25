@@ -45,6 +45,9 @@
         - 14_grammatik.md
         - 14_uebung.md
         - 14_woerter.md
+        - 15_grammatik.md
+        - 15_uebung.md
+        - 15_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md
