@@ -74,6 +74,7 @@ export class CardSystem {
         this.currentCardIndex = 0;
         this.sessionStats.cardsReviewed = 0;
         this.sessionStats.results = { easy: 0, medium: 0, hard: 0 };
+        this.sessionStats.started = new Date(); // Reset time counter when new cards are loaded
 
         // Show the first card
         this.showCurrentCard();
@@ -763,8 +764,8 @@ export class CardSystem {
         this.displaySrsInfo();
 
         // Update button visibility
-        this.elements.showAnswerButton.classList.add('hidden');
-        this.elements.difficultyButtons.classList.remove('hidden');
+        this.elements.showAnswerButton.classList.add("hidden");
+        this.elements.difficultyButtons.classList.remove("hidden");
 
         // Log the state for debugging
         console.log("Front hidden:", this.elements.cardFront.classList.contains('hidden'));
