@@ -1,99 +1,99 @@
 # 16 Wörter
 
 ## sich verabschieden von Dat
-- sich verabschieden von Dat.
-- (er verabschiedet sich – verabschiedete sich – hat sich verabschiedet)
-* прощаться с кем-то
+- прощаться с кем-то
+* sich verabschieden von Dat.
+* (er verabschiedet sich – verabschiedete sich – hat sich verabschiedet)
 > verb
 
 ## Abschied nehmen von Dat
-- Abschied nehmen von Dat.
-- (er nimmt – nahm – hat genommen)
-* прощаться с кем-то
+- прощаться с кем-то
+* Abschied nehmen von Dat.
+* (er nimmt – nahm – hat genommen)
 > verb, unregelmäßig
 
 ## sich trennen von Dat
-- sich trennen von Dat.
-- (er trennt sich – trennte sich – hat sich getrennt)
-* расставаться с кем-то
+- расставаться с кем-то
+* sich trennen von Dat.
+* (er trennt sich – trennte sich – hat sich getrennt)
 > verb
 
 ## sich scheiden lassen von Dat
-- sich scheiden lassen von Dat.
-- (er lässt sich scheiden – ließ sich scheiden – hat sich scheiden lassen)
-* разводиться с кем-то
+- разводиться с кем-то
+* sich scheiden lassen von Dat.
+* (er lässt sich scheiden – ließ sich scheiden – hat sich scheiden lassen)
 > verb, unregelmäßig
 
 ## träumen von Dat
-- träumen von Dat.
-- (er träumt – träumte – hat geträumt)
-* мечтать, видеть сны о ком-то/чем-то
+- мечтать, видеть сны о ком-то/чем-то
+* träumen von Dat.
+* (er träumt – träumte – hat geträumt)
 > verb
 
 ## wissen von Dat
-- wissen von Dat.
-- (er weiß – wusste – hat gewusst)
-* знать о ком-то/чем-то
+- знать о ком-то/чем-то
+* wissen von Dat.
+* (er weiß – wusste – hat gewusst)
 > verb, unregelmäßig
 
 ## sprechen von Dat
-- sprechen von Dat.
-- (er spricht – sprach – hat gesprochen)
-* говорить о ком-то/чем-то
+- говорить о ком-то/чем-то
+* sprechen von Dat.
+* (er spricht – sprach – hat gesprochen)
 > verb, unregelmäßig
 
 ## reden von Dat
-- reden von Dat.
-- (er redet – redete – hat geredet)
-* говорить о ком-то/чем-то
+- говорить о ком-то/чем-то
+* reden von Dat.
+* (er redet – redete – hat geredet)
 > verb
 
 ## erzählen von Dat
-- erzählen von Dat.
-- (er erzählt – erzählte – hat erzählt)
-* рассказывать о ком-то/чем-то
+- рассказывать о ком-то/чем-то
+* erzählen von Dat.
+* (er erzählt – erzählte – hat erzählt)
 > verb
 
 ## erfahren von Dat
-- erfahren von Dat.
-- (er erfährt – erfuhr – hat erfahren)
-* узнать о чем-то
+- узнать о чем-то
+* erfahren von Dat.
+* (er erfährt – erfuhr – hat erfahren)
 > verb, unregelmäßig
 
 ## Angst haben vor Dat
-- Angst haben vor Dat.
-- (er hat Angst – hatte Angst – hat Angst gehabt)
-* иметь страх перед чем-то
+- иметь страх перед чем-то
+* Angst haben vor Dat.
+* (er hat Angst – hatte Angst – hat Angst gehabt)
 > verb, unregelmäßig
 
 ## sich fürchten vor Dat
-- sich fürchten vor Dat.
-- (er fürchtet sich – fürchtete sich – hat sich gefürchtет)
-* бояться чего-то
+- бояться чего-то
+* sich fürchten vor Dat.
+* (er fürchtet sich – fürchtete sich – hat sich gefürchtет)
 > verb
 
 ## (sich) schützen vor Dat
-- (sich) schützen vor Dat.
-- (er schützt sich – schützte sich – hat sich geschützt)
-* защитить(ся) от чего-то
+- защитить(ся) от чего-то
+* (sich) schützen vor Dat.
+* (er schützt sich – schützte sich – hat sich geschützt)
 > verb
 
 ## bewahren vor Dat
-- bewahren vor Dat.
-- (er bewahrt – bewahrte – hat bewahrt)
-* уберечь, оберегать от чего-то
+- уберечь, оберегать от чего-то
+* bewahren vor Dat.
+* (er bewahrt – bewahrte – hat bewahrt)
 > verb
 
 ## beschützen vor Dat
-- beschützen vor Dat.
-- (er beschützt – beschützte – hat beschützt)
-* уберечь, оберегать от чего-то
+- уберечь, оберегать от чего-то
+* beschützen vor Dat.
+* (er beschützt – beschützte – hat beschützt)
 > verb
 
 ## warnen vor Dat
-- warnen vor Dat.
-- (er warnt – warnte – hat gewarnt)
-* предостерегать от чего-то, предупредить о чем-то
+- предостерегать от чего-то, предупредить о чем-то
+* warnen vor Dat.
+* (er warnt – warnte – hat gewarnt)
 > verb
 
 
