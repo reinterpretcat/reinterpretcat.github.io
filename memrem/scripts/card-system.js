@@ -475,7 +475,7 @@ export class CardSystem {
         const percentage = totalCards > 0 ? (completedCards / totalCards) * 100 : 0;
 
         this.elements.progressBar.style.width = `${percentage}%`;
-        this.elements.progressText.textContent = `${completedCards}/${totalCards} (${this.cards.length}) cards`;
+        this.elements.progressText.textContent = `${completedCards + 1}/${totalCards} (${this.cards.length}) cards`;
     }
 
     /**
@@ -926,7 +926,7 @@ export class CardSystem {
         this.elements.cardFront.innerHTML = `
             <div class="completion-message">
                 <div class="completion-banner">
-                    <h2>🎉 Congratulations! 🎉</h2>
+                    <h2>Congratulations!</h2>
                     <p>You have mastered all the cards in this session.</p>
                 </div>
 

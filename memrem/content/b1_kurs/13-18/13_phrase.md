@@ -20,8 +20,8 @@
 
 ## Kennenlernen auf einer Party
 - Вы хотите завязать разговор с незнакомым человеком:
-- Привет! Елена Удалова. Рада познакомиться.
-* Hallo! Elena Udalova. Schön Sie kennenzulernen.
+- Привет! Елена. Рада познакомиться.
+* Hallo! Elena. Schön Sie kennenzulernen.
 > phrase, Vorstellung, formell  
 
 ## Smalltalk auf einer Party

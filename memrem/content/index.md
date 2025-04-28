@@ -1,3 +1,5 @@
+- b1_grammatik
+    - verben_mit_praepositionen.md
 - b1_kurs
     - 01-06
         - 01_grammatik.md
@@ -51,6 +53,9 @@
         - 16_grammatik.md
         - 16_uebung.md
         - 16_woerter.md
+        - 17_grammatik.md
+        - 17_uebung.md
+        - 17_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md
