@@ -1,4 +1,4 @@
-# 17 Woerter
+# 17 Wörter
 
 ## Sich sehnen nach Dat
 - тосковать по кому-то / чему-то
@@ -8,6 +8,7 @@
 
 ## Sich erkundigen nach Dat
 - узнавать по поводу кого-то / чего-то
+- (справляться, активно о чем-то)
 * sich erkundigen nach Dat.
 * (er erkundigt sich – erkundigte sich – hat sich erkundigt)
 > verb, reflexiv, präposition, dativ

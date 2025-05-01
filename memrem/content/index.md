@@ -56,6 +56,19 @@
         - 17_grammatik.md
         - 17_uebung.md
         - 17_woerter.md
+        - 18_grammatik.md
+        - 18_uebung.md
+        - 18_woerter.md
+    - 19-24
+        - 19_grammatik.md
+        - 19_uebung.md
+        - 19_woerter.md
+        - 20_grammatik.md
+        - 20_uebung.md
+        - 20_woerter.md
+        - 21_grammatik.md
+        - 21_uebung.md
+        - 21_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md
