@@ -1,10 +1,10 @@
 # 20 Wörter
 
 
-## fortsetzen  
-- fortsetzen (die Arbeit, die Reise, das Gespräch)  
-- (er setzt fort – setzte fort – hat fortgesetzt )
-* продолжать (работу, путешествие, разговор)
+## fortsetzen
+- продолжать (работу, путешествие, разговор)
+* fortsetzen (die Arbeit, die Reise, das Gespräch)  
+* (er setzt fort – setzte fort – hat fortgesetzt )
 > verb, phrase
 
 ## ein Visum / seinen Urlaub beantragen
@@ -41,7 +41,7 @@
 - мерзнуть
 * frieren
 * (er friert  – fror – hat gefroren)
-> verb
+> verb, unregelmäßig
 
 ## bügeln
 - гладить (утюгом)
@@ -52,8 +52,7 @@
 ## zusammenlegen
 - складывать, сложить
 * zusammenlegen
-* (er legt zusammen  – legte 
-zusammen  – hat zusammengelegt)
+* (er legt zusammen  – legte zusammen  – hat zusammengelegt)
 > verb
 
 ## anprobieren
@@ -78,26 +77,25 @@ zusammen  – hat zusammengelegt)
 - исчезать
 * verschwinden
 * (er verschwindet  – verschwand  – ist verschwunden)
-> verb
+> verb, unregelmäßig
 
 ## aufnehmen
 - записывать ( на какое -то устройство )
 * aufnehmen
 * (er nimmt auf  – nahm auf  – hat aufgenommen)
-> verb
+> verb, unregelmäßig
 
 ## stehen bleiben
 - останавливаться
 * stehen bleiben
 * (er bleibt stehen  – blieb stehen  –  ist stehen geblieben)
-> verb
+> verb, unregelmäßig
 
 ## sich erschrecken
 - испугаться
 * sich erschrecken
-* (er erschrickt  sich – erschrak  sich  
-– hat sich erschrocken)
-> verb
+* (er erschrickt  sich – erschrak  sich  – hat sich erschrocken)
+> verb, unregelmäßig
 
 ## zurückkehren
 - вернуться, возвращаться
@@ -133,15 +131,16 @@ zusammen  – hat zusammengelegt)
 - стоять в пробке
 * im Stau stehen
 * (er steht  – stand  – hat gestanden)
-> verb, phrase
+> verb, phrase, unregelmäßig
 
 ## rot werden
 - покраснеть
 * rot werden
 * (er wird  – wurde  – ist geworden)
-> verb, phrase
+> verb, phrase, unregelmäßig
 
 ## nass werden
 - промокнуть
-* nass werden, phrase
+* nass werden
+> phrase
 

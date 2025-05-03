@@ -10,25 +10,25 @@
 - есть (о животных)
 * fressen
 * (er frisst – fraß – hat gefressen)
-> verb
+> verb, unregelmäßig
 
 ## schreien
 - кричать
 * schreien
 * (er schreit – schrie – hat geschrien)
-> verb
+> verb, unregelmäßig
 
 ## lügen
 - лгать, врать
 * lügen
 * (er lügt – log – hat gelogen)
-> verb
+> verb, unregelmäßig
 
 ## wegwerfen
 - выбрасывать
 * wegwerfen
 * (er wirft weg – warf weg – hat weggeworfen)
-> verb
+> verb, unregelmäßig
 
 ## einpacken
 - упаковывать
@@ -46,7 +46,7 @@
 - звонить кому-то
 * jemanden anrufen
 * (er ruft an – rief an – hat angerufen)
-> verb
+> verb, unregelmäßig
 
 ## jemanden stören
 - мешать кому-то
@@ -76,13 +76,13 @@
 - наслаждаться чем-то
 * etwas genießen
 * (er genießt – genoss – hat genossen)
-> verb
+> verb, unregelmäßig
 
 ## etwas / jemanden mögen
 - любить что-то / кого-то (= нравиться)
 * etwas / jemanden mögen
 * (er mag – mochte – hat gemocht)
-> verb
+> verb, unregelmäßig
 
 ## jemanden heiraten
 - жениться на ком-то
@@ -103,7 +103,7 @@
 - перезвонить кому-то
 * jemanden zurückrufen
 * (er ruft zurück – rief zurück – hat zurückgerufen)
-> verb
+> verb, unregelmäßig
 
 ## jemanden beeinflussen
 - влиять на кого-то
@@ -121,7 +121,7 @@
 - забывать  что-то / про кого-то
 * etwas / jemanden vergessen
 * (er vergisst – vergaß – hat vergessen)
-> verb
+> verb, unregelmäßig
 
 ## etwas beantworten
 - ответить на что-то
@@ -133,14 +133,14 @@
 - накричать на кого -либо
 * jemanden anschreien
 * (er schreit an – schrie an – hat angeschrien)
-> verb
+> verb, unregelmäßig
 
 ## jemanden ansprechen
-- загов орить с кем -либо,  
-обратиться  к кому -либо
+- заговорить с кем -либо,  
+- обратиться  к кому -либо
 * jemanden ansprechen
 * (er spricht an – sprach an – hat angesproc hen)
-> verb
+> verb, unregelmäßig
 
 ## jemanden anlächeln
 - улыбнуться кому-то
@@ -152,22 +152,22 @@
 - смотреть на кого-то
 * jemanden ansehen
 * (er sieht an – sah an – hat angesehen)
-> verb
+> verb, unregelmäßig
 
 ## jemanden anlügen
 - налгать, соврать кому-то
 * jemanden anlügen
 * (er lügt an – log an – hat angelogen)
-> verb
+> verb, unregelmäßig
 
 ## jemanden duzen
-- общаться с кем-то на
+- общаться с кем-то на ты
 * jemanden duzen
 * (er duzt – duzte – hat geduzt)
 > verb
 
 ## jemanden siezen
-- общаться с кем-то на
+- общаться с кем-то на вы
 * jemanden siezen
 * (er siezt – siezte – hat gesiezt)
 > verb

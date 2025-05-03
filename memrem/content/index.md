@@ -69,6 +69,12 @@
         - 21_grammatik.md
         - 21_uebung.md
         - 21_woerter.md
+        - 22_grammatik.md
+        - 22_uebung.md
+        - 22_woerter.md
+        - 23_grammatik.md
+        - 23_uebung.md
+        - 23_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md

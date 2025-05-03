@@ -1,7 +1,7 @@
 # 21 Übung
 
 ## Versäumte Erlaubnis
-- Тебе следовало им это разрешить.
+- Тебе следовало бы им это разрешить.
 * Du hättest es ihnen erlauben sollen.
 > phrase, konjunktiv II, irrealer vergangenheitsbezug, modalverb, erlaubnis, ratschlag
 
@@ -11,7 +11,7 @@
 > phrase, konjunktiv II, irrealer vergangenheitsbezug, modalverb, familie
 
 ## Versäumter Einfluss
-- Нам следовало на неё повлиять.
+- Нам следовало бы на неё повлиять.
 * Wir hätten sie beeinflussen sollen.
 > phrase, konjunktiv II, irrealer vergangenheitsbezug, modalverb, einfluss
 
@@ -21,12 +21,12 @@
 > phrase, konjunktiv II, irrealer vergangenheitsbezug, modalverb, kommunikation, technik
 
 ## Versäumtes Fotografieren
-- Мне надо было тебя сфотографировать.
+- Мне надо было бы тебя сфотографировать.
 * Ich hätte dich fotografieren sollen.
 > phrase, konjunktiv II, irrealer vergangenheitsbezug, modalverb, fotografie
 
 ## Notwendige Lüge
-- Я должен был / должна была соврать моему сыну.
+- Я должен был / должна была соврать моему сыну (без "бы").
 * Ich musste meinen Sohn anlügen.
 > phrase, präteritum, modalverb, familie, kommunikation
 
