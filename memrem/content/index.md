@@ -75,6 +75,14 @@
         - 23_grammatik.md
         - 23_uebung.md
         - 23_woerter.md
+        - 24_grammatik.md
+        - 24_uebung.md
+        - 24_woerter.md
+    - 25-28
+        - 25_grammatik.md
+        - 25_phrase.md
+        - 25_uebung.md
+        - 25_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md

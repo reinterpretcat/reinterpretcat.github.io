@@ -1849,15 +1849,22 @@ export class FileExplorer {
         if (!this.state.searchActive) return;
 
         const visibleFiles = this.elements.middlePanel.querySelectorAll('.file');
+        let anySelected = false;
+
         visibleFiles.forEach(fileElement => {
             const filePath = fileElement.dataset.item;
             if (!this.state.middlePanelSelectedItems.has(filePath)) {
                 this.state.middlePanelSelectedItems.add(filePath);
                 fileElement.classList.add('item-selected');
+                this.updateAncestorFolderStates(filePath);
+                anySelected = true;
             }
         });
 
-        // Update selection statistics
-        this.updateSelectionStatistics();
+        if (anySelected) {
+            // Update UI to reflect changes
+            this.updateVisibleElements();
+            this.updateSelectionStatistics();
+        }
     }
 }
