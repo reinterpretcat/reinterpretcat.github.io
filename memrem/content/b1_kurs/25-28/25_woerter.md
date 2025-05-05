@@ -1,4 +1,4 @@
-# Description
+# 25 Wörter
 
 ## bestellen
 - заказывать
@@ -26,7 +26,7 @@
 - вернуть назад
 * zurückgeben
 * (er gibt zurück  – gab zurück  – hat zurückgegeben)
-> verb
+> verb, unregelmäßig
 
 ## die Rückgabe
 - возврат

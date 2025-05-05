@@ -83,6 +83,9 @@
         - 25_phrase.md
         - 25_uebung.md
         - 25_woerter.md
+        - 26_grammatik.md
+        - 26_uebung.md
+        - 26_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md
