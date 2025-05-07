@@ -86,6 +86,12 @@
         - 26_grammatik.md
         - 26_uebung.md
         - 26_woerter.md
+        - 27_grammatik.md
+        - 27_uebung.md
+        - 27_woerter.md
+        - 28_grammatik.md
+        - 28_uebung.md
+        - 28_woerter.md
 - b1_schreiben
     - forum_phrases.md
     - forum_schablone.md
