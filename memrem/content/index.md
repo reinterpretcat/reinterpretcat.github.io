@@ -100,3 +100,9 @@
     - offiziell_gruppe.md
     - offiziell_phrases.md
     - offiziell_schablone.md
+- b1_sprechen
+    - vorbereitung
+        - teil_2_notiz.md
+    - teil_1.md
+    - teil_2.md
+    - teil_3.md
