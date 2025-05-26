@@ -100,8 +100,12 @@
     - offiziell_gruppe.md
     - offiziell_phrases.md
     - offiziell_schablone.md
+    - phrases.md
+    - schablonen.md
 - b1_sprechen
     - vorbereitung
+        - phrases_lernen.md
+        - phrases.md
         - teil_2_notiz.md
     - teil_1.md
     - teil_2.md

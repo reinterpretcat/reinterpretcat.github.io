@@ -74,3 +74,45 @@ Mit freundlichen Grüßen
 6. Auf jeden Fall freue ich mich, von dir zu hören.
 
 > Schluss, Phrasen, informell, inoffiziell, Brief, B1
+
+
+
+## Einleitung
+- Начало
+* Пример
+```
+Liebe(r) .. .,
+
+vielen Dank für deinen Brief. Ich habe mich darüber sehr gefreut.
+
+über deinen Brief habe ich mich sehr gefreut. Du schreibst, dass ...
+
+schön, etwas von dir zu hören. Es ist schon lange her, dass wir uns gesehen haben. Seitdem . ..
+
+zuerst vielen Dank für deine Einladung. Es ist schön, dass . ..
+
+wie geht es dir? Mir geht es zurzeit super / leider nicht so gut, weil . . .
+
+ich hoffe, es geht dir gut. Es ist schon eine Weile her, dass wir telefoniert haben.
+
+endlich habe ich Zeit dir zu schreiben. Ich hatte viel zu tun, aber jetzt . ..
+```
+> Schluss, Phrasen, informell
+
+
+## Schlusssätze
+- Начало
+* Пример
+```
+Lass bald wieder von dir hören.
+
+Bitte schreib/antworte mir bald.
+
+Es wäre schön, wenn du kommen könntest / wenn es klappen würde / wenn .. .
+
+Grüße
+Viele/Liebe/ Herzliche Grüße
+Bis bald
+Alles Liebe
+```
+> Schluss, Phrasen, informell
