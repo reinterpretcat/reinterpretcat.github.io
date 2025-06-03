@@ -101,6 +101,7 @@
     - offiziell_phrases.md
     - offiziell_schablone.md
     - phrases.md
+    - schablonen_ganz.md
     - schablonen.md
 - b1_sprechen
     - vorbereitung

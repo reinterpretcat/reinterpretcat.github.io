@@ -184,3 +184,9 @@
 - Ты прав/Вы правы, так мы и сделаем. Тогда...
 * Du hast/Sie haben recht, so machen wir es. Dann...
 > sprechen, zustimmen
+
+
+## eine kleine Notiz mit einer Grafik zum Thema
+- Я прочитал краткую заметку с графиком на тему ...
+* Ich habe einen kurzen Text mit einer Grafik zum Thema ".." gelesen.
+> sprechen, grafik

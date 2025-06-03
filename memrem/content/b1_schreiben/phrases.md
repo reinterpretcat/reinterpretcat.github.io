@@ -152,3 +152,21 @@
 - касательно твоей ситуации
 * Bezüglich deiner Situation
 > brief
+
+
+## Weitere Details zu meiner ... können Sie der beigefügten Datei entnehmen
+- Более подробную информацию о моем/моей ... вы можете найти в прикрепленном файле / документе
+* Weitere Details zu meiner ... können Sie / der beigefügten Datei / dem beigefügten Dokument / entnehmen
+> sprechen, verweis, dokumente
+
+
+## Du fragst mich, ob ich ..
+- Ты спрашиваешь меня, могу ли я помочь тебе следующую субботу с переездом
+* Du fragst mich, ob ich dir nächsten Samstag beim Umzug helfen kann.
+> brief
+
+## eines meiner Hobby ist
+- одно из моих хобби это музыка
+* eines meiner Hobby ist Musik
+> brief
+
