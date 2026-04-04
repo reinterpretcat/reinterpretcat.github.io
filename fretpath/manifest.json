@@ -1,0 +1,42 @@
+{
+  "name": "FretPath",
+  "short_name": "FretPath",
+  "description": "Guided guitar mastery system — What should I practice today?",
+  "start_url": ".",
+  "scope": ".",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1e1e1e",
+  "theme_color": "#1e1e1e",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎸</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Toolkit",
+      "short_name": "Toolkit",
+      "url": "./#/toolkit",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Ear Training",
+      "short_name": "Ear",
+      "url": "./#/ear",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👂</text></svg>", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Library",
+      "short_name": "Library",
+      "url": "./#/library",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎼</text></svg>", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ],
+  "categories": ["education", "music"],
+  "lang": "en"
+}
