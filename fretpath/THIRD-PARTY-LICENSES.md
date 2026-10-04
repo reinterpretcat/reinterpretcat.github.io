@@ -5,6 +5,16 @@ Each retains its original license as noted below.
 
 ---
 
+## chords-db
+
+Guitar chord database (voicings, fingerings, positions).
+
+- **Author:** tombatossals (David Rubert)
+- **License:** MIT
+- **Source:** <https://github.com/tombatossals/chords-db>
+
+---
+
 ## alphaTab
 
 Music notation rendering and playback engine.
